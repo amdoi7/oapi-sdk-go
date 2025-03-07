@@ -8793,6 +8793,110 @@ func (builder *ObjectContextBuilder) Build() *ObjectContext {
 	return req
 }
 
+type OpenWidgetInstance struct {
+	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例唯一标识
+
+	Status *string `json:"status,omitempty"` // 审批单当前状态
+
+	CreateTime *int `json:"create_time,omitempty"` // 审批单创建时间，毫秒时间戳
+
+	UpdateTime *int `json:"update_time,omitempty"` // 审批实例更新时间，毫秒时间戳
+
+	FormContent *string `json:"form_content,omitempty"` // 审批表单数据，仅包含自定义控件内的数据
+}
+
+type OpenWidgetInstanceBuilder struct {
+	instanceCode     string // 审批实例唯一标识
+	instanceCodeFlag bool
+
+	status     string // 审批单当前状态
+	statusFlag bool
+
+	createTime     int // 审批单创建时间，毫秒时间戳
+	createTimeFlag bool
+
+	updateTime     int // 审批实例更新时间，毫秒时间戳
+	updateTimeFlag bool
+
+	formContent     string // 审批表单数据，仅包含自定义控件内的数据
+	formContentFlag bool
+}
+
+func NewOpenWidgetInstanceBuilder() *OpenWidgetInstanceBuilder {
+	builder := &OpenWidgetInstanceBuilder{}
+	return builder
+}
+
+// 审批实例唯一标识
+//
+// 示例值：81D31358-93AF-92D6-7425-01A5D67C4E71
+func (builder *OpenWidgetInstanceBuilder) InstanceCode(instanceCode string) *OpenWidgetInstanceBuilder {
+	builder.instanceCode = instanceCode
+	builder.instanceCodeFlag = true
+	return builder
+}
+
+// 审批单当前状态
+//
+// 示例值：PENDING
+func (builder *OpenWidgetInstanceBuilder) Status(status string) *OpenWidgetInstanceBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 审批单创建时间，毫秒时间戳
+//
+// 示例值：1666079207003
+func (builder *OpenWidgetInstanceBuilder) CreateTime(createTime int) *OpenWidgetInstanceBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 审批实例更新时间，毫秒时间戳
+//
+// 示例值：1666079207003
+func (builder *OpenWidgetInstanceBuilder) UpdateTime(updateTime int) *OpenWidgetInstanceBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 审批表单数据，仅包含自定义控件内的数据
+//
+// 示例值：[{\"id\": \"widget1\",\"custom_id\": \"user_info\",\"name\": \"Item application\",\"type\": \"textarea\"}]
+func (builder *OpenWidgetInstanceBuilder) FormContent(formContent string) *OpenWidgetInstanceBuilder {
+	builder.formContent = formContent
+	builder.formContentFlag = true
+	return builder
+}
+
+func (builder *OpenWidgetInstanceBuilder) Build() *OpenWidgetInstance {
+	req := &OpenWidgetInstance{}
+	if builder.instanceCodeFlag {
+		req.InstanceCode = &builder.instanceCode
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.formContentFlag {
+		req.FormContent = &builder.formContent
+
+	}
+	return req
+}
+
 type PreviewNode struct {
 	NodeId *string `json:"node_id,omitempty"` // 节点id
 

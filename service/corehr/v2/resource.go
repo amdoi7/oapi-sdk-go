@@ -3116,6 +3116,32 @@ func (w *workforcePlanDetail) Batch(ctx context.Context, req *BatchWorkforcePlan
 	return resp, err
 }
 
+// BatchV2
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_v2&project=corehr&resource=workforce_plan_detail&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchV2_workforcePlanDetail.go
+func (w *workforcePlanDetail) BatchV2(ctx context.Context, req *BatchV2WorkforcePlanDetailReq, options ...larkcore.RequestOptionFunc) (*BatchV2WorkforcePlanDetailResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/workforce_plan_details/batch_v2"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchV2WorkforcePlanDetailResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // BatchDelete
 //
 // - 批量删除明细行

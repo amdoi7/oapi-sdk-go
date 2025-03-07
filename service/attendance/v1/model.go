@@ -220,39 +220,211 @@ const (
 	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
 )
 
+type ClockInAbnormalSettings struct {
+	IgnoreUntilLatestClockout *bool `json:"ignore_until_latest_clockout,omitempty"` // 在最晚下班打卡之前忽略异常卡（仅灰度租户有效）
+}
+
+type ClockInAbnormalSettingsBuilder struct {
+	ignoreUntilLatestClockout     bool // 在最晚下班打卡之前忽略异常卡（仅灰度租户有效）
+	ignoreUntilLatestClockoutFlag bool
+}
+
+func NewClockInAbnormalSettingsBuilder() *ClockInAbnormalSettingsBuilder {
+	builder := &ClockInAbnormalSettingsBuilder{}
+	return builder
+}
+
+// 在最晚下班打卡之前忽略异常卡（仅灰度租户有效）
+//
+// 示例值：
+func (builder *ClockInAbnormalSettingsBuilder) IgnoreUntilLatestClockout(ignoreUntilLatestClockout bool) *ClockInAbnormalSettingsBuilder {
+	builder.ignoreUntilLatestClockout = ignoreUntilLatestClockout
+	builder.ignoreUntilLatestClockoutFlag = true
+	return builder
+}
+
+func (builder *ClockInAbnormalSettingsBuilder) Build() *ClockInAbnormalSettings {
+	req := &ClockInAbnormalSettings{}
+	if builder.ignoreUntilLatestClockoutFlag {
+		req.IgnoreUntilLatestClockout = &builder.ignoreUntilLatestClockout
+
+	}
+	return req
+}
+
+type AntiCheatConfig struct {
+	InterceptSuspectedCheatPunch *bool `json:"intercept_suspected_cheat_punch,omitempty"` // 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
+
+	CheckCheatSoftwarePunch *bool `json:"check_cheat_software_punch,omitempty"` // 是否校验疑似作弊软件打卡，默认关闭
+
+	CheckBuddyPunch *bool `json:"check_buddy_punch,omitempty"` // 是否校验疑似他人代打卡，默认关闭
+
+	CheckSimulateWifiPunch *bool `json:"check_simulate_wifi_punch,omitempty"` // 是否校验疑似模拟 WI-FI 打卡，默认关闭
+
+	CheckChangeDevicePunch *bool `json:"check_change_device_punch,omitempty"` // 是否校验更换设备打卡，默认关闭
+
+	AllowChangeDeviceNum *int `json:"allow_change_device_num,omitempty"` // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
+
+	SuspectedCheatHandleMethod *int `json:"suspected_cheat_handle_method,omitempty"` // 疑似作弊打卡时的处理方式
+}
+
+type AntiCheatConfigBuilder struct {
+	interceptSuspectedCheatPunch     bool // 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
+	interceptSuspectedCheatPunchFlag bool
+
+	checkCheatSoftwarePunch     bool // 是否校验疑似作弊软件打卡，默认关闭
+	checkCheatSoftwarePunchFlag bool
+
+	checkBuddyPunch     bool // 是否校验疑似他人代打卡，默认关闭
+	checkBuddyPunchFlag bool
+
+	checkSimulateWifiPunch     bool // 是否校验疑似模拟 WI-FI 打卡，默认关闭
+	checkSimulateWifiPunchFlag bool
+
+	checkChangeDevicePunch     bool // 是否校验更换设备打卡，默认关闭
+	checkChangeDevicePunchFlag bool
+
+	allowChangeDeviceNum     int // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
+	allowChangeDeviceNumFlag bool
+
+	suspectedCheatHandleMethod     int // 疑似作弊打卡时的处理方式
+	suspectedCheatHandleMethodFlag bool
+}
+
+func NewAntiCheatConfigBuilder() *AntiCheatConfigBuilder {
+	builder := &AntiCheatConfigBuilder{}
+	return builder
+}
+
+// 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
+//
+// 示例值：true
+func (builder *AntiCheatConfigBuilder) InterceptSuspectedCheatPunch(interceptSuspectedCheatPunch bool) *AntiCheatConfigBuilder {
+	builder.interceptSuspectedCheatPunch = interceptSuspectedCheatPunch
+	builder.interceptSuspectedCheatPunchFlag = true
+	return builder
+}
+
+// 是否校验疑似作弊软件打卡，默认关闭
+//
+// 示例值：true
+func (builder *AntiCheatConfigBuilder) CheckCheatSoftwarePunch(checkCheatSoftwarePunch bool) *AntiCheatConfigBuilder {
+	builder.checkCheatSoftwarePunch = checkCheatSoftwarePunch
+	builder.checkCheatSoftwarePunchFlag = true
+	return builder
+}
+
+// 是否校验疑似他人代打卡，默认关闭
+//
+// 示例值：true
+func (builder *AntiCheatConfigBuilder) CheckBuddyPunch(checkBuddyPunch bool) *AntiCheatConfigBuilder {
+	builder.checkBuddyPunch = checkBuddyPunch
+	builder.checkBuddyPunchFlag = true
+	return builder
+}
+
+// 是否校验疑似模拟 WI-FI 打卡，默认关闭
+//
+// 示例值：true
+func (builder *AntiCheatConfigBuilder) CheckSimulateWifiPunch(checkSimulateWifiPunch bool) *AntiCheatConfigBuilder {
+	builder.checkSimulateWifiPunch = checkSimulateWifiPunch
+	builder.checkSimulateWifiPunchFlag = true
+	return builder
+}
+
+// 是否校验更换设备打卡，默认关闭
+//
+// 示例值：true
+func (builder *AntiCheatConfigBuilder) CheckChangeDevicePunch(checkChangeDevicePunch bool) *AntiCheatConfigBuilder {
+	builder.checkChangeDevicePunch = checkChangeDevicePunch
+	builder.checkChangeDevicePunchFlag = true
+	return builder
+}
+
+// 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
+//
+// 示例值：1
+func (builder *AntiCheatConfigBuilder) AllowChangeDeviceNum(allowChangeDeviceNum int) *AntiCheatConfigBuilder {
+	builder.allowChangeDeviceNum = allowChangeDeviceNum
+	builder.allowChangeDeviceNumFlag = true
+	return builder
+}
+
+// 疑似作弊打卡时的处理方式
+//
+// 示例值：1
+func (builder *AntiCheatConfigBuilder) SuspectedCheatHandleMethod(suspectedCheatHandleMethod int) *AntiCheatConfigBuilder {
+	builder.suspectedCheatHandleMethod = suspectedCheatHandleMethod
+	builder.suspectedCheatHandleMethodFlag = true
+	return builder
+}
+
+func (builder *AntiCheatConfigBuilder) Build() *AntiCheatConfig {
+	req := &AntiCheatConfig{}
+	if builder.interceptSuspectedCheatPunchFlag {
+		req.InterceptSuspectedCheatPunch = &builder.interceptSuspectedCheatPunch
+
+	}
+	if builder.checkCheatSoftwarePunchFlag {
+		req.CheckCheatSoftwarePunch = &builder.checkCheatSoftwarePunch
+
+	}
+	if builder.checkBuddyPunchFlag {
+		req.CheckBuddyPunch = &builder.checkBuddyPunch
+
+	}
+	if builder.checkSimulateWifiPunchFlag {
+		req.CheckSimulateWifiPunch = &builder.checkSimulateWifiPunch
+
+	}
+	if builder.checkChangeDevicePunchFlag {
+		req.CheckChangeDevicePunch = &builder.checkChangeDevicePunch
+
+	}
+	if builder.allowChangeDeviceNumFlag {
+		req.AllowChangeDeviceNum = &builder.allowChangeDeviceNum
+
+	}
+	if builder.suspectedCheatHandleMethodFlag {
+		req.SuspectedCheatHandleMethod = &builder.suspectedCheatHandleMethod
+
+	}
+	return req
+}
+
 type AntiCheatPunch struct {
-	InterceptSuspectedCheatPunch *bool `json:"intercept_suspected_cheat_punch,omitempty"` // 拦截疑似作弊打卡
+	InterceptSuspectedCheatPunch *bool `json:"intercept_suspected_cheat_punch,omitempty"` // 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
 
-	CheckCheatSoftwarePunch *bool `json:"check_cheat_software_punch,omitempty"` // 是否校验疑似作弊软件打卡
+	CheckCheatSoftwarePunch *bool `json:"check_cheat_software_punch,omitempty"` // 是否校验疑似作弊软件打卡，默认关闭
 
-	CheckBuddyPunch *bool `json:"check_buddy_punch,omitempty"` // 是否校验疑似他人代打卡
+	CheckBuddyPunch *bool `json:"check_buddy_punch,omitempty"` // 是否校验疑似他人代打卡，默认关闭
 
-	CheckSimulateWifiPunch *bool `json:"check_simulate_wifi_punch,omitempty"` // 是否校验疑似模拟 WI-FI 打卡
+	CheckSimulateWifiPunch *bool `json:"check_simulate_wifi_punch,omitempty"` // 是否校验疑似模拟 WI-FI 打卡，默认关闭
 
-	CheckChangeDevicePunch *bool `json:"check_change_device_punch,omitempty"` // 是否校验更换设备打卡
+	CheckChangeDevicePunch *bool `json:"check_change_device_punch,omitempty"` // 是否校验更换设备打卡，默认关闭
 
-	AllowChangeDeviceNum *int `json:"allow_change_device_num,omitempty"` // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填，默认为 2
+	AllowChangeDeviceNum *int `json:"allow_change_device_num,omitempty"` // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
 
 	SuspectedCheatHandleMethod *int `json:"suspected_cheat_handle_method,omitempty"` // 疑似作弊打卡时的处理方式
 }
 
 type AntiCheatPunchBuilder struct {
-	interceptSuspectedCheatPunch     bool // 拦截疑似作弊打卡
+	interceptSuspectedCheatPunch     bool // 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
 	interceptSuspectedCheatPunchFlag bool
 
-	checkCheatSoftwarePunch     bool // 是否校验疑似作弊软件打卡
+	checkCheatSoftwarePunch     bool // 是否校验疑似作弊软件打卡，默认关闭
 	checkCheatSoftwarePunchFlag bool
 
-	checkBuddyPunch     bool // 是否校验疑似他人代打卡
+	checkBuddyPunch     bool // 是否校验疑似他人代打卡，默认关闭
 	checkBuddyPunchFlag bool
 
-	checkSimulateWifiPunch     bool // 是否校验疑似模拟 WI-FI 打卡
+	checkSimulateWifiPunch     bool // 是否校验疑似模拟 WI-FI 打卡，默认关闭
 	checkSimulateWifiPunchFlag bool
 
-	checkChangeDevicePunch     bool // 是否校验更换设备打卡
+	checkChangeDevicePunch     bool // 是否校验更换设备打卡，默认关闭
 	checkChangeDevicePunchFlag bool
 
-	allowChangeDeviceNum     int // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填，默认为 2
+	allowChangeDeviceNum     int // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
 	allowChangeDeviceNumFlag bool
 
 	suspectedCheatHandleMethod     int // 疑似作弊打卡时的处理方式
@@ -264,7 +436,7 @@ func NewAntiCheatPunchBuilder() *AntiCheatPunchBuilder {
 	return builder
 }
 
-// 拦截疑似作弊打卡
+// 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
 //
 // 示例值：true
 func (builder *AntiCheatPunchBuilder) InterceptSuspectedCheatPunch(interceptSuspectedCheatPunch bool) *AntiCheatPunchBuilder {
@@ -273,43 +445,43 @@ func (builder *AntiCheatPunchBuilder) InterceptSuspectedCheatPunch(interceptSusp
 	return builder
 }
 
-// 是否校验疑似作弊软件打卡
+// 是否校验疑似作弊软件打卡，默认关闭
 //
-// 示例值：false
+// 示例值：true
 func (builder *AntiCheatPunchBuilder) CheckCheatSoftwarePunch(checkCheatSoftwarePunch bool) *AntiCheatPunchBuilder {
 	builder.checkCheatSoftwarePunch = checkCheatSoftwarePunch
 	builder.checkCheatSoftwarePunchFlag = true
 	return builder
 }
 
-// 是否校验疑似他人代打卡
+// 是否校验疑似他人代打卡，默认关闭
 //
-// 示例值：false
+// 示例值：true
 func (builder *AntiCheatPunchBuilder) CheckBuddyPunch(checkBuddyPunch bool) *AntiCheatPunchBuilder {
 	builder.checkBuddyPunch = checkBuddyPunch
 	builder.checkBuddyPunchFlag = true
 	return builder
 }
 
-// 是否校验疑似模拟 WI-FI 打卡
+// 是否校验疑似模拟 WI-FI 打卡，默认关闭
 //
-// 示例值：false
+// 示例值：true
 func (builder *AntiCheatPunchBuilder) CheckSimulateWifiPunch(checkSimulateWifiPunch bool) *AntiCheatPunchBuilder {
 	builder.checkSimulateWifiPunch = checkSimulateWifiPunch
 	builder.checkSimulateWifiPunchFlag = true
 	return builder
 }
 
-// 是否校验更换设备打卡
+// 是否校验更换设备打卡，默认关闭
 //
-// 示例值：false
+// 示例值：true
 func (builder *AntiCheatPunchBuilder) CheckChangeDevicePunch(checkChangeDevicePunch bool) *AntiCheatPunchBuilder {
 	builder.checkChangeDevicePunch = checkChangeDevicePunch
 	builder.checkChangeDevicePunchFlag = true
 	return builder
 }
 
-// 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填，默认为 2
+// 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
 //
 // 示例值：2
 func (builder *AntiCheatPunchBuilder) AllowChangeDeviceNum(allowChangeDeviceNum int) *AntiCheatPunchBuilder {
@@ -1767,7 +1939,7 @@ type Group struct {
 
 	ReplaceBasicPic *bool `json:"replace_basic_pic,omitempty"` // 人脸识别失败时是否允许替换基准图片
 
-	AntiCheatPunchCfg *AntiCheatPunch `json:"anti_cheat_punch_cfg,omitempty"` // 防作弊打卡配置
+	AntiCheatPunchConfig *AntiCheatConfig `json:"anti_cheat_punch_config,omitempty"` // 防作弊打卡配置
 
 	Machines []*Machine `json:"machines,omitempty"` // 考勤机列表
 
@@ -1838,6 +2010,8 @@ type Group struct {
 	NewCalendarId *string `json:"new_calendar_id,omitempty"` // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
 
 	AllowApplyPunch *bool `json:"allow_apply_punch,omitempty"` // 定位不准时是否允许申请打卡
+
+	ClockInAbnormalSettings *ClockInAbnormalSettings `json:"clock_in_abnormal_settings,omitempty"` // 异常卡豁免配置
 }
 
 type GroupBuilder struct {
@@ -1946,8 +2120,8 @@ type GroupBuilder struct {
 	replaceBasicPic     bool // 人脸识别失败时是否允许替换基准图片
 	replaceBasicPicFlag bool
 
-	antiCheatPunchCfg     *AntiCheatPunch // 防作弊打卡配置
-	antiCheatPunchCfgFlag bool
+	antiCheatPunchConfig     *AntiCheatConfig // 防作弊打卡配置
+	antiCheatPunchConfigFlag bool
 
 	machines     []*Machine // 考勤机列表
 	machinesFlag bool
@@ -2053,6 +2227,9 @@ type GroupBuilder struct {
 
 	allowApplyPunch     bool // 定位不准时是否允许申请打卡
 	allowApplyPunchFlag bool
+
+	clockInAbnormalSettings     *ClockInAbnormalSettings // 异常卡豁免配置
+	clockInAbnormalSettingsFlag bool
 }
 
 func NewGroupBuilder() *GroupBuilder {
@@ -2378,9 +2555,9 @@ func (builder *GroupBuilder) ReplaceBasicPic(replaceBasicPic bool) *GroupBuilder
 // 防作弊打卡配置
 //
 // 示例值：
-func (builder *GroupBuilder) AntiCheatPunchCfg(antiCheatPunchCfg *AntiCheatPunch) *GroupBuilder {
-	builder.antiCheatPunchCfg = antiCheatPunchCfg
-	builder.antiCheatPunchCfgFlag = true
+func (builder *GroupBuilder) AntiCheatPunchConfig(antiCheatPunchConfig *AntiCheatConfig) *GroupBuilder {
+	builder.antiCheatPunchConfig = antiCheatPunchConfig
+	builder.antiCheatPunchConfigFlag = true
 	return builder
 }
 
@@ -2699,6 +2876,15 @@ func (builder *GroupBuilder) AllowApplyPunch(allowApplyPunch bool) *GroupBuilder
 	return builder
 }
 
+// 异常卡豁免配置
+//
+// 示例值：
+func (builder *GroupBuilder) ClockInAbnormalSettings(clockInAbnormalSettings *ClockInAbnormalSettings) *GroupBuilder {
+	builder.clockInAbnormalSettings = clockInAbnormalSettings
+	builder.clockInAbnormalSettingsFlag = true
+	return builder
+}
+
 func (builder *GroupBuilder) Build() *Group {
 	req := &Group{}
 	if builder.groupIdFlag {
@@ -2835,8 +3021,8 @@ func (builder *GroupBuilder) Build() *Group {
 		req.ReplaceBasicPic = &builder.replaceBasicPic
 
 	}
-	if builder.antiCheatPunchCfgFlag {
-		req.AntiCheatPunchCfg = builder.antiCheatPunchCfg
+	if builder.antiCheatPunchConfigFlag {
+		req.AntiCheatPunchConfig = builder.antiCheatPunchConfig
 	}
 	if builder.machinesFlag {
 		req.Machines = builder.machines
@@ -2962,6 +3148,9 @@ func (builder *GroupBuilder) Build() *Group {
 	if builder.allowApplyPunchFlag {
 		req.AllowApplyPunch = &builder.allowApplyPunch
 
+	}
+	if builder.clockInAbnormalSettingsFlag {
+		req.ClockInAbnormalSettings = builder.clockInAbnormalSettings
 	}
 	return req
 }
@@ -11667,7 +11856,7 @@ type GetGroupRespData struct {
 
 	ReplaceBasicPic *bool `json:"replace_basic_pic,omitempty"` // 是否允许替换基准图片
 
-	AntiCheatPunchCfg *AntiCheatPunch `json:"anti_cheat_punch_cfg,omitempty"` // 防作弊打卡配置
+	AntiCheatPunchConfig *AntiCheatConfig `json:"anti_cheat_punch_config,omitempty"` // 防作弊打卡配置
 
 	Machines []*Machine `json:"machines,omitempty"` // 考勤机信息
 
@@ -11736,6 +11925,8 @@ type GetGroupRespData struct {
 	NewCalendarId *string `json:"new_calendar_id,omitempty"` // 节假日id，（如果考勤组使用了自定义节假日，请用此参数传入节假日id）
 
 	AllowApplyPunch *bool `json:"allow_apply_punch,omitempty"` // 定位不准时是否允许申请打卡
+
+	ClockInAbnormalSettings *ClockInAbnormalSettings `json:"clock_in_abnormal_settings,omitempty"` // 异常卡豁免配置
 }
 
 type GetGroupResp struct {

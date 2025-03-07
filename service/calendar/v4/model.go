@@ -1029,6 +1029,8 @@ type CalendarEvent struct {
 	HasMoreAttendee *bool `json:"has_more_attendee,omitempty"` // 是否有更多的参与人
 
 	Attachments []*Attachment `json:"attachments,omitempty"` // 日程附件
+
+	EventCheckIn *EventCheckIn `json:"event_check_in,omitempty"` // 日程签到设置，为空则不进行日程签到设置
 }
 
 type CalendarEventBuilder struct {
@@ -1106,6 +1108,9 @@ type CalendarEventBuilder struct {
 
 	attachments     []*Attachment // 日程附件
 	attachmentsFlag bool
+
+	eventCheckIn     *EventCheckIn // 日程签到设置，为空则不进行日程签到设置
+	eventCheckInFlag bool
 }
 
 func NewCalendarEventBuilder() *CalendarEventBuilder {
@@ -1338,6 +1343,15 @@ func (builder *CalendarEventBuilder) Attachments(attachments []*Attachment) *Cal
 	return builder
 }
 
+// 日程签到设置，为空则不进行日程签到设置
+//
+// 示例值：
+func (builder *CalendarEventBuilder) EventCheckIn(eventCheckIn *EventCheckIn) *CalendarEventBuilder {
+	builder.eventCheckIn = eventCheckIn
+	builder.eventCheckInFlag = true
+	return builder
+}
+
 func (builder *CalendarEventBuilder) Build() *CalendarEvent {
 	req := &CalendarEvent{}
 	if builder.eventIdFlag {
@@ -1430,6 +1444,9 @@ func (builder *CalendarEventBuilder) Build() *CalendarEvent {
 	}
 	if builder.attachmentsFlag {
 		req.Attachments = builder.attachments
+	}
+	if builder.eventCheckInFlag {
+		req.EventCheckIn = builder.eventCheckIn
 	}
 	return req
 }
@@ -3064,6 +3081,56 @@ func (builder *CardPresentBuilder) Build() *CardPresent {
 	return req
 }
 
+type CheckInTime struct {
+	TimeType *string `json:"time_type,omitempty"` // (分钟)偏移量相对于的日程时间节点类型
+
+	Duration *int `json:"duration,omitempty"` // 相对于日程开始或者结束的偏移量(分钟)
+}
+
+type CheckInTimeBuilder struct {
+	timeType     string // (分钟)偏移量相对于的日程时间节点类型
+	timeTypeFlag bool
+
+	duration     int // 相对于日程开始或者结束的偏移量(分钟)
+	durationFlag bool
+}
+
+func NewCheckInTimeBuilder() *CheckInTimeBuilder {
+	builder := &CheckInTimeBuilder{}
+	return builder
+}
+
+// (分钟)偏移量相对于的日程时间节点类型
+//
+// 示例值：
+func (builder *CheckInTimeBuilder) TimeType(timeType string) *CheckInTimeBuilder {
+	builder.timeType = timeType
+	builder.timeTypeFlag = true
+	return builder
+}
+
+// 相对于日程开始或者结束的偏移量(分钟)
+//
+// 示例值：15
+func (builder *CheckInTimeBuilder) Duration(duration int) *CheckInTimeBuilder {
+	builder.duration = duration
+	builder.durationFlag = true
+	return builder
+}
+
+func (builder *CheckInTimeBuilder) Build() *CheckInTime {
+	req := &CheckInTime{}
+	if builder.timeTypeFlag {
+		req.TimeType = &builder.timeType
+
+	}
+	if builder.durationFlag {
+		req.Duration = &builder.duration
+
+	}
+	return req
+}
+
 type CustomizationOption struct {
 	OptionKey *string `json:"option_key,omitempty"` // 每个选项的唯一ID
 
@@ -3505,6 +3572,90 @@ func (builder *EventCardBuilder) Build() *EventCard {
 	}
 	if builder.eventIdFlag {
 		req.EventId = &builder.eventId
+
+	}
+	return req
+}
+
+type EventCheckIn struct {
+	EnableCheckIn *bool `json:"enable_check_in,omitempty"` // 是否启用日程签到
+
+	CheckInStartTime *CheckInTime `json:"check_in_start_time,omitempty"` // 日程签到开始时间
+
+	CheckInEndTime *CheckInTime `json:"check_in_end_time,omitempty"` // 日程签到结束时间
+
+	NeedNotifyAttendees *bool `json:"need_notify_attendees,omitempty"` // 签到开始时是否自动发送签到通知给参与者
+}
+
+type EventCheckInBuilder struct {
+	enableCheckIn     bool // 是否启用日程签到
+	enableCheckInFlag bool
+
+	checkInStartTime     *CheckInTime // 日程签到开始时间
+	checkInStartTimeFlag bool
+
+	checkInEndTime     *CheckInTime // 日程签到结束时间
+	checkInEndTimeFlag bool
+
+	needNotifyAttendees     bool // 签到开始时是否自动发送签到通知给参与者
+	needNotifyAttendeesFlag bool
+}
+
+func NewEventCheckInBuilder() *EventCheckInBuilder {
+	builder := &EventCheckInBuilder{}
+	return builder
+}
+
+// 是否启用日程签到
+//
+// 示例值：
+func (builder *EventCheckInBuilder) EnableCheckIn(enableCheckIn bool) *EventCheckInBuilder {
+	builder.enableCheckIn = enableCheckIn
+	builder.enableCheckInFlag = true
+	return builder
+}
+
+// 日程签到开始时间
+//
+// 示例值：
+func (builder *EventCheckInBuilder) CheckInStartTime(checkInStartTime *CheckInTime) *EventCheckInBuilder {
+	builder.checkInStartTime = checkInStartTime
+	builder.checkInStartTimeFlag = true
+	return builder
+}
+
+// 日程签到结束时间
+//
+// 示例值：
+func (builder *EventCheckInBuilder) CheckInEndTime(checkInEndTime *CheckInTime) *EventCheckInBuilder {
+	builder.checkInEndTime = checkInEndTime
+	builder.checkInEndTimeFlag = true
+	return builder
+}
+
+// 签到开始时是否自动发送签到通知给参与者
+//
+// 示例值：
+func (builder *EventCheckInBuilder) NeedNotifyAttendees(needNotifyAttendees bool) *EventCheckInBuilder {
+	builder.needNotifyAttendees = needNotifyAttendees
+	builder.needNotifyAttendeesFlag = true
+	return builder
+}
+
+func (builder *EventCheckInBuilder) Build() *EventCheckIn {
+	req := &EventCheckIn{}
+	if builder.enableCheckInFlag {
+		req.EnableCheckIn = &builder.enableCheckIn
+
+	}
+	if builder.checkInStartTimeFlag {
+		req.CheckInStartTime = builder.checkInStartTime
+	}
+	if builder.checkInEndTimeFlag {
+		req.CheckInEndTime = builder.checkInEndTime
+	}
+	if builder.needNotifyAttendeesFlag {
+		req.NeedNotifyAttendees = &builder.needNotifyAttendees
 
 	}
 	return req

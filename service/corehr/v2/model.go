@@ -2953,6 +2953,8 @@ type BankAccountForUpdate struct {
 	BankAccountUsages []string `json:"bank_account_usages,omitempty"` // 银行卡用途，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可：- object_api_name = "bank_account" - custom_api_name = "bank_account_usage"
 
 	BankAccountType *string `json:"bank_account_type,omitempty"` // 银行卡类型，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可：- object_api_name = "bank_account" - custom_api_name = "bank_account_type"
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type BankAccountForUpdateBuilder struct {
@@ -2976,6 +2978,9 @@ type BankAccountForUpdateBuilder struct {
 
 	bankAccountType     string // 银行卡类型，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可：- object_api_name = "bank_account" - custom_api_name = "bank_account_type"
 	bankAccountTypeFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewBankAccountForUpdateBuilder() *BankAccountForUpdateBuilder {
@@ -3046,6 +3051,15 @@ func (builder *BankAccountForUpdateBuilder) BankAccountType(bankAccountType stri
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *BankAccountForUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *BankAccountForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *BankAccountForUpdateBuilder) Build() *BankAccountForUpdate {
 	req := &BankAccountForUpdate{}
 	if builder.bankNameFlag {
@@ -3074,6 +3088,9 @@ func (builder *BankAccountForUpdateBuilder) Build() *BankAccountForUpdate {
 	if builder.bankAccountTypeFlag {
 		req.BankAccountType = &builder.bankAccountType
 
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -4968,6 +4985,249 @@ func (builder *BpmDataengineI18nBuilder) Build() *BpmDataengineI18n {
 	}
 	if builder.enUsFlag {
 		req.EnUs = &builder.enUs
+
+	}
+	return req
+}
+
+type BpmFlowInfo struct {
+	FlowDefinitionId *string `json:"flow_definition_id,omitempty"` // 流程定义ID
+
+	FlowDefinitionName *DataengineI18n `json:"flow_definition_name,omitempty"` // 流程定义名称
+
+	Description *DataengineI18n `json:"description,omitempty"` // 描述
+
+	BizType *string `json:"biz_type,omitempty"` // 业务类型
+
+	BizTypeName *DataengineI18n `json:"biz_type_name,omitempty"` // 业务类型名称
+
+	Active *int `json:"active,omitempty"` // 启用状态
+
+	CreatorId *string `json:"creator_id,omitempty"` // 创建人id
+
+	CreatorName *DataengineI18n `json:"creator_name,omitempty"` // 创建人姓名
+
+	CreateTime *string `json:"create_time,omitempty"` // 创建时间，Unix毫秒时间戳
+
+	LastEditorId *string `json:"last_editor_id,omitempty"` // 最近更新人ID
+
+	LastEditorName *DataengineI18n `json:"last_editor_name,omitempty"` // 最近更新人姓名
+
+	LastEditTime *string `json:"last_edit_time,omitempty"` // 最近更新时间，Unix毫秒时间戳
+
+	LastActiveTime *string `json:"last_active_time,omitempty"` // 上次启用时间，Unix毫秒时间戳
+}
+
+type BpmFlowInfoBuilder struct {
+	flowDefinitionId     string // 流程定义ID
+	flowDefinitionIdFlag bool
+
+	flowDefinitionName     *DataengineI18n // 流程定义名称
+	flowDefinitionNameFlag bool
+
+	description     *DataengineI18n // 描述
+	descriptionFlag bool
+
+	bizType     string // 业务类型
+	bizTypeFlag bool
+
+	bizTypeName     *DataengineI18n // 业务类型名称
+	bizTypeNameFlag bool
+
+	active     int // 启用状态
+	activeFlag bool
+
+	creatorId     string // 创建人id
+	creatorIdFlag bool
+
+	creatorName     *DataengineI18n // 创建人姓名
+	creatorNameFlag bool
+
+	createTime     string // 创建时间，Unix毫秒时间戳
+	createTimeFlag bool
+
+	lastEditorId     string // 最近更新人ID
+	lastEditorIdFlag bool
+
+	lastEditorName     *DataengineI18n // 最近更新人姓名
+	lastEditorNameFlag bool
+
+	lastEditTime     string // 最近更新时间，Unix毫秒时间戳
+	lastEditTimeFlag bool
+
+	lastActiveTime     string // 上次启用时间，Unix毫秒时间戳
+	lastActiveTimeFlag bool
+}
+
+func NewBpmFlowInfoBuilder() *BpmFlowInfoBuilder {
+	builder := &BpmFlowInfoBuilder{}
+	return builder
+}
+
+// 流程定义ID
+//
+// 示例值：people_7023711013443944467_7415503483711229740
+func (builder *BpmFlowInfoBuilder) FlowDefinitionId(flowDefinitionId string) *BpmFlowInfoBuilder {
+	builder.flowDefinitionId = flowDefinitionId
+	builder.flowDefinitionIdFlag = true
+	return builder
+}
+
+// 流程定义名称
+//
+// 示例值：
+func (builder *BpmFlowInfoBuilder) FlowDefinitionName(flowDefinitionName *DataengineI18n) *BpmFlowInfoBuilder {
+	builder.flowDefinitionName = flowDefinitionName
+	builder.flowDefinitionNameFlag = true
+	return builder
+}
+
+// 描述
+//
+// 示例值：
+func (builder *BpmFlowInfoBuilder) Description(description *DataengineI18n) *BpmFlowInfoBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 业务类型
+//
+// 示例值：job_change
+func (builder *BpmFlowInfoBuilder) BizType(bizType string) *BpmFlowInfoBuilder {
+	builder.bizType = bizType
+	builder.bizTypeFlag = true
+	return builder
+}
+
+// 业务类型名称
+//
+// 示例值：
+func (builder *BpmFlowInfoBuilder) BizTypeName(bizTypeName *DataengineI18n) *BpmFlowInfoBuilder {
+	builder.bizTypeName = bizTypeName
+	builder.bizTypeNameFlag = true
+	return builder
+}
+
+// 启用状态
+//
+// 示例值：1
+func (builder *BpmFlowInfoBuilder) Active(active int) *BpmFlowInfoBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 创建人id
+//
+// 示例值：7355397217231831060
+func (builder *BpmFlowInfoBuilder) CreatorId(creatorId string) *BpmFlowInfoBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+
+// 创建人姓名
+//
+// 示例值：
+func (builder *BpmFlowInfoBuilder) CreatorName(creatorName *DataengineI18n) *BpmFlowInfoBuilder {
+	builder.creatorName = creatorName
+	builder.creatorNameFlag = true
+	return builder
+}
+
+// 创建时间，Unix毫秒时间戳
+//
+// 示例值：1694769814036
+func (builder *BpmFlowInfoBuilder) CreateTime(createTime string) *BpmFlowInfoBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 最近更新人ID
+//
+// 示例值：7355397217231831060
+func (builder *BpmFlowInfoBuilder) LastEditorId(lastEditorId string) *BpmFlowInfoBuilder {
+	builder.lastEditorId = lastEditorId
+	builder.lastEditorIdFlag = true
+	return builder
+}
+
+// 最近更新人姓名
+//
+// 示例值：
+func (builder *BpmFlowInfoBuilder) LastEditorName(lastEditorName *DataengineI18n) *BpmFlowInfoBuilder {
+	builder.lastEditorName = lastEditorName
+	builder.lastEditorNameFlag = true
+	return builder
+}
+
+// 最近更新时间，Unix毫秒时间戳
+//
+// 示例值：1694769814036
+func (builder *BpmFlowInfoBuilder) LastEditTime(lastEditTime string) *BpmFlowInfoBuilder {
+	builder.lastEditTime = lastEditTime
+	builder.lastEditTimeFlag = true
+	return builder
+}
+
+// 上次启用时间，Unix毫秒时间戳
+//
+// 示例值：1694769814036
+func (builder *BpmFlowInfoBuilder) LastActiveTime(lastActiveTime string) *BpmFlowInfoBuilder {
+	builder.lastActiveTime = lastActiveTime
+	builder.lastActiveTimeFlag = true
+	return builder
+}
+
+func (builder *BpmFlowInfoBuilder) Build() *BpmFlowInfo {
+	req := &BpmFlowInfo{}
+	if builder.flowDefinitionIdFlag {
+		req.FlowDefinitionId = &builder.flowDefinitionId
+
+	}
+	if builder.flowDefinitionNameFlag {
+		req.FlowDefinitionName = builder.flowDefinitionName
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.bizTypeFlag {
+		req.BizType = &builder.bizType
+
+	}
+	if builder.bizTypeNameFlag {
+		req.BizTypeName = builder.bizTypeName
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.creatorNameFlag {
+		req.CreatorName = builder.creatorName
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.lastEditorIdFlag {
+		req.LastEditorId = &builder.lastEditorId
+
+	}
+	if builder.lastEditorNameFlag {
+		req.LastEditorName = builder.lastEditorName
+	}
+	if builder.lastEditTimeFlag {
+		req.LastEditTime = &builder.lastEditTime
+
+	}
+	if builder.lastActiveTimeFlag {
+		req.LastActiveTime = &builder.lastActiveTime
 
 	}
 	return req
@@ -10742,6 +11002,8 @@ type DependentForUpdate struct {
 	Address *AddressForUpdate `json:"address,omitempty"` // 联系地址
 
 	BirthCertificateOfChildren []*File `json:"birth_certificate_of_children,omitempty"` // 出生证明
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type DependentForUpdateBuilder struct {
@@ -10783,6 +11045,9 @@ type DependentForUpdateBuilder struct {
 
 	birthCertificateOfChildren     []*File // 出生证明
 	birthCertificateOfChildrenFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewDependentForUpdateBuilder() *DependentForUpdateBuilder {
@@ -10907,6 +11172,15 @@ func (builder *DependentForUpdateBuilder) BirthCertificateOfChildren(birthCertif
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *DependentForUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *DependentForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *DependentForUpdateBuilder) Build() *DependentForUpdate {
 	req := &DependentForUpdate{}
 	if builder.relationshipFlag {
@@ -10956,6 +11230,9 @@ func (builder *DependentForUpdateBuilder) Build() *DependentForUpdate {
 	}
 	if builder.birthCertificateOfChildrenFlag {
 		req.BirthCertificateOfChildren = builder.birthCertificateOfChildren
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -12365,6 +12642,8 @@ type EmergencyContactForUpdate struct {
 	Email *EmailForUpdate `json:"email,omitempty"` // 邮箱
 
 	IsPrimary *bool `json:"is_primary,omitempty"` // 主要联系人,若有多个联系人，只能有一个联系人的「is_primary」为true
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type EmergencyContactForUpdateBuilder struct {
@@ -12385,6 +12664,9 @@ type EmergencyContactForUpdateBuilder struct {
 
 	isPrimary     bool // 主要联系人,若有多个联系人，只能有一个联系人的「is_primary」为true
 	isPrimaryFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewEmergencyContactForUpdateBuilder() *EmergencyContactForUpdateBuilder {
@@ -12446,6 +12728,15 @@ func (builder *EmergencyContactForUpdateBuilder) IsPrimary(isPrimary bool) *Emer
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *EmergencyContactForUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *EmergencyContactForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *EmergencyContactForUpdateBuilder) Build() *EmergencyContactForUpdate {
 	req := &EmergencyContactForUpdate{}
 	if builder.legalNameFlag {
@@ -12468,6 +12759,9 @@ func (builder *EmergencyContactForUpdateBuilder) Build() *EmergencyContactForUpd
 	if builder.isPrimaryFlag {
 		req.IsPrimary = &builder.isPrimary
 
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -19853,6 +20147,74 @@ func (builder *FieldVariableValueToFileBuilder) Build() *FieldVariableValueToFil
 	return req
 }
 
+type FieldVariableValueToFileForWrite struct {
+	OpenFileId *string `json:"open_file_id,omitempty"` // 主数据的文件id
+
+	FileName *string `json:"file_name,omitempty"` // 文件名称
+
+	Length *int `json:"length,omitempty"` // 文件大小，单位：Byte
+}
+
+type FieldVariableValueToFileForWriteBuilder struct {
+	openFileId     string // 主数据的文件id
+	openFileIdFlag bool
+
+	fileName     string // 文件名称
+	fileNameFlag bool
+
+	length     int // 文件大小，单位：Byte
+	lengthFlag bool
+}
+
+func NewFieldVariableValueToFileForWriteBuilder() *FieldVariableValueToFileForWriteBuilder {
+	builder := &FieldVariableValueToFileForWriteBuilder{}
+	return builder
+}
+
+// 主数据的文件id
+//
+// 示例值：66867ed00740ddd4a0bad4a5_c99b5322dc744fe4b99b76426ffe5d53
+func (builder *FieldVariableValueToFileForWriteBuilder) OpenFileId(openFileId string) *FieldVariableValueToFileForWriteBuilder {
+	builder.openFileId = openFileId
+	builder.openFileIdFlag = true
+	return builder
+}
+
+// 文件名称
+//
+// 示例值：file_name
+func (builder *FieldVariableValueToFileForWriteBuilder) FileName(fileName string) *FieldVariableValueToFileForWriteBuilder {
+	builder.fileName = fileName
+	builder.fileNameFlag = true
+	return builder
+}
+
+// 文件大小，单位：Byte
+//
+// 示例值：65535
+func (builder *FieldVariableValueToFileForWriteBuilder) Length(length int) *FieldVariableValueToFileForWriteBuilder {
+	builder.length = length
+	builder.lengthFlag = true
+	return builder
+}
+
+func (builder *FieldVariableValueToFileForWriteBuilder) Build() *FieldVariableValueToFileForWrite {
+	req := &FieldVariableValueToFileForWrite{}
+	if builder.openFileIdFlag {
+		req.OpenFileId = &builder.openFileId
+
+	}
+	if builder.fileNameFlag {
+		req.FileName = &builder.fileName
+
+	}
+	if builder.lengthFlag {
+		req.Length = &builder.length
+
+	}
+	return req
+}
+
 type FieldVariableValueToForReview struct {
 	TextValue *string `json:"text_value,omitempty"` // 文本值
 
@@ -19875,6 +20237,10 @@ type FieldVariableValueToForReview struct {
 	EmploymentValue *string `json:"employment_value,omitempty"` // 员工类型字段值，为用户id，根据入参选择返回的用户id
 
 	ListValues []string `json:"list_values,omitempty"` // 数组类型值，里面包含多个值，每个元素都对应subValues中的key
+
+	FileValue *FieldVariableValueToFileForWrite `json:"file_value,omitempty"` // 文件类型字段值
+
+	RecordValues []*FieldVariableValueToRecord `json:"record_values,omitempty"` // record类型字段值
 }
 
 type FieldVariableValueToForReviewBuilder struct {
@@ -19910,6 +20276,12 @@ type FieldVariableValueToForReviewBuilder struct {
 
 	listValues     []string // 数组类型值，里面包含多个值，每个元素都对应subValues中的key
 	listValuesFlag bool
+
+	fileValue     *FieldVariableValueToFileForWrite // 文件类型字段值
+	fileValueFlag bool
+
+	recordValues     []*FieldVariableValueToRecord // record类型字段值
+	recordValuesFlag bool
 }
 
 func NewFieldVariableValueToForReviewBuilder() *FieldVariableValueToForReviewBuilder {
@@ -20016,6 +20388,24 @@ func (builder *FieldVariableValueToForReviewBuilder) ListValues(listValues []str
 	return builder
 }
 
+// 文件类型字段值
+//
+// 示例值：
+func (builder *FieldVariableValueToForReviewBuilder) FileValue(fileValue *FieldVariableValueToFileForWrite) *FieldVariableValueToForReviewBuilder {
+	builder.fileValue = fileValue
+	builder.fileValueFlag = true
+	return builder
+}
+
+// record类型字段值
+//
+// 示例值：
+func (builder *FieldVariableValueToForReviewBuilder) RecordValues(recordValues []*FieldVariableValueToRecord) *FieldVariableValueToForReviewBuilder {
+	builder.recordValues = recordValues
+	builder.recordValuesFlag = true
+	return builder
+}
+
 func (builder *FieldVariableValueToForReviewBuilder) Build() *FieldVariableValueToForReview {
 	req := &FieldVariableValueToForReview{}
 	if builder.textValueFlag {
@@ -20058,6 +20448,12 @@ func (builder *FieldVariableValueToForReviewBuilder) Build() *FieldVariableValue
 	}
 	if builder.listValuesFlag {
 		req.ListValues = builder.listValues
+	}
+	if builder.fileValueFlag {
+		req.FileValue = builder.fileValue
+	}
+	if builder.recordValuesFlag {
+		req.RecordValues = builder.recordValues
 	}
 	return req
 }
@@ -28179,6 +28575,8 @@ type NationalIdForUpdate struct {
 	ExpirationDate *string `json:"expiration_date,omitempty"` // 证件到期日期
 
 	IssuedBy *string `json:"issued_by,omitempty"` // 证件签发机构
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type NationalIdForUpdateBuilder struct {
@@ -28199,6 +28597,9 @@ type NationalIdForUpdateBuilder struct {
 
 	issuedBy     string // 证件签发机构
 	issuedByFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewNationalIdForUpdateBuilder() *NationalIdForUpdateBuilder {
@@ -28260,6 +28661,15 @@ func (builder *NationalIdForUpdateBuilder) IssuedBy(issuedBy string) *NationalId
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *NationalIdForUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *NationalIdForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *NationalIdForUpdateBuilder) Build() *NationalIdForUpdate {
 	req := &NationalIdForUpdate{}
 	if builder.countryRegionIdFlag {
@@ -28285,6 +28695,9 @@ func (builder *NationalIdForUpdateBuilder) Build() *NationalIdForUpdate {
 	if builder.issuedByFlag {
 		req.IssuedBy = &builder.issuedBy
 
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -38612,6 +39025,8 @@ type PrehireSeniorityAdjustInformation struct {
 	StartDate *string `json:"start_date,omitempty"` // 开始日期;- 格式： yyyy-mm-dd
 
 	EndDate *string `json:"end_date,omitempty"` // 结束日期;- 格式： yyyy-mm-dd
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type PrehireSeniorityAdjustInformationBuilder struct {
@@ -38629,6 +39044,9 @@ type PrehireSeniorityAdjustInformationBuilder struct {
 
 	endDate     string // 结束日期;- 格式： yyyy-mm-dd
 	endDateFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewPrehireSeniorityAdjustInformationBuilder() *PrehireSeniorityAdjustInformationBuilder {
@@ -38681,6 +39099,15 @@ func (builder *PrehireSeniorityAdjustInformationBuilder) EndDate(endDate string)
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *PrehireSeniorityAdjustInformationBuilder) CustomFields(customFields []*ObjectFieldData) *PrehireSeniorityAdjustInformationBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *PrehireSeniorityAdjustInformationBuilder) Build() *PrehireSeniorityAdjustInformation {
 	req := &PrehireSeniorityAdjustInformation{}
 	if builder.seniorityAdjustmentFlag {
@@ -38702,6 +39129,9 @@ func (builder *PrehireSeniorityAdjustInformationBuilder) Build() *PrehireSeniori
 	if builder.endDateFlag {
 		req.EndDate = &builder.endDate
 
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -38836,6 +39266,8 @@ type PrehireSeniorityAdjustInformationUpdate struct {
 	StartDate *string `json:"start_date,omitempty"` // 开始日期;- 格式： yyyy-mm-dd
 
 	EndDate *string `json:"end_date,omitempty"` // 结束日期;- 格式： yyyy-mm-dd
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type PrehireSeniorityAdjustInformationUpdateBuilder struct {
@@ -38853,6 +39285,9 @@ type PrehireSeniorityAdjustInformationUpdateBuilder struct {
 
 	endDate     string // 结束日期;- 格式： yyyy-mm-dd
 	endDateFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewPrehireSeniorityAdjustInformationUpdateBuilder() *PrehireSeniorityAdjustInformationUpdateBuilder {
@@ -38905,6 +39340,15 @@ func (builder *PrehireSeniorityAdjustInformationUpdateBuilder) EndDate(endDate s
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *PrehireSeniorityAdjustInformationUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *PrehireSeniorityAdjustInformationUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *PrehireSeniorityAdjustInformationUpdateBuilder) Build() *PrehireSeniorityAdjustInformationUpdate {
 	req := &PrehireSeniorityAdjustInformationUpdate{}
 	if builder.seniorityAdjustmentFlag {
@@ -38926,6 +39370,9 @@ func (builder *PrehireSeniorityAdjustInformationUpdateBuilder) Build() *PrehireS
 	if builder.endDateFlag {
 		req.EndDate = &builder.endDate
 
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -46785,6 +47232,8 @@ type ResidentTaxForUpdate struct {
 	ResidentStatusSpecification *string `json:"resident_status_specification,omitempty"` // 居民纳税身份说明
 
 	YearResidentTax *string `json:"year_resident_tax,omitempty"` // 年度
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
 
 type ResidentTaxForUpdateBuilder struct {
@@ -46802,6 +47251,9 @@ type ResidentTaxForUpdateBuilder struct {
 
 	yearResidentTax     string // 年度
 	yearResidentTaxFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
 }
 
 func NewResidentTaxForUpdateBuilder() *ResidentTaxForUpdateBuilder {
@@ -46854,6 +47306,15 @@ func (builder *ResidentTaxForUpdateBuilder) YearResidentTax(yearResidentTax stri
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *ResidentTaxForUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *ResidentTaxForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
 func (builder *ResidentTaxForUpdateBuilder) Build() *ResidentTaxForUpdate {
 	req := &ResidentTaxForUpdate{}
 	if builder.taxCountryRegionFlag {
@@ -46874,6 +47335,9 @@ func (builder *ResidentTaxForUpdateBuilder) Build() *ResidentTaxForUpdate {
 	if builder.yearResidentTaxFlag {
 		req.YearResidentTax = &builder.yearResidentTax
 
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
@@ -53068,6 +53532,8 @@ type WorkforcePlanDetailRow struct {
 	EaiDetails []*WorkforcePlanEaiDetail `json:"eai_details,omitempty"` // 预估在职人数
 
 	PlanValue *string `json:"plan_value,omitempty"` // 编制规划值
+
+	MultiPeriodValues []*WorkforcePlanMultiPeriodValue `json:"multi_period_values,omitempty"` // 多周期编制规划信息
 }
 
 type WorkforcePlanDetailRowBuilder struct {
@@ -53079,6 +53545,9 @@ type WorkforcePlanDetailRowBuilder struct {
 
 	planValue     string // 编制规划值
 	planValueFlag bool
+
+	multiPeriodValues     []*WorkforcePlanMultiPeriodValue // 多周期编制规划信息
+	multiPeriodValuesFlag bool
 }
 
 func NewWorkforcePlanDetailRowBuilder() *WorkforcePlanDetailRowBuilder {
@@ -53113,6 +53582,15 @@ func (builder *WorkforcePlanDetailRowBuilder) PlanValue(planValue string) *Workf
 	return builder
 }
 
+// 多周期编制规划信息
+//
+// 示例值：
+func (builder *WorkforcePlanDetailRowBuilder) MultiPeriodValues(multiPeriodValues []*WorkforcePlanMultiPeriodValue) *WorkforcePlanDetailRowBuilder {
+	builder.multiPeriodValues = multiPeriodValues
+	builder.multiPeriodValuesFlag = true
+	return builder
+}
+
 func (builder *WorkforcePlanDetailRowBuilder) Build() *WorkforcePlanDetailRow {
 	req := &WorkforcePlanDetailRow{}
 	if builder.dimensionsFlag {
@@ -53124,6 +53602,9 @@ func (builder *WorkforcePlanDetailRowBuilder) Build() *WorkforcePlanDetailRow {
 	if builder.planValueFlag {
 		req.PlanValue = &builder.planValue
 
+	}
+	if builder.multiPeriodValuesFlag {
+		req.MultiPeriodValues = builder.multiPeriodValues
 	}
 	return req
 }
@@ -53150,6 +53631,8 @@ type WorkforcePlanDetailV2 struct {
 	FulfillmentRateIncludingIndividualsToBeAddedAndRemoved *string `json:"fulfillment_rate_including_individuals_to_be_added_and_removed,omitempty"` // 满编率（含在途）， 返回 0.5 表示满编率为 50%
 
 	EstimatedActiveIndividualsDetails []*WorkforcePlanEaiDetail `json:"estimated_active_individuals_details,omitempty"` // 预估在职人数明细
+
+	MultiPeriodValues []*WorkforcePlanMultiPeriodValue `json:"multi_period_values,omitempty"` // 多周期的编制规划信息
 }
 
 type WorkforcePlanDetailV2Builder struct {
@@ -53185,6 +53668,9 @@ type WorkforcePlanDetailV2Builder struct {
 
 	estimatedActiveIndividualsDetails     []*WorkforcePlanEaiDetail // 预估在职人数明细
 	estimatedActiveIndividualsDetailsFlag bool
+
+	multiPeriodValues     []*WorkforcePlanMultiPeriodValue // 多周期的编制规划信息
+	multiPeriodValuesFlag bool
 }
 
 func NewWorkforcePlanDetailV2Builder() *WorkforcePlanDetailV2Builder {
@@ -53291,6 +53777,15 @@ func (builder *WorkforcePlanDetailV2Builder) EstimatedActiveIndividualsDetails(e
 	return builder
 }
 
+// 多周期的编制规划信息
+//
+// 示例值：
+func (builder *WorkforcePlanDetailV2Builder) MultiPeriodValues(multiPeriodValues []*WorkforcePlanMultiPeriodValue) *WorkforcePlanDetailV2Builder {
+	builder.multiPeriodValues = multiPeriodValues
+	builder.multiPeriodValuesFlag = true
+	return builder
+}
+
 func (builder *WorkforcePlanDetailV2Builder) Build() *WorkforcePlanDetailV2 {
 	req := &WorkforcePlanDetailV2{}
 	if builder.workforcePlanDetailIdFlag {
@@ -53334,6 +53829,9 @@ func (builder *WorkforcePlanDetailV2Builder) Build() *WorkforcePlanDetailV2 {
 	}
 	if builder.estimatedActiveIndividualsDetailsFlag {
 		req.EstimatedActiveIndividualsDetails = builder.estimatedActiveIndividualsDetails
+	}
+	if builder.multiPeriodValuesFlag {
+		req.MultiPeriodValues = builder.multiPeriodValues
 	}
 	return req
 }
@@ -53383,6 +53881,92 @@ func (builder *WorkforcePlanEaiDetailBuilder) Build() *WorkforcePlanEaiDetail {
 	}
 	if builder.estimatedActiveIndividualsFlag {
 		req.EstimatedActiveIndividuals = &builder.estimatedActiveIndividuals
+
+	}
+	return req
+}
+
+type WorkforcePlanMultiPeriodValue struct {
+	PeriodDate *string `json:"period_date,omitempty"` // 周期的最后一天
+
+	WorkforcePlan *string `json:"workforce_plan,omitempty"` // 对应周期的编制规划值
+
+	IndividualsToBeAdded *string `json:"individuals_to_be_added,omitempty"` // 预增员数量
+
+	IndividualsToBeRemoved *string `json:"individuals_to_be_removed,omitempty"` // 预减员数量
+}
+
+type WorkforcePlanMultiPeriodValueBuilder struct {
+	periodDate     string // 周期的最后一天
+	periodDateFlag bool
+
+	workforcePlan     string // 对应周期的编制规划值
+	workforcePlanFlag bool
+
+	individualsToBeAdded     string // 预增员数量
+	individualsToBeAddedFlag bool
+
+	individualsToBeRemoved     string // 预减员数量
+	individualsToBeRemovedFlag bool
+}
+
+func NewWorkforcePlanMultiPeriodValueBuilder() *WorkforcePlanMultiPeriodValueBuilder {
+	builder := &WorkforcePlanMultiPeriodValueBuilder{}
+	return builder
+}
+
+// 周期的最后一天
+//
+// 示例值："2022-10-31"
+func (builder *WorkforcePlanMultiPeriodValueBuilder) PeriodDate(periodDate string) *WorkforcePlanMultiPeriodValueBuilder {
+	builder.periodDate = periodDate
+	builder.periodDateFlag = true
+	return builder
+}
+
+// 对应周期的编制规划值
+//
+// 示例值："12.00"
+func (builder *WorkforcePlanMultiPeriodValueBuilder) WorkforcePlan(workforcePlan string) *WorkforcePlanMultiPeriodValueBuilder {
+	builder.workforcePlan = workforcePlan
+	builder.workforcePlanFlag = true
+	return builder
+}
+
+// 预增员数量
+//
+// 示例值："10.00"
+func (builder *WorkforcePlanMultiPeriodValueBuilder) IndividualsToBeAdded(individualsToBeAdded string) *WorkforcePlanMultiPeriodValueBuilder {
+	builder.individualsToBeAdded = individualsToBeAdded
+	builder.individualsToBeAddedFlag = true
+	return builder
+}
+
+// 预减员数量
+//
+// 示例值："10.00"
+func (builder *WorkforcePlanMultiPeriodValueBuilder) IndividualsToBeRemoved(individualsToBeRemoved string) *WorkforcePlanMultiPeriodValueBuilder {
+	builder.individualsToBeRemoved = individualsToBeRemoved
+	builder.individualsToBeRemovedFlag = true
+	return builder
+}
+
+func (builder *WorkforcePlanMultiPeriodValueBuilder) Build() *WorkforcePlanMultiPeriodValue {
+	req := &WorkforcePlanMultiPeriodValue{}
+	if builder.periodDateFlag {
+		req.PeriodDate = &builder.periodDate
+
+	}
+	if builder.workforcePlanFlag {
+		req.WorkforcePlan = &builder.workforcePlan
+
+	}
+	if builder.individualsToBeAddedFlag {
+		req.IndividualsToBeAdded = &builder.individualsToBeAdded
+
+	}
+	if builder.individualsToBeRemovedFlag {
+		req.IndividualsToBeRemoved = &builder.individualsToBeRemoved
 
 	}
 	return req
@@ -70028,6 +70612,227 @@ func (resp *BatchWorkforcePlanDetailResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchV2WorkforcePlanDetailReqBodyBuilder struct {
+	workforcePlanId     string // 编制规划方案ID，ID及详细信息可通过获取编制规划方案列表接口查询获得。查询编制规划明细信息时，编制规划方案ID必填，是否为集中填报项目设置为false，不填写集中填报项目ID（是否填写不影响返回结果）
+	workforcePlanIdFlag bool
+
+	isCentralizedReportingProject     bool // 是否为集中填报项目。如果租户未使用集中填报功能，将此参数置空即可。如果查询集中填报明细，将此参数设置为true。
+	isCentralizedReportingProjectFlag bool
+
+	centralizedReportingProjectId     string // 编制规划集中填报项目ID，ID可通过访问集中填报页面，从URL中提取report_id参数。如果租户未使用集中填报功能，将此参数置空即可。查询集中填报信息时，集中填报项目ID必填，是否为集中填报项目设置为true，不填写编制规划方案ID（是否填写不影响返回结果）
+	centralizedReportingProjectIdFlag bool
+
+	dimensionIdInDatas     []*DimensionIdInData // 维度筛选
+	dimensionIdInDatasFlag bool
+}
+
+func NewBatchV2WorkforcePlanDetailReqBodyBuilder() *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder := &BatchV2WorkforcePlanDetailReqBodyBuilder{}
+	return builder
+}
+
+// 编制规划方案ID，ID及详细信息可通过获取编制规划方案列表接口查询获得。查询编制规划明细信息时，编制规划方案ID必填，是否为集中填报项目设置为false，不填写集中填报项目ID（是否填写不影响返回结果）
+//
+// 示例值：781234834512
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) WorkforcePlanId(workforcePlanId string) *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder.workforcePlanId = workforcePlanId
+	builder.workforcePlanIdFlag = true
+	return builder
+}
+
+// 是否为集中填报项目。如果租户未使用集中填报功能，将此参数置空即可。如果查询集中填报明细，将此参数设置为true。
+//
+// 示例值：false
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) IsCentralizedReportingProject(isCentralizedReportingProject bool) *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder.isCentralizedReportingProject = isCentralizedReportingProject
+	builder.isCentralizedReportingProjectFlag = true
+	return builder
+}
+
+// 编制规划集中填报项目ID，ID可通过访问集中填报页面，从URL中提取report_id参数。如果租户未使用集中填报功能，将此参数置空即可。查询集中填报信息时，集中填报项目ID必填，是否为集中填报项目设置为true，不填写编制规划方案ID（是否填写不影响返回结果）
+//
+// 示例值：7140964208476371111
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) CentralizedReportingProjectId(centralizedReportingProjectId string) *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder.centralizedReportingProjectId = centralizedReportingProjectId
+	builder.centralizedReportingProjectIdFlag = true
+	return builder
+}
+
+// 维度筛选
+//
+// 示例值：
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) DimensionIdInDatas(dimensionIdInDatas []*DimensionIdInData) *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder.dimensionIdInDatas = dimensionIdInDatas
+	builder.dimensionIdInDatasFlag = true
+	return builder
+}
+
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) Build() *BatchV2WorkforcePlanDetailReqBody {
+	req := &BatchV2WorkforcePlanDetailReqBody{}
+	if builder.workforcePlanIdFlag {
+		req.WorkforcePlanId = &builder.workforcePlanId
+	}
+	if builder.isCentralizedReportingProjectFlag {
+		req.IsCentralizedReportingProject = &builder.isCentralizedReportingProject
+	}
+	if builder.centralizedReportingProjectIdFlag {
+		req.CentralizedReportingProjectId = &builder.centralizedReportingProjectId
+	}
+	if builder.dimensionIdInDatasFlag {
+		req.DimensionIdInDatas = builder.dimensionIdInDatas
+	}
+	return req
+}
+
+type BatchV2WorkforcePlanDetailPathReqBodyBuilder struct {
+	workforcePlanId                   string
+	workforcePlanIdFlag               bool
+	isCentralizedReportingProject     bool
+	isCentralizedReportingProjectFlag bool
+	centralizedReportingProjectId     string
+	centralizedReportingProjectIdFlag bool
+	dimensionIdInDatas                []*DimensionIdInData
+	dimensionIdInDatasFlag            bool
+}
+
+func NewBatchV2WorkforcePlanDetailPathReqBodyBuilder() *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder := &BatchV2WorkforcePlanDetailPathReqBodyBuilder{}
+	return builder
+}
+
+// 编制规划方案ID，ID及详细信息可通过获取编制规划方案列表接口查询获得。查询编制规划明细信息时，编制规划方案ID必填，是否为集中填报项目设置为false，不填写集中填报项目ID（是否填写不影响返回结果）
+//
+// 示例值：781234834512
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) WorkforcePlanId(workforcePlanId string) *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder.workforcePlanId = workforcePlanId
+	builder.workforcePlanIdFlag = true
+	return builder
+}
+
+// 是否为集中填报项目。如果租户未使用集中填报功能，将此参数置空即可。如果查询集中填报明细，将此参数设置为true。
+//
+// 示例值：false
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) IsCentralizedReportingProject(isCentralizedReportingProject bool) *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder.isCentralizedReportingProject = isCentralizedReportingProject
+	builder.isCentralizedReportingProjectFlag = true
+	return builder
+}
+
+// 编制规划集中填报项目ID，ID可通过访问集中填报页面，从URL中提取report_id参数。如果租户未使用集中填报功能，将此参数置空即可。查询集中填报信息时，集中填报项目ID必填，是否为集中填报项目设置为true，不填写编制规划方案ID（是否填写不影响返回结果）
+//
+// 示例值：7140964208476371111
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) CentralizedReportingProjectId(centralizedReportingProjectId string) *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder.centralizedReportingProjectId = centralizedReportingProjectId
+	builder.centralizedReportingProjectIdFlag = true
+	return builder
+}
+
+// 维度筛选
+//
+// 示例值：
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) DimensionIdInDatas(dimensionIdInDatas []*DimensionIdInData) *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder.dimensionIdInDatas = dimensionIdInDatas
+	builder.dimensionIdInDatasFlag = true
+	return builder
+}
+
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) Build() (*BatchV2WorkforcePlanDetailReqBody, error) {
+	req := &BatchV2WorkforcePlanDetailReqBody{}
+	if builder.workforcePlanIdFlag {
+		req.WorkforcePlanId = &builder.workforcePlanId
+	}
+	if builder.isCentralizedReportingProjectFlag {
+		req.IsCentralizedReportingProject = &builder.isCentralizedReportingProject
+	}
+	if builder.centralizedReportingProjectIdFlag {
+		req.CentralizedReportingProjectId = &builder.centralizedReportingProjectId
+	}
+	if builder.dimensionIdInDatasFlag {
+		req.DimensionIdInDatas = builder.dimensionIdInDatas
+	}
+	return req, nil
+}
+
+type BatchV2WorkforcePlanDetailReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchV2WorkforcePlanDetailReqBody
+}
+
+func NewBatchV2WorkforcePlanDetailReqBuilder() *BatchV2WorkforcePlanDetailReqBuilder {
+	builder := &BatchV2WorkforcePlanDetailReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：["123456"]
+func (builder *BatchV2WorkforcePlanDetailReqBuilder) PageToken(pageToken string) *BatchV2WorkforcePlanDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：100
+func (builder *BatchV2WorkforcePlanDetailReqBuilder) PageSize(pageSize int) *BatchV2WorkforcePlanDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+func (builder *BatchV2WorkforcePlanDetailReqBuilder) Body(body *BatchV2WorkforcePlanDetailReqBody) *BatchV2WorkforcePlanDetailReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchV2WorkforcePlanDetailReqBuilder) Build() *BatchV2WorkforcePlanDetailReq {
+	req := &BatchV2WorkforcePlanDetailReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchV2WorkforcePlanDetailReqBody struct {
+	WorkforcePlanId *string `json:"workforce_plan_id,omitempty"` // 编制规划方案ID，ID及详细信息可通过获取编制规划方案列表接口查询获得。查询编制规划明细信息时，编制规划方案ID必填，是否为集中填报项目设置为false，不填写集中填报项目ID（是否填写不影响返回结果）
+
+	IsCentralizedReportingProject *bool `json:"is_centralized_reporting_project,omitempty"` // 是否为集中填报项目。如果租户未使用集中填报功能，将此参数置空即可。如果查询集中填报明细，将此参数设置为true。
+
+	CentralizedReportingProjectId *string `json:"centralized_reporting_project_id,omitempty"` // 编制规划集中填报项目ID，ID可通过访问集中填报页面，从URL中提取report_id参数。如果租户未使用集中填报功能，将此参数置空即可。查询集中填报信息时，集中填报项目ID必填，是否为集中填报项目设置为true，不填写编制规划方案ID（是否填写不影响返回结果）
+
+	DimensionIdInDatas []*DimensionIdInData `json:"dimension_id_in_datas,omitempty"` // 维度筛选
+}
+
+type BatchV2WorkforcePlanDetailReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchV2WorkforcePlanDetailReqBody `body:""`
+}
+
+type BatchV2WorkforcePlanDetailRespData struct {
+	WorkforcePlanId *string `json:"workforce_plan_id,omitempty"` // 编制规划方案 ID
+
+	CentralizedReportingProjectId *string `json:"centralized_reporting_project_id,omitempty"` // 集中填报项目 ID
+
+	Items []*WorkforcePlanDetailV2 `json:"items,omitempty"` // 编制规划明细信息
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标识
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+}
+
+type BatchV2WorkforcePlanDetailResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchV2WorkforcePlanDetailRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchV2WorkforcePlanDetailResp) Success() bool {
+	return resp.Code == 0
+}
+
 type BatchDeleteWorkforcePlanDetailRowReqBuilder struct {
 	apiReq                 *larkcore.ApiReq
 	workforcePlanDetailReq *WorkforcePlanDetailReq
@@ -70757,7 +71562,7 @@ func (m *P2ProcessNodeUpdatedV2) RawReq(req *larkevent.EventReq) {
 type P2ProcessStatusUpdateV2Data struct {
 	ProcessId *string `json:"process_id,omitempty"` // 流程实例ID
 
-	Status *int `json:"status,omitempty"` // 变更后状态：1 发起/进行中，9 完成，2拒绝，4 撤回，8 撤销
+	Status *int `json:"status,omitempty"` // 变更后状态：1 发起/进行中，9 完成，2拒绝，4 撤回，8 撤销，15 撤销中
 
 	BizType *string `json:"biz_type,omitempty"` // 业务类型
 

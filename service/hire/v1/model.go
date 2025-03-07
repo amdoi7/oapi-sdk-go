@@ -296,9 +296,11 @@ const (
 )
 
 const (
-	OperationConvert   = 1 // 转正
-	OperationOverboard = 2 // 离职
-	OperationCancel    = 3 // 恢复至待入职
+	OperationConvert            = 1 // 转正
+	OperationOverboard          = 2 // 离职
+	OperationCancel             = 3 // 恢复至待入职
+	OperationWithdrawOverboard  = 4 // 撤销离职
+	OperationWithdrawConversion = 5 // 撤销转正
 
 )
 
@@ -24755,8 +24757,6 @@ type Interviewer struct {
 	UserId *string `json:"user_id,omitempty"` // 面试官userID
 
 	VerifyStatus *int `json:"verify_status,omitempty"` // 认证状态
-
-	TagIdList []string `json:"tag_id_list,omitempty"` // 面试官标签ID
 }
 
 type InterviewerBuilder struct {
@@ -24765,9 +24765,6 @@ type InterviewerBuilder struct {
 
 	verifyStatus     int // 认证状态
 	verifyStatusFlag bool
-
-	tagIdList     []string // 面试官标签ID
-	tagIdListFlag bool
 }
 
 func NewInterviewerBuilder() *InterviewerBuilder {
@@ -24793,15 +24790,6 @@ func (builder *InterviewerBuilder) VerifyStatus(verifyStatus int) *InterviewerBu
 	return builder
 }
 
-// 面试官标签ID
-//
-// 示例值：
-func (builder *InterviewerBuilder) TagIdList(tagIdList []string) *InterviewerBuilder {
-	builder.tagIdList = tagIdList
-	builder.tagIdListFlag = true
-	return builder
-}
-
 func (builder *InterviewerBuilder) Build() *Interviewer {
 	req := &Interviewer{}
 	if builder.userIdFlag {
@@ -24811,9 +24799,6 @@ func (builder *InterviewerBuilder) Build() *Interviewer {
 	if builder.verifyStatusFlag {
 		req.VerifyStatus = &builder.verifyStatus
 
-	}
-	if builder.tagIdListFlag {
-		req.TagIdList = builder.tagIdList
 	}
 	return req
 }
@@ -24988,9 +24973,9 @@ type Job struct {
 
 	CreateUserId *string `json:"create_user_id,omitempty"` // 创建人ID，若为空则为系统或其他对接系统创建
 
-	CreateTime *int `json:"create_time,omitempty"` // 创建时间
+	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间
 
-	UpdateTime *int `json:"update_time,omitempty"` // 更新时间
+	UpdateTime *int64 `json:"update_time,omitempty"` // 更新时间
 
 	ProcessType *int `json:"process_type,omitempty"` // 招聘流程类型
 
@@ -25077,10 +25062,10 @@ type JobBuilder struct {
 	createUserId     string // 创建人ID，若为空则为系统或其他对接系统创建
 	createUserIdFlag bool
 
-	createTime     int // 创建时间
+	createTime     int64 // 创建时间
 	createTimeFlag bool
 
-	updateTime     int // 更新时间
+	updateTime     int64 // 更新时间
 	updateTimeFlag bool
 
 	processType     int // 招聘流程类型
@@ -25284,7 +25269,7 @@ func (builder *JobBuilder) CreateUserId(createUserId string) *JobBuilder {
 // 创建时间
 //
 // 示例值：1617170925462
-func (builder *JobBuilder) CreateTime(createTime int) *JobBuilder {
+func (builder *JobBuilder) CreateTime(createTime int64) *JobBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -25293,7 +25278,7 @@ func (builder *JobBuilder) CreateTime(createTime int) *JobBuilder {
 // 更新时间
 //
 // 示例值：1617170925462
-func (builder *JobBuilder) UpdateTime(updateTime int) *JobBuilder {
+func (builder *JobBuilder) UpdateTime(updateTime int64) *JobBuilder {
 	builder.updateTime = updateTime
 	builder.updateTimeFlag = true
 	return builder
@@ -30127,6 +30112,10 @@ type JobRequirementDto struct {
 	EmploymentJobId *string `json:"employment_job_id,omitempty"` // 职务 ID
 
 	PositionId *string `json:"position_id,omitempty"` // 岗位 ID
+
+	CompletionTime *string `json:"completion_time,omitempty"` // 完成时间，毫秒级时间戳
+
+	ApprovalStatus *int `json:"approval_status,omitempty"` // 审批状态
 }
 
 type JobRequirementDtoBuilder struct {
@@ -30225,6 +30214,12 @@ type JobRequirementDtoBuilder struct {
 
 	positionId     string // 岗位 ID
 	positionIdFlag bool
+
+	completionTime     string // 完成时间，毫秒级时间戳
+	completionTimeFlag bool
+
+	approvalStatus     int // 审批状态
+	approvalStatusFlag bool
 }
 
 func NewJobRequirementDtoBuilder() *JobRequirementDtoBuilder {
@@ -30520,6 +30515,24 @@ func (builder *JobRequirementDtoBuilder) PositionId(positionId string) *JobRequi
 	return builder
 }
 
+// 完成时间，毫秒级时间戳
+//
+// 示例值：1736846689278
+func (builder *JobRequirementDtoBuilder) CompletionTime(completionTime string) *JobRequirementDtoBuilder {
+	builder.completionTime = completionTime
+	builder.completionTimeFlag = true
+	return builder
+}
+
+// 审批状态
+//
+// 示例值：1
+func (builder *JobRequirementDtoBuilder) ApprovalStatus(approvalStatus int) *JobRequirementDtoBuilder {
+	builder.approvalStatus = approvalStatus
+	builder.approvalStatusFlag = true
+	return builder
+}
+
 func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	req := &JobRequirementDto{}
 	if builder.idFlag {
@@ -30635,6 +30648,14 @@ func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	}
 	if builder.positionIdFlag {
 		req.PositionId = &builder.positionId
+
+	}
+	if builder.completionTimeFlag {
+		req.CompletionTime = &builder.completionTime
+
+	}
+	if builder.approvalStatusFlag {
+		req.ApprovalStatus = &builder.approvalStatus
 
 	}
 	return req
@@ -60816,7 +60837,7 @@ func (builder *ListInterviewRegistrationSchemaReqBuilder) PageToken(pageToken st
 	return builder
 }
 
-// 每页获取记录数量，最大100
+// 每页获取记录数量，最大10
 //
 // 示例值：10
 func (builder *ListInterviewRegistrationSchemaReqBuilder) PageSize(pageSize int) *ListInterviewRegistrationSchemaReqBuilder {
@@ -62897,6 +62918,9 @@ func (resp *ListJobRequirementResp) Success() bool {
 type ListByIdJobRequirementReqBodyBuilder struct {
 	idList     []string // 招聘需求ID列表
 	idListFlag bool
+
+	shortCodeList     []string // 招聘需求编号列表
+	shortCodeListFlag bool
 }
 
 func NewListByIdJobRequirementReqBodyBuilder() *ListByIdJobRequirementReqBodyBuilder {
@@ -62913,17 +62937,31 @@ func (builder *ListByIdJobRequirementReqBodyBuilder) IdList(idList []string) *Li
 	return builder
 }
 
+// 招聘需求编号列表
+//
+// 示例值：
+func (builder *ListByIdJobRequirementReqBodyBuilder) ShortCodeList(shortCodeList []string) *ListByIdJobRequirementReqBodyBuilder {
+	builder.shortCodeList = shortCodeList
+	builder.shortCodeListFlag = true
+	return builder
+}
+
 func (builder *ListByIdJobRequirementReqBodyBuilder) Build() *ListByIdJobRequirementReqBody {
 	req := &ListByIdJobRequirementReqBody{}
 	if builder.idListFlag {
 		req.IdList = builder.idList
 	}
+	if builder.shortCodeListFlag {
+		req.ShortCodeList = builder.shortCodeList
+	}
 	return req
 }
 
 type ListByIdJobRequirementPathReqBodyBuilder struct {
-	idList     []string
-	idListFlag bool
+	idList            []string
+	idListFlag        bool
+	shortCodeList     []string
+	shortCodeListFlag bool
 }
 
 func NewListByIdJobRequirementPathReqBodyBuilder() *ListByIdJobRequirementPathReqBodyBuilder {
@@ -62940,10 +62978,22 @@ func (builder *ListByIdJobRequirementPathReqBodyBuilder) IdList(idList []string)
 	return builder
 }
 
+// 招聘需求编号列表
+//
+// 示例值：
+func (builder *ListByIdJobRequirementPathReqBodyBuilder) ShortCodeList(shortCodeList []string) *ListByIdJobRequirementPathReqBodyBuilder {
+	builder.shortCodeList = shortCodeList
+	builder.shortCodeListFlag = true
+	return builder
+}
+
 func (builder *ListByIdJobRequirementPathReqBodyBuilder) Build() (*ListByIdJobRequirementReqBody, error) {
 	req := &ListByIdJobRequirementReqBody{}
 	if builder.idListFlag {
 		req.IdList = builder.idList
+	}
+	if builder.shortCodeListFlag {
+		req.ShortCodeList = builder.shortCodeList
 	}
 	return req, nil
 }
@@ -63018,6 +63068,8 @@ func (builder *ListByIdJobRequirementReqBuilder) Build() *ListByIdJobRequirement
 
 type ListByIdJobRequirementReqBody struct {
 	IdList []string `json:"id_list,omitempty"` // 招聘需求ID列表
+
+	ShortCodeList []string `json:"short_code_list,omitempty"` // 招聘需求编号列表
 }
 
 type ListByIdJobRequirementReq struct {
