@@ -5316,6 +5316,19 @@ func (builder *EmailFilterBuilder) Build() *EmailFilter {
 type File struct {
 }
 
+type FileBuilder struct {
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	return req
+}
+
 type FileRiskDetectionRecord struct {
 	RecordId *string `json:"record_id,omitempty"` // 文件送检记录主键
 

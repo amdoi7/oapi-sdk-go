@@ -4107,6 +4107,56 @@ func (builder *TicketMessageEventBuilder) Build() *TicketMessageEvent {
 	return req
 }
 
+type TicketTag struct {
+	Id *string `json:"id,omitempty"` // ticket tag
+
+	Name *string `json:"name,omitempty"` // tag name
+}
+
+type TicketTagBuilder struct {
+	id     string // ticket tag
+	idFlag bool
+
+	name     string // tag name
+	nameFlag bool
+}
+
+func NewTicketTagBuilder() *TicketTagBuilder {
+	builder := &TicketTagBuilder{}
+	return builder
+}
+
+// ticket tag
+//
+// 示例值："7474857595946745884"
+func (builder *TicketTagBuilder) Id(id string) *TicketTagBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// tag name
+//
+// 示例值："tag name"
+func (builder *TicketTagBuilder) Name(name string) *TicketTagBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *TicketTagBuilder) Build() *TicketTag {
+	req := &TicketTag{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
 type TicketUser struct {
 	Id *string `json:"id,omitempty"` // 用户ID
 
@@ -4328,6 +4378,497 @@ func (builder *TicketUserEventBuilder) Build() *TicketUserEvent {
 	if builder.emailFlag {
 		req.Email = &builder.email
 
+	}
+	return req
+}
+
+type TicketV2 struct {
+	TicketId *string `json:"ticket_id,omitempty"` // ticket id
+
+	HelpdeskId *string `json:"helpdesk_id,omitempty"` // helpdesk id
+
+	Guest *TicketUser `json:"guest,omitempty"` // guest of this ticket
+
+	Comments *Comments `json:"comments,omitempty"` // 备注
+
+	TicketType *int `json:"ticket_type,omitempty"` // ticket type
+
+	Status *int `json:"status,omitempty"` // ticket status
+
+	Score *int `json:"score,omitempty"` // ticket score
+
+	CreatedAt *int64 `json:"created_at,omitempty"` // the time when the ticket is created
+
+	UpdatedAt *int64 `json:"updated_at,omitempty"` // the time when the ticket is updated
+
+	ClosedAt *int64 `json:"closed_at,omitempty"` // the time when the ticket is closed
+
+	DissatisfactionReason *I18n `json:"dissatisfaction_reason,omitempty"` // 不满意原因
+
+	Agents []*TicketUser `json:"agents,omitempty"` // agents of this ticket
+
+	Channel *int `json:"channel,omitempty"` // the ticket channel
+
+	Solve *int `json:"solve,omitempty"` // if ticket is solved
+
+	ClosedBy *TicketUser `json:"closed_by,omitempty"` // closed user of this ticket
+
+	Collaborators []*TicketUser `json:"collaborators,omitempty"` // collaborators of this ticket
+
+	CustomizedFields []*CustomizedFieldDisplayItem `json:"customized_fields,omitempty"` // ticket customized fields
+
+	AgentServiceDuration *float64 `json:"agent_service_duration,omitempty"` // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位秒
+
+	AgentFirstResponseDuration *int64 `json:"agent_first_response_duration,omitempty"` // 客服首次回复时间距离客服进入时间的间隔，单位秒
+
+	BotServiceDuration *int64 `json:"bot_service_duration,omitempty"` // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+
+	AgentResolutionTime *int64 `json:"agent_resolution_time,omitempty"` //  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+
+	ActualProcessingTime *int64 `json:"actual_processing_time,omitempty"` // 工单实际处理时间：从客服进入到关单，单位秒
+
+	AgentEntryTime *int64 `json:"agent_entry_time,omitempty"` // 客服进入时间，单位毫秒
+
+	AgentFirstResponseTime *int64 `json:"agent_first_response_time,omitempty"` // 客服首次回复时间，单位毫秒
+
+	AgentLastResponseTime *int64 `json:"agent_last_response_time,omitempty"` // 客服最后回复时间，单位毫秒
+
+	AgentOwner *TicketUser `json:"agent_owner,omitempty"` // 主责客服
+
+	Tags []*TicketTag `json:"tags,omitempty"` // 工单标签
+}
+
+type TicketV2Builder struct {
+	ticketId     string // ticket id
+	ticketIdFlag bool
+
+	helpdeskId     string // helpdesk id
+	helpdeskIdFlag bool
+
+	guest     *TicketUser // guest of this ticket
+	guestFlag bool
+
+	comments     *Comments // 备注
+	commentsFlag bool
+
+	ticketType     int // ticket type
+	ticketTypeFlag bool
+
+	status     int // ticket status
+	statusFlag bool
+
+	score     int // ticket score
+	scoreFlag bool
+
+	createdAt     int64 // the time when the ticket is created
+	createdAtFlag bool
+
+	updatedAt     int64 // the time when the ticket is updated
+	updatedAtFlag bool
+
+	closedAt     int64 // the time when the ticket is closed
+	closedAtFlag bool
+
+	dissatisfactionReason     *I18n // 不满意原因
+	dissatisfactionReasonFlag bool
+
+	agents     []*TicketUser // agents of this ticket
+	agentsFlag bool
+
+	channel     int // the ticket channel
+	channelFlag bool
+
+	solve     int // if ticket is solved
+	solveFlag bool
+
+	closedBy     *TicketUser // closed user of this ticket
+	closedByFlag bool
+
+	collaborators     []*TicketUser // collaborators of this ticket
+	collaboratorsFlag bool
+
+	customizedFields     []*CustomizedFieldDisplayItem // ticket customized fields
+	customizedFieldsFlag bool
+
+	agentServiceDuration     float64 // 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位秒
+	agentServiceDurationFlag bool
+
+	agentFirstResponseDuration     int64 // 客服首次回复时间距离客服进入时间的间隔，单位秒
+	agentFirstResponseDurationFlag bool
+
+	botServiceDuration     int64 // 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+	botServiceDurationFlag bool
+
+	agentResolutionTime     int64 //  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+	agentResolutionTimeFlag bool
+
+	actualProcessingTime     int64 // 工单实际处理时间：从客服进入到关单，单位秒
+	actualProcessingTimeFlag bool
+
+	agentEntryTime     int64 // 客服进入时间，单位毫秒
+	agentEntryTimeFlag bool
+
+	agentFirstResponseTime     int64 // 客服首次回复时间，单位毫秒
+	agentFirstResponseTimeFlag bool
+
+	agentLastResponseTime     int64 // 客服最后回复时间，单位毫秒
+	agentLastResponseTimeFlag bool
+
+	agentOwner     *TicketUser // 主责客服
+	agentOwnerFlag bool
+
+	tags     []*TicketTag // 工单标签
+	tagsFlag bool
+}
+
+func NewTicketV2Builder() *TicketV2Builder {
+	builder := &TicketV2Builder{}
+	return builder
+}
+
+// ticket id
+//
+// 示例值：123456
+func (builder *TicketV2Builder) TicketId(ticketId string) *TicketV2Builder {
+	builder.ticketId = ticketId
+	builder.ticketIdFlag = true
+	return builder
+}
+
+// helpdesk id
+//
+// 示例值：123456
+func (builder *TicketV2Builder) HelpdeskId(helpdeskId string) *TicketV2Builder {
+	builder.helpdeskId = helpdeskId
+	builder.helpdeskIdFlag = true
+	return builder
+}
+
+// guest of this ticket
+//
+// 示例值：
+func (builder *TicketV2Builder) Guest(guest *TicketUser) *TicketV2Builder {
+	builder.guest = guest
+	builder.guestFlag = true
+	return builder
+}
+
+// 备注
+//
+// 示例值：
+func (builder *TicketV2Builder) Comments(comments *Comments) *TicketV2Builder {
+	builder.comments = comments
+	builder.commentsFlag = true
+	return builder
+}
+
+// ticket type
+//
+// 示例值：1
+func (builder *TicketV2Builder) TicketType(ticketType int) *TicketV2Builder {
+	builder.ticketType = ticketType
+	builder.ticketTypeFlag = true
+	return builder
+}
+
+// ticket status
+//
+// 示例值：1
+func (builder *TicketV2Builder) Status(status int) *TicketV2Builder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// ticket score
+//
+// 示例值：1
+func (builder *TicketV2Builder) Score(score int) *TicketV2Builder {
+	builder.score = score
+	builder.scoreFlag = true
+	return builder
+}
+
+// the time when the ticket is created
+//
+// 示例值：1616920429000
+func (builder *TicketV2Builder) CreatedAt(createdAt int64) *TicketV2Builder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// the time when the ticket is updated
+//
+// 示例值：1616920429000
+func (builder *TicketV2Builder) UpdatedAt(updatedAt int64) *TicketV2Builder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// the time when the ticket is closed
+//
+// 示例值：1616920429000
+func (builder *TicketV2Builder) ClosedAt(closedAt int64) *TicketV2Builder {
+	builder.closedAt = closedAt
+	builder.closedAtFlag = true
+	return builder
+}
+
+// 不满意原因
+//
+// 示例值：
+func (builder *TicketV2Builder) DissatisfactionReason(dissatisfactionReason *I18n) *TicketV2Builder {
+	builder.dissatisfactionReason = dissatisfactionReason
+	builder.dissatisfactionReasonFlag = true
+	return builder
+}
+
+// agents of this ticket
+//
+// 示例值：
+func (builder *TicketV2Builder) Agents(agents []*TicketUser) *TicketV2Builder {
+	builder.agents = agents
+	builder.agentsFlag = true
+	return builder
+}
+
+// the ticket channel
+//
+// 示例值：1
+func (builder *TicketV2Builder) Channel(channel int) *TicketV2Builder {
+	builder.channel = channel
+	builder.channelFlag = true
+	return builder
+}
+
+// if ticket is solved
+//
+// 示例值：1
+func (builder *TicketV2Builder) Solve(solve int) *TicketV2Builder {
+	builder.solve = solve
+	builder.solveFlag = true
+	return builder
+}
+
+// closed user of this ticket
+//
+// 示例值：
+func (builder *TicketV2Builder) ClosedBy(closedBy *TicketUser) *TicketV2Builder {
+	builder.closedBy = closedBy
+	builder.closedByFlag = true
+	return builder
+}
+
+// collaborators of this ticket
+//
+// 示例值：
+func (builder *TicketV2Builder) Collaborators(collaborators []*TicketUser) *TicketV2Builder {
+	builder.collaborators = collaborators
+	builder.collaboratorsFlag = true
+	return builder
+}
+
+// ticket customized fields
+//
+// 示例值：
+func (builder *TicketV2Builder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *TicketV2Builder {
+	builder.customizedFields = customizedFields
+	builder.customizedFieldsFlag = true
+	return builder
+}
+
+// 客服服务时长，客服最后一次回复时间距离客服进入时间间隔，单位秒
+//
+// 示例值：1.0
+func (builder *TicketV2Builder) AgentServiceDuration(agentServiceDuration float64) *TicketV2Builder {
+	builder.agentServiceDuration = agentServiceDuration
+	builder.agentServiceDurationFlag = true
+	return builder
+}
+
+// 客服首次回复时间距离客服进入时间的间隔，单位秒
+//
+// 示例值：1741145995
+func (builder *TicketV2Builder) AgentFirstResponseDuration(agentFirstResponseDuration int64) *TicketV2Builder {
+	builder.agentFirstResponseDuration = agentFirstResponseDuration
+	builder.agentFirstResponseDurationFlag = true
+	return builder
+}
+
+// 机器人服务时间：客服进入时间距离工单创建时间的间隔，单位秒
+//
+// 示例值：1741145995
+func (builder *TicketV2Builder) BotServiceDuration(botServiceDuration int64) *TicketV2Builder {
+	builder.botServiceDuration = botServiceDuration
+	builder.botServiceDurationFlag = true
+	return builder
+}
+
+//	客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+//
+// 示例值：1741145995
+func (builder *TicketV2Builder) AgentResolutionTime(agentResolutionTime int64) *TicketV2Builder {
+	builder.agentResolutionTime = agentResolutionTime
+	builder.agentResolutionTimeFlag = true
+	return builder
+}
+
+// 工单实际处理时间：从客服进入到关单，单位秒
+//
+// 示例值：1741145995
+func (builder *TicketV2Builder) ActualProcessingTime(actualProcessingTime int64) *TicketV2Builder {
+	builder.actualProcessingTime = actualProcessingTime
+	builder.actualProcessingTimeFlag = true
+	return builder
+}
+
+// 客服进入时间，单位毫秒
+//
+// 示例值：1616920429000
+func (builder *TicketV2Builder) AgentEntryTime(agentEntryTime int64) *TicketV2Builder {
+	builder.agentEntryTime = agentEntryTime
+	builder.agentEntryTimeFlag = true
+	return builder
+}
+
+// 客服首次回复时间，单位毫秒
+//
+// 示例值：1616920429000
+func (builder *TicketV2Builder) AgentFirstResponseTime(agentFirstResponseTime int64) *TicketV2Builder {
+	builder.agentFirstResponseTime = agentFirstResponseTime
+	builder.agentFirstResponseTimeFlag = true
+	return builder
+}
+
+// 客服最后回复时间，单位毫秒
+//
+// 示例值：1616920429000
+func (builder *TicketV2Builder) AgentLastResponseTime(agentLastResponseTime int64) *TicketV2Builder {
+	builder.agentLastResponseTime = agentLastResponseTime
+	builder.agentLastResponseTimeFlag = true
+	return builder
+}
+
+// 主责客服
+//
+// 示例值：
+func (builder *TicketV2Builder) AgentOwner(agentOwner *TicketUser) *TicketV2Builder {
+	builder.agentOwner = agentOwner
+	builder.agentOwnerFlag = true
+	return builder
+}
+
+// 工单标签
+//
+// 示例值：
+func (builder *TicketV2Builder) Tags(tags []*TicketTag) *TicketV2Builder {
+	builder.tags = tags
+	builder.tagsFlag = true
+	return builder
+}
+
+func (builder *TicketV2Builder) Build() *TicketV2 {
+	req := &TicketV2{}
+	if builder.ticketIdFlag {
+		req.TicketId = &builder.ticketId
+
+	}
+	if builder.helpdeskIdFlag {
+		req.HelpdeskId = &builder.helpdeskId
+
+	}
+	if builder.guestFlag {
+		req.Guest = builder.guest
+	}
+	if builder.commentsFlag {
+		req.Comments = builder.comments
+	}
+	if builder.ticketTypeFlag {
+		req.TicketType = &builder.ticketType
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.scoreFlag {
+		req.Score = &builder.score
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.closedAtFlag {
+		req.ClosedAt = &builder.closedAt
+
+	}
+	if builder.dissatisfactionReasonFlag {
+		req.DissatisfactionReason = builder.dissatisfactionReason
+	}
+	if builder.agentsFlag {
+		req.Agents = builder.agents
+	}
+	if builder.channelFlag {
+		req.Channel = &builder.channel
+
+	}
+	if builder.solveFlag {
+		req.Solve = &builder.solve
+
+	}
+	if builder.closedByFlag {
+		req.ClosedBy = builder.closedBy
+	}
+	if builder.collaboratorsFlag {
+		req.Collaborators = builder.collaborators
+	}
+	if builder.customizedFieldsFlag {
+		req.CustomizedFields = builder.customizedFields
+	}
+	if builder.agentServiceDurationFlag {
+		req.AgentServiceDuration = &builder.agentServiceDuration
+
+	}
+	if builder.agentFirstResponseDurationFlag {
+		req.AgentFirstResponseDuration = &builder.agentFirstResponseDuration
+
+	}
+	if builder.botServiceDurationFlag {
+		req.BotServiceDuration = &builder.botServiceDuration
+
+	}
+	if builder.agentResolutionTimeFlag {
+		req.AgentResolutionTime = &builder.agentResolutionTime
+
+	}
+	if builder.actualProcessingTimeFlag {
+		req.ActualProcessingTime = &builder.actualProcessingTime
+
+	}
+	if builder.agentEntryTimeFlag {
+		req.AgentEntryTime = &builder.agentEntryTime
+
+	}
+	if builder.agentFirstResponseTimeFlag {
+		req.AgentFirstResponseTime = &builder.agentFirstResponseTime
+
+	}
+	if builder.agentLastResponseTimeFlag {
+		req.AgentLastResponseTime = &builder.agentLastResponseTime
+
+	}
+	if builder.agentOwnerFlag {
+		req.AgentOwner = builder.agentOwner
+	}
+	if builder.tagsFlag {
+		req.Tags = builder.tags
 	}
 	return req
 }
@@ -7466,7 +8007,7 @@ type GetTicketReq struct {
 }
 
 type GetTicketRespData struct {
-	Ticket *Ticket `json:"ticket,omitempty"` // 工单详情
+	Ticket *TicketV2 `json:"ticket,omitempty"` // 工单详情
 }
 
 type GetTicketResp struct {
@@ -7646,7 +8187,7 @@ type ListTicketReq struct {
 type ListTicketRespData struct {
 	Total *int `json:"total,omitempty"` // 工单总数 (单次请求最大为10000条)
 
-	Tickets []*Ticket `json:"tickets,omitempty"` // 工单
+	Tickets []*TicketV2 `json:"tickets,omitempty"` // 工单
 }
 
 type ListTicketResp struct {
@@ -7844,6 +8385,8 @@ type StartServiceTicketReq struct {
 
 type StartServiceTicketRespData struct {
 	ChatId *string `json:"chat_id,omitempty"` // 客服群open ID
+
+	TicketId *string `json:"ticket_id,omitempty"` // ticket id
 }
 
 type StartServiceTicketResp struct {

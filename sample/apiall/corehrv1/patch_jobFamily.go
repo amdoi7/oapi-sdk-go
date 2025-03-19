@@ -33,8 +33,10 @@ func main() {
 			Name([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			Active(true).
 			ParentId("4698020757495316313").
+			PathwayIds([]string{}).
 			EffectiveTime("2020-05-01 00:00:00").
 			Code("123456").
+			Description([]*larkcorehr.I18n{larkcorehr.NewI18nBuilder().Build()}).
 			CustomFields([]*larkcorehr.ObjectFieldData{larkcorehr.NewObjectFieldDataBuilder().Build()}).
 			Build()).
 		Build()

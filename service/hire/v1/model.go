@@ -37548,6 +37548,19 @@ func (builder *ProviderIdNameObjectBuilder) Build() *ProviderIdNameObject {
 type PushStage struct {
 }
 
+type PushStageBuilder struct {
+}
+
+func NewPushStageBuilder() *PushStageBuilder {
+	builder := &PushStageBuilder{}
+	return builder
+}
+
+func (builder *PushStageBuilder) Build() *PushStage {
+	req := &PushStage{}
+	return req
+}
+
 type Question struct {
 	QuestionId *string `json:"question_id,omitempty"` // 题目 ID
 
@@ -43133,6 +43146,19 @@ func (builder *TalentBuilder) Build() *Talent {
 type TalentInterviewRegistration struct {
 }
 
+type TalentInterviewRegistrationBuilder struct {
+}
+
+func NewTalentInterviewRegistrationBuilder() *TalentInterviewRegistrationBuilder {
+	builder := &TalentInterviewRegistrationBuilder{}
+	return builder
+}
+
+func (builder *TalentInterviewRegistrationBuilder) Build() *TalentInterviewRegistration {
+	req := &TalentInterviewRegistration{}
+	return req
+}
+
 type TalentAwardInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
@@ -47844,6 +47870,19 @@ func (builder *TalentResumeSourceBuilder) Build() *TalentResumeSource {
 }
 
 type TalentSchema struct {
+}
+
+type TalentSchemaBuilder struct {
+}
+
+func NewTalentSchemaBuilder() *TalentSchemaBuilder {
+	builder := &TalentSchemaBuilder{}
+	return builder
+}
+
+func (builder *TalentSchemaBuilder) Build() *TalentSchema {
+	req := &TalentSchema{}
+	return req
 }
 
 type TalentSchemaChildObject struct {

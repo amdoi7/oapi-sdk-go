@@ -20,7 +20,33 @@ import (
 type AppAccessToken struct {
 }
 
+type AppAccessTokenBuilder struct {
+}
+
+func NewAppAccessTokenBuilder() *AppAccessTokenBuilder {
+	builder := &AppAccessTokenBuilder{}
+	return builder
+}
+
+func (builder *AppAccessTokenBuilder) Build() *AppAccessToken {
+	req := &AppAccessToken{}
+	return req
+}
+
 type AppTicket struct {
+}
+
+type AppTicketBuilder struct {
+}
+
+func NewAppTicketBuilder() *AppTicketBuilder {
+	builder := &AppTicketBuilder{}
+	return builder
+}
+
+func (builder *AppTicketBuilder) Build() *AppTicket {
+	req := &AppTicket{}
+	return req
 }
 
 type DepartmentId struct {
@@ -174,6 +200,19 @@ func (builder *RevokeTokenEventBuilder) Build() *RevokeTokenEvent {
 }
 
 type TenantAccessToken struct {
+}
+
+type TenantAccessTokenBuilder struct {
+}
+
+func NewTenantAccessTokenBuilder() *TenantAccessTokenBuilder {
+	builder := &TenantAccessTokenBuilder{}
+	return builder
+}
+
+func (builder *TenantAccessTokenBuilder) Build() *TenantAccessToken {
+	req := &TenantAccessToken{}
+	return req
 }
 
 type CreateAppAccessTokenReqBodyBuilder struct {

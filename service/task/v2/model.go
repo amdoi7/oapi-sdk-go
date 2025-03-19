@@ -3921,6 +3921,19 @@ func (builder *TaskBuilder) Build() *Task {
 type TaskSubtask struct {
 }
 
+type TaskSubtaskBuilder struct {
+}
+
+func NewTaskSubtaskBuilder() *TaskSubtaskBuilder {
+	builder := &TaskSubtaskBuilder{}
+	return builder
+}
+
+func (builder *TaskSubtaskBuilder) Build() *TaskSubtask {
+	req := &TaskSubtask{}
+	return req
+}
+
 type TaskAssignee struct {
 	Id *string `json:"id,omitempty"` // 任务执行者的id
 
@@ -4584,6 +4597,19 @@ func (builder *TasklistSummaryBuilder) Build() *TasklistSummary {
 }
 
 type TextSetting struct {
+}
+
+type TextSettingBuilder struct {
+}
+
+func NewTextSettingBuilder() *TextSettingBuilder {
+	builder := &TextSettingBuilder{}
+	return builder
+}
+
+func (builder *TextSettingBuilder) Build() *TextSetting {
+	req := &TextSetting{}
+	return req
 }
 
 type DeleteAttachmentReqBuilder struct {

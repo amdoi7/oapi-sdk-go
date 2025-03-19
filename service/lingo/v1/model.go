@@ -728,6 +728,19 @@ func (builder *DocCodeBuilder) Build() *DocCode {
 type DocContainer struct {
 }
 
+type DocContainerBuilder struct {
+}
+
+func NewDocContainerBuilder() *DocContainerBuilder {
+	builder := &DocContainerBuilder{}
+	return builder
+}
+
+func (builder *DocContainerBuilder) Build() *DocContainer {
+	req := &DocContainer{}
+	return req
+}
+
 type DocContent struct {
 	Id *string `json:"id,omitempty"` // 节点ID
 
@@ -1069,6 +1082,19 @@ func (builder *DocDataBuilder) Build() *DocData {
 }
 
 type DocDivider struct {
+}
+
+type DocDividerBuilder struct {
+}
+
+func NewDocDividerBuilder() *DocDividerBuilder {
+	builder := &DocDividerBuilder{}
+	return builder
+}
+
+func (builder *DocDividerBuilder) Build() *DocDivider {
+	req := &DocDivider{}
+	return req
 }
 
 type DocHeading struct {

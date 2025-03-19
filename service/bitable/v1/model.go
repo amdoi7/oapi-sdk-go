@@ -1265,6 +1265,19 @@ func (builder *AppRoleTableRoleBuilder) Build() *AppRoleTableRole {
 type AppRoleTableRoleFieldPerm struct {
 }
 
+type AppRoleTableRoleFieldPermBuilder struct {
+}
+
+func NewAppRoleTableRoleFieldPermBuilder() *AppRoleTableRoleFieldPermBuilder {
+	builder := &AppRoleTableRoleFieldPermBuilder{}
+	return builder
+}
+
+func (builder *AppRoleTableRoleFieldPermBuilder) Build() *AppRoleTableRoleFieldPerm {
+	req := &AppRoleTableRoleFieldPerm{}
+	return req
+}
+
 type AppRoleTableRoleRecRule struct {
 	Conditions []*AppRoleTableRoleRecRuleCondition `json:"conditions,omitempty"` // 记录筛选条件
 

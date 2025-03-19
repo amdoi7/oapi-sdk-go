@@ -841,6 +841,19 @@ func (builder *ChatBuilder) Build() *Chat {
 type ChatAnnouncement struct {
 }
 
+type ChatAnnouncementBuilder struct {
+}
+
+func NewChatAnnouncementBuilder() *ChatAnnouncementBuilder {
+	builder := &ChatAnnouncementBuilder{}
+	return builder
+}
+
+func (builder *ChatAnnouncementBuilder) Build() *ChatAnnouncement {
+	req := &ChatAnnouncement{}
+	return req
+}
+
 type ChatManagers struct {
 	ManagerId *string `json:"manager_id,omitempty"` // 群管理员ID
 }
@@ -2468,6 +2481,19 @@ func (builder *EventSenderBuilder) Build() *EventSender {
 type File struct {
 }
 
+type FileBuilder struct {
+}
+
+func NewFileBuilder() *FileBuilder {
+	builder := &FileBuilder{}
+	return builder
+}
+
+func (builder *FileBuilder) Build() *File {
+	req := &File{}
+	return req
+}
+
 type FollowUp struct {
 	Content *string `json:"content,omitempty"` // 内容
 
@@ -3028,6 +3054,19 @@ func (builder *ImDepthDataBuilder) Build() *ImDepthData {
 }
 
 type Image struct {
+}
+
+type ImageBuilder struct {
+}
+
+func NewImageBuilder() *ImageBuilder {
+	builder := &ImageBuilder{}
+	return builder
+}
+
+func (builder *ImageBuilder) Build() *Image {
+	req := &Image{}
+	return req
 }
 
 type ListChat struct {
@@ -4012,6 +4051,19 @@ func (builder *MessageReactionBuilder) Build() *MessageReaction {
 }
 
 type MessageResource struct {
+}
+
+type MessageResourceBuilder struct {
+}
+
+func NewMessageResourceBuilder() *MessageResourceBuilder {
+	builder := &MessageResourceBuilder{}
+	return builder
+}
+
+func (builder *MessageResourceBuilder) Build() *MessageResource {
+	req := &MessageResource{}
+	return req
 }
 
 type MessageBody struct {

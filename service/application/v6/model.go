@@ -7001,6 +7001,19 @@ func (builder *WebAppBuilder) Build() *WebApp {
 type Widget struct {
 }
 
+type WidgetBuilder struct {
+}
+
+func NewWidgetBuilder() *WidgetBuilder {
+	builder := &WidgetBuilder{}
+	return builder
+}
+
+func (builder *WidgetBuilder) Build() *Widget {
+	req := &Widget{}
+	return req
+}
+
 type WorkplaceWidget struct {
 	MinLarkVersion *string `json:"min_lark_version,omitempty"` // 最低兼容飞书版本号
 }

@@ -1992,6 +1992,19 @@ func (builder *ExportTaskBuilder) Build() *ExportTask {
 type Favorite struct {
 }
 
+type FavoriteBuilder struct {
+}
+
+func NewFavoriteBuilder() *FavoriteBuilder {
+	builder := &FavoriteBuilder{}
+	return builder
+}
+
+func (builder *FavoriteBuilder) Build() *Favorite {
+	req := &Favorite{}
+	return req
+}
+
 type File struct {
 	Token *string `json:"token,omitempty"` // 文件标识
 
@@ -2633,6 +2646,19 @@ func (builder *FileCommentReplyBuilder) Build() *FileCommentReply {
 }
 
 type FileFavorite struct {
+}
+
+type FileFavoriteBuilder struct {
+}
+
+func NewFileFavoriteBuilder() *FileFavoriteBuilder {
+	builder := &FileFavoriteBuilder{}
+	return builder
+}
+
+func (builder *FileFavoriteBuilder) Build() *FileFavorite {
+	req := &FileFavorite{}
+	return req
 }
 
 type FileSubscription struct {
@@ -4053,6 +4079,19 @@ func (builder *OwnerBuilder) Build() *Owner {
 }
 
 type PermissionPublicPassword struct {
+}
+
+type PermissionPublicPasswordBuilder struct {
+}
+
+func NewPermissionPublicPasswordBuilder() *PermissionPublicPasswordBuilder {
+	builder := &PermissionPublicPasswordBuilder{}
+	return builder
+}
+
+func (builder *PermissionPublicPasswordBuilder) Build() *PermissionPublicPassword {
+	req := &PermissionPublicPassword{}
+	return req
 }
 
 type PermissionPublic struct {

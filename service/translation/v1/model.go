@@ -116,6 +116,19 @@ func (builder *TermBuilder) Build() *Term {
 type Text struct {
 }
 
+type TextBuilder struct {
+}
+
+func NewTextBuilder() *TextBuilder {
+	builder := &TextBuilder{}
+	return builder
+}
+
+func (builder *TextBuilder) Build() *Text {
+	req := &Text{}
+	return req
+}
+
 type DetectTextReqBodyBuilder struct {
 	text     string // 需要被识别语种的文本
 	textFlag bool

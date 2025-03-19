@@ -798,6 +798,19 @@ func (builder *TaskBuilder) Build() *Task {
 type View struct {
 }
 
+type ViewBuilder struct {
+}
+
+func NewViewBuilder() *ViewBuilder {
+	builder := &ViewBuilder{}
+	return builder
+}
+
+func (builder *ViewBuilder) Build() *View {
+	req := &View{}
+	return req
+}
+
 type QueryRuleReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }

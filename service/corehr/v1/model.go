@@ -8612,6 +8612,19 @@ func (builder *FormFieldVariableListValueBuilder) Build() *FormFieldVariableList
 type FormFieldVariableNullValue struct {
 }
 
+type FormFieldVariableNullValueBuilder struct {
+}
+
+func NewFormFieldVariableNullValueBuilder() *FormFieldVariableNullValueBuilder {
+	builder := &FormFieldVariableNullValueBuilder{}
+	return builder
+}
+
+func (builder *FormFieldVariableNullValueBuilder) Build() *FormFieldVariableNullValue {
+	req := &FormFieldVariableNullValue{}
+	return req
+}
+
 type FormFieldVariableNumberValue struct {
 	Value *string `json:"value,omitempty"` // 数值类型变量的值
 }
@@ -9540,6 +9553,8 @@ type Job struct {
 
 	JobTitle []*I18n `json:"job_title,omitempty"` // 职务头衔
 
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+
 	JobFamilyIdList []string `json:"job_family_id_list,omitempty"` // 职务序列 ID 列表，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 
 	JobLevelIdList []string `json:"job_level_id_list,omitempty"` // 职务级别 ID 列表，枚举值及详细信息可通过【批量查询职务级别】接口查询获得
@@ -9571,6 +9586,9 @@ type JobBuilder struct {
 
 	jobTitle     []*I18n // 职务头衔
 	jobTitleFlag bool
+
+	pathwayId     string // 通道ID
+	pathwayIdFlag bool
 
 	jobFamilyIdList     []string // 职务序列 ID 列表，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 	jobFamilyIdListFlag bool
@@ -9650,6 +9668,15 @@ func (builder *JobBuilder) JobTitle(jobTitle []*I18n) *JobBuilder {
 	return builder
 }
 
+// 通道ID
+//
+// 示例值：4719519211875096301
+func (builder *JobBuilder) PathwayId(pathwayId string) *JobBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 // 职务序列 ID 列表，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 //
 // 示例值：7373183781
@@ -9726,6 +9753,10 @@ func (builder *JobBuilder) Build() *Job {
 	}
 	if builder.jobTitleFlag {
 		req.JobTitle = builder.jobTitle
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+
 	}
 	if builder.jobFamilyIdListFlag {
 		req.JobFamilyIdList = builder.jobFamilyIdList
@@ -10039,6 +10070,8 @@ type JobData struct {
 
 	PositionId *string `json:"position_id,omitempty"` // 岗位 ID，枚举值及详细信息可通过【查询单个岗位】接口查询获得
 
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
+
 	JobDataReason *Enum `json:"job_data_reason,omitempty"` // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name = "job_data";  - custom_api_name = "job_data_reason"
 }
 
@@ -10135,6 +10168,9 @@ type JobDataBuilder struct {
 
 	positionId     string // 岗位 ID，枚举值及详细信息可通过【查询单个岗位】接口查询获得
 	positionIdFlag bool
+
+	pathwayId     string // 通道 ID
+	pathwayIdFlag bool
 
 	jobDataReason     *Enum // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name = "job_data";  - custom_api_name = "job_data_reason"
 	jobDataReasonFlag bool
@@ -10424,6 +10460,15 @@ func (builder *JobDataBuilder) PositionId(positionId string) *JobDataBuilder {
 	return builder
 }
 
+// 通道 ID
+//
+// 示例值：6890452208593372671
+func (builder *JobDataBuilder) PathwayId(pathwayId string) *JobDataBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 // 任职原因;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name = "job_data";  - custom_api_name = "job_data_reason"
 //
 // 示例值：
@@ -10552,6 +10597,10 @@ func (builder *JobDataBuilder) Build() *JobData {
 		req.PositionId = &builder.positionId
 
 	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+
+	}
 	if builder.jobDataReasonFlag {
 		req.JobDataReason = builder.jobDataReason
 	}
@@ -10634,11 +10683,15 @@ type JobFamily struct {
 
 	ParentId *string `json:"parent_id,omitempty"` // 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道ID
+
 	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
 
 	Code *string `json:"code,omitempty"` // 编码
+
+	Description []*I18n `json:"description,omitempty"` // 描述
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 }
@@ -10656,6 +10709,9 @@ type JobFamilyBuilder struct {
 	parentId     string // 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 	parentIdFlag bool
 
+	pathwayIds     []string // 通道ID
+	pathwayIdsFlag bool
+
 	effectiveTime     string // 生效时间
 	effectiveTimeFlag bool
 
@@ -10664,6 +10720,9 @@ type JobFamilyBuilder struct {
 
 	code     string // 编码
 	codeFlag bool
+
+	description     []*I18n // 描述
+	descriptionFlag bool
 
 	customFields     []*ObjectFieldData // 自定义字段
 	customFieldsFlag bool
@@ -10710,6 +10769,15 @@ func (builder *JobFamilyBuilder) ParentId(parentId string) *JobFamilyBuilder {
 	return builder
 }
 
+// 通道ID
+//
+// 示例值：
+func (builder *JobFamilyBuilder) PathwayIds(pathwayIds []string) *JobFamilyBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
+	return builder
+}
+
 // 生效时间
 //
 // 示例值：2020-05-01 00:00:00
@@ -10734,6 +10802,15 @@ func (builder *JobFamilyBuilder) ExpirationTime(expirationTime string) *JobFamil
 func (builder *JobFamilyBuilder) Code(code string) *JobFamilyBuilder {
 	builder.code = code
 	builder.codeFlag = true
+	return builder
+}
+
+// 描述
+//
+// 示例值：
+func (builder *JobFamilyBuilder) Description(description []*I18n) *JobFamilyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
 	return builder
 }
 
@@ -10763,6 +10840,9 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 		req.ParentId = &builder.parentId
 
 	}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
+	}
 	if builder.effectiveTimeFlag {
 		req.EffectiveTime = &builder.effectiveTime
 
@@ -10774,6 +10854,9 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 	if builder.codeFlag {
 		req.Code = &builder.code
 
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
@@ -10797,6 +10880,8 @@ type JobLevel struct {
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
 	JobGrade []string `json:"job_grade,omitempty"` // 职等 ID 列表
+
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道 ID 列表
 }
 
 type JobLevelBuilder struct {
@@ -10823,6 +10908,9 @@ type JobLevelBuilder struct {
 
 	jobGrade     []string // 职等 ID 列表
 	jobGradeFlag bool
+
+	pathwayIds     []string // 通道 ID 列表
+	pathwayIdsFlag bool
 }
 
 func NewJobLevelBuilder() *JobLevelBuilder {
@@ -10902,6 +10990,15 @@ func (builder *JobLevelBuilder) JobGrade(jobGrade []string) *JobLevelBuilder {
 	return builder
 }
 
+// 通道 ID 列表
+//
+// 示例值：
+func (builder *JobLevelBuilder) PathwayIds(pathwayIds []string) *JobLevelBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
+	return builder
+}
+
 func (builder *JobLevelBuilder) Build() *JobLevel {
 	req := &JobLevel{}
 	if builder.idFlag {
@@ -10931,6 +11028,9 @@ func (builder *JobLevelBuilder) Build() *JobLevel {
 	}
 	if builder.jobGradeFlag {
 		req.JobGrade = builder.jobGrade
+	}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
 	}
 	return req
 }
@@ -18865,6 +18965,10 @@ type TransferInfo struct {
 	OriginalPosition *string `json:"original_position,omitempty"` // 原岗位
 
 	TargetPosition *string `json:"target_position,omitempty"` // 新岗位
+
+	OriginalPathway *string `json:"original_pathway,omitempty"` // 原通道
+
+	TargetPathway *string `json:"target_pathway,omitempty"` // 新通道
 }
 
 type TransferInfoBuilder struct {
@@ -19041,6 +19145,12 @@ type TransferInfoBuilder struct {
 
 	targetPosition     string // 新岗位
 	targetPositionFlag bool
+
+	originalPathway     string // 原通道
+	originalPathwayFlag bool
+
+	targetPathway     string // 新通道
+	targetPathwayFlag bool
 }
 
 func NewTransferInfoBuilder() *TransferInfoBuilder {
@@ -19570,6 +19680,24 @@ func (builder *TransferInfoBuilder) TargetPosition(targetPosition string) *Trans
 	return builder
 }
 
+// 原通道
+//
+// 示例值：7289005963599693367
+func (builder *TransferInfoBuilder) OriginalPathway(originalPathway string) *TransferInfoBuilder {
+	builder.originalPathway = originalPathway
+	builder.originalPathwayFlag = true
+	return builder
+}
+
+// 新通道
+//
+// 示例值：7289005963599693367
+func (builder *TransferInfoBuilder) TargetPathway(targetPathway string) *TransferInfoBuilder {
+	builder.targetPathway = targetPathway
+	builder.targetPathwayFlag = true
+	return builder
+}
+
 func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	req := &TransferInfo{}
 	if builder.remarkFlag {
@@ -19798,6 +19926,14 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	}
 	if builder.targetPositionFlag {
 		req.TargetPosition = &builder.targetPosition
+
+	}
+	if builder.originalPathwayFlag {
+		req.OriginalPathway = &builder.originalPathway
+
+	}
+	if builder.targetPathwayFlag {
+		req.TargetPathway = &builder.targetPathway
 
 	}
 	return req

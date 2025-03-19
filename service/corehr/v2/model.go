@@ -1823,6 +1823,127 @@ func (builder *AddressForUpdateBuilder) Build() *AddressForUpdate {
 	return req
 }
 
+type AddressTimeline struct {
+	AddressItems []*Address `json:"address_items,omitempty"` // 地址信息
+
+	Id *string `json:"id,omitempty"` // ID
+
+	EmploymentId *string `json:"employment_id,omitempty"` // 用户ID
+
+	VersionId *string `json:"version_id,omitempty"` // 版本信息ID
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
+
+	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
+}
+
+type AddressTimelineBuilder struct {
+	addressItems     []*Address // 地址信息
+	addressItemsFlag bool
+
+	id     string // ID
+	idFlag bool
+
+	employmentId     string // 用户ID
+	employmentIdFlag bool
+
+	versionId     string // 版本信息ID
+	versionIdFlag bool
+
+	effectiveTime     string // 生效时间
+	effectiveTimeFlag bool
+
+	expirationTime     string // 失效时间
+	expirationTimeFlag bool
+}
+
+func NewAddressTimelineBuilder() *AddressTimelineBuilder {
+	builder := &AddressTimelineBuilder{}
+	return builder
+}
+
+// 地址信息
+//
+// 示例值：
+func (builder *AddressTimelineBuilder) AddressItems(addressItems []*Address) *AddressTimelineBuilder {
+	builder.addressItems = addressItems
+	builder.addressItemsFlag = true
+	return builder
+}
+
+// ID
+//
+// 示例值：7293840901707662896
+func (builder *AddressTimelineBuilder) Id(id string) *AddressTimelineBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：7893840901707662896
+func (builder *AddressTimelineBuilder) EmploymentId(employmentId string) *AddressTimelineBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 版本信息ID
+//
+// 示例值：7182837312403818029
+func (builder *AddressTimelineBuilder) VersionId(versionId string) *AddressTimelineBuilder {
+	builder.versionId = versionId
+	builder.versionIdFlag = true
+	return builder
+}
+
+// 生效时间
+//
+// 示例值：2025-03-12 00:00:00
+func (builder *AddressTimelineBuilder) EffectiveTime(effectiveTime string) *AddressTimelineBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 失效时间
+//
+// 示例值：9999-12-31 23:59:59
+func (builder *AddressTimelineBuilder) ExpirationTime(expirationTime string) *AddressTimelineBuilder {
+	builder.expirationTime = expirationTime
+	builder.expirationTimeFlag = true
+	return builder
+}
+
+func (builder *AddressTimelineBuilder) Build() *AddressTimeline {
+	req := &AddressTimeline{}
+	if builder.addressItemsFlag {
+		req.AddressItems = builder.addressItems
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.versionIdFlag {
+		req.VersionId = &builder.versionId
+
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.expirationTimeFlag {
+		req.ExpirationTime = &builder.expirationTime
+
+	}
+	return req
+}
+
 type ApprovalGroup struct {
 	ApprovalGroupId *string `json:"approval_group_id,omitempty"` // 组织架构调整审批组 ID
 
@@ -7622,6 +7743,8 @@ type CreateTransferInfo struct {
 	TargetSocialSecurityCity *string `json:"target_social_security_city,omitempty"` // 新社保城市
 
 	IsTransferWithWorkforce *bool `json:"is_transfer_with_workforce,omitempty"` // 编制随人员一起调整
+
+	TargetPathway *string `json:"target_pathway,omitempty"` // 新通道
 }
 
 type CreateTransferInfoBuilder struct {
@@ -7723,6 +7846,9 @@ type CreateTransferInfoBuilder struct {
 
 	isTransferWithWorkforce     bool // 编制随人员一起调整
 	isTransferWithWorkforceFlag bool
+
+	targetPathway     string // 新通道
+	targetPathwayFlag bool
 }
 
 func NewCreateTransferInfoBuilder() *CreateTransferInfoBuilder {
@@ -8027,6 +8153,15 @@ func (builder *CreateTransferInfoBuilder) IsTransferWithWorkforce(isTransferWith
 	return builder
 }
 
+// 新通道
+//
+// 示例值：7289005963599693368
+func (builder *CreateTransferInfoBuilder) TargetPathway(targetPathway string) *CreateTransferInfoBuilder {
+	builder.targetPathway = targetPathway
+	builder.targetPathwayFlag = true
+	return builder
+}
+
 func (builder *CreateTransferInfoBuilder) Build() *CreateTransferInfo {
 	req := &CreateTransferInfo{}
 	if builder.remarkFlag {
@@ -8157,6 +8292,10 @@ func (builder *CreateTransferInfoBuilder) Build() *CreateTransferInfo {
 	}
 	if builder.isTransferWithWorkforceFlag {
 		req.IsTransferWithWorkforce = &builder.isTransferWithWorkforce
+
+	}
+	if builder.targetPathwayFlag {
+		req.TargetPathway = &builder.targetPathway
 
 	}
 	return req
@@ -20692,6 +20831,19 @@ func (builder *FormFieldVariableI18nValueBuilder) Build() *FormFieldVariableI18n
 type FormFieldVariableNullValue struct {
 }
 
+type FormFieldVariableNullValueBuilder struct {
+}
+
+func NewFormFieldVariableNullValueBuilder() *FormFieldVariableNullValueBuilder {
+	builder := &FormFieldVariableNullValueBuilder{}
+	return builder
+}
+
+func (builder *FormFieldVariableNullValueBuilder) Build() *FormFieldVariableNullValue {
+	req := &FormFieldVariableNullValue{}
+	return req
+}
+
 type FormFieldVariableNumberValue struct {
 	Value *int `json:"value,omitempty"` // 数值类型变量的值
 }
@@ -22261,6 +22413,8 @@ type Job struct {
 
 	JobTitle []*I18n `json:"job_title,omitempty"` // 职务头衔
 
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+
 	JobFamilyIdList []string `json:"job_family_id_list,omitempty"` // 序列
 
 	JobLevelIdList []string `json:"job_level_id_list,omitempty"` // 职级
@@ -22292,6 +22446,9 @@ type JobBuilder struct {
 
 	jobTitle     []*I18n // 职务头衔
 	jobTitleFlag bool
+
+	pathwayId     string // 通道ID
+	pathwayIdFlag bool
 
 	jobFamilyIdList     []string // 序列
 	jobFamilyIdListFlag bool
@@ -22371,6 +22528,15 @@ func (builder *JobBuilder) JobTitle(jobTitle []*I18n) *JobBuilder {
 	return builder
 }
 
+// 通道ID
+//
+// 示例值：4719519211875096301
+func (builder *JobBuilder) PathwayId(pathwayId string) *JobBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 // 序列
 //
 // 示例值：
@@ -22447,6 +22613,10 @@ func (builder *JobBuilder) Build() *Job {
 	}
 	if builder.jobTitleFlag {
 		req.JobTitle = builder.jobTitle
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+
 	}
 	if builder.jobFamilyIdListFlag {
 		req.JobFamilyIdList = builder.jobFamilyIdList
@@ -23460,6 +23630,8 @@ type JobFamily struct {
 
 	ParentId *string `json:"parent_id,omitempty"` // 上级序列
 
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道ID
+
 	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
@@ -23483,6 +23655,9 @@ type JobFamilyBuilder struct {
 
 	parentId     string // 上级序列
 	parentIdFlag bool
+
+	pathwayIds     []string // 通道ID
+	pathwayIdsFlag bool
 
 	effectiveTime     string // 生效时间
 	effectiveTimeFlag bool
@@ -23538,6 +23713,15 @@ func (builder *JobFamilyBuilder) Active(active bool) *JobFamilyBuilder {
 func (builder *JobFamilyBuilder) ParentId(parentId string) *JobFamilyBuilder {
 	builder.parentId = parentId
 	builder.parentIdFlag = true
+	return builder
+}
+
+// 通道ID
+//
+// 示例值：
+func (builder *JobFamilyBuilder) PathwayIds(pathwayIds []string) *JobFamilyBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
 	return builder
 }
 
@@ -23602,6 +23786,9 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 	if builder.parentIdFlag {
 		req.ParentId = &builder.parentId
 
+	}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
 	}
 	if builder.effectiveTimeFlag {
 		req.EffectiveTime = &builder.effectiveTime
@@ -23672,6 +23859,8 @@ type JobFamilyVersionData struct {
 
 	ParentJobFamilyId *string `json:"parent_job_family_id,omitempty"` // 上级序列
 
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道 ID 列表
+
 	Code *string `json:"code,omitempty"` // 编码
 }
 
@@ -23699,6 +23888,9 @@ type JobFamilyVersionDataBuilder struct {
 
 	parentJobFamilyId     string // 上级序列
 	parentJobFamilyIdFlag bool
+
+	pathwayIds     []string // 通道 ID 列表
+	pathwayIdsFlag bool
 
 	code     string // 编码
 	codeFlag bool
@@ -23781,6 +23973,15 @@ func (builder *JobFamilyVersionDataBuilder) ParentJobFamilyId(parentJobFamilyId 
 	return builder
 }
 
+// 通道 ID 列表
+//
+// 示例值：
+func (builder *JobFamilyVersionDataBuilder) PathwayIds(pathwayIds []string) *JobFamilyVersionDataBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
+	return builder
+}
+
 // 编码
 //
 // 示例值：123456
@@ -23821,6 +24022,9 @@ func (builder *JobFamilyVersionDataBuilder) Build() *JobFamilyVersionData {
 	if builder.parentJobFamilyIdFlag {
 		req.ParentJobFamilyId = &builder.parentJobFamilyId
 
+	}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
 	}
 	if builder.codeFlag {
 		req.Code = &builder.code
@@ -24151,6 +24355,8 @@ type JobLevel struct {
 	CustomFields []*CustomFieldData `json:"custom_fields,omitempty"` // 自定义字段
 
 	JobGrade []string `json:"job_grade,omitempty"` // 职等 ID 列表
+
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道 ID 列表
 }
 
 type JobLevelBuilder struct {
@@ -24177,6 +24383,9 @@ type JobLevelBuilder struct {
 
 	jobGrade     []string // 职等 ID 列表
 	jobGradeFlag bool
+
+	pathwayIds     []string // 通道 ID 列表
+	pathwayIdsFlag bool
 }
 
 func NewJobLevelBuilder() *JobLevelBuilder {
@@ -24256,6 +24465,15 @@ func (builder *JobLevelBuilder) JobGrade(jobGrade []string) *JobLevelBuilder {
 	return builder
 }
 
+// 通道 ID 列表
+//
+// 示例值：
+func (builder *JobLevelBuilder) PathwayIds(pathwayIds []string) *JobLevelBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
+	return builder
+}
+
 func (builder *JobLevelBuilder) Build() *JobLevel {
 	req := &JobLevel{}
 	if builder.jobLevelIdFlag {
@@ -24285,6 +24503,9 @@ func (builder *JobLevelBuilder) Build() *JobLevel {
 	}
 	if builder.jobGradeFlag {
 		req.JobGrade = builder.jobGrade
+	}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
 	}
 	return req
 }
@@ -24343,6 +24564,8 @@ type JobVersionData struct {
 
 	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级
 
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+
 	WorkingHoursTypeId *string `json:"working_hours_type_id,omitempty"` // 工时制度，引用WorkingHoursType的ID
 }
 
@@ -24379,6 +24602,9 @@ type JobVersionDataBuilder struct {
 
 	jobLevelIds     []string // 职级
 	jobLevelIdsFlag bool
+
+	pathwayId     string // 通道ID
+	pathwayIdFlag bool
 
 	workingHoursTypeId     string // 工时制度，引用WorkingHoursType的ID
 	workingHoursTypeIdFlag bool
@@ -24488,6 +24714,15 @@ func (builder *JobVersionDataBuilder) JobLevelIds(jobLevelIds []string) *JobVers
 	return builder
 }
 
+// 通道ID
+//
+// 示例值：4719519211875096301
+func (builder *JobVersionDataBuilder) PathwayId(pathwayId string) *JobVersionDataBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 // 工时制度，引用WorkingHoursType的ID
 //
 // 示例值：6890452208593372679
@@ -24537,6 +24772,10 @@ func (builder *JobVersionDataBuilder) Build() *JobVersionData {
 	}
 	if builder.jobLevelIdsFlag {
 		req.JobLevelIds = builder.jobLevelIds
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+
 	}
 	if builder.workingHoursTypeIdFlag {
 		req.WorkingHoursTypeId = &builder.workingHoursTypeId
@@ -29090,6 +29329,8 @@ type OfferInfo struct {
 	HasOfferSalary *bool `json:"has_offer_salary,omitempty"` // 是否有 Offer 薪酬
 
 	WorkStation *string `json:"work_station,omitempty"` // 工位
+
+	Pathway *string `json:"pathway,omitempty"` // 通道
 }
 
 type OfferInfoBuilder struct {
@@ -29263,6 +29504,9 @@ type OfferInfoBuilder struct {
 
 	workStation     string // 工位
 	workStationFlag bool
+
+	pathway     string // 通道
+	pathwayFlag bool
 }
 
 func NewOfferInfoBuilder() *OfferInfoBuilder {
@@ -29783,6 +30027,15 @@ func (builder *OfferInfoBuilder) WorkStation(workStation string) *OfferInfoBuild
 	return builder
 }
 
+// 通道
+//
+// 示例值：7460865381179115052
+func (builder *OfferInfoBuilder) Pathway(pathway string) *OfferInfoBuilder {
+	builder.pathway = pathway
+	builder.pathwayFlag = true
+	return builder
+}
+
 func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	req := &OfferInfo{}
 	if builder.offerIdFlag {
@@ -30006,6 +30259,10 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 		req.WorkStation = &builder.workStation
 
 	}
+	if builder.pathwayFlag {
+		req.Pathway = &builder.pathway
+
+	}
 	return req
 }
 
@@ -30119,6 +30376,8 @@ type OfferInfoUpdate struct {
 	ServiceCompany *string `json:"service_company,omitempty"` // 任职公司
 
 	NonCompeteCovenant *bool `json:"non_compete_covenant,omitempty"` // 是否包含竞业条款
+
+	Pathway *string `json:"pathway,omitempty"` // 通道
 }
 
 type OfferInfoUpdateBuilder struct {
@@ -30286,6 +30545,9 @@ type OfferInfoUpdateBuilder struct {
 
 	nonCompeteCovenant     bool // 是否包含竞业条款
 	nonCompeteCovenantFlag bool
+
+	pathway     string // 通道
+	pathwayFlag bool
 }
 
 func NewOfferInfoUpdateBuilder() *OfferInfoUpdateBuilder {
@@ -30788,6 +31050,15 @@ func (builder *OfferInfoUpdateBuilder) NonCompeteCovenant(nonCompeteCovenant boo
 	return builder
 }
 
+// 通道
+//
+// 示例值：7460865381179115052
+func (builder *OfferInfoUpdateBuilder) Pathway(pathway string) *OfferInfoUpdateBuilder {
+	builder.pathway = pathway
+	builder.pathwayFlag = true
+	return builder
+}
+
 func (builder *OfferInfoUpdateBuilder) Build() *OfferInfoUpdate {
 	req := &OfferInfoUpdate{}
 	if builder.onboardingDateFlag {
@@ -31000,6 +31271,10 @@ func (builder *OfferInfoUpdateBuilder) Build() *OfferInfoUpdate {
 	}
 	if builder.nonCompeteCovenantFlag {
 		req.NonCompeteCovenant = &builder.nonCompeteCovenant
+
+	}
+	if builder.pathwayFlag {
+		req.Pathway = &builder.pathway
 
 	}
 	return req
@@ -37491,6 +37766,8 @@ type PreHireEmploymentInfo struct {
 	ExpectedGraduateDate *string `json:"expected_graduate_date,omitempty"` // 预计毕业日期
 
 	ServiceCompany *string `json:"service_company,omitempty"` // 任职公司 ID , 详细信息可通过【批量查询公司】接口获得
+
+	Pathway *string `json:"pathway,omitempty"` // 通道
 }
 
 type PreHireEmploymentInfoBuilder struct {
@@ -37682,6 +37959,9 @@ type PreHireEmploymentInfoBuilder struct {
 
 	serviceCompany     string // 任职公司 ID , 详细信息可通过【批量查询公司】接口获得
 	serviceCompanyFlag bool
+
+	pathway     string // 通道
+	pathwayFlag bool
 }
 
 func NewPreHireEmploymentInfoBuilder() *PreHireEmploymentInfoBuilder {
@@ -38256,6 +38536,15 @@ func (builder *PreHireEmploymentInfoBuilder) ServiceCompany(serviceCompany strin
 	return builder
 }
 
+// 通道
+//
+// 示例值：7460865381179115052
+func (builder *PreHireEmploymentInfoBuilder) Pathway(pathway string) *PreHireEmploymentInfoBuilder {
+	builder.pathway = pathway
+	builder.pathwayFlag = true
+	return builder
+}
+
 func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 	req := &PreHireEmploymentInfo{}
 	if builder.departmentIdFlag {
@@ -38495,6 +38784,10 @@ func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 	}
 	if builder.serviceCompanyFlag {
 		req.ServiceCompany = &builder.serviceCompany
+
+	}
+	if builder.pathwayFlag {
+		req.Pathway = &builder.pathway
 
 	}
 	return req
@@ -44250,6 +44543,8 @@ type ProfileSettingEmploymentRecord struct {
 	WeeklyWorkingHours *int `json:"weekly_working_hours,omitempty"` // 周工作时长
 
 	Position *string `json:"position,omitempty"` // 岗位ID
+
+	Pathway *string `json:"pathway,omitempty"` // 通道ID
 }
 
 type ProfileSettingEmploymentRecordBuilder struct {
@@ -44297,6 +44592,9 @@ type ProfileSettingEmploymentRecordBuilder struct {
 
 	position     string // 岗位ID
 	positionFlag bool
+
+	pathway     string // 通道ID
+	pathwayFlag bool
 }
 
 func NewProfileSettingEmploymentRecordBuilder() *ProfileSettingEmploymentRecordBuilder {
@@ -44439,6 +44737,15 @@ func (builder *ProfileSettingEmploymentRecordBuilder) Position(position string) 
 	return builder
 }
 
+// 通道ID
+//
+// 示例值：6890452208593372684
+func (builder *ProfileSettingEmploymentRecordBuilder) Pathway(pathway string) *ProfileSettingEmploymentRecordBuilder {
+	builder.pathway = pathway
+	builder.pathwayFlag = true
+	return builder
+}
+
 func (builder *ProfileSettingEmploymentRecordBuilder) Build() *ProfileSettingEmploymentRecord {
 	req := &ProfileSettingEmploymentRecord{}
 	if builder.employeeTypeFlag {
@@ -44498,6 +44805,10 @@ func (builder *ProfileSettingEmploymentRecordBuilder) Build() *ProfileSettingEmp
 	}
 	if builder.positionFlag {
 		req.Position = &builder.position
+
+	}
+	if builder.pathwayFlag {
+		req.Pathway = &builder.pathway
 
 	}
 	return req
@@ -51128,6 +51439,10 @@ type TransferInfo struct {
 
 	TargetSocialSecurityCity *string `json:"target_social_security_city,omitempty"` // 新社保城市
 
+	OriginalPathway *string `json:"original_pathway,omitempty"` // 原通道
+
+	TargetPathway *string `json:"target_pathway,omitempty"` // 新通道
+
 	IsTransferWithWorkforce *bool `json:"is_transfer_with_workforce,omitempty"` // 编制随人员一起调整
 }
 
@@ -51323,6 +51638,12 @@ type TransferInfoBuilder struct {
 
 	targetSocialSecurityCity     string // 新社保城市
 	targetSocialSecurityCityFlag bool
+
+	originalPathway     string // 原通道
+	originalPathwayFlag bool
+
+	targetPathway     string // 新通道
+	targetPathwayFlag bool
 
 	isTransferWithWorkforce     bool // 编制随人员一起调整
 	isTransferWithWorkforceFlag bool
@@ -51909,6 +52230,24 @@ func (builder *TransferInfoBuilder) TargetSocialSecurityCity(targetSocialSecurit
 	return builder
 }
 
+// 原通道
+//
+// 示例值：7289005963599693367
+func (builder *TransferInfoBuilder) OriginalPathway(originalPathway string) *TransferInfoBuilder {
+	builder.originalPathway = originalPathway
+	builder.originalPathwayFlag = true
+	return builder
+}
+
+// 新通道
+//
+// 示例值：7289005963599693367
+func (builder *TransferInfoBuilder) TargetPathway(targetPathway string) *TransferInfoBuilder {
+	builder.targetPathway = targetPathway
+	builder.targetPathwayFlag = true
+	return builder
+}
+
 // 编制随人员一起调整
 //
 // 示例值：false
@@ -52168,6 +52507,14 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	}
 	if builder.targetSocialSecurityCityFlag {
 		req.TargetSocialSecurityCity = &builder.targetSocialSecurityCity
+
+	}
+	if builder.originalPathwayFlag {
+		req.OriginalPathway = &builder.originalPathway
+
+	}
+	if builder.targetPathwayFlag {
+		req.TargetPathway = &builder.targetPathway
 
 	}
 	if builder.isTransferWithWorkforceFlag {
@@ -71433,6 +71780,8 @@ type P2PreHireOnboardingTaskChangedV2Data struct {
 	OnboardingFlowChange *OnboardingFlowChange `json:"onboarding_flow_change,omitempty"` // 入职流程状态变更
 
 	OnboardingFlowId *string `json:"onboarding_flow_id,omitempty"` // 待入职流程ID
+
+	FlowInfo *OnboardingFlow `json:"flow_info,omitempty"` // 流程信息
 }
 
 type P2PreHireOnboardingTaskChangedV2 struct {

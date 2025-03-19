@@ -812,6 +812,8 @@ type AilyMessage struct {
 	CreatedAt *string `json:"created_at,omitempty"` // 消息的创建时间，毫秒时间戳
 
 	Status *string `json:"status,omitempty"` // 状态
+
+	ReasoningContent *string `json:"reasoning_content,omitempty"` // 推理内容
 }
 
 type AilyMessageBuilder struct {
@@ -850,6 +852,9 @@ type AilyMessageBuilder struct {
 
 	status     string // 状态
 	statusFlag bool
+
+	reasoningContent     string // 推理内容
+	reasoningContentFlag bool
 }
 
 func NewAilyMessageBuilder() *AilyMessageBuilder {
@@ -965,6 +970,15 @@ func (builder *AilyMessageBuilder) Status(status string) *AilyMessageBuilder {
 	return builder
 }
 
+// 推理内容
+//
+// 示例值：推理内容
+func (builder *AilyMessageBuilder) ReasoningContent(reasoningContent string) *AilyMessageBuilder {
+	builder.reasoningContent = reasoningContent
+	builder.reasoningContentFlag = true
+	return builder
+}
+
 func (builder *AilyMessageBuilder) Build() *AilyMessage {
 	req := &AilyMessage{}
 	if builder.idFlag {
@@ -1010,6 +1024,10 @@ func (builder *AilyMessageBuilder) Build() *AilyMessage {
 	}
 	if builder.statusFlag {
 		req.Status = &builder.status
+
+	}
+	if builder.reasoningContentFlag {
+		req.ReasoningContent = &builder.reasoningContent
 
 	}
 	return req

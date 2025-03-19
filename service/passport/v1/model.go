@@ -205,6 +205,19 @@ func (builder *DeviceBuilder) Build() *Device {
 type IdpCredential struct {
 }
 
+type IdpCredentialBuilder struct {
+}
+
+func NewIdpCredentialBuilder() *IdpCredentialBuilder {
+	builder := &IdpCredentialBuilder{}
+	return builder
+}
+
+func (builder *IdpCredentialBuilder) Build() *IdpCredential {
+	req := &IdpCredential{}
+	return req
+}
+
 type IdpCredentialId struct {
 	IdpCredentialId *string `json:"idp_credential_id,omitempty"` // idp侧租户唯一标识
 }

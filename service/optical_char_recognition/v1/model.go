@@ -66,6 +66,19 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 type Image struct {
 }
 
+type ImageBuilder struct {
+}
+
+func NewImageBuilder() *ImageBuilder {
+	builder := &ImageBuilder{}
+	return builder
+}
+
+func (builder *ImageBuilder) Build() *Image {
+	req := &Image{}
+	return req
+}
+
 type BasicRecognizeImageReqBodyBuilder struct {
 	image     string // base64 后的图片数据
 	imageFlag bool

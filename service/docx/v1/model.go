@@ -178,10 +178,49 @@ func (builder *AddOnsBuilder) Build() *AddOns {
 type Agenda struct {
 }
 
+type AgendaBuilder struct {
+}
+
+func NewAgendaBuilder() *AgendaBuilder {
+	builder := &AgendaBuilder{}
+	return builder
+}
+
+func (builder *AgendaBuilder) Build() *Agenda {
+	req := &Agenda{}
+	return req
+}
+
 type AgendaItem struct {
 }
 
+type AgendaItemBuilder struct {
+}
+
+func NewAgendaItemBuilder() *AgendaItemBuilder {
+	builder := &AgendaItemBuilder{}
+	return builder
+}
+
+func (builder *AgendaItemBuilder) Build() *AgendaItem {
+	req := &AgendaItem{}
+	return req
+}
+
 type AgendaItemContent struct {
+}
+
+type AgendaItemContentBuilder struct {
+}
+
+func NewAgendaItemContentBuilder() *AgendaItemContentBuilder {
+	builder := &AgendaItemContentBuilder{}
+	return builder
+}
+
+func (builder *AgendaItemContentBuilder) Build() *AgendaItemContent {
+	req := &AgendaItemContent{}
+	return req
 }
 
 type AgendaItemTitle struct {
@@ -1851,6 +1890,19 @@ func (builder *DiagramBuilder) Build() *Diagram {
 }
 
 type Divider struct {
+}
+
+type DividerBuilder struct {
+}
+
+func NewDividerBuilder() *DividerBuilder {
+	builder := &DividerBuilder{}
+	return builder
+}
+
+func (builder *DividerBuilder) Build() *Divider {
+	req := &Divider{}
+	return req
 }
 
 type Document struct {
@@ -3709,6 +3761,19 @@ func (builder *OkrObjectiveBuilder) Build() *OkrObjective {
 type OkrProgress struct {
 }
 
+type OkrProgressBuilder struct {
+}
+
+func NewOkrProgressBuilder() *OkrProgressBuilder {
+	builder := &OkrProgressBuilder{}
+	return builder
+}
+
+func (builder *OkrProgressBuilder) Build() *OkrProgress {
+	req := &OkrProgress{}
+	return req
+}
+
 type OkrProgressRate struct {
 	Mode *string `json:"mode,omitempty"` // 状态模式
 
@@ -3918,6 +3983,19 @@ func (builder *OkrVisibleSettingBuilder) Build() *OkrVisibleSetting {
 }
 
 type QuoteContainer struct {
+}
+
+type QuoteContainerBuilder struct {
+}
+
+func NewQuoteContainerBuilder() *QuoteContainerBuilder {
+	builder := &QuoteContainerBuilder{}
+	return builder
+}
+
+func (builder *QuoteContainerBuilder) Build() *QuoteContainer {
+	req := &QuoteContainer{}
+	return req
 }
 
 type Reminder struct {
@@ -4276,6 +4354,19 @@ func (builder *TableBuilder) Build() *Table {
 }
 
 type TableCell struct {
+}
+
+type TableCellBuilder struct {
+}
+
+func NewTableCellBuilder() *TableCellBuilder {
+	builder := &TableCellBuilder{}
+	return builder
+}
+
+func (builder *TableCellBuilder) Build() *TableCell {
+	req := &TableCell{}
+	return req
 }
 
 type TableMergeInfo struct {
@@ -5080,7 +5171,33 @@ func (builder *TextStyleBuilder) Build() *TextStyle {
 type Undefined struct {
 }
 
+type UndefinedBuilder struct {
+}
+
+func NewUndefinedBuilder() *UndefinedBuilder {
+	builder := &UndefinedBuilder{}
+	return builder
+}
+
+func (builder *UndefinedBuilder) Build() *Undefined {
+	req := &Undefined{}
+	return req
+}
+
 type UndefinedElement struct {
+}
+
+type UndefinedElementBuilder struct {
+}
+
+func NewUndefinedElementBuilder() *UndefinedElementBuilder {
+	builder := &UndefinedElementBuilder{}
+	return builder
+}
+
+func (builder *UndefinedElementBuilder) Build() *UndefinedElement {
+	req := &UndefinedElement{}
+	return req
 }
 
 type UnmergeTableCellsRequest struct {

@@ -5961,6 +5961,19 @@ func (builder *SearchUserResultAiBuilder) Build() *SearchUserResultAi {
 type Setting struct {
 }
 
+type SettingBuilder struct {
+}
+
+func NewSettingBuilder() *SettingBuilder {
+	builder := &SettingBuilder{}
+	return builder
+}
+
+func (builder *SettingBuilder) Build() *Setting {
+	req := &Setting{}
+	return req
+}
+
 type SystemInfo struct {
 	SessionId *string `json:"session_id,omitempty"` // session_id
 

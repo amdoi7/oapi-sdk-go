@@ -6065,6 +6065,19 @@ func (builder *UserGroupBuilder) Build() *UserGroup {
 type UserGroupMember struct {
 }
 
+type UserGroupMemberBuilder struct {
+}
+
+func NewUserGroupMemberBuilder() *UserGroupMemberBuilder {
+	builder := &UserGroupMemberBuilder{}
+	return builder
+}
+
+func (builder *UserGroupMemberBuilder) Build() *UserGroupMember {
+	req := &UserGroupMember{}
+	return req
+}
+
 type UserI18nName struct {
 	ZhCn *string `json:"zh_cn,omitempty"` // 用户的中文名
 
