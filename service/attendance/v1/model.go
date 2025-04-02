@@ -253,41 +253,41 @@ func (builder *ClockInAbnormalSettingsBuilder) Build() *ClockInAbnormalSettings 
 }
 
 type AntiCheatConfig struct {
-	InterceptSuspectedCheatPunch *bool `json:"intercept_suspected_cheat_punch,omitempty"` // 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
+	InterceptSuspectedCheatPunch *bool `json:"intercept_suspected_cheat_punch,omitempty"` // 拦截疑似作弊打卡；关闭时，其余防作弊开关都会关闭
 
-	CheckCheatSoftwarePunch *bool `json:"check_cheat_software_punch,omitempty"` // 是否校验疑似作弊软件打卡，默认关闭
+	CheckCheatSoftwarePunch *bool `json:"check_cheat_software_punch,omitempty"` // 是否校验疑似作弊软件打卡
 
-	CheckBuddyPunch *bool `json:"check_buddy_punch,omitempty"` // 是否校验疑似他人代打卡，默认关闭
+	CheckBuddyPunch *bool `json:"check_buddy_punch,omitempty"` // 是否校验疑似他人代打卡
 
-	CheckSimulateWifiPunch *bool `json:"check_simulate_wifi_punch,omitempty"` // 是否校验疑似模拟 WI-FI 打卡，默认关闭
+	CheckSimulateWifiPunch *bool `json:"check_simulate_wifi_punch,omitempty"` // 是否校验疑似模拟 WI-FI 打卡
 
-	CheckChangeDevicePunch *bool `json:"check_change_device_punch,omitempty"` // 是否校验更换设备打卡，默认关闭
+	CheckChangeDevicePunch *bool `json:"check_change_device_punch,omitempty"` // 是否校验更换设备打卡
 
 	AllowChangeDeviceNum *int `json:"allow_change_device_num,omitempty"` // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
 
-	SuspectedCheatHandleMethod *int `json:"suspected_cheat_handle_method,omitempty"` // 疑似作弊打卡时的处理方式
+	SuspectedCheatHandleMethod *int `json:"suspected_cheat_handle_method,omitempty"` // 疑似作弊打卡时的处理方式，开启拦截疑似作弊打卡时必填
 }
 
 type AntiCheatConfigBuilder struct {
-	interceptSuspectedCheatPunch     bool // 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
+	interceptSuspectedCheatPunch     bool // 拦截疑似作弊打卡；关闭时，其余防作弊开关都会关闭
 	interceptSuspectedCheatPunchFlag bool
 
-	checkCheatSoftwarePunch     bool // 是否校验疑似作弊软件打卡，默认关闭
+	checkCheatSoftwarePunch     bool // 是否校验疑似作弊软件打卡
 	checkCheatSoftwarePunchFlag bool
 
-	checkBuddyPunch     bool // 是否校验疑似他人代打卡，默认关闭
+	checkBuddyPunch     bool // 是否校验疑似他人代打卡
 	checkBuddyPunchFlag bool
 
-	checkSimulateWifiPunch     bool // 是否校验疑似模拟 WI-FI 打卡，默认关闭
+	checkSimulateWifiPunch     bool // 是否校验疑似模拟 WI-FI 打卡
 	checkSimulateWifiPunchFlag bool
 
-	checkChangeDevicePunch     bool // 是否校验更换设备打卡，默认关闭
+	checkChangeDevicePunch     bool // 是否校验更换设备打卡
 	checkChangeDevicePunchFlag bool
 
 	allowChangeDeviceNum     int // 同一考勤人员最多可绑定打卡设备数量上限，开启校验更换设备打卡时必填
 	allowChangeDeviceNumFlag bool
 
-	suspectedCheatHandleMethod     int // 疑似作弊打卡时的处理方式
+	suspectedCheatHandleMethod     int // 疑似作弊打卡时的处理方式，开启拦截疑似作弊打卡时必填
 	suspectedCheatHandleMethodFlag bool
 }
 
@@ -296,7 +296,7 @@ func NewAntiCheatConfigBuilder() *AntiCheatConfigBuilder {
 	return builder
 }
 
-// 拦截疑似作弊打卡，默认关闭；关闭时，其余防作弊开关都会关闭
+// 拦截疑似作弊打卡；关闭时，其余防作弊开关都会关闭
 //
 // 示例值：true
 func (builder *AntiCheatConfigBuilder) InterceptSuspectedCheatPunch(interceptSuspectedCheatPunch bool) *AntiCheatConfigBuilder {
@@ -305,7 +305,7 @@ func (builder *AntiCheatConfigBuilder) InterceptSuspectedCheatPunch(interceptSus
 	return builder
 }
 
-// 是否校验疑似作弊软件打卡，默认关闭
+// 是否校验疑似作弊软件打卡
 //
 // 示例值：true
 func (builder *AntiCheatConfigBuilder) CheckCheatSoftwarePunch(checkCheatSoftwarePunch bool) *AntiCheatConfigBuilder {
@@ -314,7 +314,7 @@ func (builder *AntiCheatConfigBuilder) CheckCheatSoftwarePunch(checkCheatSoftwar
 	return builder
 }
 
-// 是否校验疑似他人代打卡，默认关闭
+// 是否校验疑似他人代打卡
 //
 // 示例值：true
 func (builder *AntiCheatConfigBuilder) CheckBuddyPunch(checkBuddyPunch bool) *AntiCheatConfigBuilder {
@@ -323,7 +323,7 @@ func (builder *AntiCheatConfigBuilder) CheckBuddyPunch(checkBuddyPunch bool) *An
 	return builder
 }
 
-// 是否校验疑似模拟 WI-FI 打卡，默认关闭
+// 是否校验疑似模拟 WI-FI 打卡
 //
 // 示例值：true
 func (builder *AntiCheatConfigBuilder) CheckSimulateWifiPunch(checkSimulateWifiPunch bool) *AntiCheatConfigBuilder {
@@ -332,7 +332,7 @@ func (builder *AntiCheatConfigBuilder) CheckSimulateWifiPunch(checkSimulateWifiP
 	return builder
 }
 
-// 是否校验更换设备打卡，默认关闭
+// 是否校验更换设备打卡
 //
 // 示例值：true
 func (builder *AntiCheatConfigBuilder) CheckChangeDevicePunch(checkChangeDevicePunch bool) *AntiCheatConfigBuilder {
@@ -350,7 +350,7 @@ func (builder *AntiCheatConfigBuilder) AllowChangeDeviceNum(allowChangeDeviceNum
 	return builder
 }
 
-// 疑似作弊打卡时的处理方式
+// 疑似作弊打卡时的处理方式，开启拦截疑似作弊打卡时必填
 //
 // 示例值：1
 func (builder *AntiCheatConfigBuilder) SuspectedCheatHandleMethod(suspectedCheatHandleMethod int) *AntiCheatConfigBuilder {
@@ -1416,6 +1416,176 @@ func (builder *CoordinateBuilder) Build() *Coordinate {
 	return req
 }
 
+type CreateBpmOutRecord struct {
+	UserId *string `json:"user_id,omitempty"` // 发起外出审批的用户ID
+
+	OutRecord *OutRecord `json:"out_record,omitempty"` // 外出数据
+
+	OutReason *string `json:"out_reason,omitempty"` // 外出事由
+
+	CustomFormData *string `json:"custom_form_data,omitempty"` // json string，BPM流程中自定义新增控件
+}
+
+type CreateBpmOutRecordBuilder struct {
+	userId     string // 发起外出审批的用户ID
+	userIdFlag bool
+
+	outRecord     *OutRecord // 外出数据
+	outRecordFlag bool
+
+	outReason     string // 外出事由
+	outReasonFlag bool
+
+	customFormData     string // json string，BPM流程中自定义新增控件
+	customFormDataFlag bool
+}
+
+func NewCreateBpmOutRecordBuilder() *CreateBpmOutRecordBuilder {
+	builder := &CreateBpmOutRecordBuilder{}
+	return builder
+}
+
+// 发起外出审批的用户ID
+//
+// 示例值：
+func (builder *CreateBpmOutRecordBuilder) UserId(userId string) *CreateBpmOutRecordBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 外出数据
+//
+// 示例值：
+func (builder *CreateBpmOutRecordBuilder) OutRecord(outRecord *OutRecord) *CreateBpmOutRecordBuilder {
+	builder.outRecord = outRecord
+	builder.outRecordFlag = true
+	return builder
+}
+
+// 外出事由
+//
+// 示例值：临时外出
+func (builder *CreateBpmOutRecordBuilder) OutReason(outReason string) *CreateBpmOutRecordBuilder {
+	builder.outReason = outReason
+	builder.outReasonFlag = true
+	return builder
+}
+
+// json string，BPM流程中自定义新增控件
+//
+// 示例值："{\"attachments\":{\"null_value\":{}}}"
+func (builder *CreateBpmOutRecordBuilder) CustomFormData(customFormData string) *CreateBpmOutRecordBuilder {
+	builder.customFormData = customFormData
+	builder.customFormDataFlag = true
+	return builder
+}
+
+func (builder *CreateBpmOutRecordBuilder) Build() *CreateBpmOutRecord {
+	req := &CreateBpmOutRecord{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.outRecordFlag {
+		req.OutRecord = builder.outRecord
+	}
+	if builder.outReasonFlag {
+		req.OutReason = &builder.outReason
+
+	}
+	if builder.customFormDataFlag {
+		req.CustomFormData = &builder.customFormData
+
+	}
+	return req
+}
+
+type CreateBpmRemedyRecords struct {
+	UserId *string `json:"user_id,omitempty"` // 发起补卡审批的用户ID
+
+	RemedyRecords []*RemedyRecord `json:"remedy_records,omitempty"` // 补卡列表-记录上限=10
+
+	RemedyReason *string `json:"remedy_reason,omitempty"` // 补卡事由
+
+	CustomFormData *string `json:"custom_form_data,omitempty"` // json string，BPM流程中自定义新增控件
+}
+
+type CreateBpmRemedyRecordsBuilder struct {
+	userId     string // 发起补卡审批的用户ID
+	userIdFlag bool
+
+	remedyRecords     []*RemedyRecord // 补卡列表-记录上限=10
+	remedyRecordsFlag bool
+
+	remedyReason     string // 补卡事由
+	remedyReasonFlag bool
+
+	customFormData     string // json string，BPM流程中自定义新增控件
+	customFormDataFlag bool
+}
+
+func NewCreateBpmRemedyRecordsBuilder() *CreateBpmRemedyRecordsBuilder {
+	builder := &CreateBpmRemedyRecordsBuilder{}
+	return builder
+}
+
+// 发起补卡审批的用户ID
+//
+// 示例值：0000000
+func (builder *CreateBpmRemedyRecordsBuilder) UserId(userId string) *CreateBpmRemedyRecordsBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 补卡列表-记录上限=10
+//
+// 示例值：
+func (builder *CreateBpmRemedyRecordsBuilder) RemedyRecords(remedyRecords []*RemedyRecord) *CreateBpmRemedyRecordsBuilder {
+	builder.remedyRecords = remedyRecords
+	builder.remedyRecordsFlag = true
+	return builder
+}
+
+// 补卡事由
+//
+// 示例值：正常上班，忘记打卡
+func (builder *CreateBpmRemedyRecordsBuilder) RemedyReason(remedyReason string) *CreateBpmRemedyRecordsBuilder {
+	builder.remedyReason = remedyReason
+	builder.remedyReasonFlag = true
+	return builder
+}
+
+// json string，BPM流程中自定义新增控件
+//
+// 示例值：{"remedy_applies":{"record_value":{"values":{"remedy_records":{"list_value":{"values":[{"record_value":{"values":{"remedy_type":{"text_value":{"value":"补卡类型6"}}}}}]}}}}}}
+func (builder *CreateBpmRemedyRecordsBuilder) CustomFormData(customFormData string) *CreateBpmRemedyRecordsBuilder {
+	builder.customFormData = customFormData
+	builder.customFormDataFlag = true
+	return builder
+}
+
+func (builder *CreateBpmRemedyRecordsBuilder) Build() *CreateBpmRemedyRecords {
+	req := &CreateBpmRemedyRecords{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.remedyRecordsFlag {
+		req.RemedyRecords = builder.remedyRecords
+	}
+	if builder.remedyReasonFlag {
+		req.RemedyReason = &builder.remedyReason
+
+	}
+	if builder.customFormDataFlag {
+		req.CustomFormData = &builder.customFormData
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -1929,6 +2099,8 @@ type Group struct {
 
 	HideStaffPunchTime *bool `json:"hide_staff_punch_time,omitempty"` // 是否隐藏员工打卡详情
 
+	HideClockInRule *bool `json:"hide_clock_in_rule,omitempty"` // 是否隐藏打卡规则
+
 	FacePunch *bool `json:"face_punch,omitempty"` // 是否开启人脸识别打卡
 
 	FacePunchCfg *int `json:"face_punch_cfg,omitempty"` // 人脸识别打卡规则，1：每次打卡均需人脸识别，2：疑似作弊打卡时需要人脸识别
@@ -2104,6 +2276,9 @@ type GroupBuilder struct {
 
 	hideStaffPunchTime     bool // 是否隐藏员工打卡详情
 	hideStaffPunchTimeFlag bool
+
+	hideClockInRule     bool // 是否隐藏打卡规则
+	hideClockInRuleFlag bool
 
 	facePunch     bool // 是否开启人脸识别打卡
 	facePunchFlag bool
@@ -2504,6 +2679,15 @@ func (builder *GroupBuilder) ShowOverTime(showOverTime bool) *GroupBuilder {
 func (builder *GroupBuilder) HideStaffPunchTime(hideStaffPunchTime bool) *GroupBuilder {
 	builder.hideStaffPunchTime = hideStaffPunchTime
 	builder.hideStaffPunchTimeFlag = true
+	return builder
+}
+
+// 是否隐藏打卡规则
+//
+// 示例值：false
+func (builder *GroupBuilder) HideClockInRule(hideClockInRule bool) *GroupBuilder {
+	builder.hideClockInRule = hideClockInRule
+	builder.hideClockInRuleFlag = true
 	return builder
 }
 
@@ -2999,6 +3183,10 @@ func (builder *GroupBuilder) Build() *Group {
 	}
 	if builder.hideStaffPunchTimeFlag {
 		req.HideStaffPunchTime = &builder.hideStaffPunchTime
+
+	}
+	if builder.hideClockInRuleFlag {
+		req.HideClockInRule = &builder.hideClockInRule
 
 	}
 	if builder.facePunchFlag {
@@ -4078,6 +4266,8 @@ type LeaveNeedPunchCfg struct {
 	EarlyMinutesAsEarly *int `json:"early_minutes_as_early,omitempty"` // 早走超过多久记为早退
 
 	EarlyMinutesAsLack *int `json:"early_minutes_as_lack,omitempty"` // 早走超过多久记为缺卡
+
+	NotDuringShift *bool `json:"not_during_shift,omitempty"` // 非班中离返岗。为true时，不产生班中离返岗
 }
 
 type LeaveNeedPunchCfgBuilder struct {
@@ -4092,6 +4282,9 @@ type LeaveNeedPunchCfgBuilder struct {
 
 	earlyMinutesAsLack     int // 早走超过多久记为缺卡
 	earlyMinutesAsLackFlag bool
+
+	notDuringShift     bool // 非班中离返岗。为true时，不产生班中离返岗
+	notDuringShiftFlag bool
 }
 
 func NewLeaveNeedPunchCfgBuilder() *LeaveNeedPunchCfgBuilder {
@@ -4135,6 +4328,15 @@ func (builder *LeaveNeedPunchCfgBuilder) EarlyMinutesAsLack(earlyMinutesAsLack i
 	return builder
 }
 
+// 非班中离返岗。为true时，不产生班中离返岗
+//
+// 示例值：false
+func (builder *LeaveNeedPunchCfgBuilder) NotDuringShift(notDuringShift bool) *LeaveNeedPunchCfgBuilder {
+	builder.notDuringShift = notDuringShift
+	builder.notDuringShiftFlag = true
+	return builder
+}
+
 func (builder *LeaveNeedPunchCfgBuilder) Build() *LeaveNeedPunchCfg {
 	req := &LeaveNeedPunchCfg{}
 	if builder.lateMinutesAsLateFlag {
@@ -4151,6 +4353,10 @@ func (builder *LeaveNeedPunchCfgBuilder) Build() *LeaveNeedPunchCfg {
 	}
 	if builder.earlyMinutesAsLackFlag {
 		req.EarlyMinutesAsLack = &builder.earlyMinutesAsLack
+
+	}
+	if builder.notDuringShiftFlag {
+		req.NotDuringShift = &builder.notDuringShift
 
 	}
 	return req
@@ -4877,6 +5083,122 @@ func (builder *OpenApplyTimeRangeBuilder) Build() *OpenApplyTimeRange {
 	}
 	if builder.timeRangeFlag {
 		req.TimeRange = builder.timeRange
+	}
+	return req
+}
+
+type OutRecord struct {
+	DurationUnit *string `json:"duration_unit,omitempty"` // 外出时间单位，枚举值hour,half_day,day
+
+	StartTime *OutTime `json:"start_time,omitempty"` // 外出开始时间
+
+	EndTime *OutTime `json:"end_time,omitempty"` // 外出结束时间
+}
+
+type OutRecordBuilder struct {
+	durationUnit     string // 外出时间单位，枚举值hour,half_day,day
+	durationUnitFlag bool
+
+	startTime     *OutTime // 外出开始时间
+	startTimeFlag bool
+
+	endTime     *OutTime // 外出结束时间
+	endTimeFlag bool
+}
+
+func NewOutRecordBuilder() *OutRecordBuilder {
+	builder := &OutRecordBuilder{}
+	return builder
+}
+
+// 外出时间单位，枚举值hour,half_day,day
+//
+// 示例值：hour
+func (builder *OutRecordBuilder) DurationUnit(durationUnit string) *OutRecordBuilder {
+	builder.durationUnit = durationUnit
+	builder.durationUnitFlag = true
+	return builder
+}
+
+// 外出开始时间
+//
+// 示例值：
+func (builder *OutRecordBuilder) StartTime(startTime *OutTime) *OutRecordBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 外出结束时间
+//
+// 示例值：
+func (builder *OutRecordBuilder) EndTime(endTime *OutTime) *OutRecordBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *OutRecordBuilder) Build() *OutRecord {
+	req := &OutRecord{}
+	if builder.durationUnitFlag {
+		req.DurationUnit = &builder.durationUnit
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = builder.startTime
+	}
+	if builder.endTimeFlag {
+		req.EndTime = builder.endTime
+	}
+	return req
+}
+
+type OutTime struct {
+	Datetime *string `json:"datetime,omitempty"` // 时间，时间格式为yyyy-MM-dd HH:mm
+
+	DayType *string `json:"day_type,omitempty"` // 外出半天类型，枚举值：morning，afternoon，当外出时间单位为half_day时生效
+}
+
+type OutTimeBuilder struct {
+	datetime     string // 时间，时间格式为yyyy-MM-dd HH:mm
+	datetimeFlag bool
+
+	dayType     string // 外出半天类型，枚举值：morning，afternoon，当外出时间单位为half_day时生效
+	dayTypeFlag bool
+}
+
+func NewOutTimeBuilder() *OutTimeBuilder {
+	builder := &OutTimeBuilder{}
+	return builder
+}
+
+// 时间，时间格式为yyyy-MM-dd HH:mm
+//
+// 示例值：2025-01-01 09:00
+func (builder *OutTimeBuilder) Datetime(datetime string) *OutTimeBuilder {
+	builder.datetime = datetime
+	builder.datetimeFlag = true
+	return builder
+}
+
+// 外出半天类型，枚举值：morning，afternoon，当外出时间单位为half_day时生效
+//
+// 示例值：morning
+func (builder *OutTimeBuilder) DayType(dayType string) *OutTimeBuilder {
+	builder.dayType = dayType
+	builder.dayTypeFlag = true
+	return builder
+}
+
+func (builder *OutTimeBuilder) Build() *OutTime {
+	req := &OutTime{}
+	if builder.datetimeFlag {
+		req.Datetime = &builder.datetime
+
+	}
+	if builder.dayTypeFlag {
+		req.DayType = &builder.dayType
+
 	}
 	return req
 }
@@ -5964,6 +6286,92 @@ func (builder *RegionPlaceBuilder) Build() *RegionPlace {
 	}
 	if builder.regionIdFlag {
 		req.RegionId = &builder.regionId
+
+	}
+	return req
+}
+
+type RemedyRecord struct {
+	RemedyDate *string `json:"remedy_date,omitempty"` // 补卡日期，示例20250202
+
+	PunchNo *int `json:"punch_no,omitempty"` // 第几次上下班，0：第 1 次上下班，1：第 2 次上下班，2：第 3 次上下班，3：第 4 次上下班，4：第 5 次上下班，5：第 6 次上下班
+
+	WorkType *int `json:"work_type,omitempty"` // 上班 / 下班，1：上班，2：下班
+
+	RemedyTime *string `json:"remedy_time,omitempty"` // 补卡时间，时间格式为yyyy-MM-dd HH:mm
+}
+
+type RemedyRecordBuilder struct {
+	remedyDate     string // 补卡日期，示例20250202
+	remedyDateFlag bool
+
+	punchNo     int // 第几次上下班，0：第 1 次上下班，1：第 2 次上下班，2：第 3 次上下班，3：第 4 次上下班，4：第 5 次上下班，5：第 6 次上下班
+	punchNoFlag bool
+
+	workType     int // 上班 / 下班，1：上班，2：下班
+	workTypeFlag bool
+
+	remedyTime     string // 补卡时间，时间格式为yyyy-MM-dd HH:mm
+	remedyTimeFlag bool
+}
+
+func NewRemedyRecordBuilder() *RemedyRecordBuilder {
+	builder := &RemedyRecordBuilder{}
+	return builder
+}
+
+// 补卡日期，示例20250202
+//
+// 示例值：20250202
+func (builder *RemedyRecordBuilder) RemedyDate(remedyDate string) *RemedyRecordBuilder {
+	builder.remedyDate = remedyDate
+	builder.remedyDateFlag = true
+	return builder
+}
+
+// 第几次上下班，0：第 1 次上下班，1：第 2 次上下班，2：第 3 次上下班，3：第 4 次上下班，4：第 5 次上下班，5：第 6 次上下班
+//
+// 示例值：0
+func (builder *RemedyRecordBuilder) PunchNo(punchNo int) *RemedyRecordBuilder {
+	builder.punchNo = punchNo
+	builder.punchNoFlag = true
+	return builder
+}
+
+// 上班 / 下班，1：上班，2：下班
+//
+// 示例值：1
+func (builder *RemedyRecordBuilder) WorkType(workType int) *RemedyRecordBuilder {
+	builder.workType = workType
+	builder.workTypeFlag = true
+	return builder
+}
+
+// 补卡时间，时间格式为yyyy-MM-dd HH:mm
+//
+// 示例值：2025-03-10 09:00
+func (builder *RemedyRecordBuilder) RemedyTime(remedyTime string) *RemedyRecordBuilder {
+	builder.remedyTime = remedyTime
+	builder.remedyTimeFlag = true
+	return builder
+}
+
+func (builder *RemedyRecordBuilder) Build() *RemedyRecord {
+	req := &RemedyRecord{}
+	if builder.remedyDateFlag {
+		req.RemedyDate = &builder.remedyDate
+
+	}
+	if builder.punchNoFlag {
+		req.PunchNo = &builder.punchNo
+
+	}
+	if builder.workTypeFlag {
+		req.WorkType = &builder.workType
+
+	}
+	if builder.remedyTimeFlag {
+		req.RemedyTime = &builder.remedyTime
 
 	}
 	return req
@@ -10524,6 +10932,213 @@ func (builder *WifiInfoEventBuilder) Build() *WifiInfoEvent {
 	return req
 }
 
+type WorkTime struct {
+	WorkStartTime *string `json:"work_start_time,omitempty"` // 加班开始时间,时间格式为 yyyy-MM-dd HH:mm
+
+	WorkEndTime *string `json:"work_end_time,omitempty"` // 加班结束时间,时间格式为 yyyy-MM-dd HH:mm
+
+	SettlementType *string `json:"settlement_type,omitempty"` // 结算方式,overtime_pay:加班费;compensatory_leave:调休 假;records_only仅记录
+
+	CheckFailReason *string `json:"check_fail_reason,omitempty"` // 请求校验错误原因
+}
+
+type WorkTimeBuilder struct {
+	workStartTime     string // 加班开始时间,时间格式为 yyyy-MM-dd HH:mm
+	workStartTimeFlag bool
+
+	workEndTime     string // 加班结束时间,时间格式为 yyyy-MM-dd HH:mm
+	workEndTimeFlag bool
+
+	settlementType     string // 结算方式,overtime_pay:加班费;compensatory_leave:调休 假;records_only仅记录
+	settlementTypeFlag bool
+
+	checkFailReason     string // 请求校验错误原因
+	checkFailReasonFlag bool
+}
+
+func NewWorkTimeBuilder() *WorkTimeBuilder {
+	builder := &WorkTimeBuilder{}
+	return builder
+}
+
+// 加班开始时间,时间格式为 yyyy-MM-dd HH:mm
+//
+// 示例值：2025-01-01 00:00
+func (builder *WorkTimeBuilder) WorkStartTime(workStartTime string) *WorkTimeBuilder {
+	builder.workStartTime = workStartTime
+	builder.workStartTimeFlag = true
+	return builder
+}
+
+// 加班结束时间,时间格式为 yyyy-MM-dd HH:mm
+//
+// 示例值：2025-01-01 00:00
+func (builder *WorkTimeBuilder) WorkEndTime(workEndTime string) *WorkTimeBuilder {
+	builder.workEndTime = workEndTime
+	builder.workEndTimeFlag = true
+	return builder
+}
+
+// 结算方式,overtime_pay:加班费;compensatory_leave:调休 假;records_only仅记录
+//
+// 示例值：overtime_pay
+func (builder *WorkTimeBuilder) SettlementType(settlementType string) *WorkTimeBuilder {
+	builder.settlementType = settlementType
+	builder.settlementTypeFlag = true
+	return builder
+}
+
+// 请求校验错误原因
+//
+// 示例值：校验没通过
+func (builder *WorkTimeBuilder) CheckFailReason(checkFailReason string) *WorkTimeBuilder {
+	builder.checkFailReason = checkFailReason
+	builder.checkFailReasonFlag = true
+	return builder
+}
+
+func (builder *WorkTimeBuilder) Build() *WorkTime {
+	req := &WorkTime{}
+	if builder.workStartTimeFlag {
+		req.WorkStartTime = &builder.workStartTime
+
+	}
+	if builder.workEndTimeFlag {
+		req.WorkEndTime = &builder.workEndTime
+
+	}
+	if builder.settlementTypeFlag {
+		req.SettlementType = &builder.settlementType
+
+	}
+	if builder.checkFailReasonFlag {
+		req.CheckFailReason = &builder.checkFailReason
+
+	}
+	return req
+}
+
+type WorkTimeApplyData struct {
+	CheckResult *int `json:"check_result,omitempty"` // 检查结果,0表示检查通过,-1为不通过
+
+	CheckMessage *string `json:"check_message,omitempty"` // 检查结果描述
+
+	ApprovalRecordId *string `json:"approval_record_id,omitempty"` // 流程 id
+
+	CheckDetails []*WorkTime `json:"check_details,omitempty"` // 校验结果详情列表
+
+	TimeZone *string `json:"time_zone,omitempty"` // 时区
+
+	Reason *string `json:"reason,omitempty"` // 加班原因
+}
+
+type WorkTimeApplyDataBuilder struct {
+	checkResult     int // 检查结果,0表示检查通过,-1为不通过
+	checkResultFlag bool
+
+	checkMessage     string // 检查结果描述
+	checkMessageFlag bool
+
+	approvalRecordId     string // 流程 id
+	approvalRecordIdFlag bool
+
+	checkDetails     []*WorkTime // 校验结果详情列表
+	checkDetailsFlag bool
+
+	timeZone     string // 时区
+	timeZoneFlag bool
+
+	reason     string // 加班原因
+	reasonFlag bool
+}
+
+func NewWorkTimeApplyDataBuilder() *WorkTimeApplyDataBuilder {
+	builder := &WorkTimeApplyDataBuilder{}
+	return builder
+}
+
+// 检查结果,0表示检查通过,-1为不通过
+//
+// 示例值：0
+func (builder *WorkTimeApplyDataBuilder) CheckResult(checkResult int) *WorkTimeApplyDataBuilder {
+	builder.checkResult = checkResult
+	builder.checkResultFlag = true
+	return builder
+}
+
+// 检查结果描述
+//
+// 示例值：检查结果藐视
+func (builder *WorkTimeApplyDataBuilder) CheckMessage(checkMessage string) *WorkTimeApplyDataBuilder {
+	builder.checkMessage = checkMessage
+	builder.checkMessageFlag = true
+	return builder
+}
+
+// 流程 id
+//
+// 示例值：0
+func (builder *WorkTimeApplyDataBuilder) ApprovalRecordId(approvalRecordId string) *WorkTimeApplyDataBuilder {
+	builder.approvalRecordId = approvalRecordId
+	builder.approvalRecordIdFlag = true
+	return builder
+}
+
+// 校验结果详情列表
+//
+// 示例值：
+func (builder *WorkTimeApplyDataBuilder) CheckDetails(checkDetails []*WorkTime) *WorkTimeApplyDataBuilder {
+	builder.checkDetails = checkDetails
+	builder.checkDetailsFlag = true
+	return builder
+}
+
+// 时区
+//
+// 示例值：Asia/Shanghai
+func (builder *WorkTimeApplyDataBuilder) TimeZone(timeZone string) *WorkTimeApplyDataBuilder {
+	builder.timeZone = timeZone
+	builder.timeZoneFlag = true
+	return builder
+}
+
+// 加班原因
+//
+// 示例值：加班原因
+func (builder *WorkTimeApplyDataBuilder) Reason(reason string) *WorkTimeApplyDataBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *WorkTimeApplyDataBuilder) Build() *WorkTimeApplyData {
+	req := &WorkTimeApplyData{}
+	if builder.checkResultFlag {
+		req.CheckResult = &builder.checkResult
+
+	}
+	if builder.checkMessageFlag {
+		req.CheckMessage = &builder.checkMessage
+
+	}
+	if builder.approvalRecordIdFlag {
+		req.ApprovalRecordId = &builder.approvalRecordId
+
+	}
+	if builder.checkDetailsFlag {
+		req.CheckDetails = builder.checkDetails
+	}
+	if builder.timeZoneFlag {
+		req.TimeZone = &builder.timeZone
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	return req
+}
+
 type ProcessApprovalInfoReqBodyBuilder struct {
 	approvalId     string // 审批实例 ID，获取方式：1）[获取审批通过数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/query) 2）[写入审批结果](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_approval/create) 3）[通知补卡审批发起（补卡情况下）](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/user_task_remedy/create)
 	approvalIdFlag bool
@@ -11845,6 +12460,8 @@ type GetGroupRespData struct {
 	ShowOverTime *bool `json:"show_over_time,omitempty"` // 是否展示加班时长
 
 	HideStaffPunchTime *bool `json:"hide_staff_punch_time,omitempty"` // 是否隐藏员工打卡详情
+
+	HideClockInRule *bool `json:"hide_clock_in_rule,omitempty"` // 是否隐藏打卡规则
 
 	FacePunch *bool `json:"face_punch,omitempty"` // 是否开启人脸打卡
 

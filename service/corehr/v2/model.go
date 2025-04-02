@@ -6951,6 +6951,73 @@ func (builder *ContractBuilder) Build() *Contract {
 	return req
 }
 
+type CostAllocation struct {
+	EffectiveTime *string `json:"effective_time,omitempty"` // 分摊生效日期
+
+	ExpirationTime *string `json:"expiration_time,omitempty"` // 分摊失效日期
+
+	CostCenterRates []*JobDataCostCenter `json:"cost_center_rates,omitempty"` // 成本分摊信息
+}
+
+type CostAllocationBuilder struct {
+	effectiveTime     string // 分摊生效日期
+	effectiveTimeFlag bool
+
+	expirationTime     string // 分摊失效日期
+	expirationTimeFlag bool
+
+	costCenterRates     []*JobDataCostCenter // 成本分摊信息
+	costCenterRatesFlag bool
+}
+
+func NewCostAllocationBuilder() *CostAllocationBuilder {
+	builder := &CostAllocationBuilder{}
+	return builder
+}
+
+// 分摊生效日期
+//
+// 示例值：2025-01-01
+func (builder *CostAllocationBuilder) EffectiveTime(effectiveTime string) *CostAllocationBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 分摊失效日期
+//
+// 示例值：2025-02-01
+func (builder *CostAllocationBuilder) ExpirationTime(expirationTime string) *CostAllocationBuilder {
+	builder.expirationTime = expirationTime
+	builder.expirationTimeFlag = true
+	return builder
+}
+
+// 成本分摊信息
+//
+// 示例值：
+func (builder *CostAllocationBuilder) CostCenterRates(costCenterRates []*JobDataCostCenter) *CostAllocationBuilder {
+	builder.costCenterRates = costCenterRates
+	builder.costCenterRatesFlag = true
+	return builder
+}
+
+func (builder *CostAllocationBuilder) Build() *CostAllocation {
+	req := &CostAllocation{}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.expirationTimeFlag {
+		req.ExpirationTime = &builder.expirationTime
+
+	}
+	if builder.costCenterRatesFlag {
+		req.CostCenterRates = builder.costCenterRates
+	}
+	return req
+}
+
 type CostCenter struct {
 	CostCenterId *string `json:"cost_center_id,omitempty"` // 成本中心ID
 
@@ -7364,6 +7431,38 @@ func (builder *CostCenterVersionBuilder) Build() *CostCenterVersion {
 	}
 	if builder.operationReasonFlag {
 		req.OperationReason = &builder.operationReason
+
+	}
+	return req
+}
+
+type CostCenterId struct {
+	WkId *string `json:"wk_id,omitempty"` // 成本中心
+}
+
+type CostCenterIdBuilder struct {
+	wkId     string // 成本中心
+	wkIdFlag bool
+}
+
+func NewCostCenterIdBuilder() *CostCenterIdBuilder {
+	builder := &CostCenterIdBuilder{}
+	return builder
+}
+
+// 成本中心
+//
+// 示例值：7382048365313261588
+func (builder *CostCenterIdBuilder) WkId(wkId string) *CostCenterIdBuilder {
+	builder.wkId = wkId
+	builder.wkIdFlag = true
+	return builder
+}
+
+func (builder *CostCenterIdBuilder) Build() *CostCenterId {
+	req := &CostCenterId{}
+	if builder.wkIdFlag {
+		req.WkId = &builder.wkId
 
 	}
 	return req
@@ -9352,6 +9451,159 @@ func (builder *DataengineI18nBuilder) Build() *DataengineI18n {
 	if builder.enUsFlag {
 		req.EnUs = &builder.enUs
 
+	}
+	return req
+}
+
+type DefaultCostCenter struct {
+	CostCenterId *string `json:"cost_center_id,omitempty"` // 成本中心 ID，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效日期
+
+	IsHerit *bool `json:"is_herit,omitempty"` // 是否继承岗位/部门的默认成本中心
+
+	InheritSource *string `json:"inherit_source,omitempty"` // 继承来源
+}
+
+type DefaultCostCenterBuilder struct {
+	costCenterId     string // 成本中心 ID，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+	costCenterIdFlag bool
+
+	effectiveTime     string // 生效日期
+	effectiveTimeFlag bool
+
+	isHerit     bool // 是否继承岗位/部门的默认成本中心
+	isHeritFlag bool
+
+	inheritSource     string // 继承来源
+	inheritSourceFlag bool
+}
+
+func NewDefaultCostCenterBuilder() *DefaultCostCenterBuilder {
+	builder := &DefaultCostCenterBuilder{}
+	return builder
+}
+
+// 成本中心 ID，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
+//
+// 示例值：6950635856373745165
+func (builder *DefaultCostCenterBuilder) CostCenterId(costCenterId string) *DefaultCostCenterBuilder {
+	builder.costCenterId = costCenterId
+	builder.costCenterIdFlag = true
+	return builder
+}
+
+// 生效日期
+//
+// 示例值：2025-01-01
+func (builder *DefaultCostCenterBuilder) EffectiveTime(effectiveTime string) *DefaultCostCenterBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 是否继承岗位/部门的默认成本中心
+//
+// 示例值：false
+func (builder *DefaultCostCenterBuilder) IsHerit(isHerit bool) *DefaultCostCenterBuilder {
+	builder.isHerit = isHerit
+	builder.isHeritFlag = true
+	return builder
+}
+
+// 继承来源
+//
+// 示例值：department
+func (builder *DefaultCostCenterBuilder) InheritSource(inheritSource string) *DefaultCostCenterBuilder {
+	builder.inheritSource = inheritSource
+	builder.inheritSourceFlag = true
+	return builder
+}
+
+func (builder *DefaultCostCenterBuilder) Build() *DefaultCostCenter {
+	req := &DefaultCostCenter{}
+	if builder.costCenterIdFlag {
+		req.CostCenterId = &builder.costCenterId
+
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.isHeritFlag {
+		req.IsHerit = &builder.isHerit
+
+	}
+	if builder.inheritSourceFlag {
+		req.InheritSource = &builder.inheritSource
+
+	}
+	return req
+}
+
+type DefaultCostCenterRecord struct {
+	Reason *string `json:"reason,omitempty"` // 变更原因
+
+	IsInherit *bool `json:"is_inherit,omitempty"` // 是否继承
+
+	CostCenterId *CostCenterId `json:"cost_center_id,omitempty"` // 默认成本中心
+}
+
+type DefaultCostCenterRecordBuilder struct {
+	reason     string // 变更原因
+	reasonFlag bool
+
+	isInherit     bool // 是否继承
+	isInheritFlag bool
+
+	costCenterId     *CostCenterId // 默认成本中心
+	costCenterIdFlag bool
+}
+
+func NewDefaultCostCenterRecordBuilder() *DefaultCostCenterRecordBuilder {
+	builder := &DefaultCostCenterRecordBuilder{}
+	return builder
+}
+
+// 变更原因
+//
+// 示例值：默认成本中心变更
+func (builder *DefaultCostCenterRecordBuilder) Reason(reason string) *DefaultCostCenterRecordBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+// 是否继承
+//
+// 示例值：true
+func (builder *DefaultCostCenterRecordBuilder) IsInherit(isInherit bool) *DefaultCostCenterRecordBuilder {
+	builder.isInherit = isInherit
+	builder.isInheritFlag = true
+	return builder
+}
+
+// 默认成本中心
+//
+// 示例值：
+func (builder *DefaultCostCenterRecordBuilder) CostCenterId(costCenterId *CostCenterId) *DefaultCostCenterRecordBuilder {
+	builder.costCenterId = costCenterId
+	builder.costCenterIdFlag = true
+	return builder
+}
+
+func (builder *DefaultCostCenterRecordBuilder) Build() *DefaultCostCenterRecord {
+	req := &DefaultCostCenterRecord{}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.isInheritFlag {
+		req.IsInherit = &builder.isInherit
+
+	}
+	if builder.costCenterIdFlag {
+		req.CostCenterId = builder.costCenterId
 	}
 	return req
 }
@@ -16013,6 +16265,104 @@ func (builder *EmployeeBtBuilder) Build() *EmployeeBt {
 	return req
 }
 
+type EmployeeCostAllocation struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工id
+
+	CostAllocations []*EmploymentCostAllocation `json:"cost_allocations,omitempty"` // 成本分摊
+}
+
+type EmployeeCostAllocationBuilder struct {
+	employmentId     string // 员工id
+	employmentIdFlag bool
+
+	costAllocations     []*EmploymentCostAllocation // 成本分摊
+	costAllocationsFlag bool
+}
+
+func NewEmployeeCostAllocationBuilder() *EmployeeCostAllocationBuilder {
+	builder := &EmployeeCostAllocationBuilder{}
+	return builder
+}
+
+// 员工id
+//
+// 示例值：7475686493613920050
+func (builder *EmployeeCostAllocationBuilder) EmploymentId(employmentId string) *EmployeeCostAllocationBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 成本分摊
+//
+// 示例值：
+func (builder *EmployeeCostAllocationBuilder) CostAllocations(costAllocations []*EmploymentCostAllocation) *EmployeeCostAllocationBuilder {
+	builder.costAllocations = costAllocations
+	builder.costAllocationsFlag = true
+	return builder
+}
+
+func (builder *EmployeeCostAllocationBuilder) Build() *EmployeeCostAllocation {
+	req := &EmployeeCostAllocation{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.costAllocationsFlag {
+		req.CostAllocations = builder.costAllocations
+	}
+	return req
+}
+
+type EmployeeDefaultCostCenter struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 用户id
+
+	DefaultCostCenters []*EmploymentDefaultCostCenter `json:"default_cost_centers,omitempty"` // 默认成本中心
+}
+
+type EmployeeDefaultCostCenterBuilder struct {
+	employmentId     string // 用户id
+	employmentIdFlag bool
+
+	defaultCostCenters     []*EmploymentDefaultCostCenter // 默认成本中心
+	defaultCostCentersFlag bool
+}
+
+func NewEmployeeDefaultCostCenterBuilder() *EmployeeDefaultCostCenterBuilder {
+	builder := &EmployeeDefaultCostCenterBuilder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：7475686493613920050
+func (builder *EmployeeDefaultCostCenterBuilder) EmploymentId(employmentId string) *EmployeeDefaultCostCenterBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 默认成本中心
+//
+// 示例值：
+func (builder *EmployeeDefaultCostCenterBuilder) DefaultCostCenters(defaultCostCenters []*EmploymentDefaultCostCenter) *EmployeeDefaultCostCenterBuilder {
+	builder.defaultCostCenters = defaultCostCenters
+	builder.defaultCostCentersFlag = true
+	return builder
+}
+
+func (builder *EmployeeDefaultCostCenterBuilder) Build() *EmployeeDefaultCostCenter {
+	req := &EmployeeDefaultCostCenter{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.defaultCostCentersFlag {
+		req.DefaultCostCenters = builder.defaultCostCenters
+	}
+	return req
+}
+
 type EmployeeDomainEventData struct {
 	Id *string `json:"id,omitempty"` // 变更实体的ID
 
@@ -19353,6 +19703,283 @@ func (builder *EmploymentBpBuilder) Build() *EmploymentBp {
 	}
 	if builder.locationBpIdsFlag {
 		req.LocationBpIds = builder.locationBpIds
+	}
+	return req
+}
+
+type EmploymentCostAllocation struct {
+	WkId *string `json:"wk_id,omitempty"` // id
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 分摊生效日期
+
+	ExpirationTime *string `json:"expiration_time,omitempty"` // 分摊失效日期
+
+	JobDataCostCenterId []*JobDataCostCenter `json:"job_data_cost_center_id,omitempty"` // 成本分摊
+
+	JobDataId *JobDataId `json:"job_data_id,omitempty"` // 任职id
+
+	Reason *string `json:"reason,omitempty"` // 变更原因
+}
+
+type EmploymentCostAllocationBuilder struct {
+	wkId     string // id
+	wkIdFlag bool
+
+	effectiveTime     string // 分摊生效日期
+	effectiveTimeFlag bool
+
+	expirationTime     string // 分摊失效日期
+	expirationTimeFlag bool
+
+	jobDataCostCenterId     []*JobDataCostCenter // 成本分摊
+	jobDataCostCenterIdFlag bool
+
+	jobDataId     *JobDataId // 任职id
+	jobDataIdFlag bool
+
+	reason     string // 变更原因
+	reasonFlag bool
+}
+
+func NewEmploymentCostAllocationBuilder() *EmploymentCostAllocationBuilder {
+	builder := &EmploymentCostAllocationBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：703912325303191204
+func (builder *EmploymentCostAllocationBuilder) WkId(wkId string) *EmploymentCostAllocationBuilder {
+	builder.wkId = wkId
+	builder.wkIdFlag = true
+	return builder
+}
+
+// 分摊生效日期
+//
+// 示例值：2024-12-01
+func (builder *EmploymentCostAllocationBuilder) EffectiveTime(effectiveTime string) *EmploymentCostAllocationBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 分摊失效日期
+//
+// 示例值：2024-12-02
+func (builder *EmploymentCostAllocationBuilder) ExpirationTime(expirationTime string) *EmploymentCostAllocationBuilder {
+	builder.expirationTime = expirationTime
+	builder.expirationTimeFlag = true
+	return builder
+}
+
+// 成本分摊
+//
+// 示例值：
+func (builder *EmploymentCostAllocationBuilder) JobDataCostCenterId(jobDataCostCenterId []*JobDataCostCenter) *EmploymentCostAllocationBuilder {
+	builder.jobDataCostCenterId = jobDataCostCenterId
+	builder.jobDataCostCenterIdFlag = true
+	return builder
+}
+
+// 任职id
+//
+// 示例值：
+func (builder *EmploymentCostAllocationBuilder) JobDataId(jobDataId *JobDataId) *EmploymentCostAllocationBuilder {
+	builder.jobDataId = jobDataId
+	builder.jobDataIdFlag = true
+	return builder
+}
+
+// 变更原因
+//
+// 示例值：异动
+func (builder *EmploymentCostAllocationBuilder) Reason(reason string) *EmploymentCostAllocationBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *EmploymentCostAllocationBuilder) Build() *EmploymentCostAllocation {
+	req := &EmploymentCostAllocation{}
+	if builder.wkIdFlag {
+		req.WkId = &builder.wkId
+
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.expirationTimeFlag {
+		req.ExpirationTime = &builder.expirationTime
+
+	}
+	if builder.jobDataCostCenterIdFlag {
+		req.JobDataCostCenterId = builder.jobDataCostCenterId
+	}
+	if builder.jobDataIdFlag {
+		req.JobDataId = builder.jobDataId
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	return req
+}
+
+type EmploymentDefaultCostCenter struct {
+	WkId *string `json:"wk_id,omitempty"` // id
+
+	WkTid *string `json:"wk_tid,omitempty"` // id
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效日期
+
+	CostCenterId *string `json:"cost_center_id,omitempty"` // 成本中心id
+
+	JobDataId *string `json:"job_data_id,omitempty"` // 任职id
+
+	IsInherit *bool `json:"is_inherit,omitempty"` // 是否继承自岗位/部门的默认成本中心
+
+	InheritSource *Enum `json:"inherit_source,omitempty"` // 继承来源
+
+	Reason *string `json:"reason,omitempty"` // 变更原因
+}
+
+type EmploymentDefaultCostCenterBuilder struct {
+	wkId     string // id
+	wkIdFlag bool
+
+	wkTid     string // id
+	wkTidFlag bool
+
+	effectiveTime     string // 生效日期
+	effectiveTimeFlag bool
+
+	costCenterId     string // 成本中心id
+	costCenterIdFlag bool
+
+	jobDataId     string // 任职id
+	jobDataIdFlag bool
+
+	isInherit     bool // 是否继承自岗位/部门的默认成本中心
+	isInheritFlag bool
+
+	inheritSource     *Enum // 继承来源
+	inheritSourceFlag bool
+
+	reason     string // 变更原因
+	reasonFlag bool
+}
+
+func NewEmploymentDefaultCostCenterBuilder() *EmploymentDefaultCostCenterBuilder {
+	builder := &EmploymentDefaultCostCenterBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：703912325303191204
+func (builder *EmploymentDefaultCostCenterBuilder) WkId(wkId string) *EmploymentDefaultCostCenterBuilder {
+	builder.wkId = wkId
+	builder.wkIdFlag = true
+	return builder
+}
+
+// id
+//
+// 示例值：703912321231239801
+func (builder *EmploymentDefaultCostCenterBuilder) WkTid(wkTid string) *EmploymentDefaultCostCenterBuilder {
+	builder.wkTid = wkTid
+	builder.wkTidFlag = true
+	return builder
+}
+
+// 生效日期
+//
+// 示例值：2024-12-01
+func (builder *EmploymentDefaultCostCenterBuilder) EffectiveTime(effectiveTime string) *EmploymentDefaultCostCenterBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 成本中心id
+//
+// 示例值：7039123253031711012
+func (builder *EmploymentDefaultCostCenterBuilder) CostCenterId(costCenterId string) *EmploymentDefaultCostCenterBuilder {
+	builder.costCenterId = costCenterId
+	builder.costCenterIdFlag = true
+	return builder
+}
+
+// 任职id
+//
+// 示例值：7039123253031711012
+func (builder *EmploymentDefaultCostCenterBuilder) JobDataId(jobDataId string) *EmploymentDefaultCostCenterBuilder {
+	builder.jobDataId = jobDataId
+	builder.jobDataIdFlag = true
+	return builder
+}
+
+// 是否继承自岗位/部门的默认成本中心
+//
+// 示例值：
+func (builder *EmploymentDefaultCostCenterBuilder) IsInherit(isInherit bool) *EmploymentDefaultCostCenterBuilder {
+	builder.isInherit = isInherit
+	builder.isInheritFlag = true
+	return builder
+}
+
+// 继承来源
+//
+// 示例值：
+func (builder *EmploymentDefaultCostCenterBuilder) InheritSource(inheritSource *Enum) *EmploymentDefaultCostCenterBuilder {
+	builder.inheritSource = inheritSource
+	builder.inheritSourceFlag = true
+	return builder
+}
+
+// 变更原因
+//
+// 示例值：异动
+func (builder *EmploymentDefaultCostCenterBuilder) Reason(reason string) *EmploymentDefaultCostCenterBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *EmploymentDefaultCostCenterBuilder) Build() *EmploymentDefaultCostCenter {
+	req := &EmploymentDefaultCostCenter{}
+	if builder.wkIdFlag {
+		req.WkId = &builder.wkId
+
+	}
+	if builder.wkTidFlag {
+		req.WkTid = &builder.wkTid
+
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.costCenterIdFlag {
+		req.CostCenterId = &builder.costCenterId
+
+	}
+	if builder.jobDataIdFlag {
+		req.JobDataId = &builder.jobDataId
+
+	}
+	if builder.isInheritFlag {
+		req.IsInherit = &builder.isInherit
+
+	}
+	if builder.inheritSourceFlag {
+		req.InheritSource = builder.inheritSource
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
 	}
 	return req
 }
@@ -23489,15 +24116,20 @@ func (builder *JobDataBuilder) Build() *JobData {
 type JobDataCostCenter struct {
 	CostCenterId *string `json:"cost_center_id,omitempty"` // 成本中心 ID，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
 
-	Rate *int `json:"rate,omitempty"` // 分摊比例
+	Rate *int `json:"rate,omitempty"` // 分摊比例(整数)
+
+	NewRate *float64 `json:"new_rate,omitempty"` // 分摊比例
 }
 
 type JobDataCostCenterBuilder struct {
 	costCenterId     string // 成本中心 ID，可以通过【查询单个成本中心信息】接口获取对应的成本中心信息
 	costCenterIdFlag bool
 
-	rate     int // 分摊比例
+	rate     int // 分摊比例(整数)
 	rateFlag bool
+
+	newRate     float64 // 分摊比例
+	newRateFlag bool
 }
 
 func NewJobDataCostCenterBuilder() *JobDataCostCenterBuilder {
@@ -23514,12 +24146,21 @@ func (builder *JobDataCostCenterBuilder) CostCenterId(costCenterId string) *JobD
 	return builder
 }
 
-// 分摊比例
+// 分摊比例(整数)
 //
 // 示例值：100
 func (builder *JobDataCostCenterBuilder) Rate(rate int) *JobDataCostCenterBuilder {
 	builder.rate = rate
 	builder.rateFlag = true
+	return builder
+}
+
+// 分摊比例
+//
+// 示例值：50.2
+func (builder *JobDataCostCenterBuilder) NewRate(newRate float64) *JobDataCostCenterBuilder {
+	builder.newRate = newRate
+	builder.newRateFlag = true
 	return builder
 }
 
@@ -23531,6 +24172,10 @@ func (builder *JobDataCostCenterBuilder) Build() *JobDataCostCenter {
 	}
 	if builder.rateFlag {
 		req.Rate = &builder.rate
+
+	}
+	if builder.newRateFlag {
+		req.NewRate = &builder.newRate
 
 	}
 	return req
@@ -23616,6 +24261,38 @@ func (builder *JobDataCustomOrgBuilder) Build() *JobDataCustomOrg {
 	}
 	if builder.objectApiNameFlag {
 		req.ObjectApiName = &builder.objectApiName
+
+	}
+	return req
+}
+
+type JobDataId struct {
+	WkId *string `json:"wk_id,omitempty"` // 记录ID
+}
+
+type JobDataIdBuilder struct {
+	wkId     string // 记录ID
+	wkIdFlag bool
+}
+
+func NewJobDataIdBuilder() *JobDataIdBuilder {
+	builder := &JobDataIdBuilder{}
+	return builder
+}
+
+// 记录ID
+//
+// 示例值：7305354116229514796
+func (builder *JobDataIdBuilder) WkId(wkId string) *JobDataIdBuilder {
+	builder.wkId = wkId
+	builder.wkIdFlag = true
+	return builder
+}
+
+func (builder *JobDataIdBuilder) Build() *JobDataId {
+	req := &JobDataId{}
+	if builder.wkIdFlag {
+		req.WkId = &builder.wkId
 
 	}
 	return req
@@ -25180,6 +25857,20 @@ type LeaveBalance struct {
 	LeaveBalance *string `json:"leave_balance,omitempty"` // 假期余额
 
 	LeaveDurationUnit *int `json:"leave_duration_unit,omitempty"` // 假期时长的单位
+
+	HistoryCycleAccrual *string `json:"history_cycle_accrual,omitempty"` // 历史结转发放
+
+	BalanceInCurrentCycle *string `json:"balance_in_current_cycle,omitempty"` // 当前周期余额
+
+	Taken *string `json:"taken,omitempty"` // 已休时长
+
+	TakenHistoryCycle *string `json:"taken_history_cycle,omitempty"` // 历史周期已休时长
+
+	OffboardingBalance *string `json:"offboarding_balance,omitempty"` // 余额（离职折算）
+
+	TakenCurrentDate *string `json:"taken_current_date,omitempty"` // 已休时长（截止当日）
+
+	OffboardingGranted *string `json:"offboarding_granted,omitempty"` // 本周期授予时长（离职折算）
 }
 
 type LeaveBalanceBuilder struct {
@@ -25203,6 +25894,27 @@ type LeaveBalanceBuilder struct {
 
 	leaveDurationUnit     int // 假期时长的单位
 	leaveDurationUnitFlag bool
+
+	historyCycleAccrual     string // 历史结转发放
+	historyCycleAccrualFlag bool
+
+	balanceInCurrentCycle     string // 当前周期余额
+	balanceInCurrentCycleFlag bool
+
+	taken     string // 已休时长
+	takenFlag bool
+
+	takenHistoryCycle     string // 历史周期已休时长
+	takenHistoryCycleFlag bool
+
+	offboardingBalance     string // 余额（离职折算）
+	offboardingBalanceFlag bool
+
+	takenCurrentDate     string // 已休时长（截止当日）
+	takenCurrentDateFlag bool
+
+	offboardingGranted     string // 本周期授予时长（离职折算）
+	offboardingGrantedFlag bool
 }
 
 func NewLeaveBalanceBuilder() *LeaveBalanceBuilder {
@@ -25273,6 +25985,69 @@ func (builder *LeaveBalanceBuilder) LeaveDurationUnit(leaveDurationUnit int) *Le
 	return builder
 }
 
+// 历史结转发放
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) HistoryCycleAccrual(historyCycleAccrual string) *LeaveBalanceBuilder {
+	builder.historyCycleAccrual = historyCycleAccrual
+	builder.historyCycleAccrualFlag = true
+	return builder
+}
+
+// 当前周期余额
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) BalanceInCurrentCycle(balanceInCurrentCycle string) *LeaveBalanceBuilder {
+	builder.balanceInCurrentCycle = balanceInCurrentCycle
+	builder.balanceInCurrentCycleFlag = true
+	return builder
+}
+
+// 已休时长
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) Taken(taken string) *LeaveBalanceBuilder {
+	builder.taken = taken
+	builder.takenFlag = true
+	return builder
+}
+
+// 历史周期已休时长
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) TakenHistoryCycle(takenHistoryCycle string) *LeaveBalanceBuilder {
+	builder.takenHistoryCycle = takenHistoryCycle
+	builder.takenHistoryCycleFlag = true
+	return builder
+}
+
+// 余额（离职折算）
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) OffboardingBalance(offboardingBalance string) *LeaveBalanceBuilder {
+	builder.offboardingBalance = offboardingBalance
+	builder.offboardingBalanceFlag = true
+	return builder
+}
+
+// 已休时长（截止当日）
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) TakenCurrentDate(takenCurrentDate string) *LeaveBalanceBuilder {
+	builder.takenCurrentDate = takenCurrentDate
+	builder.takenCurrentDateFlag = true
+	return builder
+}
+
+// 本周期授予时长（离职折算）
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) OffboardingGranted(offboardingGranted string) *LeaveBalanceBuilder {
+	builder.offboardingGranted = offboardingGranted
+	builder.offboardingGrantedFlag = true
+	return builder
+}
+
 func (builder *LeaveBalanceBuilder) Build() *LeaveBalance {
 	req := &LeaveBalance{}
 	if builder.leaveTypeIdFlag {
@@ -25300,6 +26075,34 @@ func (builder *LeaveBalanceBuilder) Build() *LeaveBalance {
 	}
 	if builder.leaveDurationUnitFlag {
 		req.LeaveDurationUnit = &builder.leaveDurationUnit
+
+	}
+	if builder.historyCycleAccrualFlag {
+		req.HistoryCycleAccrual = &builder.historyCycleAccrual
+
+	}
+	if builder.balanceInCurrentCycleFlag {
+		req.BalanceInCurrentCycle = &builder.balanceInCurrentCycle
+
+	}
+	if builder.takenFlag {
+		req.Taken = &builder.taken
+
+	}
+	if builder.takenHistoryCycleFlag {
+		req.TakenHistoryCycle = &builder.takenHistoryCycle
+
+	}
+	if builder.offboardingBalanceFlag {
+		req.OffboardingBalance = &builder.offboardingBalance
+
+	}
+	if builder.takenCurrentDateFlag {
+		req.TakenCurrentDate = &builder.takenCurrentDate
+
+	}
+	if builder.offboardingGrantedFlag {
+		req.OffboardingGranted = &builder.offboardingGranted
 
 	}
 	return req
@@ -37546,6 +38349,8 @@ type PreHireContractInfo struct {
 	DurationType *string `json:"duration_type,omitempty"` // -| 期限类型，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - object_api_name = "pre_hire" - custom_api_name = "duration_type"
 
 	SigningType *string `json:"signing_type,omitempty"` // -| 签订类型，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - object_api_name = "pre_hire" - custom_api_name = "duration_type"
+
+	ContractFileIds []string `json:"contract_file_ids,omitempty"` // 合同文件
 }
 
 type PreHireContractInfoBuilder struct {
@@ -37563,6 +38368,9 @@ type PreHireContractInfoBuilder struct {
 
 	signingType     string // -| 签订类型，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - object_api_name = "pre_hire" - custom_api_name = "duration_type"
 	signingTypeFlag bool
+
+	contractFileIds     []string // 合同文件
+	contractFileIdsFlag bool
 }
 
 func NewPreHireContractInfoBuilder() *PreHireContractInfoBuilder {
@@ -37615,6 +38423,15 @@ func (builder *PreHireContractInfoBuilder) SigningType(signingType string) *PreH
 	return builder
 }
 
+// 合同文件
+//
+// 示例值：\["6977976687350924833","6890452208593372141"\]
+func (builder *PreHireContractInfoBuilder) ContractFileIds(contractFileIds []string) *PreHireContractInfoBuilder {
+	builder.contractFileIds = contractFileIds
+	builder.contractFileIdsFlag = true
+	return builder
+}
+
 func (builder *PreHireContractInfoBuilder) Build() *PreHireContractInfo {
 	req := &PreHireContractInfo{}
 	if builder.contractStartDateFlag {
@@ -37636,6 +38453,9 @@ func (builder *PreHireContractInfoBuilder) Build() *PreHireContractInfo {
 	if builder.signingTypeFlag {
 		req.SigningType = &builder.signingType
 
+	}
+	if builder.contractFileIdsFlag {
+		req.ContractFileIds = builder.contractFileIds
 	}
 	return req
 }
@@ -44394,6 +45214,10 @@ type ProfileSettingEmploymentInfo struct {
 	CustomOrgGroups []*JobDataCustomOrg `json:"custom_org_groups,omitempty"` // 自定义组织记录
 
 	SeniorityAdjustInformations []*SeniorityAdjustInformationEdit `json:"seniority_adjust_informations,omitempty"` // 司龄调整信息
+
+	DefaultCostCenter *DefaultCostCenterRecord `json:"default_cost_center,omitempty"` // 默认成本中心
+
+	CostAllocation *CostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
 }
 
 type ProfileSettingEmploymentInfoBuilder struct {
@@ -44417,6 +45241,12 @@ type ProfileSettingEmploymentInfoBuilder struct {
 
 	seniorityAdjustInformations     []*SeniorityAdjustInformationEdit // 司龄调整信息
 	seniorityAdjustInformationsFlag bool
+
+	defaultCostCenter     *DefaultCostCenterRecord // 默认成本中心
+	defaultCostCenterFlag bool
+
+	costAllocation     *CostAllocation // 成本分摊
+	costAllocationFlag bool
 }
 
 func NewProfileSettingEmploymentInfoBuilder() *ProfileSettingEmploymentInfoBuilder {
@@ -44487,6 +45317,24 @@ func (builder *ProfileSettingEmploymentInfoBuilder) SeniorityAdjustInformations(
 	return builder
 }
 
+// 默认成本中心
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentInfoBuilder) DefaultCostCenter(defaultCostCenter *DefaultCostCenterRecord) *ProfileSettingEmploymentInfoBuilder {
+	builder.defaultCostCenter = defaultCostCenter
+	builder.defaultCostCenterFlag = true
+	return builder
+}
+
+// 成本分摊
+//
+// 示例值：
+func (builder *ProfileSettingEmploymentInfoBuilder) CostAllocation(costAllocation *CostAllocation) *ProfileSettingEmploymentInfoBuilder {
+	builder.costAllocation = costAllocation
+	builder.costAllocationFlag = true
+	return builder
+}
+
 func (builder *ProfileSettingEmploymentInfoBuilder) Build() *ProfileSettingEmploymentInfo {
 	req := &ProfileSettingEmploymentInfo{}
 	if builder.basicInfoFlag {
@@ -44509,6 +45357,12 @@ func (builder *ProfileSettingEmploymentInfoBuilder) Build() *ProfileSettingEmplo
 	}
 	if builder.seniorityAdjustInformationsFlag {
 		req.SeniorityAdjustInformations = builder.seniorityAdjustInformations
+	}
+	if builder.defaultCostCenterFlag {
+		req.DefaultCostCenter = builder.defaultCostCenter
+	}
+	if builder.costAllocationFlag {
+		req.CostAllocation = builder.costAllocation
 	}
 	return req
 }
@@ -51413,6 +52267,22 @@ type TransferInfo struct {
 
 	TargetCostCenterRate []*JobDataCostCenter `json:"target_cost_center_rate,omitempty"` // 新成本中心分摊方式
 
+	TargetAllocationExpirationTime *string `json:"target_allocation_expiration_time,omitempty"` // 新分摊失效时间
+
+	OriginalAllocationExpirationTime *string `json:"original_allocation_expiration_time,omitempty"` // 原分摊失效时间
+
+	TargetAllocationEffectiveTime *string `json:"target_allocation_effective_time,omitempty"` // 新分摊生效时间
+
+	OriginalAllocationEffectiveTime *string `json:"original_allocation_effective_time,omitempty"` // 原分摊生效时间
+
+	OriginalDefaultCostCenter *string `json:"original_default_cost_center,omitempty"` // 原默认成本中心
+
+	TargetDefaultCostCenter *string `json:"target_default_cost_center,omitempty"` // 新默认成本中心
+
+	OriginalIsDefaultCostCenterInherited *bool `json:"original_is_default_cost_center_inherited,omitempty"` // 原默认成本中心是否继承
+
+	TargetIsDefaultCostCenterInherited *bool `json:"target_is_default_cost_center_inherited,omitempty"` // 新默认成本中心是否继承
+
 	OriginalEmploymentChange *TranferEmploymentInfo `json:"original_employment_change,omitempty"` // 原工作信息
 
 	TargetEmploymentChange *TranferEmploymentInfo `json:"target_employment_change,omitempty"` // 新工作信息
@@ -51599,6 +52469,30 @@ type TransferInfoBuilder struct {
 
 	targetCostCenterRate     []*JobDataCostCenter // 新成本中心分摊方式
 	targetCostCenterRateFlag bool
+
+	targetAllocationExpirationTime     string // 新分摊失效时间
+	targetAllocationExpirationTimeFlag bool
+
+	originalAllocationExpirationTime     string // 原分摊失效时间
+	originalAllocationExpirationTimeFlag bool
+
+	targetAllocationEffectiveTime     string // 新分摊生效时间
+	targetAllocationEffectiveTimeFlag bool
+
+	originalAllocationEffectiveTime     string // 原分摊生效时间
+	originalAllocationEffectiveTimeFlag bool
+
+	originalDefaultCostCenter     string // 原默认成本中心
+	originalDefaultCostCenterFlag bool
+
+	targetDefaultCostCenter     string // 新默认成本中心
+	targetDefaultCostCenterFlag bool
+
+	originalIsDefaultCostCenterInherited     bool // 原默认成本中心是否继承
+	originalIsDefaultCostCenterInheritedFlag bool
+
+	targetIsDefaultCostCenterInherited     bool // 新默认成本中心是否继承
+	targetIsDefaultCostCenterInheritedFlag bool
 
 	originalEmploymentChange     *TranferEmploymentInfo // 原工作信息
 	originalEmploymentChangeFlag bool
@@ -52113,6 +53007,78 @@ func (builder *TransferInfoBuilder) TargetCostCenterRate(targetCostCenterRate []
 	return builder
 }
 
+// 新分摊失效时间
+//
+// 示例值：2022-03-01
+func (builder *TransferInfoBuilder) TargetAllocationExpirationTime(targetAllocationExpirationTime string) *TransferInfoBuilder {
+	builder.targetAllocationExpirationTime = targetAllocationExpirationTime
+	builder.targetAllocationExpirationTimeFlag = true
+	return builder
+}
+
+// 原分摊失效时间
+//
+// 示例值：2022-03-01
+func (builder *TransferInfoBuilder) OriginalAllocationExpirationTime(originalAllocationExpirationTime string) *TransferInfoBuilder {
+	builder.originalAllocationExpirationTime = originalAllocationExpirationTime
+	builder.originalAllocationExpirationTimeFlag = true
+	return builder
+}
+
+// 新分摊生效时间
+//
+// 示例值：2022-03-01
+func (builder *TransferInfoBuilder) TargetAllocationEffectiveTime(targetAllocationEffectiveTime string) *TransferInfoBuilder {
+	builder.targetAllocationEffectiveTime = targetAllocationEffectiveTime
+	builder.targetAllocationEffectiveTimeFlag = true
+	return builder
+}
+
+// 原分摊生效时间
+//
+// 示例值：2022-03-01
+func (builder *TransferInfoBuilder) OriginalAllocationEffectiveTime(originalAllocationEffectiveTime string) *TransferInfoBuilder {
+	builder.originalAllocationEffectiveTime = originalAllocationEffectiveTime
+	builder.originalAllocationEffectiveTimeFlag = true
+	return builder
+}
+
+// 原默认成本中心
+//
+// 示例值：7380264299728602661
+func (builder *TransferInfoBuilder) OriginalDefaultCostCenter(originalDefaultCostCenter string) *TransferInfoBuilder {
+	builder.originalDefaultCostCenter = originalDefaultCostCenter
+	builder.originalDefaultCostCenterFlag = true
+	return builder
+}
+
+// 新默认成本中心
+//
+// 示例值：7380264299728602661
+func (builder *TransferInfoBuilder) TargetDefaultCostCenter(targetDefaultCostCenter string) *TransferInfoBuilder {
+	builder.targetDefaultCostCenter = targetDefaultCostCenter
+	builder.targetDefaultCostCenterFlag = true
+	return builder
+}
+
+// 原默认成本中心是否继承
+//
+// 示例值：
+func (builder *TransferInfoBuilder) OriginalIsDefaultCostCenterInherited(originalIsDefaultCostCenterInherited bool) *TransferInfoBuilder {
+	builder.originalIsDefaultCostCenterInherited = originalIsDefaultCostCenterInherited
+	builder.originalIsDefaultCostCenterInheritedFlag = true
+	return builder
+}
+
+// 新默认成本中心是否继承
+//
+// 示例值：
+func (builder *TransferInfoBuilder) TargetIsDefaultCostCenterInherited(targetIsDefaultCostCenterInherited bool) *TransferInfoBuilder {
+	builder.targetIsDefaultCostCenterInherited = targetIsDefaultCostCenterInherited
+	builder.targetIsDefaultCostCenterInheritedFlag = true
+	return builder
+}
+
 // 原工作信息
 //
 // 示例值：
@@ -52458,6 +53424,38 @@ func (builder *TransferInfoBuilder) Build() *TransferInfo {
 	}
 	if builder.targetCostCenterRateFlag {
 		req.TargetCostCenterRate = builder.targetCostCenterRate
+	}
+	if builder.targetAllocationExpirationTimeFlag {
+		req.TargetAllocationExpirationTime = &builder.targetAllocationExpirationTime
+
+	}
+	if builder.originalAllocationExpirationTimeFlag {
+		req.OriginalAllocationExpirationTime = &builder.originalAllocationExpirationTime
+
+	}
+	if builder.targetAllocationEffectiveTimeFlag {
+		req.TargetAllocationEffectiveTime = &builder.targetAllocationEffectiveTime
+
+	}
+	if builder.originalAllocationEffectiveTimeFlag {
+		req.OriginalAllocationEffectiveTime = &builder.originalAllocationEffectiveTime
+
+	}
+	if builder.originalDefaultCostCenterFlag {
+		req.OriginalDefaultCostCenter = &builder.originalDefaultCostCenter
+
+	}
+	if builder.targetDefaultCostCenterFlag {
+		req.TargetDefaultCostCenter = &builder.targetDefaultCostCenter
+
+	}
+	if builder.originalIsDefaultCostCenterInheritedFlag {
+		req.OriginalIsDefaultCostCenterInherited = &builder.originalIsDefaultCostCenterInherited
+
+	}
+	if builder.targetIsDefaultCostCenterInheritedFlag {
+		req.TargetIsDefaultCostCenterInherited = &builder.targetIsDefaultCostCenterInherited
+
 	}
 	if builder.originalEmploymentChangeFlag {
 		req.OriginalEmploymentChange = builder.originalEmploymentChange
@@ -63740,6 +64738,82 @@ type ListJobResp struct {
 }
 
 func (resp *ListJobResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryRecentChangeJobReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewQueryRecentChangeJobReqBuilder() *QueryRecentChangeJobReqBuilder {
+	builder := &QueryRecentChangeJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页大小，最大 2000
+//
+// 示例值：100
+func (builder *QueryRecentChangeJobReqBuilder) PageSize(pageSize int) *QueryRecentChangeJobReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *QueryRecentChangeJobReqBuilder) PageToken(pageToken string) *QueryRecentChangeJobReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 查询的开始时间，支持"yyyy-MM-dd HH:MM:SS"
+//
+// 示例值：2024-01-01 00:00:00
+func (builder *QueryRecentChangeJobReqBuilder) StartDate(startDate string) *QueryRecentChangeJobReqBuilder {
+	builder.apiReq.QueryParams.Set("start_date", fmt.Sprint(startDate))
+	return builder
+}
+
+// 查询的结束时间，格式 "yyyy-MM-dd HH:MM:SS"
+//
+// 示例值：2024-04-01 00:00:00
+func (builder *QueryRecentChangeJobReqBuilder) EndDate(endDate string) *QueryRecentChangeJobReqBuilder {
+	builder.apiReq.QueryParams.Set("end_date", fmt.Sprint(endDate))
+	return builder
+}
+
+func (builder *QueryRecentChangeJobReqBuilder) Build() *QueryRecentChangeJobReq {
+	req := &QueryRecentChangeJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type QueryRecentChangeJobReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type QueryRecentChangeJobRespData struct {
+	JobIds []string `json:"job_ids,omitempty"` // 职务 ID 列表
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	DeletedJobIds []string `json:"deleted_job_ids,omitempty"` // 删除的职务 ID 列表
+}
+
+type QueryRecentChangeJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryRecentChangeJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryRecentChangeJobResp) Success() bool {
 	return resp.Code == 0
 }
 

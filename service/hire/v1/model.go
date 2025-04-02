@@ -38689,7 +38689,7 @@ func (builder *ReferralRecommendInfoBuilder) Build() *ReferralRecommendInfo {
 type RegistrationBasicInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	RegistrationTime *int `json:"registration_time,omitempty"` // 创建时间
+	RegistrationTime *int64 `json:"registration_time,omitempty"` // 创建时间
 
 	DownloadUrl *string `json:"download_url,omitempty"` // 下载链接
 
@@ -38700,7 +38700,7 @@ type RegistrationBasicInfoBuilder struct {
 	id     string // ID
 	idFlag bool
 
-	registrationTime     int // 创建时间
+	registrationTime     int64 // 创建时间
 	registrationTimeFlag bool
 
 	downloadUrl     string // 下载链接
@@ -38727,7 +38727,7 @@ func (builder *RegistrationBasicInfoBuilder) Id(id string) *RegistrationBasicInf
 // 创建时间
 //
 // 示例值：1618494330932
-func (builder *RegistrationBasicInfoBuilder) RegistrationTime(registrationTime int) *RegistrationBasicInfoBuilder {
+func (builder *RegistrationBasicInfoBuilder) RegistrationTime(registrationTime int64) *RegistrationBasicInfoBuilder {
 	builder.registrationTime = registrationTime
 	builder.registrationTimeFlag = true
 	return builder
@@ -43293,7 +43293,7 @@ type TalentBasicInfo struct {
 
 	Identification *TalentIdentificationInfo `json:"identification,omitempty"` // 证件信息
 
-	Birthday *int `json:"birthday,omitempty"` // 生日
+	Birthday *int64 `json:"birthday,omitempty"` // 生日
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人
 
@@ -43354,7 +43354,7 @@ type TalentBasicInfoBuilder struct {
 	identification     *TalentIdentificationInfo // 证件信息
 	identificationFlag bool
 
-	birthday     int // 生日
+	birthday     int64 // 生日
 	birthdayFlag bool
 
 	creatorId     string // 创建人
@@ -43519,7 +43519,7 @@ func (builder *TalentBasicInfoBuilder) Identification(identification *TalentIden
 // 生日
 //
 // 示例值：293016767159
-func (builder *TalentBasicInfoBuilder) Birthday(birthday int) *TalentBasicInfoBuilder {
+func (builder *TalentBasicInfoBuilder) Birthday(birthday int64) *TalentBasicInfoBuilder {
 	builder.birthday = birthday
 	builder.birthdayFlag = true
 	return builder
@@ -45458,7 +45458,7 @@ type TalentCustomizedAttachment struct {
 
 	ContentType *string `json:"content_type,omitempty"` // 附件类型
 
-	FileSize *int `json:"file_size,omitempty"` // 附件大小
+	FileSize *int64 `json:"file_size,omitempty"` // 附件大小
 }
 
 type TalentCustomizedAttachmentBuilder struct {
@@ -45471,7 +45471,7 @@ type TalentCustomizedAttachmentBuilder struct {
 	contentType     string // 附件类型
 	contentTypeFlag bool
 
-	fileSize     int // 附件大小
+	fileSize     int64 // 附件大小
 	fileSizeFlag bool
 }
 
@@ -45510,7 +45510,7 @@ func (builder *TalentCustomizedAttachmentBuilder) ContentType(contentType string
 // 附件大小
 //
 // 示例值：16615
-func (builder *TalentCustomizedAttachmentBuilder) FileSize(fileSize int) *TalentCustomizedAttachmentBuilder {
+func (builder *TalentCustomizedAttachmentBuilder) FileSize(fileSize int64) *TalentCustomizedAttachmentBuilder {
 	builder.fileSize = fileSize
 	builder.fileSizeFlag = true
 	return builder
@@ -46797,7 +46797,7 @@ func (builder *TalentInterviewBuilder) Build() *TalentInterview {
 type TalentInterviewRegistrationSimple struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	RegistrationTime *int `json:"registration_time,omitempty"` // 创建时间
+	RegistrationTime *int64 `json:"registration_time,omitempty"` // 创建时间
 
 	DownloadUrl *string `json:"download_url,omitempty"` // 下载链接
 }
@@ -46806,7 +46806,7 @@ type TalentInterviewRegistrationSimpleBuilder struct {
 	id     string // ID
 	idFlag bool
 
-	registrationTime     int // 创建时间
+	registrationTime     int64 // 创建时间
 	registrationTimeFlag bool
 
 	downloadUrl     string // 下载链接
@@ -46830,7 +46830,7 @@ func (builder *TalentInterviewRegistrationSimpleBuilder) Id(id string) *TalentIn
 // 创建时间
 //
 // 示例值：1618494330932
-func (builder *TalentInterviewRegistrationSimpleBuilder) RegistrationTime(registrationTime int) *TalentInterviewRegistrationSimpleBuilder {
+func (builder *TalentInterviewRegistrationSimpleBuilder) RegistrationTime(registrationTime int64) *TalentInterviewRegistrationSimpleBuilder {
 	builder.registrationTime = registrationTime
 	builder.registrationTimeFlag = true
 	return builder

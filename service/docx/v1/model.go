@@ -580,6 +580,10 @@ type Block struct {
 	AgendaItemContent *AgendaItemContent `json:"agenda_item_content,omitempty"` // 议程项内容 Block
 
 	LinkPreview *LinkPreview `json:"link_preview,omitempty"` // 链接预览 Block
+
+	SourceSynced *SourceSynced `json:"source_synced,omitempty"` // 源同步块
+
+	ReferenceSynced *ReferenceSynced `json:"reference_synced,omitempty"` // 引用同步块
 }
 
 type BlockBuilder struct {
@@ -744,6 +748,12 @@ type BlockBuilder struct {
 
 	linkPreview     *LinkPreview // 链接预览 Block
 	linkPreviewFlag bool
+
+	sourceSynced     *SourceSynced // 源同步块
+	sourceSyncedFlag bool
+
+	referenceSynced     *ReferenceSynced // 引用同步块
+	referenceSyncedFlag bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -1237,6 +1247,24 @@ func (builder *BlockBuilder) LinkPreview(linkPreview *LinkPreview) *BlockBuilder
 	return builder
 }
 
+// 源同步块
+//
+// 示例值：
+func (builder *BlockBuilder) SourceSynced(sourceSynced *SourceSynced) *BlockBuilder {
+	builder.sourceSynced = sourceSynced
+	builder.sourceSyncedFlag = true
+	return builder
+}
+
+// 引用同步块
+//
+// 示例值：
+func (builder *BlockBuilder) ReferenceSynced(referenceSynced *ReferenceSynced) *BlockBuilder {
+	builder.referenceSynced = referenceSynced
+	builder.referenceSyncedFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -1403,6 +1431,12 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.linkPreviewFlag {
 		req.LinkPreview = builder.linkPreview
+	}
+	if builder.sourceSyncedFlag {
+		req.SourceSynced = builder.sourceSynced
+	}
+	if builder.referenceSyncedFlag {
+		req.ReferenceSynced = builder.referenceSynced
 	}
 	return req
 }
@@ -3998,6 +4032,56 @@ func (builder *QuoteContainerBuilder) Build() *QuoteContainer {
 	return req
 }
 
+type ReferenceSynced struct {
+	SourceDocumentId *string `json:"source_document_id,omitempty"` // 源文档的文档 ID
+
+	SourceBlockId *string `json:"source_block_id,omitempty"` // 源同步块的 Block ID
+}
+
+type ReferenceSyncedBuilder struct {
+	sourceDocumentId     string // 源文档的文档 ID
+	sourceDocumentIdFlag bool
+
+	sourceBlockId     string // 源同步块的 Block ID
+	sourceBlockIdFlag bool
+}
+
+func NewReferenceSyncedBuilder() *ReferenceSyncedBuilder {
+	builder := &ReferenceSyncedBuilder{}
+	return builder
+}
+
+// 源文档的文档 ID
+//
+// 示例值：doxcnSS4ouQkQEouGSUkTgabcef
+func (builder *ReferenceSyncedBuilder) SourceDocumentId(sourceDocumentId string) *ReferenceSyncedBuilder {
+	builder.sourceDocumentId = sourceDocumentId
+	builder.sourceDocumentIdFlag = true
+	return builder
+}
+
+// 源同步块的 Block ID
+//
+// 示例值：doxcnePuYufKa49ISjhD8Iabcef
+func (builder *ReferenceSyncedBuilder) SourceBlockId(sourceBlockId string) *ReferenceSyncedBuilder {
+	builder.sourceBlockId = sourceBlockId
+	builder.sourceBlockIdFlag = true
+	return builder
+}
+
+func (builder *ReferenceSyncedBuilder) Build() *ReferenceSynced {
+	req := &ReferenceSynced{}
+	if builder.sourceDocumentIdFlag {
+		req.SourceDocumentId = &builder.sourceDocumentId
+
+	}
+	if builder.sourceBlockIdFlag {
+		req.SourceBlockId = &builder.sourceBlockId
+
+	}
+	return req
+}
+
 type Reminder struct {
 	CreateUserId *string `json:"create_user_id,omitempty"` // 创建者用户 ID
 
@@ -4300,6 +4384,55 @@ func (builder *SheetBuilder) Build() *Sheet {
 	}
 	if builder.columnSizeFlag {
 		req.ColumnSize = &builder.columnSize
+
+	}
+	return req
+}
+
+type SourceSynced struct {
+	Elements []*TextElement `json:"elements,omitempty"` // 同步块独立页标题，由文本元素组成
+
+	Align *int `json:"align,omitempty"` // 对齐方式
+}
+
+type SourceSyncedBuilder struct {
+	elements     []*TextElement // 同步块独立页标题，由文本元素组成
+	elementsFlag bool
+
+	align     int // 对齐方式
+	alignFlag bool
+}
+
+func NewSourceSyncedBuilder() *SourceSyncedBuilder {
+	builder := &SourceSyncedBuilder{}
+	return builder
+}
+
+// 同步块独立页标题，由文本元素组成
+//
+// 示例值：
+func (builder *SourceSyncedBuilder) Elements(elements []*TextElement) *SourceSyncedBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+// 对齐方式
+//
+// 示例值：1
+func (builder *SourceSyncedBuilder) Align(align int) *SourceSyncedBuilder {
+	builder.align = align
+	builder.alignFlag = true
+	return builder
+}
+
+func (builder *SourceSyncedBuilder) Build() *SourceSynced {
+	req := &SourceSynced{}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	if builder.alignFlag {
+		req.Align = &builder.align
 
 	}
 	return req
@@ -7866,6 +7999,14 @@ func (builder *GetDocumentBlockChildrenReqBuilder) PageToken(pageToken string) *
 // 示例值：500
 func (builder *GetDocumentBlockChildrenReqBuilder) PageSize(pageSize int) *GetDocumentBlockChildrenReqBuilder {
 	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 查询的结果中是否返回指定块的所有子孙块。 with_descendants 为 false 时，仅会返回指定块的所有子块列表。 with_descendants 为 true 时，会以先序遍历的方式返回指定块的所有子孙块列表，包括当前指定的块。
+//
+// 示例值：false
+func (builder *GetDocumentBlockChildrenReqBuilder) WithDescendants(withDescendants bool) *GetDocumentBlockChildrenReqBuilder {
+	builder.apiReq.QueryParams.Set("with_descendants", fmt.Sprint(withDescendants))
 	return builder
 }
 

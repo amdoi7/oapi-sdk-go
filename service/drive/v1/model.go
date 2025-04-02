@@ -85,6 +85,7 @@ const (
 	FileTypeBitable = "bitable" // 多维表格
 	FileTypeFile    = "file"    // 文件
 	FileTypeFolder  = "folder"  // 文件夹
+	FileTypeSlides  = "slides"  // 幻灯片
 )
 
 const (
@@ -94,6 +95,7 @@ const (
 	FileTypeGetSubscribeFileBitable = "bitable" // 多维表格
 	FileTypeGetSubscribeFileFile    = "file"    // 文件
 	FileTypeGetSubscribeFileFolder  = "folder"  // 文件夹
+	FileTypeGetSubscribeFileSlides  = "slides"  // 幻灯片
 )
 
 const (
@@ -128,7 +130,9 @@ const (
 	FileTypeSubscribeFileDocx    = "docx"    // docx文档
 	FileTypeSubscribeFileSheet   = "sheet"   // 表格
 	FileTypeSubscribeFileBitable = "bitable" // 多维表格
+	FileTypeSubscribeFileFile    = "file"    // 文件
 	FileTypeSubscribeFileFolder  = "folder"  // 文件夹
+	FileTypeSubscribeFileSlides  = "slides"  // 幻灯片
 )
 
 const (
@@ -140,10 +144,11 @@ const (
 )
 
 const (
-	FileTypeBatchQueryFileCommentDoc   = "doc"   // 文档
-	FileTypeBatchQueryFileCommentSheet = "sheet" // 表格
-	FileTypeBatchQueryFileCommentFile  = "file"  // 文件
-	FileTypeBatchQueryFileCommentDocx  = "docx"  // 新版文档
+	FileTypeBatchQueryFileCommentDoc    = "doc"    // 文档
+	FileTypeBatchQueryFileCommentDocx   = "docx"   // 新版文档
+	FileTypeBatchQueryFileCommentSheet  = "sheet"  // 表格
+	FileTypeBatchQueryFileCommentFile   = "file"   // 文件
+	FileTypeBatchQueryFileCommentSlides = "slides" // 幻灯片
 )
 
 const (
@@ -177,10 +182,11 @@ const (
 )
 
 const (
-	FileTypeListFileCommentDoc   = "doc"   // 文档
-	FileTypeListFileCommentSheet = "sheet" // 表格
-	FileTypeListFileCommentFile  = "file"  // 文件
-	FileTypeListFileCommentDocx  = "docx"  // 新版文档
+	FileTypeListFileCommentDoc    = "doc"    // 文档
+	FileTypeListFileCommentDocx   = "docx"   // 新版文档
+	FileTypeListFileCommentSheet  = "sheet"  // 表格
+	FileTypeListFileCommentFile   = "file"   // 文件
+	FileTypeListFileCommentSlides = "slides" // 幻灯片
 )
 
 const (
@@ -190,24 +196,27 @@ const (
 )
 
 const (
-	FileTypePatchFileCommentDoc   = "doc"   // 文档
-	FileTypePatchFileCommentSheet = "sheet" // 表格
-	FileTypePatchFileCommentFile  = "file"  // 文件
-	FileTypePatchFileCommentDocx  = "docx"  // 新版文档
+	FileTypePatchFileCommentDoc    = "doc"    // 文档
+	FileTypePatchFileCommentDocx   = "docx"   // 新版文档
+	FileTypePatchFileCommentSheet  = "sheet"  // 表格
+	FileTypePatchFileCommentFile   = "file"   // 文件
+	FileTypePatchFileCommentSlides = "slides" // 幻灯片
 )
 
 const (
-	FileTypeDeleteFileCommentReplyDoc   = "doc"   // 文档
-	FileTypeDeleteFileCommentReplySheet = "sheet" // 表格
-	FileTypeDeleteFileCommentReplyFile  = "file"  // 文件
-	FileTypeDeleteFileCommentReplyDocx  = "docx"  // 新版文档
+	FileTypeDeleteFileCommentReplyDoc    = "doc"    // 文档
+	FileTypeDeleteFileCommentReplyDocx   = "docx"   // 新版文档
+	FileTypeDeleteFileCommentReplySheet  = "sheet"  // 表格
+	FileTypeDeleteFileCommentReplyFile   = "file"   // 文件
+	FileTypeDeleteFileCommentReplySlides = "slides" // 幻灯片
 )
 
 const (
-	FileTypeListFileCommentReplyDoc   = "doc"   // 文档
-	FileTypeListFileCommentReplySheet = "sheet" // 表格
-	FileTypeListFileCommentReplyFile  = "file"  // 文件
-	FileTypeListFileCommentReplyDocx  = "docx"  // 新版本文档
+	FileTypeListFileCommentReplyDoc    = "doc"    // 文档
+	FileTypeListFileCommentReplyDocx   = "docx"   // 新版本文档
+	FileTypeListFileCommentReplySheet  = "sheet"  // 表格
+	FileTypeListFileCommentReplyFile   = "file"   // 文件
+	FileTypeListFileCommentReplySlides = "slides" // 幻灯片
 )
 
 const (
@@ -217,10 +226,11 @@ const (
 )
 
 const (
-	FileTypeUpdateFileCommentReplyDoc   = "doc"   // 文档
-	FileTypeUpdateFileCommentReplySheet = "sheet" // 表格
-	FileTypeUpdateFileCommentReplyFile  = "file"  // 文件
-	FileTypeUpdateFileCommentReplyDocx  = "docx"  // 新版文档
+	FileTypeUpdateFileCommentReplyDoc    = "doc"    // 文档
+	FileTypeUpdateFileCommentReplyDocx   = "docx"   // 新版文档
+	FileTypeUpdateFileCommentReplySheet  = "sheet"  // 表格
+	FileTypeUpdateFileCommentReplyFile   = "file"   // 文件
+	FileTypeUpdateFileCommentReplySlides = "slides" // 幻灯片
 )
 
 const (
@@ -6172,6 +6182,14 @@ func (builder *ListFileReqBuilder) OrderBy(orderBy string) *ListFileReqBuilder {
 // 示例值：DESC
 func (builder *ListFileReqBuilder) Direction(direction string) *ListFileReqBuilder {
 	builder.apiReq.QueryParams.Set("direction", fmt.Sprint(direction))
+	return builder
+}
+
+// 指定获取文件清单的特殊方式
+//
+// 示例值：get_all_children_unsort
+func (builder *ListFileReqBuilder) Option(option string) *ListFileReqBuilder {
+	builder.apiReq.QueryParams.Set("option", fmt.Sprint(option))
 	return builder
 }
 

@@ -3966,11 +3966,31 @@ func (builder *AuditPcContextBuilder) Build() *AuditPcContext {
 
 type AuditRecipientDetail struct {
 	PermissionActionType *string `json:"permission_action_type,omitempty"` // 修改权限协作者
+
+	ChatId *string `json:"chat_id,omitempty"` // 会话 id
+
+	ChatName *string `json:"chat_name,omitempty"` // 会话名称
+
+	ChatType *int `json:"chat_type,omitempty"` // 聊天类型，1 单聊，2 群聊，3 话题群
+
+	ExternalFlag *bool `json:"external_flag,omitempty"` // 外部用户标识，false 内部、true 外部
 }
 
 type AuditRecipientDetailBuilder struct {
 	permissionActionType     string // 修改权限协作者
 	permissionActionTypeFlag bool
+
+	chatId     string // 会话 id
+	chatIdFlag bool
+
+	chatName     string // 会话名称
+	chatNameFlag bool
+
+	chatType     int // 聊天类型，1 单聊，2 群聊，3 话题群
+	chatTypeFlag bool
+
+	externalFlag     bool // 外部用户标识，false 内部、true 外部
+	externalFlagFlag bool
 }
 
 func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
@@ -3980,10 +4000,46 @@ func NewAuditRecipientDetailBuilder() *AuditRecipientDetailBuilder {
 
 // 修改权限协作者
 //
-// 示例值：
+// 示例值：1
 func (builder *AuditRecipientDetailBuilder) PermissionActionType(permissionActionType string) *AuditRecipientDetailBuilder {
 	builder.permissionActionType = permissionActionType
 	builder.permissionActionTypeFlag = true
+	return builder
+}
+
+// 会话 id
+//
+// 示例值：oc_xxxx
+func (builder *AuditRecipientDetailBuilder) ChatId(chatId string) *AuditRecipientDetailBuilder {
+	builder.chatId = chatId
+	builder.chatIdFlag = true
+	return builder
+}
+
+// 会话名称
+//
+// 示例值：test
+func (builder *AuditRecipientDetailBuilder) ChatName(chatName string) *AuditRecipientDetailBuilder {
+	builder.chatName = chatName
+	builder.chatNameFlag = true
+	return builder
+}
+
+// 聊天类型，1 单聊，2 群聊，3 话题群
+//
+// 示例值：1
+func (builder *AuditRecipientDetailBuilder) ChatType(chatType int) *AuditRecipientDetailBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+
+// 外部用户标识，false 内部、true 外部
+//
+// 示例值：false
+func (builder *AuditRecipientDetailBuilder) ExternalFlag(externalFlag bool) *AuditRecipientDetailBuilder {
+	builder.externalFlag = externalFlag
+	builder.externalFlagFlag = true
 	return builder
 }
 
@@ -3991,6 +4047,22 @@ func (builder *AuditRecipientDetailBuilder) Build() *AuditRecipientDetail {
 	req := &AuditRecipientDetail{}
 	if builder.permissionActionTypeFlag {
 		req.PermissionActionType = &builder.permissionActionType
+
+	}
+	if builder.chatIdFlag {
+		req.ChatId = &builder.chatId
+
+	}
+	if builder.chatNameFlag {
+		req.ChatName = &builder.chatName
+
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
+
+	}
+	if builder.externalFlagFlag {
+		req.ExternalFlag = &builder.externalFlag
 
 	}
 	return req
