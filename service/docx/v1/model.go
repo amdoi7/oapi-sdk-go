@@ -422,6 +422,22 @@ func (builder *AgendaTitleElementBuilder) Build() *AgendaTitleElement {
 	return req
 }
 
+type AiTemplate struct {
+}
+
+type AiTemplateBuilder struct {
+}
+
+func NewAiTemplateBuilder() *AiTemplateBuilder {
+	builder := &AiTemplateBuilder{}
+	return builder
+}
+
+func (builder *AiTemplateBuilder) Build() *AiTemplate {
+	req := &AiTemplate{}
+	return req
+}
+
 type Bitable struct {
 	Token *string `json:"token,omitempty"` // 多维表格文档 Token
 
@@ -1658,6 +1674,38 @@ func (builder *CalloutBuilder) Build() *Callout {
 	}
 	if builder.emojiIdFlag {
 		req.EmojiId = &builder.emojiId
+
+	}
+	return req
+}
+
+type Caption struct {
+	Content *string `json:"content,omitempty"` // 描述的文本内容
+}
+
+type CaptionBuilder struct {
+	content     string // 描述的文本内容
+	contentFlag bool
+}
+
+func NewCaptionBuilder() *CaptionBuilder {
+	builder := &CaptionBuilder{}
+	return builder
+}
+
+// 描述的文本内容
+//
+// 示例值：caption
+func (builder *CaptionBuilder) Content(content string) *CaptionBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *CaptionBuilder) Build() *Caption {
+	req := &Caption{}
+	if builder.contentFlag {
+		req.Content = &builder.content
 
 	}
 	return req
@@ -4438,6 +4486,38 @@ func (builder *SourceSyncedBuilder) Build() *SourceSynced {
 	return req
 }
 
+type SubPageList struct {
+	WikiToken *string `json:"wiki_token,omitempty"` // 知识库节点 token，仅支持知识库文档创建子页面列表，且需传入当前页面的 wiki token
+}
+
+type SubPageListBuilder struct {
+	wikiToken     string // 知识库节点 token，仅支持知识库文档创建子页面列表，且需传入当前页面的 wiki token
+	wikiTokenFlag bool
+}
+
+func NewSubPageListBuilder() *SubPageListBuilder {
+	builder := &SubPageListBuilder{}
+	return builder
+}
+
+// 知识库节点 token，仅支持知识库文档创建子页面列表，且需传入当前页面的 wiki token
+//
+// 示例值：Ub47wVI7AikG9wkgnpSbFyabcef
+func (builder *SubPageListBuilder) WikiToken(wikiToken string) *SubPageListBuilder {
+	builder.wikiToken = wikiToken
+	builder.wikiTokenFlag = true
+	return builder
+}
+
+func (builder *SubPageListBuilder) Build() *SubPageList {
+	req := &SubPageList{}
+	if builder.wikiTokenFlag {
+		req.WikiToken = &builder.wikiToken
+
+	}
+	return req
+}
+
 type Table struct {
 	Cells []string `json:"cells,omitempty"` // 单元格数组，数组元素为 Table Cell Block 的 ID
 
@@ -6185,9 +6265,9 @@ type GetChatAnnouncementReq struct {
 type GetChatAnnouncementRespData struct {
 	RevisionId *int `json:"revision_id,omitempty"` // 当前版本号
 
-	CreateTime *string `json:"create_time,omitempty"` // 群公告生成的时间戳（秒）
+	CreateTime *int64 `json:"create_time,omitempty"` // 群公告生成的时间戳（秒）（已废弃）
 
-	UpdateTime *string `json:"update_time,omitempty"` // 群公告更新的时间戳（秒）
+	UpdateTime *int64 `json:"update_time,omitempty"` // 群公告更新的时间戳（秒）（已废弃）
 
 	OwnerId *string `json:"owner_id,omitempty"` // 群公告所有者 ID，ID 值与 owner_id_type 中的ID类型对应
 
@@ -6198,6 +6278,10 @@ type GetChatAnnouncementRespData struct {
 	ModifierIdType *string `json:"modifier_id_type,omitempty"` // 群公告最新修改者 id 类型
 
 	AnnouncementType *string `json:"announcement_type,omitempty"` // 群公告类型
+
+	CreateTimeV2 *string `json:"create_time_v2,omitempty"` // 群公告生成的时间戳（秒）
+
+	UpdateTimeV2 *string `json:"update_time_v2,omitempty"` // 群公告更新的时间戳（秒）
 }
 
 type GetChatAnnouncementResp struct {
