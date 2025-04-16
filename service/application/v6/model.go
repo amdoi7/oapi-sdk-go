@@ -3062,6 +3062,8 @@ type Application struct {
 	MobileDefaultAbility *string `json:"mobile_default_ability,omitempty"` // 移动端默认能力
 
 	PcDefaultAbility *string `json:"pc_default_ability,omitempty"` // PC端默认能力
+
+	Secret *string `json:"secret,omitempty"` // 应用密钥
 }
 
 type ApplicationBuilder struct {
@@ -3124,6 +3126,9 @@ type ApplicationBuilder struct {
 
 	pcDefaultAbility     string // PC端默认能力
 	pcDefaultAbilityFlag bool
+
+	secret     string // 应用密钥
+	secretFlag bool
 }
 
 func NewApplicationBuilder() *ApplicationBuilder {
@@ -3311,6 +3316,15 @@ func (builder *ApplicationBuilder) PcDefaultAbility(pcDefaultAbility string) *Ap
 	return builder
 }
 
+// 应用密钥
+//
+// 示例值：XJG4pdMq5CtWIL5xPrYqGtbMIANvLqFV
+func (builder *ApplicationBuilder) Secret(secret string) *ApplicationBuilder {
+	builder.secret = secret
+	builder.secretFlag = true
+	return builder
+}
+
 func (builder *ApplicationBuilder) Build() *Application {
 	req := &Application{}
 	if builder.appIdFlag {
@@ -3386,6 +3400,10 @@ func (builder *ApplicationBuilder) Build() *Application {
 	}
 	if builder.pcDefaultAbilityFlag {
 		req.PcDefaultAbility = &builder.pcDefaultAbility
+
+	}
+	if builder.secretFlag {
+		req.Secret = &builder.secret
 
 	}
 	return req

@@ -2638,13 +2638,13 @@ func (builder *AgencySupplierLabelBuilder) Build() *AgencySupplierLabel {
 }
 
 type AgencySupplierProtectTime struct {
-	Day *int `json:"day,omitempty"` // 保护时长，单位（天）
+	Day *int64 `json:"day,omitempty"` // 保护时长，单位（天）
 
 	UseDefault *bool `json:"use_default,omitempty"` // 是否使用统一设置
 }
 
 type AgencySupplierProtectTimeBuilder struct {
-	day     int // 保护时长，单位（天）
+	day     int64 // 保护时长，单位（天）
 	dayFlag bool
 
 	useDefault     bool // 是否使用统一设置
@@ -2659,7 +2659,7 @@ func NewAgencySupplierProtectTimeBuilder() *AgencySupplierProtectTimeBuilder {
 // 保护时长，单位（天）
 //
 // 示例值：180
-func (builder *AgencySupplierProtectTimeBuilder) Day(day int) *AgencySupplierProtectTimeBuilder {
+func (builder *AgencySupplierProtectTimeBuilder) Day(day int64) *AgencySupplierProtectTimeBuilder {
 	builder.day = day
 	builder.dayFlag = true
 	return builder
@@ -2688,7 +2688,7 @@ func (builder *AgencySupplierProtectTimeBuilder) Build() *AgencySupplierProtectT
 }
 
 type AgencySupplierTalentProtectTime struct {
-	Day *int `json:"day,omitempty"` // 保护时长，单位（天）
+	Day *int64 `json:"day,omitempty"` // 保护时长，单位（天）
 
 	UseDefault *bool `json:"use_default,omitempty"` // 是否使用统一设置
 
@@ -2696,7 +2696,7 @@ type AgencySupplierTalentProtectTime struct {
 }
 
 type AgencySupplierTalentProtectTimeBuilder struct {
-	day     int // 保护时长，单位（天）
+	day     int64 // 保护时长，单位（天）
 	dayFlag bool
 
 	useDefault     bool // 是否使用统一设置
@@ -2714,7 +2714,7 @@ func NewAgencySupplierTalentProtectTimeBuilder() *AgencySupplierTalentProtectTim
 // 保护时长，单位（天）
 //
 // 示例值：180
-func (builder *AgencySupplierTalentProtectTimeBuilder) Day(day int) *AgencySupplierTalentProtectTimeBuilder {
+func (builder *AgencySupplierTalentProtectTimeBuilder) Day(day int64) *AgencySupplierTalentProtectTimeBuilder {
 	builder.day = day
 	builder.dayFlag = true
 	return builder
@@ -3241,9 +3241,9 @@ type AppliOfferOnboardProfile struct {
 
 	IsWorkAddressSameToOnboard *bool `json:"is_work_address_same_to_onboard,omitempty"` // 工作地址是否与onboard地址相同
 
-	ProbationMonth *int `json:"probation_month,omitempty"` // 试用期
+	ProbationMonth *int64 `json:"probation_month,omitempty"` // 试用期
 
-	ContractYear *int `json:"contract_year,omitempty"` // 合同年限
+	ContractYear *int64 `json:"contract_year,omitempty"` // 合同年限
 }
 
 type AppliOfferOnboardProfileBuilder struct {
@@ -3274,10 +3274,10 @@ type AppliOfferOnboardProfileBuilder struct {
 	isWorkAddressSameToOnboard     bool // 工作地址是否与onboard地址相同
 	isWorkAddressSameToOnboardFlag bool
 
-	probationMonth     int // 试用期
+	probationMonth     int64 // 试用期
 	probationMonthFlag bool
 
-	contractYear     int // 合同年限
+	contractYear     int64 // 合同年限
 	contractYearFlag bool
 }
 
@@ -3288,7 +3288,7 @@ func NewAppliOfferOnboardProfileBuilder() *AppliOfferOnboardProfileBuilder {
 
 // offer ID
 //
-// 示例值：
+// 示例值：6942778198054125570
 func (builder *AppliOfferOnboardProfileBuilder) OfferId(offerId string) *AppliOfferOnboardProfileBuilder {
 	builder.offerId = offerId
 	builder.offerIdFlag = true
@@ -3369,8 +3369,8 @@ func (builder *AppliOfferOnboardProfileBuilder) IsWorkAddressSameToOnboard(isWor
 
 // 试用期
 //
-// 示例值：
-func (builder *AppliOfferOnboardProfileBuilder) ProbationMonth(probationMonth int) *AppliOfferOnboardProfileBuilder {
+// 示例值：90
+func (builder *AppliOfferOnboardProfileBuilder) ProbationMonth(probationMonth int64) *AppliOfferOnboardProfileBuilder {
 	builder.probationMonth = probationMonth
 	builder.probationMonthFlag = true
 	return builder
@@ -3378,8 +3378,8 @@ func (builder *AppliOfferOnboardProfileBuilder) ProbationMonth(probationMonth in
 
 // 合同年限
 //
-// 示例值：
-func (builder *AppliOfferOnboardProfileBuilder) ContractYear(contractYear int) *AppliOfferOnboardProfileBuilder {
+// 示例值：10
+func (builder *AppliOfferOnboardProfileBuilder) ContractYear(contractYear int64) *AppliOfferOnboardProfileBuilder {
 	builder.contractYear = contractYear
 	builder.contractYearFlag = true
 	return builder
@@ -3959,7 +3959,7 @@ func (builder *AppliTalentCompetitionInfoBuilder) Build() *AppliTalentCompetitio
 type AppliTalentEducationInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	Degree *int `json:"degree,omitempty"` // 学历
+	Degree *int64 `json:"degree,omitempty"` // 学历
 
 	School *string `json:"school,omitempty"` // 学校
 
@@ -3969,9 +3969,9 @@ type AppliTalentEducationInfo struct {
 
 	EndTime *string `json:"end_time,omitempty"` // 结束时间
 
-	EducationType *int `json:"education_type,omitempty"` // 学历类型
+	EducationType *int64 `json:"education_type,omitempty"` // 学历类型
 
-	AcademicRanking *int `json:"academic_ranking,omitempty"` // 排名
+	AcademicRanking *int64 `json:"academic_ranking,omitempty"` // 排名
 
 	TagList []int `json:"tag_list,omitempty"` // 标签列表
 }
@@ -3980,7 +3980,7 @@ type AppliTalentEducationInfoBuilder struct {
 	id     string // ID
 	idFlag bool
 
-	degree     int // 学历
+	degree     int64 // 学历
 	degreeFlag bool
 
 	school     string // 学校
@@ -3995,10 +3995,10 @@ type AppliTalentEducationInfoBuilder struct {
 	endTime     string // 结束时间
 	endTimeFlag bool
 
-	educationType     int // 学历类型
+	educationType     int64 // 学历类型
 	educationTypeFlag bool
 
-	academicRanking     int // 排名
+	academicRanking     int64 // 排名
 	academicRankingFlag bool
 
 	tagList     []int // 标签列表
@@ -4012,7 +4012,7 @@ func NewAppliTalentEducationInfoBuilder() *AppliTalentEducationInfoBuilder {
 
 // ID
 //
-// 示例值：
+// 示例值：123
 func (builder *AppliTalentEducationInfoBuilder) Id(id string) *AppliTalentEducationInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -4021,8 +4021,8 @@ func (builder *AppliTalentEducationInfoBuilder) Id(id string) *AppliTalentEducat
 
 // 学历
 //
-// 示例值：
-func (builder *AppliTalentEducationInfoBuilder) Degree(degree int) *AppliTalentEducationInfoBuilder {
+// 示例值：1
+func (builder *AppliTalentEducationInfoBuilder) Degree(degree int64) *AppliTalentEducationInfoBuilder {
 	builder.degree = degree
 	builder.degreeFlag = true
 	return builder
@@ -4030,7 +4030,7 @@ func (builder *AppliTalentEducationInfoBuilder) Degree(degree int) *AppliTalentE
 
 // 学校
 //
-// 示例值：
+// 示例值：某某大学
 func (builder *AppliTalentEducationInfoBuilder) School(school string) *AppliTalentEducationInfoBuilder {
 	builder.school = school
 	builder.schoolFlag = true
@@ -4039,7 +4039,7 @@ func (builder *AppliTalentEducationInfoBuilder) School(school string) *AppliTale
 
 // 专业
 //
-// 示例值：
+// 示例值：软件工程
 func (builder *AppliTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *AppliTalentEducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
 	builder.fieldOfStudyFlag = true
@@ -4048,7 +4048,7 @@ func (builder *AppliTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string
 
 // 开始时间
 //
-// 示例值：
+// 示例值：1735664461000
 func (builder *AppliTalentEducationInfoBuilder) StartTime(startTime string) *AppliTalentEducationInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -4057,7 +4057,7 @@ func (builder *AppliTalentEducationInfoBuilder) StartTime(startTime string) *App
 
 // 结束时间
 //
-// 示例值：
+// 示例值：1735664461000
 func (builder *AppliTalentEducationInfoBuilder) EndTime(endTime string) *AppliTalentEducationInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -4066,8 +4066,8 @@ func (builder *AppliTalentEducationInfoBuilder) EndTime(endTime string) *AppliTa
 
 // 学历类型
 //
-// 示例值：
-func (builder *AppliTalentEducationInfoBuilder) EducationType(educationType int) *AppliTalentEducationInfoBuilder {
+// 示例值：1
+func (builder *AppliTalentEducationInfoBuilder) EducationType(educationType int64) *AppliTalentEducationInfoBuilder {
 	builder.educationType = educationType
 	builder.educationTypeFlag = true
 	return builder
@@ -4075,8 +4075,8 @@ func (builder *AppliTalentEducationInfoBuilder) EducationType(educationType int)
 
 // 排名
 //
-// 示例值：
-func (builder *AppliTalentEducationInfoBuilder) AcademicRanking(academicRanking int) *AppliTalentEducationInfoBuilder {
+// 示例值：1
+func (builder *AppliTalentEducationInfoBuilder) AcademicRanking(academicRanking int64) *AppliTalentEducationInfoBuilder {
 	builder.academicRanking = academicRanking
 	builder.academicRankingFlag = true
 	return builder
@@ -4468,11 +4468,11 @@ type ApplicationBasicInfo struct {
 
 	Referral *ApplicationReferral `json:"referral,omitempty"` // 内推人信息
 
-	ActiveStatus *int `json:"active_status,omitempty"` // 状态
+	ActiveStatus *int64 `json:"active_status,omitempty"` // 状态
 
-	BizCreateTime *int `json:"biz_create_time,omitempty"` // 创建时间
+	BizCreateTime *int64 `json:"biz_create_time,omitempty"` // 创建时间
 
-	BizModifyTime *int `json:"biz_modify_time,omitempty"` // 修改时间
+	BizModifyTime *int64 `json:"biz_modify_time,omitempty"` // 修改时间
 }
 
 type ApplicationBasicInfoBuilder struct {
@@ -4482,13 +4482,13 @@ type ApplicationBasicInfoBuilder struct {
 	referral     *ApplicationReferral // 内推人信息
 	referralFlag bool
 
-	activeStatus     int // 状态
+	activeStatus     int64 // 状态
 	activeStatusFlag bool
 
-	bizCreateTime     int // 创建时间
+	bizCreateTime     int64 // 创建时间
 	bizCreateTimeFlag bool
 
-	bizModifyTime     int // 修改时间
+	bizModifyTime     int64 // 修改时间
 	bizModifyTimeFlag bool
 }
 
@@ -4517,8 +4517,8 @@ func (builder *ApplicationBasicInfoBuilder) Referral(referral *ApplicationReferr
 
 // 状态
 //
-// 示例值：
-func (builder *ApplicationBasicInfoBuilder) ActiveStatus(activeStatus int) *ApplicationBasicInfoBuilder {
+// 示例值：1
+func (builder *ApplicationBasicInfoBuilder) ActiveStatus(activeStatus int64) *ApplicationBasicInfoBuilder {
 	builder.activeStatus = activeStatus
 	builder.activeStatusFlag = true
 	return builder
@@ -4526,8 +4526,8 @@ func (builder *ApplicationBasicInfoBuilder) ActiveStatus(activeStatus int) *Appl
 
 // 创建时间
 //
-// 示例值：
-func (builder *ApplicationBasicInfoBuilder) BizCreateTime(bizCreateTime int) *ApplicationBasicInfoBuilder {
+// 示例值：1
+func (builder *ApplicationBasicInfoBuilder) BizCreateTime(bizCreateTime int64) *ApplicationBasicInfoBuilder {
 	builder.bizCreateTime = bizCreateTime
 	builder.bizCreateTimeFlag = true
 	return builder
@@ -4535,8 +4535,8 @@ func (builder *ApplicationBasicInfoBuilder) BizCreateTime(bizCreateTime int) *Ap
 
 // 修改时间
 //
-// 示例值：
-func (builder *ApplicationBasicInfoBuilder) BizModifyTime(bizModifyTime int) *ApplicationBasicInfoBuilder {
+// 示例值：1
+func (builder *ApplicationBasicInfoBuilder) BizModifyTime(bizModifyTime int64) *ApplicationBasicInfoBuilder {
 	builder.bizModifyTime = bizModifyTime
 	builder.bizModifyTimeFlag = true
 	return builder
@@ -5613,7 +5613,7 @@ type ApplicationOfferBasicInfo struct {
 
 	Remark *string `json:"remark,omitempty"` // 备注
 
-	ExpireTime *int `json:"expire_time,omitempty"` // Offer 过期时间
+	ExpireTime *int64 `json:"expire_time,omitempty"` // Offer 过期时间
 
 	OwnerUserId *string `json:"owner_user_id,omitempty"` // Offer 负责人 ID
 
@@ -5629,9 +5629,9 @@ type ApplicationOfferBasicInfo struct {
 
 	DepartmentId *string `json:"department_id,omitempty"` // 入职部门
 
-	ProbationMonth *int `json:"probation_month,omitempty"` // 试用期, 比如试用期6个月
+	ProbationMonth *int64 `json:"probation_month,omitempty"` // 试用期, 比如试用期6个月
 
-	ContractYear *int `json:"contract_year,omitempty"` // 合同期, 比如3年
+	ContractYear *int64 `json:"contract_year,omitempty"` // 合同期, 比如3年
 
 	ContractPeriod *ContractPeriodInfo `json:"contract_period,omitempty"` // 合同期（年/月）
 
@@ -5654,6 +5654,8 @@ type ApplicationOfferBasicInfo struct {
 	JobOffered *string `json:"job_offered,omitempty"` // 入职职位
 
 	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等 ID
+
+	CommonAttachmentIdList []string `json:"common_attachment_id_list,omitempty"` // Offer 附件 ID 列表
 }
 
 type ApplicationOfferBasicInfoBuilder struct {
@@ -5663,7 +5665,7 @@ type ApplicationOfferBasicInfoBuilder struct {
 	remark     string // 备注
 	remarkFlag bool
 
-	expireTime     int // Offer 过期时间
+	expireTime     int64 // Offer 过期时间
 	expireTimeFlag bool
 
 	ownerUserId     string // Offer 负责人 ID
@@ -5687,10 +5689,10 @@ type ApplicationOfferBasicInfoBuilder struct {
 	departmentId     string // 入职部门
 	departmentIdFlag bool
 
-	probationMonth     int // 试用期, 比如试用期6个月
+	probationMonth     int64 // 试用期, 比如试用期6个月
 	probationMonthFlag bool
 
-	contractYear     int // 合同期, 比如3年
+	contractYear     int64 // 合同期, 比如3年
 	contractYearFlag bool
 
 	contractPeriod     *ContractPeriodInfo // 合同期（年/月）
@@ -5725,6 +5727,9 @@ type ApplicationOfferBasicInfoBuilder struct {
 
 	jobGradeId     string // 职等 ID
 	jobGradeIdFlag bool
+
+	commonAttachmentIdList     []string // Offer 附件 ID 列表
+	commonAttachmentIdListFlag bool
 }
 
 func NewApplicationOfferBasicInfoBuilder() *ApplicationOfferBasicInfoBuilder {
@@ -5753,7 +5758,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) Remark(remark string) *Applicat
 // Offer 过期时间
 //
 // 示例值：1653383498000
-func (builder *ApplicationOfferBasicInfoBuilder) ExpireTime(expireTime int) *ApplicationOfferBasicInfoBuilder {
+func (builder *ApplicationOfferBasicInfoBuilder) ExpireTime(expireTime int64) *ApplicationOfferBasicInfoBuilder {
 	builder.expireTime = expireTime
 	builder.expireTimeFlag = true
 	return builder
@@ -5825,7 +5830,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) DepartmentId(departmentId strin
 // 试用期, 比如试用期6个月
 //
 // 示例值：1
-func (builder *ApplicationOfferBasicInfoBuilder) ProbationMonth(probationMonth int) *ApplicationOfferBasicInfoBuilder {
+func (builder *ApplicationOfferBasicInfoBuilder) ProbationMonth(probationMonth int64) *ApplicationOfferBasicInfoBuilder {
 	builder.probationMonth = probationMonth
 	builder.probationMonthFlag = true
 	return builder
@@ -5834,7 +5839,7 @@ func (builder *ApplicationOfferBasicInfoBuilder) ProbationMonth(probationMonth i
 // 合同期, 比如3年
 //
 // 示例值：3
-func (builder *ApplicationOfferBasicInfoBuilder) ContractYear(contractYear int) *ApplicationOfferBasicInfoBuilder {
+func (builder *ApplicationOfferBasicInfoBuilder) ContractYear(contractYear int64) *ApplicationOfferBasicInfoBuilder {
 	builder.contractYear = contractYear
 	builder.contractYearFlag = true
 	return builder
@@ -5939,6 +5944,15 @@ func (builder *ApplicationOfferBasicInfoBuilder) JobGradeId(jobGradeId string) *
 	return builder
 }
 
+// Offer 附件 ID 列表
+//
+// 示例值：
+func (builder *ApplicationOfferBasicInfoBuilder) CommonAttachmentIdList(commonAttachmentIdList []string) *ApplicationOfferBasicInfoBuilder {
+	builder.commonAttachmentIdList = commonAttachmentIdList
+	builder.commonAttachmentIdListFlag = true
+	return builder
+}
+
 func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicInfo {
 	req := &ApplicationOfferBasicInfo{}
 	if builder.offerTypeFlag {
@@ -6023,6 +6037,9 @@ func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicI
 	if builder.jobGradeIdFlag {
 		req.JobGradeId = &builder.jobGradeId
 
+	}
+	if builder.commonAttachmentIdListFlag {
+		req.CommonAttachmentIdList = builder.commonAttachmentIdList
 	}
 	return req
 }
@@ -6472,9 +6489,9 @@ type ApplicationOfferOnboardProfile struct {
 
 	IsWorkAddressSameToOnboard *bool `json:"is_work_address_same_to_onboard,omitempty"` // 工作地址是否与onboard地址相同
 
-	ProbationMonth *int `json:"probation_month,omitempty"` // 试用期
+	ProbationMonth *int64 `json:"probation_month,omitempty"` // 试用期
 
-	ContractYear *int `json:"contract_year,omitempty"` // 合同年限
+	ContractYear *int64 `json:"contract_year,omitempty"` // 合同年限
 }
 
 type ApplicationOfferOnboardProfileBuilder struct {
@@ -6505,10 +6522,10 @@ type ApplicationOfferOnboardProfileBuilder struct {
 	isWorkAddressSameToOnboard     bool // 工作地址是否与onboard地址相同
 	isWorkAddressSameToOnboardFlag bool
 
-	probationMonth     int // 试用期
+	probationMonth     int64 // 试用期
 	probationMonthFlag bool
 
-	contractYear     int // 合同年限
+	contractYear     int64 // 合同年限
 	contractYearFlag bool
 }
 
@@ -6519,7 +6536,7 @@ func NewApplicationOfferOnboardProfileBuilder() *ApplicationOfferOnboardProfileB
 
 // offer ID
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileBuilder) OfferId(offerId string) *ApplicationOfferOnboardProfileBuilder {
 	builder.offerId = offerId
 	builder.offerIdFlag = true
@@ -6600,8 +6617,8 @@ func (builder *ApplicationOfferOnboardProfileBuilder) IsWorkAddressSameToOnboard
 
 // 试用期
 //
-// 示例值：
-func (builder *ApplicationOfferOnboardProfileBuilder) ProbationMonth(probationMonth int) *ApplicationOfferOnboardProfileBuilder {
+// 示例值：123
+func (builder *ApplicationOfferOnboardProfileBuilder) ProbationMonth(probationMonth int64) *ApplicationOfferOnboardProfileBuilder {
 	builder.probationMonth = probationMonth
 	builder.probationMonthFlag = true
 	return builder
@@ -6609,8 +6626,8 @@ func (builder *ApplicationOfferOnboardProfileBuilder) ProbationMonth(probationMo
 
 // 合同年限
 //
-// 示例值：
-func (builder *ApplicationOfferOnboardProfileBuilder) ContractYear(contractYear int) *ApplicationOfferOnboardProfileBuilder {
+// 示例值：123
+func (builder *ApplicationOfferOnboardProfileBuilder) ContractYear(contractYear int64) *ApplicationOfferOnboardProfileBuilder {
 	builder.contractYear = contractYear
 	builder.contractYearFlag = true
 	return builder
@@ -6675,7 +6692,7 @@ type ApplicationOfferOnboardProfileAddress struct {
 
 	UsageIdList []string `json:"usage_id_list,omitempty"` // 使用ID列表
 
-	ActiveStatus *int `json:"active_status,omitempty"` // 状态
+	ActiveStatus *int64 `json:"active_status,omitempty"` // 状态
 }
 
 type ApplicationOfferOnboardProfileAddressBuilder struct {
@@ -6703,7 +6720,7 @@ type ApplicationOfferOnboardProfileAddressBuilder struct {
 	usageIdList     []string // 使用ID列表
 	usageIdListFlag bool
 
-	activeStatus     int // 状态
+	activeStatus     int64 // 状态
 	activeStatusFlag bool
 }
 
@@ -6714,7 +6731,7 @@ func NewApplicationOfferOnboardProfileAddressBuilder() *ApplicationOfferOnboardP
 
 // ID
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) Id(id string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -6723,7 +6740,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) Id(id string) *Appl
 
 // 名字
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) Name(name string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -6732,7 +6749,7 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) Name(name string) *
 
 // 英文名
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileAddressBuilder) EnName(enName string) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.enName = enName
 	builder.enNameFlag = true
@@ -6786,8 +6803,8 @@ func (builder *ApplicationOfferOnboardProfileAddressBuilder) UsageIdList(usageId
 
 // 状态
 //
-// 示例值：
-func (builder *ApplicationOfferOnboardProfileAddressBuilder) ActiveStatus(activeStatus int) *ApplicationOfferOnboardProfileAddressBuilder {
+// 示例值：111
+func (builder *ApplicationOfferOnboardProfileAddressBuilder) ActiveStatus(activeStatus int64) *ApplicationOfferOnboardProfileAddressBuilder {
 	builder.activeStatus = activeStatus
 	builder.activeStatusFlag = true
 	return builder
@@ -6836,7 +6853,7 @@ type ApplicationOfferOnboardProfileCity struct {
 
 	EnName *string `json:"en_name,omitempty"` // 英文名
 
-	LocationType *int `json:"location_type,omitempty"` // 地址类型
+	LocationType *int64 `json:"location_type,omitempty"` // 地址类型
 }
 
 type ApplicationOfferOnboardProfileCityBuilder struct {
@@ -6849,7 +6866,7 @@ type ApplicationOfferOnboardProfileCityBuilder struct {
 	enName     string // 英文名
 	enNameFlag bool
 
-	locationType     int // 地址类型
+	locationType     int64 // 地址类型
 	locationTypeFlag bool
 }
 
@@ -6860,7 +6877,7 @@ func NewApplicationOfferOnboardProfileCityBuilder() *ApplicationOfferOnboardProf
 
 // 编码
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileCityBuilder) Code(code string) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.code = code
 	builder.codeFlag = true
@@ -6869,7 +6886,7 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) Code(code string) *App
 
 // 名字
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileCityBuilder) Name(name string) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -6878,7 +6895,7 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) Name(name string) *App
 
 // 英文名
 //
-// 示例值：
+// 示例值：123
 func (builder *ApplicationOfferOnboardProfileCityBuilder) EnName(enName string) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.enName = enName
 	builder.enNameFlag = true
@@ -6887,8 +6904,8 @@ func (builder *ApplicationOfferOnboardProfileCityBuilder) EnName(enName string) 
 
 // 地址类型
 //
-// 示例值：
-func (builder *ApplicationOfferOnboardProfileCityBuilder) LocationType(locationType int) *ApplicationOfferOnboardProfileCityBuilder {
+// 示例值：123
+func (builder *ApplicationOfferOnboardProfileCityBuilder) LocationType(locationType int64) *ApplicationOfferOnboardProfileCityBuilder {
 	builder.locationType = locationType
 	builder.locationTypeFlag = true
 	return builder
@@ -7404,54 +7421,54 @@ func (builder *ApplicationPrehireOfferBuilder) Build() *ApplicationPrehireOffer 
 }
 
 type ApplicationPrehireOfferBasic struct {
-	OfferId *string `json:"offer_id,omitempty"` //
+	OfferId *string `json:"offer_id,omitempty"` // Offer ID
 
-	ApplicationId *string `json:"application_id,omitempty"` //
+	ApplicationId *string `json:"application_id,omitempty"` // 候选人 ID
 
-	TalentId *string `json:"talent_id,omitempty"` //
+	TalentId *string `json:"talent_id,omitempty"` // 人才 ID
 
-	JobId *string `json:"job_id,omitempty"` //
+	JobId *string `json:"job_id,omitempty"` // 职位 ID
 
-	Remark *string `json:"remark,omitempty"` //
+	Remark *string `json:"remark,omitempty"` // 备注
 
-	ExpireTime *int `json:"expire_time,omitempty"` //
+	ExpireTime *int64 `json:"expire_time,omitempty"` // 过期时间
 
-	OnboardTime *int `json:"onboard_time,omitempty"` //
+	OnboardTime *int `json:"onboard_time,omitempty"` // 入职时间
 
-	TimeZone *string `json:"time_zone,omitempty"` //
+	TimeZone *string `json:"time_zone,omitempty"` // 时区
 
 	OfferType *int `json:"offer_type,omitempty"` // Offer类型 1=Social, 2=Campus, 3=Intern, 4=InternTransfer
 
 	OfferStatus *int `json:"offer_status,omitempty"` // Offer状态
 
-	Owner *AppliOfferBasicInfoUser `json:"owner,omitempty"` //
+	Owner *AppliOfferBasicInfoUser `json:"owner,omitempty"` // Offer负责人
 
-	OfferJobTitle *string `json:"offer_job_title,omitempty"` //
+	OfferJobTitle *string `json:"offer_job_title,omitempty"` // Offer职位名称
 }
 
 type ApplicationPrehireOfferBasicBuilder struct {
-	offerId     string //
+	offerId     string // Offer ID
 	offerIdFlag bool
 
-	applicationId     string //
+	applicationId     string // 候选人 ID
 	applicationIdFlag bool
 
-	talentId     string //
+	talentId     string // 人才 ID
 	talentIdFlag bool
 
-	jobId     string //
+	jobId     string // 职位 ID
 	jobIdFlag bool
 
-	remark     string //
+	remark     string // 备注
 	remarkFlag bool
 
-	expireTime     int //
+	expireTime     int64 // 过期时间
 	expireTimeFlag bool
 
-	onboardTime     int //
+	onboardTime     int // 入职时间
 	onboardTimeFlag bool
 
-	timeZone     string //
+	timeZone     string // 时区
 	timeZoneFlag bool
 
 	offerType     int // Offer类型 1=Social, 2=Campus, 3=Intern, 4=InternTransfer
@@ -7460,10 +7477,10 @@ type ApplicationPrehireOfferBasicBuilder struct {
 	offerStatus     int // Offer状态
 	offerStatusFlag bool
 
-	owner     *AppliOfferBasicInfoUser //
+	owner     *AppliOfferBasicInfoUser // Offer负责人
 	ownerFlag bool
 
-	offerJobTitle     string //
+	offerJobTitle     string // Offer职位名称
 	offerJobTitleFlag bool
 }
 
@@ -7472,6 +7489,8 @@ func NewApplicationPrehireOfferBasicBuilder() *ApplicationPrehireOfferBasicBuild
 	return builder
 }
 
+// Offer ID
+//
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) OfferId(offerId string) *ApplicationPrehireOfferBasicBuilder {
 	builder.offerId = offerId
@@ -7479,6 +7498,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OfferId(offerId string) *App
 	return builder
 }
 
+// 候选人 ID
+//
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) ApplicationId(applicationId string) *ApplicationPrehireOfferBasicBuilder {
 	builder.applicationId = applicationId
@@ -7486,6 +7507,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) ApplicationId(applicationId 
 	return builder
 }
 
+// 人才 ID
+//
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) TalentId(talentId string) *ApplicationPrehireOfferBasicBuilder {
 	builder.talentId = talentId
@@ -7493,6 +7516,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) TalentId(talentId string) *A
 	return builder
 }
 
+// 职位 ID
+//
 // 示例值：11111
 func (builder *ApplicationPrehireOfferBasicBuilder) JobId(jobId string) *ApplicationPrehireOfferBasicBuilder {
 	builder.jobId = jobId
@@ -7500,6 +7525,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) JobId(jobId string) *Applica
 	return builder
 }
 
+// 备注
+//
 // 示例值：test
 func (builder *ApplicationPrehireOfferBasicBuilder) Remark(remark string) *ApplicationPrehireOfferBasicBuilder {
 	builder.remark = remark
@@ -7507,13 +7534,17 @@ func (builder *ApplicationPrehireOfferBasicBuilder) Remark(remark string) *Appli
 	return builder
 }
 
+// 过期时间
+//
 // 示例值：1111233344
-func (builder *ApplicationPrehireOfferBasicBuilder) ExpireTime(expireTime int) *ApplicationPrehireOfferBasicBuilder {
+func (builder *ApplicationPrehireOfferBasicBuilder) ExpireTime(expireTime int64) *ApplicationPrehireOfferBasicBuilder {
 	builder.expireTime = expireTime
 	builder.expireTimeFlag = true
 	return builder
 }
 
+// 入职时间
+//
 // 示例值：1111233344
 func (builder *ApplicationPrehireOfferBasicBuilder) OnboardTime(onboardTime int) *ApplicationPrehireOfferBasicBuilder {
 	builder.onboardTime = onboardTime
@@ -7521,6 +7552,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OnboardTime(onboardTime int)
 	return builder
 }
 
+// 时区
+//
 // 示例值：111
 func (builder *ApplicationPrehireOfferBasicBuilder) TimeZone(timeZone string) *ApplicationPrehireOfferBasicBuilder {
 	builder.timeZone = timeZone
@@ -7546,6 +7579,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) OfferStatus(offerStatus int)
 	return builder
 }
 
+// Offer负责人
+//
 // 示例值：
 func (builder *ApplicationPrehireOfferBasicBuilder) Owner(owner *AppliOfferBasicInfoUser) *ApplicationPrehireOfferBasicBuilder {
 	builder.owner = owner
@@ -7553,6 +7588,8 @@ func (builder *ApplicationPrehireOfferBasicBuilder) Owner(owner *AppliOfferBasic
 	return builder
 }
 
+// Offer职位名称
+//
 // 示例值：test
 func (builder *ApplicationPrehireOfferBasicBuilder) OfferJobTitle(offerJobTitle string) *ApplicationPrehireOfferBasicBuilder {
 	builder.offerJobTitle = offerJobTitle
@@ -7840,13 +7877,13 @@ type ApplicationStage struct {
 
 	EnName *string `json:"en_name,omitempty"` // 英文名
 
-	Type *int `json:"type,omitempty"` // 类型
+	Type *int64 `json:"type,omitempty"` // 类型
 
 	Args *string `json:"args,omitempty"` // 参数
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建者ID
 
-	Seq *int `json:"seq,omitempty"` // 序列
+	Seq *int64 `json:"seq,omitempty"` // 序列
 
 	PublishName *string `json:"publish_name,omitempty"` // 发布名称
 
@@ -7863,7 +7900,7 @@ type ApplicationStageBuilder struct {
 	enName     string // 英文名
 	enNameFlag bool
 
-	type_    int // 类型
+	type_    int64 // 类型
 	typeFlag bool
 
 	args     string // 参数
@@ -7872,7 +7909,7 @@ type ApplicationStageBuilder struct {
 	creatorId     string // 创建者ID
 	creatorIdFlag bool
 
-	seq     int // 序列
+	seq     int64 // 序列
 	seqFlag bool
 
 	publishName     string // 发布名称
@@ -7889,7 +7926,7 @@ func NewApplicationStageBuilder() *ApplicationStageBuilder {
 
 // ID
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationStageBuilder) Id(id string) *ApplicationStageBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -7898,7 +7935,7 @@ func (builder *ApplicationStageBuilder) Id(id string) *ApplicationStageBuilder {
 
 // 名字
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationStageBuilder) Name(name string) *ApplicationStageBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -7907,7 +7944,7 @@ func (builder *ApplicationStageBuilder) Name(name string) *ApplicationStageBuild
 
 // 英文名
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationStageBuilder) EnName(enName string) *ApplicationStageBuilder {
 	builder.enName = enName
 	builder.enNameFlag = true
@@ -7916,8 +7953,8 @@ func (builder *ApplicationStageBuilder) EnName(enName string) *ApplicationStageB
 
 // 类型
 //
-// 示例值：
-func (builder *ApplicationStageBuilder) Type(type_ int) *ApplicationStageBuilder {
+// 示例值：1
+func (builder *ApplicationStageBuilder) Type(type_ int64) *ApplicationStageBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
 	return builder
@@ -7925,7 +7962,7 @@ func (builder *ApplicationStageBuilder) Type(type_ int) *ApplicationStageBuilder
 
 // 参数
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationStageBuilder) Args(args string) *ApplicationStageBuilder {
 	builder.args = args
 	builder.argsFlag = true
@@ -7934,7 +7971,7 @@ func (builder *ApplicationStageBuilder) Args(args string) *ApplicationStageBuild
 
 // 创建者ID
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationStageBuilder) CreatorId(creatorId string) *ApplicationStageBuilder {
 	builder.creatorId = creatorId
 	builder.creatorIdFlag = true
@@ -7943,8 +7980,8 @@ func (builder *ApplicationStageBuilder) CreatorId(creatorId string) *Application
 
 // 序列
 //
-// 示例值：
-func (builder *ApplicationStageBuilder) Seq(seq int) *ApplicationStageBuilder {
+// 示例值：1
+func (builder *ApplicationStageBuilder) Seq(seq int64) *ApplicationStageBuilder {
 	builder.seq = seq
 	builder.seqFlag = true
 	return builder
@@ -7952,7 +7989,7 @@ func (builder *ApplicationStageBuilder) Seq(seq int) *ApplicationStageBuilder {
 
 // 发布名称
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationStageBuilder) PublishName(publishName string) *ApplicationStageBuilder {
 	builder.publishName = publishName
 	builder.publishNameFlag = true
@@ -7961,7 +7998,7 @@ func (builder *ApplicationStageBuilder) PublishName(publishName string) *Applica
 
 // 发布英文名
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationStageBuilder) PublishEnName(publishEnName string) *ApplicationStageBuilder {
 	builder.publishEnName = publishEnName
 	builder.publishEnNameFlag = true
@@ -8455,7 +8492,7 @@ type ApplicationTalentAwardInfo struct {
 
 	Title *string `json:"title,omitempty"` // 名称
 
-	AwardTime *int `json:"award_time,omitempty"` // 获奖时间
+	AwardTime *int64 `json:"award_time,omitempty"` // 获奖时间
 
 	Desc *string `json:"desc,omitempty"` // 描述
 }
@@ -8467,7 +8504,7 @@ type ApplicationTalentAwardInfoBuilder struct {
 	title     string // 名称
 	titleFlag bool
 
-	awardTime     int // 获奖时间
+	awardTime     int64 // 获奖时间
 	awardTimeFlag bool
 
 	desc     string // 描述
@@ -8481,7 +8518,7 @@ func NewApplicationTalentAwardInfoBuilder() *ApplicationTalentAwardInfoBuilder {
 
 // ID
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentAwardInfoBuilder) Id(id string) *ApplicationTalentAwardInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -8490,7 +8527,7 @@ func (builder *ApplicationTalentAwardInfoBuilder) Id(id string) *ApplicationTale
 
 // 名称
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentAwardInfoBuilder) Title(title string) *ApplicationTalentAwardInfoBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -8499,8 +8536,8 @@ func (builder *ApplicationTalentAwardInfoBuilder) Title(title string) *Applicati
 
 // 获奖时间
 //
-// 示例值：
-func (builder *ApplicationTalentAwardInfoBuilder) AwardTime(awardTime int) *ApplicationTalentAwardInfoBuilder {
+// 示例值：1
+func (builder *ApplicationTalentAwardInfoBuilder) AwardTime(awardTime int64) *ApplicationTalentAwardInfoBuilder {
 	builder.awardTime = awardTime
 	builder.awardTimeFlag = true
 	return builder
@@ -8508,7 +8545,7 @@ func (builder *ApplicationTalentAwardInfoBuilder) AwardTime(awardTime int) *Appl
 
 // 描述
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentAwardInfoBuilder) Desc(desc string) *ApplicationTalentAwardInfoBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -8547,7 +8584,7 @@ type ApplicationTalentBasicInfo struct {
 
 	ExperienceYears *int `json:"experience_years,omitempty"` // 工作年限
 
-	Age *int `json:"age,omitempty"` // 年龄
+	Age *int64 `json:"age,omitempty"` // 年龄
 
 	Nationality *Nationality `json:"nationality,omitempty"` // 国籍
 
@@ -8582,7 +8619,7 @@ type ApplicationTalentBasicInfoBuilder struct {
 	experienceYears     int // 工作年限
 	experienceYearsFlag bool
 
-	age     int // 年龄
+	age     int64 // 年龄
 	ageFlag bool
 
 	nationality     *Nationality // 国籍
@@ -8617,7 +8654,7 @@ func NewApplicationTalentBasicInfoBuilder() *ApplicationTalentBasicInfoBuilder {
 
 // 名字
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationTalentBasicInfoBuilder) Name(name string) *ApplicationTalentBasicInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -8626,7 +8663,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Name(name string) *Application
 
 // 手机
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationTalentBasicInfoBuilder) Mobile(mobile string) *ApplicationTalentBasicInfoBuilder {
 	builder.mobile = mobile
 	builder.mobileFlag = true
@@ -8635,7 +8672,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Mobile(mobile string) *Applica
 
 // 手机国家代码
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationTalentBasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *ApplicationTalentBasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
 	builder.mobileCountryCodeFlag = true
@@ -8644,7 +8681,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) MobileCountryCode(mobileCountr
 
 // 邮箱
 //
-// 示例值：
+// 示例值：xx
 func (builder *ApplicationTalentBasicInfoBuilder) Email(email string) *ApplicationTalentBasicInfoBuilder {
 	builder.email = email
 	builder.emailFlag = true
@@ -8653,7 +8690,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Email(email string) *Applicati
 
 // 工作年限
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentBasicInfoBuilder) ExperienceYears(experienceYears int) *ApplicationTalentBasicInfoBuilder {
 	builder.experienceYears = experienceYears
 	builder.experienceYearsFlag = true
@@ -8662,8 +8699,8 @@ func (builder *ApplicationTalentBasicInfoBuilder) ExperienceYears(experienceYear
 
 // 年龄
 //
-// 示例值：
-func (builder *ApplicationTalentBasicInfoBuilder) Age(age int) *ApplicationTalentBasicInfoBuilder {
+// 示例值：1
+func (builder *ApplicationTalentBasicInfoBuilder) Age(age int64) *ApplicationTalentBasicInfoBuilder {
 	builder.age = age
 	builder.ageFlag = true
 	return builder
@@ -8680,7 +8717,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) Nationality(nationality *Natio
 
 // 性别
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentBasicInfoBuilder) Gender(gender int) *ApplicationTalentBasicInfoBuilder {
 	builder.gender = gender
 	builder.genderFlag = true
@@ -8716,7 +8753,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) PreferredCityList(preferredCit
 
 // 手机国家代码
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentBasicInfoBuilder) MobileCode(mobileCode string) *ApplicationTalentBasicInfoBuilder {
 	builder.mobileCode = mobileCode
 	builder.mobileCodeFlag = true
@@ -8725,7 +8762,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) MobileCode(mobileCode string) 
 
 // 证件类型
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentBasicInfoBuilder) IdentificationType(identificationType int) *ApplicationTalentBasicInfoBuilder {
 	builder.identificationType = identificationType
 	builder.identificationTypeFlag = true
@@ -8734,7 +8771,7 @@ func (builder *ApplicationTalentBasicInfoBuilder) IdentificationType(identificat
 
 // 证件号码
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentBasicInfoBuilder) IdentificationNumber(identificationNumber string) *ApplicationTalentBasicInfoBuilder {
 	builder.identificationNumber = identificationNumber
 	builder.identificationNumberFlag = true
@@ -9076,7 +9113,7 @@ func (builder *ApplicationTalentCompetitionInfoBuilder) Build() *ApplicationTale
 type ApplicationTalentEducationInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	Degree *int `json:"degree,omitempty"` // 学历
+	Degree *int64 `json:"degree,omitempty"` // 学历
 
 	School *string `json:"school,omitempty"` // 学校
 
@@ -9086,9 +9123,9 @@ type ApplicationTalentEducationInfo struct {
 
 	EndTime *string `json:"end_time,omitempty"` // 结束时间
 
-	EducationType *int `json:"education_type,omitempty"` // 学历类型
+	EducationType *int64 `json:"education_type,omitempty"` // 学历类型
 
-	AcademicRanking *int `json:"academic_ranking,omitempty"` // 排名
+	AcademicRanking *int64 `json:"academic_ranking,omitempty"` // 排名
 
 	TagList []int `json:"tag_list,omitempty"` // 标签列表
 }
@@ -9097,7 +9134,7 @@ type ApplicationTalentEducationInfoBuilder struct {
 	id     string // ID
 	idFlag bool
 
-	degree     int // 学历
+	degree     int64 // 学历
 	degreeFlag bool
 
 	school     string // 学校
@@ -9112,10 +9149,10 @@ type ApplicationTalentEducationInfoBuilder struct {
 	endTime     string // 结束时间
 	endTimeFlag bool
 
-	educationType     int // 学历类型
+	educationType     int64 // 学历类型
 	educationTypeFlag bool
 
-	academicRanking     int // 排名
+	academicRanking     int64 // 排名
 	academicRankingFlag bool
 
 	tagList     []int // 标签列表
@@ -9129,7 +9166,7 @@ func NewApplicationTalentEducationInfoBuilder() *ApplicationTalentEducationInfoB
 
 // ID
 //
-// 示例值：
+// 示例值：111
 func (builder *ApplicationTalentEducationInfoBuilder) Id(id string) *ApplicationTalentEducationInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -9138,8 +9175,8 @@ func (builder *ApplicationTalentEducationInfoBuilder) Id(id string) *Application
 
 // 学历
 //
-// 示例值：
-func (builder *ApplicationTalentEducationInfoBuilder) Degree(degree int) *ApplicationTalentEducationInfoBuilder {
+// 示例值：1
+func (builder *ApplicationTalentEducationInfoBuilder) Degree(degree int64) *ApplicationTalentEducationInfoBuilder {
 	builder.degree = degree
 	builder.degreeFlag = true
 	return builder
@@ -9147,7 +9184,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) Degree(degree int) *Applic
 
 // 学校
 //
-// 示例值：
+// 示例值：111
 func (builder *ApplicationTalentEducationInfoBuilder) School(school string) *ApplicationTalentEducationInfoBuilder {
 	builder.school = school
 	builder.schoolFlag = true
@@ -9156,7 +9193,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) School(school string) *App
 
 // 专业
 //
-// 示例值：
+// 示例值：111
 func (builder *ApplicationTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *ApplicationTalentEducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
 	builder.fieldOfStudyFlag = true
@@ -9165,7 +9202,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) FieldOfStudy(fieldOfStudy 
 
 // 开始时间
 //
-// 示例值：
+// 示例值：111
 func (builder *ApplicationTalentEducationInfoBuilder) StartTime(startTime string) *ApplicationTalentEducationInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
@@ -9174,7 +9211,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) StartTime(startTime string
 
 // 结束时间
 //
-// 示例值：
+// 示例值：111
 func (builder *ApplicationTalentEducationInfoBuilder) EndTime(endTime string) *ApplicationTalentEducationInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
@@ -9183,8 +9220,8 @@ func (builder *ApplicationTalentEducationInfoBuilder) EndTime(endTime string) *A
 
 // 学历类型
 //
-// 示例值：
-func (builder *ApplicationTalentEducationInfoBuilder) EducationType(educationType int) *ApplicationTalentEducationInfoBuilder {
+// 示例值：1
+func (builder *ApplicationTalentEducationInfoBuilder) EducationType(educationType int64) *ApplicationTalentEducationInfoBuilder {
 	builder.educationType = educationType
 	builder.educationTypeFlag = true
 	return builder
@@ -9192,8 +9229,8 @@ func (builder *ApplicationTalentEducationInfoBuilder) EducationType(educationTyp
 
 // 排名
 //
-// 示例值：
-func (builder *ApplicationTalentEducationInfoBuilder) AcademicRanking(academicRanking int) *ApplicationTalentEducationInfoBuilder {
+// 示例值：111
+func (builder *ApplicationTalentEducationInfoBuilder) AcademicRanking(academicRanking int64) *ApplicationTalentEducationInfoBuilder {
 	builder.academicRanking = academicRanking
 	builder.academicRankingFlag = true
 	return builder
@@ -9251,7 +9288,7 @@ func (builder *ApplicationTalentEducationInfoBuilder) Build() *ApplicationTalent
 type ApplicationTalentLanguageInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	Language *int `json:"language,omitempty"` // 语言
+	Language *int64 `json:"language,omitempty"` // 语言
 
 	Proficiency *int `json:"proficiency,omitempty"` // 熟练程度
 }
@@ -9260,7 +9297,7 @@ type ApplicationTalentLanguageInfoBuilder struct {
 	id     string // ID
 	idFlag bool
 
-	language     int // 语言
+	language     int64 // 语言
 	languageFlag bool
 
 	proficiency     int // 熟练程度
@@ -9274,7 +9311,7 @@ func NewApplicationTalentLanguageInfoBuilder() *ApplicationTalentLanguageInfoBui
 
 // ID
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentLanguageInfoBuilder) Id(id string) *ApplicationTalentLanguageInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -9283,8 +9320,8 @@ func (builder *ApplicationTalentLanguageInfoBuilder) Id(id string) *ApplicationT
 
 // 语言
 //
-// 示例值：
-func (builder *ApplicationTalentLanguageInfoBuilder) Language(language int) *ApplicationTalentLanguageInfoBuilder {
+// 示例值：1
+func (builder *ApplicationTalentLanguageInfoBuilder) Language(language int64) *ApplicationTalentLanguageInfoBuilder {
 	builder.language = language
 	builder.languageFlag = true
 	return builder
@@ -9292,7 +9329,7 @@ func (builder *ApplicationTalentLanguageInfoBuilder) Language(language int) *App
 
 // 熟练程度
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentLanguageInfoBuilder) Proficiency(proficiency int) *ApplicationTalentLanguageInfoBuilder {
 	builder.proficiency = proficiency
 	builder.proficiencyFlag = true
@@ -9327,9 +9364,9 @@ type ApplicationTalentProjectInfo struct {
 
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 }
 
 type ApplicationTalentProjectInfoBuilder struct {
@@ -9348,10 +9385,10 @@ type ApplicationTalentProjectInfoBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 }
 
@@ -9362,7 +9399,7 @@ func NewApplicationTalentProjectInfoBuilder() *ApplicationTalentProjectInfoBuild
 
 // ID
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentProjectInfoBuilder) Id(id string) *ApplicationTalentProjectInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -9371,7 +9408,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Id(id string) *ApplicationTa
 
 // 名字
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentProjectInfoBuilder) Name(name string) *ApplicationTalentProjectInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -9380,7 +9417,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Name(name string) *Applicati
 
 // 角色
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentProjectInfoBuilder) Role(role string) *ApplicationTalentProjectInfoBuilder {
 	builder.role = role
 	builder.roleFlag = true
@@ -9389,7 +9426,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Role(role string) *Applicati
 
 // 链接
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentProjectInfoBuilder) Link(link string) *ApplicationTalentProjectInfoBuilder {
 	builder.link = link
 	builder.linkFlag = true
@@ -9398,7 +9435,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Link(link string) *Applicati
 
 // 描述
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentProjectInfoBuilder) Desc(desc string) *ApplicationTalentProjectInfoBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -9407,8 +9444,8 @@ func (builder *ApplicationTalentProjectInfoBuilder) Desc(desc string) *Applicati
 
 // 开始时间
 //
-// 示例值：
-func (builder *ApplicationTalentProjectInfoBuilder) StartTime(startTime int) *ApplicationTalentProjectInfoBuilder {
+// 示例值：1735664461000
+func (builder *ApplicationTalentProjectInfoBuilder) StartTime(startTime int64) *ApplicationTalentProjectInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -9416,8 +9453,8 @@ func (builder *ApplicationTalentProjectInfoBuilder) StartTime(startTime int) *Ap
 
 // 结束时间
 //
-// 示例值：
-func (builder *ApplicationTalentProjectInfoBuilder) EndTime(endTime int) *ApplicationTalentProjectInfoBuilder {
+// 示例值：1735664461000
+func (builder *ApplicationTalentProjectInfoBuilder) EndTime(endTime int64) *ApplicationTalentProjectInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -9459,7 +9496,7 @@ func (builder *ApplicationTalentProjectInfoBuilder) Build() *ApplicationTalentPr
 type ApplicationTalentSnsInfo struct {
 	Id *string `json:"id,omitempty"` // ID
 
-	SnsType *int `json:"sns_type,omitempty"` // SNS类型
+	SnsType *int64 `json:"sns_type,omitempty"` // SNS类型
 
 	Link *string `json:"link,omitempty"` // SNS链接
 }
@@ -9468,7 +9505,7 @@ type ApplicationTalentSnsInfoBuilder struct {
 	id     string // ID
 	idFlag bool
 
-	snsType     int // SNS类型
+	snsType     int64 // SNS类型
 	snsTypeFlag bool
 
 	link     string // SNS链接
@@ -9482,7 +9519,7 @@ func NewApplicationTalentSnsInfoBuilder() *ApplicationTalentSnsInfoBuilder {
 
 // ID
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentSnsInfoBuilder) Id(id string) *ApplicationTalentSnsInfoBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -9491,8 +9528,8 @@ func (builder *ApplicationTalentSnsInfoBuilder) Id(id string) *ApplicationTalent
 
 // SNS类型
 //
-// 示例值：
-func (builder *ApplicationTalentSnsInfoBuilder) SnsType(snsType int) *ApplicationTalentSnsInfoBuilder {
+// 示例值：1
+func (builder *ApplicationTalentSnsInfoBuilder) SnsType(snsType int64) *ApplicationTalentSnsInfoBuilder {
 	builder.snsType = snsType
 	builder.snsTypeFlag = true
 	return builder
@@ -9500,7 +9537,7 @@ func (builder *ApplicationTalentSnsInfoBuilder) SnsType(snsType int) *Applicatio
 
 // SNS链接
 //
-// 示例值：
+// 示例值：1
 func (builder *ApplicationTalentSnsInfoBuilder) Link(link string) *ApplicationTalentSnsInfoBuilder {
 	builder.link = link
 	builder.linkFlag = true
@@ -9816,7 +9853,7 @@ type AssessmentScoreInfo struct {
 
 	Score *float64 `json:"score,omitempty"` // 分数(精确到小数点后两位)
 
-	FullScore *int `json:"full_score,omitempty"` // 满分
+	FullScore *int64 `json:"full_score,omitempty"` // 满分
 }
 
 type AssessmentScoreInfoBuilder struct {
@@ -9826,7 +9863,7 @@ type AssessmentScoreInfoBuilder struct {
 	score     float64 // 分数(精确到小数点后两位)
 	scoreFlag bool
 
-	fullScore     int // 满分
+	fullScore     int64 // 满分
 	fullScoreFlag bool
 }
 
@@ -9846,7 +9883,7 @@ func (builder *AssessmentScoreInfoBuilder) CalculateType(calculateType int) *Ass
 
 // 分数(精确到小数点后两位)
 //
-// 示例值：
+// 示例值：3.21
 func (builder *AssessmentScoreInfoBuilder) Score(score float64) *AssessmentScoreInfoBuilder {
 	builder.score = score
 	builder.scoreFlag = true
@@ -9856,7 +9893,7 @@ func (builder *AssessmentScoreInfoBuilder) Score(score float64) *AssessmentScore
 // 满分
 //
 // 示例值：100
-func (builder *AssessmentScoreInfoBuilder) FullScore(fullScore int) *AssessmentScoreInfoBuilder {
+func (builder *AssessmentScoreInfoBuilder) FullScore(fullScore int64) *AssessmentScoreInfoBuilder {
 	builder.fullScore = fullScore
 	builder.fullScoreFlag = true
 	return builder
@@ -9936,7 +9973,7 @@ type Attachment struct {
 
 	Mime *string `json:"mime,omitempty"` // 媒体类型/MIME
 
-	CreateTime *int `json:"create_time,omitempty"` // 附件创建时间（单位ms）
+	CreateTime *int64 `json:"create_time,omitempty"` // 附件创建时间（单位ms）
 }
 
 type AttachmentBuilder struct {
@@ -9952,7 +9989,7 @@ type AttachmentBuilder struct {
 	mime     string // 媒体类型/MIME
 	mimeFlag bool
 
-	createTime     int // 附件创建时间（单位ms）
+	createTime     int64 // 附件创建时间（单位ms）
 	createTimeFlag bool
 }
 
@@ -10000,7 +10037,7 @@ func (builder *AttachmentBuilder) Mime(mime string) *AttachmentBuilder {
 // 附件创建时间（单位ms）
 //
 // 示例值：1618899376480
-func (builder *AttachmentBuilder) CreateTime(createTime int) *AttachmentBuilder {
+func (builder *AttachmentBuilder) CreateTime(createTime int64) *AttachmentBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -10289,7 +10326,7 @@ func (builder *AuthBuilder) Build() *Auth {
 }
 
 type AwardInfo struct {
-	AwardTime *int `json:"award_time,omitempty"` // 获奖时间
+	AwardTime *int64 `json:"award_time,omitempty"` // 获奖时间
 
 	Desc *string `json:"desc,omitempty"` // 描述
 
@@ -10297,7 +10334,7 @@ type AwardInfo struct {
 }
 
 type AwardInfoBuilder struct {
-	awardTime     int // 获奖时间
+	awardTime     int64 // 获奖时间
 	awardTimeFlag bool
 
 	desc     string // 描述
@@ -10314,8 +10351,8 @@ func NewAwardInfoBuilder() *AwardInfoBuilder {
 
 // 获奖时间
 //
-// 示例值：
-func (builder *AwardInfoBuilder) AwardTime(awardTime int) *AwardInfoBuilder {
+// 示例值：123
+func (builder *AwardInfoBuilder) AwardTime(awardTime int64) *AwardInfoBuilder {
 	builder.awardTime = awardTime
 	builder.awardTimeFlag = true
 	return builder
@@ -10323,7 +10360,7 @@ func (builder *AwardInfoBuilder) AwardTime(awardTime int) *AwardInfoBuilder {
 
 // 描述
 //
-// 示例值：
+// 示例值：123
 func (builder *AwardInfoBuilder) Desc(desc string) *AwardInfoBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -10332,7 +10369,7 @@ func (builder *AwardInfoBuilder) Desc(desc string) *AwardInfoBuilder {
 
 // 名称
 //
-// 示例值：
+// 示例值：123
 func (builder *AwardInfoBuilder) Title(title string) *AwardInfoBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -11733,7 +11770,7 @@ type BaseDistrict struct {
 
 	Code *string `json:"code,omitempty"` // 编码
 
-	LocationType *int `json:"location_type,omitempty"` // 地址类型
+	LocationType *int64 `json:"location_type,omitempty"` // 地址类型
 }
 
 type BaseDistrictBuilder struct {
@@ -11746,7 +11783,7 @@ type BaseDistrictBuilder struct {
 	code     string // 编码
 	codeFlag bool
 
-	locationType     int // 地址类型
+	locationType     int64 // 地址类型
 	locationTypeFlag bool
 }
 
@@ -11785,7 +11822,7 @@ func (builder *BaseDistrictBuilder) Code(code string) *BaseDistrictBuilder {
 // 地址类型
 //
 // 示例值：1
-func (builder *BaseDistrictBuilder) LocationType(locationType int) *BaseDistrictBuilder {
+func (builder *BaseDistrictBuilder) LocationType(locationType int64) *BaseDistrictBuilder {
 	builder.locationType = locationType
 	builder.locationTypeFlag = true
 	return builder
@@ -11882,14 +11919,14 @@ func (builder *BaseLocationBuilder) Build() *BaseLocation {
 type BaseResp struct {
 	StatusMessage *string `json:"StatusMessage,omitempty"` // 响应信息
 
-	StatusCode *int `json:"StatusCode,omitempty"` // 响应码
+	StatusCode *int64 `json:"StatusCode,omitempty"` // 响应码
 }
 
 type BaseRespBuilder struct {
 	statusMessage     string // 响应信息
 	statusMessageFlag bool
 
-	statusCode     int // 响应码
+	statusCode     int64 // 响应码
 	statusCodeFlag bool
 }
 
@@ -11900,7 +11937,7 @@ func NewBaseRespBuilder() *BaseRespBuilder {
 
 // 响应信息
 //
-// 示例值：
+// 示例值：1
 func (builder *BaseRespBuilder) StatusMessage(statusMessage string) *BaseRespBuilder {
 	builder.statusMessage = statusMessage
 	builder.statusMessageFlag = true
@@ -11909,8 +11946,8 @@ func (builder *BaseRespBuilder) StatusMessage(statusMessage string) *BaseRespBui
 
 // 响应码
 //
-// 示例值：
-func (builder *BaseRespBuilder) StatusCode(statusCode int) *BaseRespBuilder {
+// 示例值：1
+func (builder *BaseRespBuilder) StatusCode(statusCode int64) *BaseRespBuilder {
 	builder.statusCode = statusCode
 	builder.statusCodeFlag = true
 	return builder
@@ -11987,17 +12024,17 @@ type BasicInfo struct {
 
 	Email *string `json:"email,omitempty"` // 邮箱
 
-	Birthday *int `json:"birthday,omitempty"` // 生日
+	Birthday *int64 `json:"birthday,omitempty"` // 生日
 
-	Confidentiality *int `json:"confidentiality,omitempty"` // 保密
+	Confidentiality *int64 `json:"confidentiality,omitempty"` // 保密
 
-	CreatorAccountType *int `json:"creator_account_type,omitempty"` // 创建者账户类型
+	CreatorAccountType *int64 `json:"creator_account_type,omitempty"` // 创建者账户类型
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建者ID
 
 	CurrentCityCode *string `json:"current_city_code,omitempty"` // 现居住城市
 
-	Gender *int `json:"gender,omitempty"` // 性别
+	Gender *int64 `json:"gender,omitempty"` // 性别
 
 	HometownCityCode *string `json:"hometown_city_code,omitempty"` // 家乡所在城市
 
@@ -12011,7 +12048,7 @@ type BasicInfo struct {
 
 	SelfEvaluation *string `json:"self_evaluation,omitempty"` // 自我评价
 
-	StartWorkTime *int `json:"start_work_time,omitempty"` // 开始工作时间
+	StartWorkTime *int64 `json:"start_work_time,omitempty"` // 开始工作时间
 }
 
 type BasicInfoBuilder struct {
@@ -12027,13 +12064,13 @@ type BasicInfoBuilder struct {
 	email     string // 邮箱
 	emailFlag bool
 
-	birthday     int // 生日
+	birthday     int64 // 生日
 	birthdayFlag bool
 
-	confidentiality     int // 保密
+	confidentiality     int64 // 保密
 	confidentialityFlag bool
 
-	creatorAccountType     int // 创建者账户类型
+	creatorAccountType     int64 // 创建者账户类型
 	creatorAccountTypeFlag bool
 
 	creatorId     string // 创建者ID
@@ -12042,7 +12079,7 @@ type BasicInfoBuilder struct {
 	currentCityCode     string // 现居住城市
 	currentCityCodeFlag bool
 
-	gender     int // 性别
+	gender     int64 // 性别
 	genderFlag bool
 
 	hometownCityCode     string // 家乡所在城市
@@ -12063,7 +12100,7 @@ type BasicInfoBuilder struct {
 	selfEvaluation     string // 自我评价
 	selfEvaluationFlag bool
 
-	startWorkTime     int // 开始工作时间
+	startWorkTime     int64 // 开始工作时间
 	startWorkTimeFlag bool
 }
 
@@ -12074,7 +12111,7 @@ func NewBasicInfoBuilder() *BasicInfoBuilder {
 
 // 名字
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) Name(name string) *BasicInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -12083,7 +12120,7 @@ func (builder *BasicInfoBuilder) Name(name string) *BasicInfoBuilder {
 
 // 手机
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) Mobile(mobile string) *BasicInfoBuilder {
 	builder.mobile = mobile
 	builder.mobileFlag = true
@@ -12092,7 +12129,7 @@ func (builder *BasicInfoBuilder) Mobile(mobile string) *BasicInfoBuilder {
 
 // 手机国家代码
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *BasicInfoBuilder {
 	builder.mobileCountryCode = mobileCountryCode
 	builder.mobileCountryCodeFlag = true
@@ -12101,7 +12138,7 @@ func (builder *BasicInfoBuilder) MobileCountryCode(mobileCountryCode string) *Ba
 
 // 邮箱
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) Email(email string) *BasicInfoBuilder {
 	builder.email = email
 	builder.emailFlag = true
@@ -12110,8 +12147,8 @@ func (builder *BasicInfoBuilder) Email(email string) *BasicInfoBuilder {
 
 // 生日
 //
-// 示例值：
-func (builder *BasicInfoBuilder) Birthday(birthday int) *BasicInfoBuilder {
+// 示例值：1
+func (builder *BasicInfoBuilder) Birthday(birthday int64) *BasicInfoBuilder {
 	builder.birthday = birthday
 	builder.birthdayFlag = true
 	return builder
@@ -12119,8 +12156,8 @@ func (builder *BasicInfoBuilder) Birthday(birthday int) *BasicInfoBuilder {
 
 // 保密
 //
-// 示例值：
-func (builder *BasicInfoBuilder) Confidentiality(confidentiality int) *BasicInfoBuilder {
+// 示例值：1
+func (builder *BasicInfoBuilder) Confidentiality(confidentiality int64) *BasicInfoBuilder {
 	builder.confidentiality = confidentiality
 	builder.confidentialityFlag = true
 	return builder
@@ -12128,8 +12165,8 @@ func (builder *BasicInfoBuilder) Confidentiality(confidentiality int) *BasicInfo
 
 // 创建者账户类型
 //
-// 示例值：
-func (builder *BasicInfoBuilder) CreatorAccountType(creatorAccountType int) *BasicInfoBuilder {
+// 示例值：1
+func (builder *BasicInfoBuilder) CreatorAccountType(creatorAccountType int64) *BasicInfoBuilder {
 	builder.creatorAccountType = creatorAccountType
 	builder.creatorAccountTypeFlag = true
 	return builder
@@ -12137,7 +12174,7 @@ func (builder *BasicInfoBuilder) CreatorAccountType(creatorAccountType int) *Bas
 
 // 创建者ID
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) CreatorId(creatorId string) *BasicInfoBuilder {
 	builder.creatorId = creatorId
 	builder.creatorIdFlag = true
@@ -12146,7 +12183,7 @@ func (builder *BasicInfoBuilder) CreatorId(creatorId string) *BasicInfoBuilder {
 
 // 现居住城市
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) CurrentCityCode(currentCityCode string) *BasicInfoBuilder {
 	builder.currentCityCode = currentCityCode
 	builder.currentCityCodeFlag = true
@@ -12155,8 +12192,8 @@ func (builder *BasicInfoBuilder) CurrentCityCode(currentCityCode string) *BasicI
 
 // 性别
 //
-// 示例值：
-func (builder *BasicInfoBuilder) Gender(gender int) *BasicInfoBuilder {
+// 示例值：1
+func (builder *BasicInfoBuilder) Gender(gender int64) *BasicInfoBuilder {
 	builder.gender = gender
 	builder.genderFlag = true
 	return builder
@@ -12164,7 +12201,7 @@ func (builder *BasicInfoBuilder) Gender(gender int) *BasicInfoBuilder {
 
 // 家乡所在城市
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) HometownCityCode(hometownCityCode string) *BasicInfoBuilder {
 	builder.hometownCityCode = hometownCityCode
 	builder.hometownCityCodeFlag = true
@@ -12173,7 +12210,7 @@ func (builder *BasicInfoBuilder) HometownCityCode(hometownCityCode string) *Basi
 
 // 证件
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) Identification(identification *Identification) *BasicInfoBuilder {
 	builder.identification = identification
 	builder.identificationFlag = true
@@ -12182,7 +12219,7 @@ func (builder *BasicInfoBuilder) Identification(identification *Identification) 
 
 // 来源
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) InitSourceId(initSourceId string) *BasicInfoBuilder {
 	builder.initSourceId = initSourceId
 	builder.initSourceIdFlag = true
@@ -12191,7 +12228,7 @@ func (builder *BasicInfoBuilder) InitSourceId(initSourceId string) *BasicInfoBui
 
 // 国籍编号
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) NationalityId(nationalityId string) *BasicInfoBuilder {
 	builder.nationalityId = nationalityId
 	builder.nationalityIdFlag = true
@@ -12200,7 +12237,7 @@ func (builder *BasicInfoBuilder) NationalityId(nationalityId string) *BasicInfoB
 
 // 附件简历ID
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) ResumeAttachmentId(resumeAttachmentId string) *BasicInfoBuilder {
 	builder.resumeAttachmentId = resumeAttachmentId
 	builder.resumeAttachmentIdFlag = true
@@ -12209,7 +12246,7 @@ func (builder *BasicInfoBuilder) ResumeAttachmentId(resumeAttachmentId string) *
 
 // 自我评价
 //
-// 示例值：
+// 示例值：1
 func (builder *BasicInfoBuilder) SelfEvaluation(selfEvaluation string) *BasicInfoBuilder {
 	builder.selfEvaluation = selfEvaluation
 	builder.selfEvaluationFlag = true
@@ -12218,8 +12255,8 @@ func (builder *BasicInfoBuilder) SelfEvaluation(selfEvaluation string) *BasicInf
 
 // 开始工作时间
 //
-// 示例值：
-func (builder *BasicInfoBuilder) StartWorkTime(startWorkTime int) *BasicInfoBuilder {
+// 示例值：1
+func (builder *BasicInfoBuilder) StartWorkTime(startWorkTime int64) *BasicInfoBuilder {
 	builder.startWorkTime = startWorkTime
 	builder.startWorkTimeFlag = true
 	return builder
@@ -12349,7 +12386,7 @@ func (builder *BasicUserInfoBuilder) Build() *BasicUserInfo {
 type BonusAmount struct {
 	BonusType *int `json:"bonus_type,omitempty"` // 奖励类型
 
-	PointBonus *int `json:"point_bonus,omitempty"` // 积分奖励
+	PointBonus *int64 `json:"point_bonus,omitempty"` // 积分奖励
 
 	Cash *Cash `json:"cash,omitempty"` // 现金奖励
 
@@ -12360,7 +12397,7 @@ type BonusAmountBuilder struct {
 	bonusType     int // 奖励类型
 	bonusTypeFlag bool
 
-	pointBonus     int // 积分奖励
+	pointBonus     int64 // 积分奖励
 	pointBonusFlag bool
 
 	cash     *Cash // 现金奖励
@@ -12387,7 +12424,7 @@ func (builder *BonusAmountBuilder) BonusType(bonusType int) *BonusAmountBuilder 
 // 积分奖励
 //
 // 示例值：100
-func (builder *BonusAmountBuilder) PointBonus(pointBonus int) *BonusAmountBuilder {
+func (builder *BonusAmountBuilder) PointBonus(pointBonus int64) *BonusAmountBuilder {
 	builder.pointBonus = pointBonus
 	builder.pointBonusFlag = true
 	return builder
@@ -12479,11 +12516,11 @@ func (builder *BusinessManagementScopeBuilder) Build() *BusinessManagementScope 
 }
 
 type CampusVolumnteerInfo struct {
-	VolunteerSeq *int `json:"volunteer_seq,omitempty"` // 志愿顺序
+	VolunteerSeq *int64 `json:"volunteer_seq,omitempty"` // 志愿顺序
 }
 
 type CampusVolumnteerInfoBuilder struct {
-	volunteerSeq     int // 志愿顺序
+	volunteerSeq     int64 // 志愿顺序
 	volunteerSeqFlag bool
 }
 
@@ -12495,7 +12532,7 @@ func NewCampusVolumnteerInfoBuilder() *CampusVolumnteerInfoBuilder {
 // 志愿顺序
 //
 // 示例值：1
-func (builder *CampusVolumnteerInfoBuilder) VolunteerSeq(volunteerSeq int) *CampusVolumnteerInfoBuilder {
+func (builder *CampusVolumnteerInfoBuilder) VolunteerSeq(volunteerSeq int64) *CampusVolumnteerInfoBuilder {
 	builder.volunteerSeq = volunteerSeq
 	builder.volunteerSeqFlag = true
 	return builder
@@ -12560,21 +12597,21 @@ func (builder *CandidateTagFilterBuilder) Build() *CandidateTagFilter {
 }
 
 type CareerInfo struct {
-	CareerType *int `json:"career_type,omitempty"` // 类型
+	CareerType *int64 `json:"career_type,omitempty"` // 类型
 
 	Company *string `json:"company,omitempty"` // 公司
 
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	Title *string `json:"title,omitempty"` // 职称
 }
 
 type CareerInfoBuilder struct {
-	careerType     int // 类型
+	careerType     int64 // 类型
 	careerTypeFlag bool
 
 	company     string // 公司
@@ -12583,10 +12620,10 @@ type CareerInfoBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	title     string // 职称
@@ -12600,8 +12637,8 @@ func NewCareerInfoBuilder() *CareerInfoBuilder {
 
 // 类型
 //
-// 示例值：
-func (builder *CareerInfoBuilder) CareerType(careerType int) *CareerInfoBuilder {
+// 示例值：1
+func (builder *CareerInfoBuilder) CareerType(careerType int64) *CareerInfoBuilder {
 	builder.careerType = careerType
 	builder.careerTypeFlag = true
 	return builder
@@ -12609,7 +12646,7 @@ func (builder *CareerInfoBuilder) CareerType(careerType int) *CareerInfoBuilder 
 
 // 公司
 //
-// 示例值：
+// 示例值：11
 func (builder *CareerInfoBuilder) Company(company string) *CareerInfoBuilder {
 	builder.company = company
 	builder.companyFlag = true
@@ -12618,7 +12655,7 @@ func (builder *CareerInfoBuilder) Company(company string) *CareerInfoBuilder {
 
 // 描述
 //
-// 示例值：
+// 示例值：11
 func (builder *CareerInfoBuilder) Desc(desc string) *CareerInfoBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -12627,8 +12664,8 @@ func (builder *CareerInfoBuilder) Desc(desc string) *CareerInfoBuilder {
 
 // 结束时间
 //
-// 示例值：
-func (builder *CareerInfoBuilder) EndTime(endTime int) *CareerInfoBuilder {
+// 示例值：1
+func (builder *CareerInfoBuilder) EndTime(endTime int64) *CareerInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -12636,8 +12673,8 @@ func (builder *CareerInfoBuilder) EndTime(endTime int) *CareerInfoBuilder {
 
 // 开始时间
 //
-// 示例值：
-func (builder *CareerInfoBuilder) StartTime(startTime int) *CareerInfoBuilder {
+// 示例值：1
+func (builder *CareerInfoBuilder) StartTime(startTime int64) *CareerInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -12645,7 +12682,7 @@ func (builder *CareerInfoBuilder) StartTime(startTime int) *CareerInfoBuilder {
 
 // 职称
 //
-// 示例值：
+// 示例值：11
 func (builder *CareerInfoBuilder) Title(title string) *CareerInfoBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -13054,13 +13091,13 @@ type CombinedJob struct {
 
 	Experience *int `json:"experience,omitempty"` // 工作年限
 
-	ExpiryTime *int `json:"expiry_time,omitempty"` // 到期日期
+	ExpiryTime *int64 `json:"expiry_time,omitempty"` // 到期日期
 
 	CustomizedDataList []*CombinedJobObjectValueMap `json:"customized_data_list,omitempty"` // 自定义字段
 
 	MinLevelId *string `json:"min_level_id,omitempty"` // 最低职级，枚举通过接口「获取职级列表」获取
 
-	MinSalary *int `json:"min_salary,omitempty"` // 最低薪资，单位：k
+	MinSalary *int64 `json:"min_salary,omitempty"` // 最低薪资，单位：k
 
 	Title *string `json:"title,omitempty"` // 职位名称
 
@@ -13076,11 +13113,11 @@ type CombinedJob struct {
 
 	DepartmentId *string `json:"department_id,omitempty"` // 部门 ID，须传入open_department_id，格式为"od-xxxx"。可通过「获取部门信息列表」获取
 
-	HeadCount *int `json:"head_count,omitempty"` // 招聘数量
+	HeadCount *int64 `json:"head_count,omitempty"` // 招聘数量
 
 	IsNeverExpired *bool `json:"is_never_expired,omitempty"` // 是否长期有效
 
-	MaxSalary *int `json:"max_salary,omitempty"` // 最高薪资，单位：k
+	MaxSalary *int64 `json:"max_salary,omitempty"` // 最高薪资，单位：k
 
 	Requirement *string `json:"requirement,omitempty"` // 职位要求
 
@@ -13125,7 +13162,7 @@ type CombinedJobBuilder struct {
 	experience     int // 工作年限
 	experienceFlag bool
 
-	expiryTime     int // 到期日期
+	expiryTime     int64 // 到期日期
 	expiryTimeFlag bool
 
 	customizedDataList     []*CombinedJobObjectValueMap // 自定义字段
@@ -13134,7 +13171,7 @@ type CombinedJobBuilder struct {
 	minLevelId     string // 最低职级，枚举通过接口「获取职级列表」获取
 	minLevelIdFlag bool
 
-	minSalary     int // 最低薪资，单位：k
+	minSalary     int64 // 最低薪资，单位：k
 	minSalaryFlag bool
 
 	title     string // 职位名称
@@ -13158,13 +13195,13 @@ type CombinedJobBuilder struct {
 	departmentId     string // 部门 ID，须传入open_department_id，格式为"od-xxxx"。可通过「获取部门信息列表」获取
 	departmentIdFlag bool
 
-	headCount     int // 招聘数量
+	headCount     int64 // 招聘数量
 	headCountFlag bool
 
 	isNeverExpired     bool // 是否长期有效
 	isNeverExpiredFlag bool
 
-	maxSalary     int // 最高薪资，单位：k
+	maxSalary     int64 // 最高薪资，单位：k
 	maxSalaryFlag bool
 
 	requirement     string // 职位要求
@@ -13251,7 +13288,7 @@ func (builder *CombinedJobBuilder) Experience(experience int) *CombinedJobBuilde
 // 到期日期
 //
 // 示例值：1622484739955
-func (builder *CombinedJobBuilder) ExpiryTime(expiryTime int) *CombinedJobBuilder {
+func (builder *CombinedJobBuilder) ExpiryTime(expiryTime int64) *CombinedJobBuilder {
 	builder.expiryTime = expiryTime
 	builder.expiryTimeFlag = true
 	return builder
@@ -13278,7 +13315,7 @@ func (builder *CombinedJobBuilder) MinLevelId(minLevelId string) *CombinedJobBui
 // 最低薪资，单位：k
 //
 // 示例值：1000
-func (builder *CombinedJobBuilder) MinSalary(minSalary int) *CombinedJobBuilder {
+func (builder *CombinedJobBuilder) MinSalary(minSalary int64) *CombinedJobBuilder {
 	builder.minSalary = minSalary
 	builder.minSalaryFlag = true
 	return builder
@@ -13350,7 +13387,7 @@ func (builder *CombinedJobBuilder) DepartmentId(departmentId string) *CombinedJo
 // 招聘数量
 //
 // 示例值：100
-func (builder *CombinedJobBuilder) HeadCount(headCount int) *CombinedJobBuilder {
+func (builder *CombinedJobBuilder) HeadCount(headCount int64) *CombinedJobBuilder {
 	builder.headCount = headCount
 	builder.headCountFlag = true
 	return builder
@@ -13368,7 +13405,7 @@ func (builder *CombinedJobBuilder) IsNeverExpired(isNeverExpired bool) *Combined
 // 最高薪资，单位：k
 //
 // 示例值：2000
-func (builder *CombinedJobBuilder) MaxSalary(maxSalary int) *CombinedJobBuilder {
+func (builder *CombinedJobBuilder) MaxSalary(maxSalary int64) *CombinedJobBuilder {
 	builder.maxSalary = maxSalary
 	builder.maxSalaryFlag = true
 	return builder
@@ -17271,13 +17308,13 @@ func (builder *EcoExamResultReportBuilder) Build() *EcoExamResultReport {
 type EducationInfo struct {
 	Degree *int `json:"degree,omitempty"` // 学历
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 
 	FieldOfStudy *string `json:"field_of_study,omitempty"` // 专业
 
 	School *string `json:"school,omitempty"` // 学校
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	EducationType *int `json:"education_type,omitempty"` // 学历类型
 
@@ -17288,7 +17325,7 @@ type EducationInfoBuilder struct {
 	degree     int // 学历
 	degreeFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 
 	fieldOfStudy     string // 专业
@@ -17297,7 +17334,7 @@ type EducationInfoBuilder struct {
 	school     string // 学校
 	schoolFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	educationType     int // 学历类型
@@ -17314,7 +17351,7 @@ func NewEducationInfoBuilder() *EducationInfoBuilder {
 
 // 学历
 //
-// 示例值：
+// 示例值：1
 func (builder *EducationInfoBuilder) Degree(degree int) *EducationInfoBuilder {
 	builder.degree = degree
 	builder.degreeFlag = true
@@ -17323,8 +17360,8 @@ func (builder *EducationInfoBuilder) Degree(degree int) *EducationInfoBuilder {
 
 // 结束时间
 //
-// 示例值：
-func (builder *EducationInfoBuilder) EndTime(endTime int) *EducationInfoBuilder {
+// 示例值：1735664461000
+func (builder *EducationInfoBuilder) EndTime(endTime int64) *EducationInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -17332,7 +17369,7 @@ func (builder *EducationInfoBuilder) EndTime(endTime int) *EducationInfoBuilder 
 
 // 专业
 //
-// 示例值：
+// 示例值：xx专业
 func (builder *EducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *EducationInfoBuilder {
 	builder.fieldOfStudy = fieldOfStudy
 	builder.fieldOfStudyFlag = true
@@ -17341,7 +17378,7 @@ func (builder *EducationInfoBuilder) FieldOfStudy(fieldOfStudy string) *Educatio
 
 // 学校
 //
-// 示例值：
+// 示例值：xx学校
 func (builder *EducationInfoBuilder) School(school string) *EducationInfoBuilder {
 	builder.school = school
 	builder.schoolFlag = true
@@ -17350,8 +17387,8 @@ func (builder *EducationInfoBuilder) School(school string) *EducationInfoBuilder
 
 // 开始时间
 //
-// 示例值：
-func (builder *EducationInfoBuilder) StartTime(startTime int) *EducationInfoBuilder {
+// 示例值：1735664461000
+func (builder *EducationInfoBuilder) StartTime(startTime int64) *EducationInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -17359,7 +17396,7 @@ func (builder *EducationInfoBuilder) StartTime(startTime int) *EducationInfoBuil
 
 // 学历类型
 //
-// 示例值：
+// 示例值：1
 func (builder *EducationInfoBuilder) EducationType(educationType int) *EducationInfoBuilder {
 	builder.educationType = educationType
 	builder.educationTypeFlag = true
@@ -17368,7 +17405,7 @@ func (builder *EducationInfoBuilder) EducationType(educationType int) *Education
 
 // 排名
 //
-// 示例值：
+// 示例值：1
 func (builder *EducationInfoBuilder) AcademicRanking(academicRanking int) *EducationInfoBuilder {
 	builder.academicRanking = academicRanking
 	builder.academicRankingFlag = true
@@ -17485,13 +17522,13 @@ type Employee struct {
 
 	ConversionStatus *int `json:"conversion_status,omitempty"` // 转正状态
 
-	OnboardTime *int `json:"onboard_time,omitempty"` // 实际入职时间
+	OnboardTime *int64 `json:"onboard_time,omitempty"` // 实际入职时间
 
-	ExpectedConversionTime *int `json:"expected_conversion_time,omitempty"` // 预期转正时间
+	ExpectedConversionTime *int64 `json:"expected_conversion_time,omitempty"` // 预期转正时间
 
-	ActualConversionTime *int `json:"actual_conversion_time,omitempty"` // 实际转正时间
+	ActualConversionTime *int64 `json:"actual_conversion_time,omitempty"` // 实际转正时间
 
-	OverboardTime *int `json:"overboard_time,omitempty"` // 离职时间
+	OverboardTime *int64 `json:"overboard_time,omitempty"` // 离职时间
 
 	OverboardNote *string `json:"overboard_note,omitempty"` // 离职原因
 
@@ -17523,16 +17560,16 @@ type EmployeeBuilder struct {
 	conversionStatus     int // 转正状态
 	conversionStatusFlag bool
 
-	onboardTime     int // 实际入职时间
+	onboardTime     int64 // 实际入职时间
 	onboardTimeFlag bool
 
-	expectedConversionTime     int // 预期转正时间
+	expectedConversionTime     int64 // 预期转正时间
 	expectedConversionTimeFlag bool
 
-	actualConversionTime     int // 实际转正时间
+	actualConversionTime     int64 // 实际转正时间
 	actualConversionTimeFlag bool
 
-	overboardTime     int // 离职时间
+	overboardTime     int64 // 离职时间
 	overboardTimeFlag bool
 
 	overboardNote     string // 离职原因
@@ -17604,7 +17641,7 @@ func (builder *EmployeeBuilder) ConversionStatus(conversionStatus int) *Employee
 // 实际入职时间
 //
 // 示例值：1637596800000
-func (builder *EmployeeBuilder) OnboardTime(onboardTime int) *EmployeeBuilder {
+func (builder *EmployeeBuilder) OnboardTime(onboardTime int64) *EmployeeBuilder {
 	builder.onboardTime = onboardTime
 	builder.onboardTimeFlag = true
 	return builder
@@ -17613,7 +17650,7 @@ func (builder *EmployeeBuilder) OnboardTime(onboardTime int) *EmployeeBuilder {
 // 预期转正时间
 //
 // 示例值：1637596800000
-func (builder *EmployeeBuilder) ExpectedConversionTime(expectedConversionTime int) *EmployeeBuilder {
+func (builder *EmployeeBuilder) ExpectedConversionTime(expectedConversionTime int64) *EmployeeBuilder {
 	builder.expectedConversionTime = expectedConversionTime
 	builder.expectedConversionTimeFlag = true
 	return builder
@@ -17622,7 +17659,7 @@ func (builder *EmployeeBuilder) ExpectedConversionTime(expectedConversionTime in
 // 实际转正时间
 //
 // 示例值：1637596800000
-func (builder *EmployeeBuilder) ActualConversionTime(actualConversionTime int) *EmployeeBuilder {
+func (builder *EmployeeBuilder) ActualConversionTime(actualConversionTime int64) *EmployeeBuilder {
 	builder.actualConversionTime = actualConversionTime
 	builder.actualConversionTimeFlag = true
 	return builder
@@ -17631,7 +17668,7 @@ func (builder *EmployeeBuilder) ActualConversionTime(actualConversionTime int) *
 // 离职时间
 //
 // 示例值：1637596800000
-func (builder *EmployeeBuilder) OverboardTime(overboardTime int) *EmployeeBuilder {
+func (builder *EmployeeBuilder) OverboardTime(overboardTime int64) *EmployeeBuilder {
 	builder.overboardTime = overboardTime
 	builder.overboardTimeFlag = true
 	return builder
@@ -17779,11 +17816,11 @@ func (builder *EmployeeBuilder) Build() *Employee {
 }
 
 type EmployeeConversionInfo struct {
-	ActualConversionTime *int `json:"actual_conversion_time,omitempty"` // 实际转正日期
+	ActualConversionTime *int64 `json:"actual_conversion_time,omitempty"` // 实际转正日期
 }
 
 type EmployeeConversionInfoBuilder struct {
-	actualConversionTime     int // 实际转正日期
+	actualConversionTime     int64 // 实际转正日期
 	actualConversionTimeFlag bool
 }
 
@@ -17795,7 +17832,7 @@ func NewEmployeeConversionInfoBuilder() *EmployeeConversionInfoBuilder {
 // 实际转正日期
 //
 // 示例值：1637596800000
-func (builder *EmployeeConversionInfoBuilder) ActualConversionTime(actualConversionTime int) *EmployeeConversionInfoBuilder {
+func (builder *EmployeeConversionInfoBuilder) ActualConversionTime(actualConversionTime int64) *EmployeeConversionInfoBuilder {
 	builder.actualConversionTime = actualConversionTime
 	builder.actualConversionTimeFlag = true
 	return builder
@@ -17811,13 +17848,13 @@ func (builder *EmployeeConversionInfoBuilder) Build() *EmployeeConversionInfo {
 }
 
 type EmployeeOverboardInfo struct {
-	ActualOverboardTime *int `json:"actual_overboard_time,omitempty"` // 实际离职日期
+	ActualOverboardTime *int64 `json:"actual_overboard_time,omitempty"` // 实际离职日期
 
 	OverboardNote *string `json:"overboard_note,omitempty"` // 离职原因
 }
 
 type EmployeeOverboardInfoBuilder struct {
-	actualOverboardTime     int // 实际离职日期
+	actualOverboardTime     int64 // 实际离职日期
 	actualOverboardTimeFlag bool
 
 	overboardNote     string // 离职原因
@@ -17832,7 +17869,7 @@ func NewEmployeeOverboardInfoBuilder() *EmployeeOverboardInfoBuilder {
 // 实际离职日期
 //
 // 示例值：1637596800000
-func (builder *EmployeeOverboardInfoBuilder) ActualOverboardTime(actualOverboardTime int) *EmployeeOverboardInfoBuilder {
+func (builder *EmployeeOverboardInfoBuilder) ActualOverboardTime(actualOverboardTime int64) *EmployeeOverboardInfoBuilder {
 	builder.actualOverboardTime = actualOverboardTime
 	builder.actualOverboardTimeFlag = true
 	return builder
@@ -18632,9 +18669,9 @@ type ExternalApplication struct {
 
 	DeliveryType *int `json:"delivery_type,omitempty"` // 投递类型
 
-	ModifyTime *int `json:"modify_time,omitempty"` // 更新时间
+	ModifyTime *int64 `json:"modify_time,omitempty"` // 更新时间
 
-	CreateTime *int `json:"create_time,omitempty"` // 投递在外部系统创建时间
+	CreateTime *int64 `json:"create_time,omitempty"` // 投递在外部系统创建时间
 
 	TerminationType *string `json:"termination_type,omitempty"` // 终止类型
 }
@@ -18667,10 +18704,10 @@ type ExternalApplicationBuilder struct {
 	deliveryType     int // 投递类型
 	deliveryTypeFlag bool
 
-	modifyTime     int // 更新时间
+	modifyTime     int64 // 更新时间
 	modifyTimeFlag bool
 
-	createTime     int // 投递在外部系统创建时间
+	createTime     int64 // 投递在外部系统创建时间
 	createTimeFlag bool
 
 	terminationType     string // 终止类型
@@ -18766,7 +18803,7 @@ func (builder *ExternalApplicationBuilder) DeliveryType(deliveryType int) *Exter
 // 更新时间
 //
 // 示例值：1618500278645
-func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int) *ExternalApplicationBuilder {
+func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int64) *ExternalApplicationBuilder {
 	builder.modifyTime = modifyTime
 	builder.modifyTimeFlag = true
 	return builder
@@ -18775,7 +18812,7 @@ func (builder *ExternalApplicationBuilder) ModifyTime(modifyTime int) *ExternalA
 // 投递在外部系统创建时间
 //
 // 示例值：1618500278644
-func (builder *ExternalApplicationBuilder) CreateTime(createTime int) *ExternalApplicationBuilder {
+func (builder *ExternalApplicationBuilder) CreateTime(createTime int64) *ExternalApplicationBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -18850,7 +18887,7 @@ type ExternalBackgroundCheck struct {
 
 	ExternalApplicationId *string `json:"external_application_id,omitempty"` // 外部投递 ID
 
-	Date *int `json:"date,omitempty"` // 背调日期
+	Date *int64 `json:"date,omitempty"` // 背调日期
 
 	Name *string `json:"name,omitempty"` // 背调名字
 
@@ -18871,7 +18908,7 @@ type ExternalBackgroundCheckBuilder struct {
 	externalApplicationId     string // 外部投递 ID
 	externalApplicationIdFlag bool
 
-	date     int // 背调日期
+	date     int64 // 背调日期
 	dateFlag bool
 
 	name     string // 背调名字
@@ -18922,7 +18959,7 @@ func (builder *ExternalBackgroundCheckBuilder) ExternalApplicationId(externalApp
 // 背调日期
 //
 // 示例值：1626602069393
-func (builder *ExternalBackgroundCheckBuilder) Date(date int) *ExternalBackgroundCheckBuilder {
+func (builder *ExternalBackgroundCheckBuilder) Date(date int64) *ExternalBackgroundCheckBuilder {
 	builder.date = date
 	builder.dateFlag = true
 	return builder
@@ -19004,7 +19041,7 @@ type ExternalBackgroundCheckAttachment struct {
 
 	Name *string `json:"name,omitempty"` // 附件名字
 
-	Size *int `json:"size,omitempty"` // 附件大小
+	Size *int64 `json:"size,omitempty"` // 附件大小
 }
 
 type ExternalBackgroundCheckAttachmentBuilder struct {
@@ -19014,7 +19051,7 @@ type ExternalBackgroundCheckAttachmentBuilder struct {
 	name     string // 附件名字
 	nameFlag bool
 
-	size     int // 附件大小
+	size     int64 // 附件大小
 	sizeFlag bool
 }
 
@@ -19044,7 +19081,7 @@ func (builder *ExternalBackgroundCheckAttachmentBuilder) Name(name string) *Exte
 // 附件大小
 //
 // 示例值：126371
-func (builder *ExternalBackgroundCheckAttachmentBuilder) Size(size int) *ExternalBackgroundCheckAttachmentBuilder {
+func (builder *ExternalBackgroundCheckAttachmentBuilder) Size(size int64) *ExternalBackgroundCheckAttachmentBuilder {
 	builder.size = size
 	builder.sizeFlag = true
 	return builder
@@ -19072,7 +19109,7 @@ type ExternalCommonAttachment struct {
 
 	Name *string `json:"name,omitempty"` // 附件名字
 
-	Size *int `json:"size,omitempty"` // 附件大小
+	Size *int64 `json:"size,omitempty"` // 附件大小
 }
 
 type ExternalCommonAttachmentBuilder struct {
@@ -19082,7 +19119,7 @@ type ExternalCommonAttachmentBuilder struct {
 	name     string // 附件名字
 	nameFlag bool
 
-	size     int // 附件大小
+	size     int64 // 附件大小
 	sizeFlag bool
 }
 
@@ -19112,7 +19149,7 @@ func (builder *ExternalCommonAttachmentBuilder) Name(name string) *ExternalCommo
 // 附件大小
 //
 // 示例值：126371
-func (builder *ExternalCommonAttachmentBuilder) Size(size int) *ExternalCommonAttachmentBuilder {
+func (builder *ExternalCommonAttachmentBuilder) Size(size int64) *ExternalCommonAttachmentBuilder {
 	builder.size = size
 	builder.sizeFlag = true
 	return builder
@@ -19176,9 +19213,9 @@ type ExternalInterview struct {
 
 	ParticipateStatus *int `json:"participate_status,omitempty"` // 参与状态
 
-	BeginTime *int `json:"begin_time,omitempty"` // 开始时间
+	BeginTime *int64 `json:"begin_time,omitempty"` // 开始时间
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 
 	InterviewAssessments []*ExternalInterviewAssessment `json:"interview_assessments,omitempty"` // 面试评价列表
 }
@@ -19196,10 +19233,10 @@ type ExternalInterviewBuilder struct {
 	participateStatus     int // 参与状态
 	participateStatusFlag bool
 
-	beginTime     int // 开始时间
+	beginTime     int64 // 开始时间
 	beginTimeFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 
 	interviewAssessments     []*ExternalInterviewAssessment // 面试评价列表
@@ -19250,7 +19287,7 @@ func (builder *ExternalInterviewBuilder) ParticipateStatus(participateStatus int
 // 开始时间
 //
 // 示例值：1618500278638
-func (builder *ExternalInterviewBuilder) BeginTime(beginTime int) *ExternalInterviewBuilder {
+func (builder *ExternalInterviewBuilder) BeginTime(beginTime int64) *ExternalInterviewBuilder {
 	builder.beginTime = beginTime
 	builder.beginTimeFlag = true
 	return builder
@@ -19259,7 +19296,7 @@ func (builder *ExternalInterviewBuilder) BeginTime(beginTime int) *ExternalInter
 // 结束时间
 //
 // 示例值：1618500278639
-func (builder *ExternalInterviewBuilder) EndTime(endTime int) *ExternalInterviewBuilder {
+func (builder *ExternalInterviewBuilder) EndTime(endTime int64) *ExternalInterviewBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -20639,9 +20676,9 @@ type InternshipInfo struct {
 
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	Title *string `json:"title,omitempty"` // 职称
 }
@@ -20656,10 +20693,10 @@ type InternshipInfoBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	title     string // 职称
@@ -20673,7 +20710,7 @@ func NewInternshipInfoBuilder() *InternshipInfoBuilder {
 
 // 类型
 //
-// 示例值：
+// 示例值：1
 func (builder *InternshipInfoBuilder) CareerType(careerType int) *InternshipInfoBuilder {
 	builder.careerType = careerType
 	builder.careerTypeFlag = true
@@ -20682,7 +20719,7 @@ func (builder *InternshipInfoBuilder) CareerType(careerType int) *InternshipInfo
 
 // 公司
 //
-// 示例值：
+// 示例值：xx公司
 func (builder *InternshipInfoBuilder) Company(company string) *InternshipInfoBuilder {
 	builder.company = company
 	builder.companyFlag = true
@@ -20691,7 +20728,7 @@ func (builder *InternshipInfoBuilder) Company(company string) *InternshipInfoBui
 
 // 描述
 //
-// 示例值：
+// 示例值：描述
 func (builder *InternshipInfoBuilder) Desc(desc string) *InternshipInfoBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -20700,8 +20737,8 @@ func (builder *InternshipInfoBuilder) Desc(desc string) *InternshipInfoBuilder {
 
 // 结束时间
 //
-// 示例值：
-func (builder *InternshipInfoBuilder) EndTime(endTime int) *InternshipInfoBuilder {
+// 示例值：1735664461000
+func (builder *InternshipInfoBuilder) EndTime(endTime int64) *InternshipInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -20709,8 +20746,8 @@ func (builder *InternshipInfoBuilder) EndTime(endTime int) *InternshipInfoBuilde
 
 // 开始时间
 //
-// 示例值：
-func (builder *InternshipInfoBuilder) StartTime(startTime int) *InternshipInfoBuilder {
+// 示例值：1735664461000
+func (builder *InternshipInfoBuilder) StartTime(startTime int64) *InternshipInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -20718,7 +20755,7 @@ func (builder *InternshipInfoBuilder) StartTime(startTime int) *InternshipInfoBu
 
 // 职称
 //
-// 示例值：
+// 示例值：xx职称
 func (builder *InternshipInfoBuilder) Title(title string) *InternshipInfoBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -20757,9 +20794,9 @@ func (builder *InternshipInfoBuilder) Build() *InternshipInfo {
 type Interview struct {
 	Id *string `json:"id,omitempty"` // 面试id
 
-	BeginTime *int `json:"begin_time,omitempty"` // 面试开始时间（ms）
+	BeginTime *int64 `json:"begin_time,omitempty"` // 面试开始时间（ms）
 
-	EndTime *int `json:"end_time,omitempty"` // 面试结束时间（ms）
+	EndTime *int64 `json:"end_time,omitempty"` // 面试结束时间（ms）
 
 	Round *int `json:"round,omitempty"` // 面试轮次（从0开始计数）
 
@@ -20772,10 +20809,10 @@ type InterviewBuilder struct {
 	id     string // 面试id
 	idFlag bool
 
-	beginTime     int // 面试开始时间（ms）
+	beginTime     int64 // 面试开始时间（ms）
 	beginTimeFlag bool
 
-	endTime     int // 面试结束时间（ms）
+	endTime     int64 // 面试结束时间（ms）
 	endTimeFlag bool
 
 	round     int // 面试轮次（从0开始计数）
@@ -20805,7 +20842,7 @@ func (builder *InterviewBuilder) Id(id string) *InterviewBuilder {
 // 面试开始时间（ms）
 //
 // 示例值：1618899376474
-func (builder *InterviewBuilder) BeginTime(beginTime int) *InterviewBuilder {
+func (builder *InterviewBuilder) BeginTime(beginTime int64) *InterviewBuilder {
 	builder.beginTime = beginTime
 	builder.beginTimeFlag = true
 	return builder
@@ -20814,7 +20851,7 @@ func (builder *InterviewBuilder) BeginTime(beginTime int) *InterviewBuilder {
 // 面试结束时间（ms）
 //
 // 示例值：1618999376474
-func (builder *InterviewBuilder) EndTime(endTime int) *InterviewBuilder {
+func (builder *InterviewBuilder) EndTime(endTime int64) *InterviewBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -22162,15 +22199,15 @@ func (builder *InterviewDimensionScoreBuilder) Build() *InterviewDimensionScore 
 type InterviewExtend struct {
 	Id *string `json:"id,omitempty"` // 面试 ID
 
-	BeginTime *int `json:"begin_time,omitempty"` // 面试开始时间（ms）
+	BeginTime *int64 `json:"begin_time,omitempty"` // 面试开始时间（ms）
 
-	EndTime *int `json:"end_time,omitempty"` // 面试结束时间（ms）
+	EndTime *int64 `json:"end_time,omitempty"` // 面试结束时间（ms）
 
 	Round *int `json:"round,omitempty"` // 面试轮次
 
 	InterviewRecordList []*InterviewRecord `json:"interview_record_list,omitempty"` // 面试记录信息
 
-	FeedbackSubmitTime *int `json:"feedback_submit_time,omitempty"` // 面试评价提交时间
+	FeedbackSubmitTime *int64 `json:"feedback_submit_time,omitempty"` // 面试评价提交时间
 
 	StageId *string `json:"stage_id,omitempty"` // 面试关联的投递阶段
 
@@ -22180,9 +22217,9 @@ type InterviewExtend struct {
 
 	Creator *IdNameObject `json:"creator,omitempty"` // 创建人
 
-	BizCreateTime *int `json:"biz_create_time,omitempty"` // 创建时间（ms）
+	BizCreateTime *int64 `json:"biz_create_time,omitempty"` // 创建时间（ms）
 
-	BizModifyTime *int `json:"biz_modify_time,omitempty"` // 最近更新时间（ms）
+	BizModifyTime *int64 `json:"biz_modify_time,omitempty"` // 最近更新时间（ms）
 
 	InterviewRoundSummary *int `json:"interview_round_summary,omitempty"` // 面试状态
 
@@ -22217,10 +22254,10 @@ type InterviewExtendBuilder struct {
 	id     string // 面试 ID
 	idFlag bool
 
-	beginTime     int // 面试开始时间（ms）
+	beginTime     int64 // 面试开始时间（ms）
 	beginTimeFlag bool
 
-	endTime     int // 面试结束时间（ms）
+	endTime     int64 // 面试结束时间（ms）
 	endTimeFlag bool
 
 	round     int // 面试轮次
@@ -22229,7 +22266,7 @@ type InterviewExtendBuilder struct {
 	interviewRecordList     []*InterviewRecord // 面试记录信息
 	interviewRecordListFlag bool
 
-	feedbackSubmitTime     int // 面试评价提交时间
+	feedbackSubmitTime     int64 // 面试评价提交时间
 	feedbackSubmitTimeFlag bool
 
 	stageId     string // 面试关联的投递阶段
@@ -22244,10 +22281,10 @@ type InterviewExtendBuilder struct {
 	creator     *IdNameObject // 创建人
 	creatorFlag bool
 
-	bizCreateTime     int // 创建时间（ms）
+	bizCreateTime     int64 // 创建时间（ms）
 	bizCreateTimeFlag bool
 
-	bizModifyTime     int // 最近更新时间（ms）
+	bizModifyTime     int64 // 最近更新时间（ms）
 	bizModifyTimeFlag bool
 
 	interviewRoundSummary     int // 面试状态
@@ -22310,7 +22347,7 @@ func (builder *InterviewExtendBuilder) Id(id string) *InterviewExtendBuilder {
 // 面试开始时间（ms）
 //
 // 示例值：1618899376474
-func (builder *InterviewExtendBuilder) BeginTime(beginTime int) *InterviewExtendBuilder {
+func (builder *InterviewExtendBuilder) BeginTime(beginTime int64) *InterviewExtendBuilder {
 	builder.beginTime = beginTime
 	builder.beginTimeFlag = true
 	return builder
@@ -22319,7 +22356,7 @@ func (builder *InterviewExtendBuilder) BeginTime(beginTime int) *InterviewExtend
 // 面试结束时间（ms）
 //
 // 示例值：1618999376474
-func (builder *InterviewExtendBuilder) EndTime(endTime int) *InterviewExtendBuilder {
+func (builder *InterviewExtendBuilder) EndTime(endTime int64) *InterviewExtendBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -22346,7 +22383,7 @@ func (builder *InterviewExtendBuilder) InterviewRecordList(interviewRecordList [
 // 面试评价提交时间
 //
 // 示例值：1659318415000
-func (builder *InterviewExtendBuilder) FeedbackSubmitTime(feedbackSubmitTime int) *InterviewExtendBuilder {
+func (builder *InterviewExtendBuilder) FeedbackSubmitTime(feedbackSubmitTime int64) *InterviewExtendBuilder {
 	builder.feedbackSubmitTime = feedbackSubmitTime
 	builder.feedbackSubmitTimeFlag = true
 	return builder
@@ -22391,7 +22428,7 @@ func (builder *InterviewExtendBuilder) Creator(creator *IdNameObject) *Interview
 // 创建时间（ms）
 //
 // 示例值：1618999376474
-func (builder *InterviewExtendBuilder) BizCreateTime(bizCreateTime int) *InterviewExtendBuilder {
+func (builder *InterviewExtendBuilder) BizCreateTime(bizCreateTime int64) *InterviewExtendBuilder {
 	builder.bizCreateTime = bizCreateTime
 	builder.bizCreateTimeFlag = true
 	return builder
@@ -22400,7 +22437,7 @@ func (builder *InterviewExtendBuilder) BizCreateTime(bizCreateTime int) *Intervi
 // 最近更新时间（ms）
 //
 // 示例值：1618999376474
-func (builder *InterviewExtendBuilder) BizModifyTime(bizModifyTime int) *InterviewExtendBuilder {
+func (builder *InterviewExtendBuilder) BizModifyTime(bizModifyTime int64) *InterviewExtendBuilder {
 	builder.bizModifyTime = bizModifyTime
 	builder.bizModifyTimeFlag = true
 	return builder
@@ -23806,7 +23843,7 @@ type InterviewRecord struct {
 
 	CommitStatus *int `json:"commit_status,omitempty"` // 提交状态
 
-	FeedbackSubmitTime *int `json:"feedback_submit_time,omitempty"` // 面试评价提交时间
+	FeedbackSubmitTime *int64 `json:"feedback_submit_time,omitempty"` // 面试评价提交时间
 
 	Conclusion *int `json:"conclusion,omitempty"` // 面试结论
 
@@ -23844,7 +23881,7 @@ type InterviewRecordBuilder struct {
 	commitStatus     int // 提交状态
 	commitStatusFlag bool
 
-	feedbackSubmitTime     int // 面试评价提交时间
+	feedbackSubmitTime     int64 // 面试评价提交时间
 	feedbackSubmitTimeFlag bool
 
 	conclusion     int // 面试结论
@@ -23934,7 +23971,7 @@ func (builder *InterviewRecordBuilder) CommitStatus(commitStatus int) *Interview
 // 面试评价提交时间
 //
 // 示例值：1659318415000
-func (builder *InterviewRecordBuilder) FeedbackSubmitTime(feedbackSubmitTime int) *InterviewRecordBuilder {
+func (builder *InterviewRecordBuilder) FeedbackSubmitTime(feedbackSubmitTime int64) *InterviewRecordBuilder {
 	builder.feedbackSubmitTime = feedbackSubmitTime
 	builder.feedbackSubmitTimeFlag = true
 	return builder
@@ -24995,7 +25032,7 @@ type Job struct {
 
 	Experience *int `json:"experience,omitempty"` // 工作年限
 
-	ExpiryTime *int `json:"expiry_time,omitempty"` // 到期日期
+	ExpiryTime *int64 `json:"expiry_time,omitempty"` // 到期日期
 
 	MinSalary *int `json:"min_salary,omitempty"` // 最低薪资，单位:k
 
@@ -25095,7 +25132,7 @@ type JobBuilder struct {
 	experience     int // 工作年限
 	experienceFlag bool
 
-	expiryTime     int // 到期日期
+	expiryTime     int64 // 到期日期
 	expiryTimeFlag bool
 
 	minSalary     int // 最低薪资，单位:k
@@ -25368,7 +25405,7 @@ func (builder *JobBuilder) Experience(experience int) *JobBuilder {
 // 到期日期
 //
 // 示例值：1622484739955
-func (builder *JobBuilder) ExpiryTime(expiryTime int) *JobBuilder {
+func (builder *JobBuilder) ExpiryTime(expiryTime int64) *JobBuilder {
 	builder.expiryTime = expiryTime
 	builder.expiryTimeFlag = true
 	return builder
@@ -32539,9 +32576,9 @@ type Note struct {
 
 	IsPrivate *bool `json:"is_private,omitempty"` // 是否私密
 
-	CreateTime *int `json:"create_time,omitempty"` // 创建时间
+	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间
 
-	ModifyTime *int `json:"modify_time,omitempty"` // 更新时间
+	ModifyTime *int64 `json:"modify_time,omitempty"` // 更新时间
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人ID
 
@@ -32567,10 +32604,10 @@ type NoteBuilder struct {
 	isPrivate     bool // 是否私密
 	isPrivateFlag bool
 
-	createTime     int // 创建时间
+	createTime     int64 // 创建时间
 	createTimeFlag bool
 
-	modifyTime     int // 更新时间
+	modifyTime     int64 // 更新时间
 	modifyTimeFlag bool
 
 	creatorId     string // 创建人ID
@@ -32633,7 +32670,7 @@ func (builder *NoteBuilder) IsPrivate(isPrivate bool) *NoteBuilder {
 // 创建时间
 //
 // 示例值：1618209327096
-func (builder *NoteBuilder) CreateTime(createTime int) *NoteBuilder {
+func (builder *NoteBuilder) CreateTime(createTime int64) *NoteBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -32642,7 +32679,7 @@ func (builder *NoteBuilder) CreateTime(createTime int) *NoteBuilder {
 // 更新时间
 //
 // 示例值：1618209327096
-func (builder *NoteBuilder) ModifyTime(modifyTime int) *NoteBuilder {
+func (builder *NoteBuilder) ModifyTime(modifyTime int64) *NoteBuilder {
 	builder.modifyTime = modifyTime
 	builder.modifyTimeFlag = true
 	return builder
@@ -34097,7 +34134,9 @@ type OfferAttachmentInfo struct {
 
 	Name *string `json:"name,omitempty"` // Offer 附件名称
 
-	Size *int `json:"size,omitempty"` // Offer 附件大小
+	Size *int64 `json:"size,omitempty"` // Offer 附件大小
+
+	CommonAttachmentId *string `json:"common_attachment_id,omitempty"` // 通用附件ID
 }
 
 type OfferAttachmentInfoBuilder struct {
@@ -34107,8 +34146,11 @@ type OfferAttachmentInfoBuilder struct {
 	name     string // Offer 附件名称
 	nameFlag bool
 
-	size     int // Offer 附件大小
+	size     int64 // Offer 附件大小
 	sizeFlag bool
+
+	commonAttachmentId     string // 通用附件ID
+	commonAttachmentIdFlag bool
 }
 
 func NewOfferAttachmentInfoBuilder() *OfferAttachmentInfoBuilder {
@@ -34137,9 +34179,18 @@ func (builder *OfferAttachmentInfoBuilder) Name(name string) *OfferAttachmentInf
 // Offer 附件大小
 //
 // 示例值：4096
-func (builder *OfferAttachmentInfoBuilder) Size(size int) *OfferAttachmentInfoBuilder {
+func (builder *OfferAttachmentInfoBuilder) Size(size int64) *OfferAttachmentInfoBuilder {
 	builder.size = size
 	builder.sizeFlag = true
+	return builder
+}
+
+// 通用附件ID
+//
+// 示例值：7118398769038182701
+func (builder *OfferAttachmentInfoBuilder) CommonAttachmentId(commonAttachmentId string) *OfferAttachmentInfoBuilder {
+	builder.commonAttachmentId = commonAttachmentId
+	builder.commonAttachmentIdFlag = true
 	return builder
 }
 
@@ -34155,6 +34206,10 @@ func (builder *OfferAttachmentInfoBuilder) Build() *OfferAttachmentInfo {
 	}
 	if builder.sizeFlag {
 		req.Size = &builder.size
+
+	}
+	if builder.commonAttachmentIdFlag {
+		req.CommonAttachmentId = &builder.commonAttachmentId
 
 	}
 	return req
@@ -34194,6 +34249,8 @@ type OfferBasicInfo struct {
 	JobProcessTypeId *int `json:"job_process_type_id,omitempty"` // 招聘流程类型 ID
 
 	AttachmentIdList []string `json:"attachment_id_list,omitempty"` // 附件ID列表
+
+	CommonAttachmentIdList []string `json:"common_attachment_id_list,omitempty"` // Offer 附件 ID 列表
 
 	AttachmentDescription *string `json:"attachment_description,omitempty"` // 附件描述
 
@@ -34257,6 +34314,9 @@ type OfferBasicInfoBuilder struct {
 
 	attachmentIdList     []string // 附件ID列表
 	attachmentIdListFlag bool
+
+	commonAttachmentIdList     []string // Offer 附件 ID 列表
+	commonAttachmentIdListFlag bool
 
 	attachmentDescription     string // 附件描述
 	attachmentDescriptionFlag bool
@@ -34432,6 +34492,15 @@ func (builder *OfferBasicInfoBuilder) AttachmentIdList(attachmentIdList []string
 	return builder
 }
 
+// Offer 附件 ID 列表
+//
+// 示例值：
+func (builder *OfferBasicInfoBuilder) CommonAttachmentIdList(commonAttachmentIdList []string) *OfferBasicInfoBuilder {
+	builder.commonAttachmentIdList = commonAttachmentIdList
+	builder.commonAttachmentIdListFlag = true
+	return builder
+}
+
 // 附件描述
 //
 // 示例值：张三的简历
@@ -34544,6 +34613,9 @@ func (builder *OfferBasicInfoBuilder) Build() *OfferBasicInfo {
 	}
 	if builder.attachmentIdListFlag {
 		req.AttachmentIdList = builder.attachmentIdList
+	}
+	if builder.commonAttachmentIdListFlag {
+		req.CommonAttachmentIdList = builder.commonAttachmentIdList
 	}
 	if builder.attachmentDescriptionFlag {
 		req.AttachmentDescription = &builder.attachmentDescription
@@ -36837,11 +36909,11 @@ func (builder *PermissionScopeRuleBuilder) Build() *PermissionScopeRule {
 }
 
 type Point struct {
-	Amount *int `json:"amount,omitempty"` // 数额
+	Amount *int64 `json:"amount,omitempty"` // 数额
 }
 
 type PointBuilder struct {
-	amount     int // 数额
+	amount     int64 // 数额
 	amountFlag bool
 }
 
@@ -36853,7 +36925,7 @@ func NewPointBuilder() *PointBuilder {
 // 数额
 //
 // 示例值：100
-func (builder *PointBuilder) Amount(amount int) *PointBuilder {
+func (builder *PointBuilder) Amount(amount int64) *PointBuilder {
 	builder.amount = amount
 	builder.amountFlag = true
 	return builder
@@ -37377,7 +37449,7 @@ func (builder *PortalJobPostBuilder) Build() *PortalJobPost {
 type ProjectInfo struct {
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 
 	Link *string `json:"link,omitempty"` // 项目链接
 
@@ -37385,14 +37457,14 @@ type ProjectInfo struct {
 
 	Role *string `json:"role,omitempty"` // 项目角色
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 }
 
 type ProjectInfoBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 
 	link     string // 项目链接
@@ -37404,7 +37476,7 @@ type ProjectInfoBuilder struct {
 	role     string // 项目角色
 	roleFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 }
 
@@ -37415,7 +37487,7 @@ func NewProjectInfoBuilder() *ProjectInfoBuilder {
 
 // 描述
 //
-// 示例值：
+// 示例值：6949805467799537964
 func (builder *ProjectInfoBuilder) Desc(desc string) *ProjectInfoBuilder {
 	builder.desc = desc
 	builder.descFlag = true
@@ -37424,8 +37496,8 @@ func (builder *ProjectInfoBuilder) Desc(desc string) *ProjectInfoBuilder {
 
 // 结束时间
 //
-// 示例值：
-func (builder *ProjectInfoBuilder) EndTime(endTime int) *ProjectInfoBuilder {
+// 示例值：1735664461000
+func (builder *ProjectInfoBuilder) EndTime(endTime int64) *ProjectInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -37433,7 +37505,7 @@ func (builder *ProjectInfoBuilder) EndTime(endTime int) *ProjectInfoBuilder {
 
 // 项目链接
 //
-// 示例值：
+// 示例值：www.feishu.bytedance.com
 func (builder *ProjectInfoBuilder) Link(link string) *ProjectInfoBuilder {
 	builder.link = link
 	builder.linkFlag = true
@@ -37442,7 +37514,7 @@ func (builder *ProjectInfoBuilder) Link(link string) *ProjectInfoBuilder {
 
 // 项目名称
 //
-// 示例值：
+// 示例值：项目名称
 func (builder *ProjectInfoBuilder) Name(name string) *ProjectInfoBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -37451,7 +37523,7 @@ func (builder *ProjectInfoBuilder) Name(name string) *ProjectInfoBuilder {
 
 // 项目角色
 //
-// 示例值：
+// 示例值：项目角色
 func (builder *ProjectInfoBuilder) Role(role string) *ProjectInfoBuilder {
 	builder.role = role
 	builder.roleFlag = true
@@ -37460,8 +37532,8 @@ func (builder *ProjectInfoBuilder) Role(role string) *ProjectInfoBuilder {
 
 // 开始时间
 //
-// 示例值：
-func (builder *ProjectInfoBuilder) StartTime(startTime int) *ProjectInfoBuilder {
+// 示例值：1735664461000
+func (builder *ProjectInfoBuilder) StartTime(startTime int64) *ProjectInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -38214,7 +38286,7 @@ type Referral struct {
 
 	ApplicationId *string `json:"application_id,omitempty"` // 投递 ID
 
-	CreateTime *int `json:"create_time,omitempty"` // 创建时间（ms）
+	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间（ms）
 
 	ReferralUserId *string `json:"referral_user_id,omitempty"` // 内推人的 ID
 
@@ -38228,7 +38300,7 @@ type ReferralBuilder struct {
 	applicationId     string // 投递 ID
 	applicationIdFlag bool
 
-	createTime     int // 创建时间（ms）
+	createTime     int64 // 创建时间（ms）
 	createTimeFlag bool
 
 	referralUserId     string // 内推人的 ID
@@ -38264,7 +38336,7 @@ func (builder *ReferralBuilder) ApplicationId(applicationId string) *ReferralBui
 // 创建时间（ms）
 //
 // 示例值：1618899376474
-func (builder *ReferralBuilder) CreateTime(createTime int) *ReferralBuilder {
+func (builder *ReferralBuilder) CreateTime(createTime int64) *ReferralBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -40764,7 +40836,7 @@ type SiteJobPost struct {
 
 	RecruitmentType *SiteJobRecruitmentType `json:"recruitment_type,omitempty"` // 雇佣类型
 
-	PublishTime *int `json:"publish_time,omitempty"` // 职位发布时间
+	PublishTime *int64 `json:"publish_time,omitempty"` // 职位发布时间
 }
 
 type SiteJobPostBuilder struct {
@@ -40789,7 +40861,7 @@ type SiteJobPostBuilder struct {
 	recruitmentType     *SiteJobRecruitmentType // 雇佣类型
 	recruitmentTypeFlag bool
 
-	publishTime     int // 职位发布时间
+	publishTime     int64 // 职位发布时间
 	publishTimeFlag bool
 }
 
@@ -40800,7 +40872,7 @@ func NewSiteJobPostBuilder() *SiteJobPostBuilder {
 
 // 职位id
 //
-// 示例值：
+// 示例值：6949805467799537964
 func (builder *SiteJobPostBuilder) Id(id string) *SiteJobPostBuilder {
 	builder.id = id
 	builder.idFlag = true
@@ -40809,7 +40881,7 @@ func (builder *SiteJobPostBuilder) Id(id string) *SiteJobPostBuilder {
 
 // 职位名称
 //
-// 示例值：
+// 示例值：6949805467799537964
 func (builder *SiteJobPostBuilder) Title(title string) *SiteJobPostBuilder {
 	builder.title = title
 	builder.titleFlag = true
@@ -40818,7 +40890,7 @@ func (builder *SiteJobPostBuilder) Title(title string) *SiteJobPostBuilder {
 
 // 职位描述
 //
-// 示例值：
+// 示例值：6949805467799537964
 func (builder *SiteJobPostBuilder) Description(description string) *SiteJobPostBuilder {
 	builder.description = description
 	builder.descriptionFlag = true
@@ -40827,7 +40899,7 @@ func (builder *SiteJobPostBuilder) Description(description string) *SiteJobPostB
 
 // 职位要求
 //
-// 示例值：
+// 示例值：6949805467799537964
 func (builder *SiteJobPostBuilder) Requirement(requirement string) *SiteJobPostBuilder {
 	builder.requirement = requirement
 	builder.requirementFlag = true
@@ -40863,8 +40935,8 @@ func (builder *SiteJobPostBuilder) RecruitmentType(recruitmentType *SiteJobRecru
 
 // 职位发布时间
 //
-// 示例值：
-func (builder *SiteJobPostBuilder) PublishTime(publishTime int) *SiteJobPostBuilder {
+// 示例值：1735664461000
+func (builder *SiteJobPostBuilder) PublishTime(publishTime int64) *SiteJobPostBuilder {
 	builder.publishTime = publishTime
 	builder.publishTimeFlag = true
 	return builder
@@ -46613,9 +46685,9 @@ type TalentInternshipInfo struct {
 
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	Title *string `json:"title,omitempty"` // 职称
 
@@ -46632,10 +46704,10 @@ type TalentInternshipInfoBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间
+	endTime     int64 // 结束时间
 	endTimeFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	title     string // 职称
@@ -46680,7 +46752,7 @@ func (builder *TalentInternshipInfoBuilder) Desc(desc string) *TalentInternshipI
 // 结束时间
 //
 // 示例值：1618500278638
-func (builder *TalentInternshipInfoBuilder) EndTime(endTime int) *TalentInternshipInfoBuilder {
+func (builder *TalentInternshipInfoBuilder) EndTime(endTime int64) *TalentInternshipInfoBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -46689,7 +46761,7 @@ func (builder *TalentInternshipInfoBuilder) EndTime(endTime int) *TalentInternsh
 // 开始时间
 //
 // 示例值：1618500278639
-func (builder *TalentInternshipInfoBuilder) StartTime(startTime int) *TalentInternshipInfoBuilder {
+func (builder *TalentInternshipInfoBuilder) StartTime(startTime int64) *TalentInternshipInfoBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -46706,7 +46778,7 @@ func (builder *TalentInternshipInfoBuilder) Title(title string) *TalentInternshi
 
 // 标记, 只会出现学校部分
 //
-// 示例值：
+// 示例值：[1, 2, 3]
 func (builder *TalentInternshipInfoBuilder) TagList(tagList []int) *TalentInternshipInfoBuilder {
 	builder.tagList = tagList
 	builder.tagListFlag = true
@@ -47305,7 +47377,7 @@ type TalentPoolTalentBasic struct {
 
 	IdentificationNumber *string `json:"identification_number,omitempty"` // 证件号
 
-	Birthday *int `json:"birthday,omitempty"` // 生日
+	Birthday *int64 `json:"birthday,omitempty"` // 生日
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人ID
 
@@ -47362,7 +47434,7 @@ type TalentPoolTalentBasicBuilder struct {
 	identificationNumber     string // 证件号
 	identificationNumberFlag bool
 
-	birthday     int // 生日
+	birthday     int64 // 生日
 	birthdayFlag bool
 
 	creatorId     string // 创建人ID
@@ -47521,7 +47593,7 @@ func (builder *TalentPoolTalentBasicBuilder) IdentificationNumber(identification
 // 生日
 //
 // 示例值：293016767159
-func (builder *TalentPoolTalentBasicBuilder) Birthday(birthday int) *TalentPoolTalentBasicBuilder {
+func (builder *TalentPoolTalentBasicBuilder) Birthday(birthday int64) *TalentPoolTalentBasicBuilder {
 	builder.birthday = birthday
 	builder.birthdayFlag = true
 	return builder
@@ -50460,7 +50532,7 @@ type WebsiteDeliveryAward struct {
 
 	Title *string `json:"title,omitempty"` // 奖项名称
 
-	AwardTime *int `json:"award_time,omitempty"` // 获奖时间
+	AwardTime *int64 `json:"award_time,omitempty"` // 获奖时间
 }
 
 type WebsiteDeliveryAwardBuilder struct {
@@ -50473,7 +50545,7 @@ type WebsiteDeliveryAwardBuilder struct {
 	title     string // 奖项名称
 	titleFlag bool
 
-	awardTime     int // 获奖时间
+	awardTime     int64 // 获奖时间
 	awardTimeFlag bool
 }
 
@@ -50512,7 +50584,7 @@ func (builder *WebsiteDeliveryAwardBuilder) Title(title string) *WebsiteDelivery
 // 获奖时间
 //
 // 示例值：1609430400
-func (builder *WebsiteDeliveryAwardBuilder) AwardTime(awardTime int) *WebsiteDeliveryAwardBuilder {
+func (builder *WebsiteDeliveryAwardBuilder) AwardTime(awardTime int64) *WebsiteDeliveryAwardBuilder {
 	builder.awardTime = awardTime
 	builder.awardTimeFlag = true
 	return builder
@@ -50541,7 +50613,7 @@ func (builder *WebsiteDeliveryAwardBuilder) Build() *WebsiteDeliveryAward {
 type WebsiteDeliveryBasicInfo struct {
 	NationalityId *string `json:"nationality_id,omitempty"` // 国籍，可从「获取地址码」查询
 
-	StartWorkTime *int `json:"start_work_time,omitempty"` // 起始工作时间
+	StartWorkTime *int64 `json:"start_work_time,omitempty"` // 起始工作时间
 
 	CurrentHomeAddress *string `json:"current_home_address,omitempty"` // 家庭住址
 
@@ -50561,7 +50633,7 @@ type WebsiteDeliveryBasicInfo struct {
 
 	Gender *int `json:"gender,omitempty"` // 性别
 
-	Birthday *int `json:"birthday,omitempty"` // 出生日期
+	Birthday *int64 `json:"birthday,omitempty"` // 出生日期
 
 	Name *string `json:"name,omitempty"` // 姓名
 
@@ -50580,7 +50652,7 @@ type WebsiteDeliveryBasicInfoBuilder struct {
 	nationalityId     string // 国籍，可从「获取地址码」查询
 	nationalityIdFlag bool
 
-	startWorkTime     int // 起始工作时间
+	startWorkTime     int64 // 起始工作时间
 	startWorkTimeFlag bool
 
 	currentHomeAddress     string // 家庭住址
@@ -50610,7 +50682,7 @@ type WebsiteDeliveryBasicInfoBuilder struct {
 	gender     int // 性别
 	genderFlag bool
 
-	birthday     int // 出生日期
+	birthday     int64 // 出生日期
 	birthdayFlag bool
 
 	name     string // 姓名
@@ -50649,7 +50721,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) NationalityId(nationalityId stri
 // 起始工作时间
 //
 // 示例值：1625648596
-func (builder *WebsiteDeliveryBasicInfoBuilder) StartWorkTime(startWorkTime int) *WebsiteDeliveryBasicInfoBuilder {
+func (builder *WebsiteDeliveryBasicInfoBuilder) StartWorkTime(startWorkTime int64) *WebsiteDeliveryBasicInfoBuilder {
 	builder.startWorkTime = startWorkTime
 	builder.startWorkTimeFlag = true
 	return builder
@@ -50739,7 +50811,7 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Gender(gender int) *WebsiteDeliv
 // 出生日期
 //
 // 示例值：1609430400
-func (builder *WebsiteDeliveryBasicInfoBuilder) Birthday(birthday int) *WebsiteDeliveryBasicInfoBuilder {
+func (builder *WebsiteDeliveryBasicInfoBuilder) Birthday(birthday int64) *WebsiteDeliveryBasicInfoBuilder {
 	builder.birthday = birthday
 	builder.birthdayFlag = true
 	return builder
@@ -50876,9 +50948,9 @@ func (builder *WebsiteDeliveryBasicInfoBuilder) Build() *WebsiteDeliveryBasicInf
 type WebsiteDeliveryCareer struct {
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间, 如果是至今传值 -1
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 如果是至今传值 -1
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	Title *string `json:"title,omitempty"` // 职位名称
 
@@ -50891,10 +50963,10 @@ type WebsiteDeliveryCareerBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间, 如果是至今传值 -1
+	endTime     int64 // 结束时间, 如果是至今传值 -1
 	endTimeFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	title     string // 职位名称
@@ -50924,7 +50996,7 @@ func (builder *WebsiteDeliveryCareerBuilder) Desc(desc string) *WebsiteDeliveryC
 // 结束时间, 如果是至今传值 -1
 //
 // 示例值：1618500278667
-func (builder *WebsiteDeliveryCareerBuilder) EndTime(endTime int) *WebsiteDeliveryCareerBuilder {
+func (builder *WebsiteDeliveryCareerBuilder) EndTime(endTime int64) *WebsiteDeliveryCareerBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -50933,7 +51005,7 @@ func (builder *WebsiteDeliveryCareerBuilder) EndTime(endTime int) *WebsiteDelive
 // 开始时间
 //
 // 示例值：1609430400
-func (builder *WebsiteDeliveryCareerBuilder) StartTime(startTime int) *WebsiteDeliveryCareerBuilder {
+func (builder *WebsiteDeliveryCareerBuilder) StartTime(startTime int64) *WebsiteDeliveryCareerBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -51370,15 +51442,15 @@ func (builder *WebsiteDeliveryDtoBuilder) Build() *WebsiteDeliveryDto {
 type WebsiteDeliveryEducation struct {
 	EducationType *int `json:"education_type,omitempty"` // 学历类型
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间 ,如果是至今传值 -1
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间 ,如果是至今传值 -1
 
-	EndTimeV2 *int `json:"end_time_v2,omitempty"` // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
+	EndTimeV2 *int64 `json:"end_time_v2,omitempty"` // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
 
 	FieldOfStudy *string `json:"field_of_study,omitempty"` // 专业
 
 	School *string `json:"school,omitempty"` // 学校
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	AcademicRanking *int `json:"academic_ranking,omitempty"` // 专业排名
 
@@ -51391,10 +51463,10 @@ type WebsiteDeliveryEducationBuilder struct {
 	educationType     int // 学历类型
 	educationTypeFlag bool
 
-	endTime     int // 结束时间 ,如果是至今传值 -1
+	endTime     int64 // 结束时间 ,如果是至今传值 -1
 	endTimeFlag bool
 
-	endTimeV2     int // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
+	endTimeV2     int64 // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
 	endTimeV2Flag bool
 
 	fieldOfStudy     string // 专业
@@ -51403,7 +51475,7 @@ type WebsiteDeliveryEducationBuilder struct {
 	school     string // 学校
 	schoolFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	academicRanking     int // 专业排名
@@ -51433,7 +51505,7 @@ func (builder *WebsiteDeliveryEducationBuilder) EducationType(educationType int)
 // 结束时间 ,如果是至今传值 -1
 //
 // 示例值：1618500278663
-func (builder *WebsiteDeliveryEducationBuilder) EndTime(endTime int) *WebsiteDeliveryEducationBuilder {
+func (builder *WebsiteDeliveryEducationBuilder) EndTime(endTime int64) *WebsiteDeliveryEducationBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -51442,7 +51514,7 @@ func (builder *WebsiteDeliveryEducationBuilder) EndTime(endTime int) *WebsiteDel
 // 结束时间-新，无「至今」传值。建议使用此字段，避免模糊的毕业时间影响候选人筛选
 //
 // 示例值：1618500278663
-func (builder *WebsiteDeliveryEducationBuilder) EndTimeV2(endTimeV2 int) *WebsiteDeliveryEducationBuilder {
+func (builder *WebsiteDeliveryEducationBuilder) EndTimeV2(endTimeV2 int64) *WebsiteDeliveryEducationBuilder {
 	builder.endTimeV2 = endTimeV2
 	builder.endTimeV2Flag = true
 	return builder
@@ -51469,7 +51541,7 @@ func (builder *WebsiteDeliveryEducationBuilder) School(school string) *WebsiteDe
 // 开始时间
 //
 // 示例值：1609430400
-func (builder *WebsiteDeliveryEducationBuilder) StartTime(startTime int) *WebsiteDeliveryEducationBuilder {
+func (builder *WebsiteDeliveryEducationBuilder) StartTime(startTime int64) *WebsiteDeliveryEducationBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -51595,9 +51667,9 @@ func (builder *WebsiteDeliveryIdentificationBuilder) Build() *WebsiteDeliveryIde
 type WebsiteDeliveryInternship struct {
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间, 如果是至今传值 -1
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 如果是至今传值 -1
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 
 	Title *string `json:"title,omitempty"` // 职位名称
 
@@ -51610,10 +51682,10 @@ type WebsiteDeliveryInternshipBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间, 如果是至今传值 -1
+	endTime     int64 // 结束时间, 如果是至今传值 -1
 	endTimeFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 
 	title     string // 职位名称
@@ -51643,7 +51715,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) Desc(desc string) *WebsiteDeliv
 // 结束时间, 如果是至今传值 -1
 //
 // 示例值：1618500278667
-func (builder *WebsiteDeliveryInternshipBuilder) EndTime(endTime int) *WebsiteDeliveryInternshipBuilder {
+func (builder *WebsiteDeliveryInternshipBuilder) EndTime(endTime int64) *WebsiteDeliveryInternshipBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -51652,7 +51724,7 @@ func (builder *WebsiteDeliveryInternshipBuilder) EndTime(endTime int) *WebsiteDe
 // 开始时间
 //
 // 示例值：1609430400
-func (builder *WebsiteDeliveryInternshipBuilder) StartTime(startTime int) *WebsiteDeliveryInternshipBuilder {
+func (builder *WebsiteDeliveryInternshipBuilder) StartTime(startTime int64) *WebsiteDeliveryInternshipBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder
@@ -51785,7 +51857,7 @@ type WebsiteDeliveryProject struct {
 
 	Desc *string `json:"desc,omitempty"` // 描述
 
-	EndTime *int `json:"end_time,omitempty"` // 结束时间, 如果是至今传值-1
+	EndTime *int64 `json:"end_time,omitempty"` // 结束时间, 如果是至今传值-1
 
 	Link *string `json:"link,omitempty"` // 项目链接
 
@@ -51793,7 +51865,7 @@ type WebsiteDeliveryProject struct {
 
 	Role *string `json:"role,omitempty"` // 角色
 
-	StartTime *int `json:"start_time,omitempty"` // 开始时间
+	StartTime *int64 `json:"start_time,omitempty"` // 开始时间
 }
 
 type WebsiteDeliveryProjectBuilder struct {
@@ -51803,7 +51875,7 @@ type WebsiteDeliveryProjectBuilder struct {
 	desc     string // 描述
 	descFlag bool
 
-	endTime     int // 结束时间, 如果是至今传值-1
+	endTime     int64 // 结束时间, 如果是至今传值-1
 	endTimeFlag bool
 
 	link     string // 项目链接
@@ -51815,7 +51887,7 @@ type WebsiteDeliveryProjectBuilder struct {
 	role     string // 角色
 	roleFlag bool
 
-	startTime     int // 开始时间
+	startTime     int64 // 开始时间
 	startTimeFlag bool
 }
 
@@ -51845,7 +51917,7 @@ func (builder *WebsiteDeliveryProjectBuilder) Desc(desc string) *WebsiteDelivery
 // 结束时间, 如果是至今传值-1
 //
 // 示例值：1618500278669
-func (builder *WebsiteDeliveryProjectBuilder) EndTime(endTime int) *WebsiteDeliveryProjectBuilder {
+func (builder *WebsiteDeliveryProjectBuilder) EndTime(endTime int64) *WebsiteDeliveryProjectBuilder {
 	builder.endTime = endTime
 	builder.endTimeFlag = true
 	return builder
@@ -51881,7 +51953,7 @@ func (builder *WebsiteDeliveryProjectBuilder) Role(role string) *WebsiteDelivery
 // 开始时间
 //
 // 示例值：1609430400
-func (builder *WebsiteDeliveryProjectBuilder) StartTime(startTime int) *WebsiteDeliveryProjectBuilder {
+func (builder *WebsiteDeliveryProjectBuilder) StartTime(startTime int64) *WebsiteDeliveryProjectBuilder {
 	builder.startTime = startTime
 	builder.startTimeFlag = true
 	return builder

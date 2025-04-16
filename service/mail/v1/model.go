@@ -19,191 +19,215 @@ import (
 	"context"
 	"errors"
 
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
 const (
-	WhoCanSendMailANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	WhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	WhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	WhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	MailgroupWhoCanSendMailANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	MailgroupWhoCanSendMailALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	MailgroupWhoCanSendMailALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	MailgroupWhoCanSendMailCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	ListMailGroupUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListMailGroupUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListMailGroupUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	WhoCanSendMailPatchMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	WhoCanSendMailPatchMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	WhoCanSendMailPatchMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	WhoCanSendMailPatchMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	MailgroupWhoCanSendMailPatchMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	MailgroupWhoCanSendMailPatchMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	MailgroupWhoCanSendMailPatchMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	MailgroupWhoCanSendMailPatchMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
-	WhoCanSendMailUpdateMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
-	WhoCanSendMailUpdateMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
-	WhoCanSendMailUpdateMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
-	WhoCanSendMailUpdateMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
+	MailgroupWhoCanSendMailUpdateMailgroupANYONE           = "ANYONE"             // Any Internet user can send mail to this mail group
+	MailgroupWhoCanSendMailUpdateMailgroupALLINTERNALUSERS = "ALL_INTERNAL_USERS" // Anyone in the team can send mail to this mail group
+	MailgroupWhoCanSendMailUpdateMailgroupALLGROUPMEMBERS  = "ALL_GROUP_MEMBERS"  // Any group member can send mail to this mail group
+	MailgroupWhoCanSendMailUpdateMailgroupCUSTOMMEMBERS    = "CUSTOM_MEMBERS"     // Only custom members can send mail to this mail group, define in mailgroup.permission_members resoure
 )
 
 const (
-	UserIdTypeBatchCreateMailgroupManagerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreateMailgroupManagerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchCreateMailgroupManagerOpenId  = "open_id"  // 以open_id来识别用户
+	BatchCreateMailGroupManagerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchCreateMailGroupManagerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchCreateMailGroupManagerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchDeleteMailgroupManagerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchDeleteMailgroupManagerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchDeleteMailgroupManagerOpenId  = "open_id"  // 以open_id来识别用户
+	BatchDeleteMailGroupManagerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchDeleteMailGroupManagerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchDeleteMailGroupManagerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListMailgroupManagerUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListMailgroupManagerUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListMailgroupManagerOpenId  = "open_id"  // 以open_id来识别用户
+	ListMailGroupManagerUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListMailGroupManagerUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListMailGroupManagerUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	BatchCreateMailGroupMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchCreateMailGroupMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchCreateMailGroupMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	BatchCreateMailGroupMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	BatchCreateMailGroupMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	TypeUSER          = "USER"           // internal user in the team
-	TypeDEPARTMENT    = "DEPARTMENT"     // member is a department
-	TypeCOMPANY       = "COMPANY"        // member is the company
-	TypeEXTERNALUSER  = "EXTERNAL_USER"  // internet user outside the organization
-	TypeMAILGROUP     = "MAIL_GROUP"     // member is another mail group
-	TypePUBLICMAILBOX = "PUBLIC_MAILBOX" // member is a public mailbox
-	TypeOTHERMEMBER   = "OTHER_MEMBER"   // other internal member
+	MailgroupMemberTypeUSER          = "USER"           // internal user in the team
+	MailgroupMemberTypeDEPARTMENT    = "DEPARTMENT"     // member is a department
+	MailgroupMemberTypeCOMPANY       = "COMPANY"        // member is the company
+	MailgroupMemberTypeEXTERNALUSER  = "EXTERNAL_USER"  // internet user outside the organization
+	MailgroupMemberTypeMAILGROUP     = "MAIL_GROUP"     // member is another mail group
+	MailgroupMemberTypePUBLICMAILBOX = "PUBLIC_MAILBOX" // member is a public mailbox
+	MailgroupMemberTypeOTHERMEMBER   = "OTHER_MEMBER"   // other internal member
 )
 
 const (
-	UserIdTypeCreateMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	CreateMailGroupMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateMailGroupMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateMailGroupMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateMailGroupMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateMailGroupMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeGetMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	GetMailGroupMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetMailGroupMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetMailGroupMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	GetMailGroupMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetMailGroupMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeListMailgroupMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListMailgroupMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListMailgroupMemberOpenId  = "open_id"  // 以open_id来识别用户
+	ListMailGroupMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListMailGroupMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListMailGroupMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListMailgroupMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListMailgroupMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ListMailGroupMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ListMailGroupMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeBatchCreateMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreateMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeBatchCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	BatchCreateMailGroupPermissionMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchCreateMailGroupPermissionMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	BatchCreateMailGroupPermissionMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeBatchCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeBatchCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	BatchCreateMailGroupPermissionMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	BatchCreateMailGroupPermissionMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	TypeCreateMailgroupPermissionMemberUSER          = "USER"           // internal user in the team
-	TypeCreateMailgroupPermissionMemberDEPARTMENT    = "DEPARTMENT"     // member is a department
-	TypeCreateMailgroupPermissionMemberMAILGROUP     = "MAIL_GROUP"     // member is a mail group
-	TypeCreateMailgroupPermissionMemberPUBLICMAILBOX = "PUBLIC_MAILBOX" // member is a public mailbox
+	MailgroupPermissionMemberTypeUSER          = "USER"           // internal user in the team
+	MailgroupPermissionMemberTypeDEPARTMENT    = "DEPARTMENT"     // member is a department
+	MailgroupPermissionMemberTypeMAILGROUP     = "MAIL_GROUP"     // member is a mail group
+	MailgroupPermissionMemberTypePUBLICMAILBOX = "PUBLIC_MAILBOX" // member is a public mailbox
 )
 
 const (
-	UserIdTypeCreateMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	CreateMailGroupPermissionMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateMailGroupPermissionMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateMailGroupPermissionMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateMailGroupPermissionMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateMailGroupPermissionMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeGetMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	GetMailGroupPermissionMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetMailGroupPermissionMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetMailGroupPermissionMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeGetMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	GetMailGroupPermissionMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetMailGroupPermissionMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeListMailgroupPermissionMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListMailgroupPermissionMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListMailgroupPermissionMemberOpenId  = "open_id"  // 以open_id来识别用户
+	ListMailGroupPermissionMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListMailGroupPermissionMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListMailGroupPermissionMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListMailgroupPermissionMemberDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListMailgroupPermissionMemberOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ListMailGroupPermissionMemberDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ListMailGroupPermissionMemberDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeListPublicMailboxUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListPublicMailboxUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListPublicMailboxOpenId  = "open_id"  // 以open_id来识别用户
+	ListPublicMailboxUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListPublicMailboxUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListPublicMailboxUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeBatchCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeBatchCreatePublicMailboxMemberUnionId = "union_id" // 以user_id来识别用户
-	UserIdTypeBatchCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	BatchCreatePublicMailboxMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	BatchCreatePublicMailboxMemberUserIDTypeUnionId = "union_id" // 以user_id来识别用户
+	BatchCreatePublicMailboxMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	TypeCreatePublicMailboxMemberUSER = "USER" // internal user in the team
+	PublicMailboxMemberTypeUSER = "USER" // internal user in the team
 )
 
 const (
-	UserIdTypeCreatePublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreatePublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreatePublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	CreatePublicMailboxMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreatePublicMailboxMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreatePublicMailboxMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetPublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	GetPublicMailboxMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetPublicMailboxMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetPublicMailboxMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListPublicMailboxMemberUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListPublicMailboxMemberUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListPublicMailboxMemberOpenId  = "open_id"  // 以open_id来识别用户
+	ListPublicMailboxMemberUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListPublicMailboxMemberUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListPublicMailboxMemberUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
+	EventTypeMessage = 1 // 邮件相关事件
+
+)
+
+const (
+	EventTypeUnsubscribeUserMailboxEventMessage = 1 // 邮件相关事件
+
+)
+
+const (
+	FolderTypeSystem = 1 // 系统文件夹
+	FolderTypeUser   = 2 // 用户文件夹
+
+)
+
+const (
+	GetByCardUserMailboxMessageUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+	GetByCardUserMailboxMessageUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetByCardUserMailboxMessageUserIDTypeUnionId = "union_id" // 以union_id来识别用户
 )
 
 type Attachment struct {
@@ -445,7 +469,7 @@ type EventLog struct {
 
 	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // 邮件ID
 
-	EventType *string `json:"event_type,omitempty"` // 行为类型
+	EventType *int `json:"event_type,omitempty"` // 行为类型
 
 	Timestamp *int `json:"timestamp,omitempty"` // 时间戳
 }
@@ -460,7 +484,7 @@ type EventLogBuilder struct {
 	smtpMessageId     string // 邮件ID
 	smtpMessageIdFlag bool
 
-	eventType     string // 行为类型
+	eventType     int // 行为类型
 	eventTypeFlag bool
 
 	timestamp     int // 时间戳
@@ -501,8 +525,8 @@ func (builder *EventLogBuilder) SmtpMessageId(smtpMessageId string) *EventLogBui
 
 // 行为类型
 //
-// 示例值：auto_forward
-func (builder *EventLogBuilder) EventType(eventType string) *EventLogBuilder {
+// 示例值：1
+func (builder *EventLogBuilder) EventType(eventType int) *EventLogBuilder {
 	builder.eventType = eventType
 	builder.eventTypeFlag = true
 	return builder
@@ -5536,6 +5560,940 @@ func (resp *ListUserMailboxAliasResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SubscribeUserMailboxEventReqBodyBuilder struct {
+	eventType     int // 事件类型
+	eventTypeFlag bool
+}
+
+func NewSubscribeUserMailboxEventReqBodyBuilder() *SubscribeUserMailboxEventReqBodyBuilder {
+	builder := &SubscribeUserMailboxEventReqBodyBuilder{}
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：1
+func (builder *SubscribeUserMailboxEventReqBodyBuilder) EventType(eventType int) *SubscribeUserMailboxEventReqBodyBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+func (builder *SubscribeUserMailboxEventReqBodyBuilder) Build() *SubscribeUserMailboxEventReqBody {
+	req := &SubscribeUserMailboxEventReqBody{}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
+	}
+	return req
+}
+
+type SubscribeUserMailboxEventPathReqBodyBuilder struct {
+	eventType     int
+	eventTypeFlag bool
+}
+
+func NewSubscribeUserMailboxEventPathReqBodyBuilder() *SubscribeUserMailboxEventPathReqBodyBuilder {
+	builder := &SubscribeUserMailboxEventPathReqBodyBuilder{}
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：1
+func (builder *SubscribeUserMailboxEventPathReqBodyBuilder) EventType(eventType int) *SubscribeUserMailboxEventPathReqBodyBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+func (builder *SubscribeUserMailboxEventPathReqBodyBuilder) Build() (*SubscribeUserMailboxEventReqBody, error) {
+	req := &SubscribeUserMailboxEventReqBody{}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
+	}
+	return req, nil
+}
+
+type SubscribeUserMailboxEventReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SubscribeUserMailboxEventReqBody
+}
+
+func NewSubscribeUserMailboxEventReqBuilder() *SubscribeUserMailboxEventReqBuilder {
+	builder := &SubscribeUserMailboxEventReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，使用 user_access_token 时可使用 me
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *SubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxId string) *SubscribeUserMailboxEventReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *SubscribeUserMailboxEventReqBuilder) Body(body *SubscribeUserMailboxEventReqBody) *SubscribeUserMailboxEventReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SubscribeUserMailboxEventReqBuilder) Build() *SubscribeUserMailboxEventReq {
+	req := &SubscribeUserMailboxEventReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SubscribeUserMailboxEventReqBody struct {
+	EventType *int `json:"event_type,omitempty"` // 事件类型
+}
+
+type SubscribeUserMailboxEventReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SubscribeUserMailboxEventReqBody `body:""`
+}
+
+type SubscribeUserMailboxEventResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *SubscribeUserMailboxEventResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SubscriptionUserMailboxEventReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewSubscriptionUserMailboxEventReqBuilder() *SubscriptionUserMailboxEventReqBuilder {
+	builder := &SubscriptionUserMailboxEventReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，使用 user_access_token 时可使用 me
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *SubscriptionUserMailboxEventReqBuilder) UserMailboxId(userMailboxId string) *SubscriptionUserMailboxEventReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *SubscriptionUserMailboxEventReqBuilder) Build() *SubscriptionUserMailboxEventReq {
+	req := &SubscriptionUserMailboxEventReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type SubscriptionUserMailboxEventReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type SubscriptionUserMailboxEventRespData struct {
+	EventTypes []int `json:"event_types,omitempty"` // 订阅的事件列表
+}
+
+type SubscriptionUserMailboxEventResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SubscriptionUserMailboxEventRespData `json:"data"` // 业务数据
+}
+
+func (resp *SubscriptionUserMailboxEventResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UnsubscribeUserMailboxEventReqBodyBuilder struct {
+	eventType     int // 事件类型
+	eventTypeFlag bool
+}
+
+func NewUnsubscribeUserMailboxEventReqBodyBuilder() *UnsubscribeUserMailboxEventReqBodyBuilder {
+	builder := &UnsubscribeUserMailboxEventReqBodyBuilder{}
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：1
+func (builder *UnsubscribeUserMailboxEventReqBodyBuilder) EventType(eventType int) *UnsubscribeUserMailboxEventReqBodyBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+func (builder *UnsubscribeUserMailboxEventReqBodyBuilder) Build() *UnsubscribeUserMailboxEventReqBody {
+	req := &UnsubscribeUserMailboxEventReqBody{}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
+	}
+	return req
+}
+
+type UnsubscribeUserMailboxEventPathReqBodyBuilder struct {
+	eventType     int
+	eventTypeFlag bool
+}
+
+func NewUnsubscribeUserMailboxEventPathReqBodyBuilder() *UnsubscribeUserMailboxEventPathReqBodyBuilder {
+	builder := &UnsubscribeUserMailboxEventPathReqBodyBuilder{}
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：1
+func (builder *UnsubscribeUserMailboxEventPathReqBodyBuilder) EventType(eventType int) *UnsubscribeUserMailboxEventPathReqBodyBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+func (builder *UnsubscribeUserMailboxEventPathReqBodyBuilder) Build() (*UnsubscribeUserMailboxEventReqBody, error) {
+	req := &UnsubscribeUserMailboxEventReqBody{}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
+	}
+	return req, nil
+}
+
+type UnsubscribeUserMailboxEventReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UnsubscribeUserMailboxEventReqBody
+}
+
+func NewUnsubscribeUserMailboxEventReqBuilder() *UnsubscribeUserMailboxEventReqBuilder {
+	builder := &UnsubscribeUserMailboxEventReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，使用 user_access_token 时可使用 me
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *UnsubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxId string) *UnsubscribeUserMailboxEventReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *UnsubscribeUserMailboxEventReqBuilder) Body(body *UnsubscribeUserMailboxEventReqBody) *UnsubscribeUserMailboxEventReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UnsubscribeUserMailboxEventReqBuilder) Build() *UnsubscribeUserMailboxEventReq {
+	req := &UnsubscribeUserMailboxEventReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UnsubscribeUserMailboxEventReqBody struct {
+	EventType *int `json:"event_type,omitempty"` // 事件类型
+}
+
+type UnsubscribeUserMailboxEventReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UnsubscribeUserMailboxEventReqBody `body:""`
+}
+
+type UnsubscribeUserMailboxEventResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UnsubscribeUserMailboxEventResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateUserMailboxFolderReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	folder *Folder
+}
+
+func NewCreateUserMailboxFolderReqBuilder() *CreateUserMailboxFolderReqBuilder {
+	builder := &CreateUserMailboxFolderReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *CreateUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxFolderReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *CreateUserMailboxFolderReqBuilder) Folder(folder *Folder) *CreateUserMailboxFolderReqBuilder {
+	builder.folder = folder
+	return builder
+}
+
+func (builder *CreateUserMailboxFolderReqBuilder) Build() *CreateUserMailboxFolderReq {
+	req := &CreateUserMailboxFolderReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.folder
+	return req
+}
+
+type CreateUserMailboxFolderReq struct {
+	apiReq *larkcore.ApiReq
+	Folder *Folder `body:""`
+}
+
+type CreateUserMailboxFolderRespData struct {
+	Folder *Folder `json:"folder,omitempty"` // 文件夹实体
+}
+
+type CreateUserMailboxFolderResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateUserMailboxFolderRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateUserMailboxFolderResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteUserMailboxFolderReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteUserMailboxFolderReqBuilder() *DeleteUserMailboxFolderReqBuilder {
+	builder := &DeleteUserMailboxFolderReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *DeleteUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxFolderReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 文件夹 id
+//
+// 示例值：111111
+func (builder *DeleteUserMailboxFolderReqBuilder) FolderId(folderId string) *DeleteUserMailboxFolderReqBuilder {
+	builder.apiReq.PathParams.Set("folder_id", fmt.Sprint(folderId))
+	return builder
+}
+
+func (builder *DeleteUserMailboxFolderReqBuilder) Build() *DeleteUserMailboxFolderReq {
+	req := &DeleteUserMailboxFolderReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteUserMailboxFolderReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteUserMailboxFolderResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteUserMailboxFolderResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListUserMailboxFolderReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListUserMailboxFolderReqBuilder() *ListUserMailboxFolderReqBuilder {
+	builder := &ListUserMailboxFolderReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *ListUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxFolderReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 文件夹类型
+//
+// 示例值：1
+func (builder *ListUserMailboxFolderReqBuilder) FolderType(folderType int) *ListUserMailboxFolderReqBuilder {
+	builder.apiReq.QueryParams.Set("folder_type", fmt.Sprint(folderType))
+	return builder
+}
+
+func (builder *ListUserMailboxFolderReqBuilder) Build() *ListUserMailboxFolderReq {
+	req := &ListUserMailboxFolderReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListUserMailboxFolderReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListUserMailboxFolderRespData struct {
+	Items []*Folder `json:"items,omitempty"` // 文件夹列表
+}
+
+type ListUserMailboxFolderResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListUserMailboxFolderRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListUserMailboxFolderResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchUserMailboxFolderReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	folder *Folder
+}
+
+func NewPatchUserMailboxFolderReqBuilder() *PatchUserMailboxFolderReqBuilder {
+	builder := &PatchUserMailboxFolderReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *PatchUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId string) *PatchUserMailboxFolderReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 文件夹 id
+//
+// 示例值：111111
+func (builder *PatchUserMailboxFolderReqBuilder) FolderId(folderId string) *PatchUserMailboxFolderReqBuilder {
+	builder.apiReq.PathParams.Set("folder_id", fmt.Sprint(folderId))
+	return builder
+}
+
+func (builder *PatchUserMailboxFolderReqBuilder) Folder(folder *Folder) *PatchUserMailboxFolderReqBuilder {
+	builder.folder = folder
+	return builder
+}
+
+func (builder *PatchUserMailboxFolderReqBuilder) Build() *PatchUserMailboxFolderReq {
+	req := &PatchUserMailboxFolderReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.folder
+	return req
+}
+
+type PatchUserMailboxFolderReq struct {
+	apiReq *larkcore.ApiReq
+	Folder *Folder `body:""`
+}
+
+type PatchUserMailboxFolderResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchUserMailboxFolderResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateUserMailboxMailContactReqBuilder struct {
+	apiReq      *larkcore.ApiReq
+	mailContact *MailContact
+}
+
+func NewCreateUserMailboxMailContactReqBuilder() *CreateUserMailboxMailContactReqBuilder {
+	builder := &CreateUserMailboxMailContactReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，使用 user_access_token 时可使用 me
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *CreateUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxMailContactReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *CreateUserMailboxMailContactReqBuilder) MailContact(mailContact *MailContact) *CreateUserMailboxMailContactReqBuilder {
+	builder.mailContact = mailContact
+	return builder
+}
+
+func (builder *CreateUserMailboxMailContactReqBuilder) Build() *CreateUserMailboxMailContactReq {
+	req := &CreateUserMailboxMailContactReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.mailContact
+	return req
+}
+
+type CreateUserMailboxMailContactReq struct {
+	apiReq      *larkcore.ApiReq
+	MailContact *MailContact `body:""`
+}
+
+type CreateUserMailboxMailContactRespData struct {
+	MailContact *MailContact `json:"mail_contact,omitempty"` // 联系人实体
+}
+
+type CreateUserMailboxMailContactResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateUserMailboxMailContactRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateUserMailboxMailContactResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteUserMailboxMailContactReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteUserMailboxMailContactReqBuilder() *DeleteUserMailboxMailContactReqBuilder {
+	builder := &DeleteUserMailboxMailContactReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：用户邮箱地址 或 输入me代表当前调用接口用户
+func (builder *DeleteUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxMailContactReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 邮箱联系人 id
+//
+// 示例值：123
+func (builder *DeleteUserMailboxMailContactReqBuilder) MailContactId(mailContactId string) *DeleteUserMailboxMailContactReqBuilder {
+	builder.apiReq.PathParams.Set("mail_contact_id", fmt.Sprint(mailContactId))
+	return builder
+}
+
+func (builder *DeleteUserMailboxMailContactReqBuilder) Build() *DeleteUserMailboxMailContactReq {
+	req := &DeleteUserMailboxMailContactReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteUserMailboxMailContactReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteUserMailboxMailContactResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteUserMailboxMailContactResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListUserMailboxMailContactReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListUserMailboxMailContactReqBuilder() *ListUserMailboxMailContactReqBuilder {
+	builder := &ListUserMailboxMailContactReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListUserMailboxMailContactReqBuilder) Limit(limit int) *ListUserMailboxMailContactReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *ListUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxMailContactReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：20
+func (builder *ListUserMailboxMailContactReqBuilder) PageSize(pageSize int) *ListUserMailboxMailContactReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：xxx
+func (builder *ListUserMailboxMailContactReqBuilder) PageToken(pageToken string) *ListUserMailboxMailContactReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListUserMailboxMailContactReqBuilder) Build() *ListUserMailboxMailContactReq {
+	req := &ListUserMailboxMailContactReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListUserMailboxMailContactReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListUserMailboxMailContactRespData struct {
+	Items []*MailContact `json:"items,omitempty"` // 邮件联系人列表
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+}
+
+type ListUserMailboxMailContactResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListUserMailboxMailContactRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListUserMailboxMailContactResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchUserMailboxMailContactReqBuilder struct {
+	apiReq      *larkcore.ApiReq
+	mailContact *MailContact
+}
+
+func NewPatchUserMailboxMailContactReqBuilder() *PatchUserMailboxMailContactReqBuilder {
+	builder := &PatchUserMailboxMailContactReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *PatchUserMailboxMailContactReqBuilder) UserMailboxId(userMailboxId string) *PatchUserMailboxMailContactReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 邮箱联系人 id
+//
+// 示例值：123
+func (builder *PatchUserMailboxMailContactReqBuilder) MailContactId(mailContactId string) *PatchUserMailboxMailContactReqBuilder {
+	builder.apiReq.PathParams.Set("mail_contact_id", fmt.Sprint(mailContactId))
+	return builder
+}
+
+func (builder *PatchUserMailboxMailContactReqBuilder) MailContact(mailContact *MailContact) *PatchUserMailboxMailContactReqBuilder {
+	builder.mailContact = mailContact
+	return builder
+}
+
+func (builder *PatchUserMailboxMailContactReqBuilder) Build() *PatchUserMailboxMailContactReq {
+	req := &PatchUserMailboxMailContactReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.mailContact
+	return req
+}
+
+type PatchUserMailboxMailContactReq struct {
+	apiReq      *larkcore.ApiReq
+	MailContact *MailContact `body:""`
+}
+
+type PatchUserMailboxMailContactResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchUserMailboxMailContactResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetUserMailboxMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetUserMailboxMessageReqBuilder() *GetUserMailboxMessageReqBuilder {
+	builder := &GetUserMailboxMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *GetUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *GetUserMailboxMessageReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 用户邮件 id
+//
+// 示例值：TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ==
+func (builder *GetUserMailboxMessageReqBuilder) MessageId(messageId string) *GetUserMailboxMessageReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+func (builder *GetUserMailboxMessageReqBuilder) Build() *GetUserMailboxMessageReq {
+	req := &GetUserMailboxMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type GetUserMailboxMessageReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetUserMailboxMessageRespData struct {
+	Message *Message `json:"message,omitempty"` // 邮件体
+}
+
+type GetUserMailboxMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetUserMailboxMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetUserMailboxMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type GetByCardUserMailboxMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewGetByCardUserMailboxMessageReqBuilder() *GetByCardUserMailboxMessageReqBuilder {
+	builder := &GetByCardUserMailboxMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *GetByCardUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *GetByCardUserMailboxMessageReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 卡片ID
+//
+// 示例值：512ca581-6059-4449-8150-5522e6641d32
+func (builder *GetByCardUserMailboxMessageReqBuilder) CardId(cardId string) *GetByCardUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("card_id", fmt.Sprint(cardId))
+	return builder
+}
+
+// 卡片OwnerID
+//
+// 示例值：1234567890
+func (builder *GetByCardUserMailboxMessageReqBuilder) OwnerId(ownerId string) *GetByCardUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("owner_id", fmt.Sprint(ownerId))
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：open_id
+func (builder *GetByCardUserMailboxMessageReqBuilder) UserIdType(userIdType string) *GetByCardUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+func (builder *GetByCardUserMailboxMessageReqBuilder) Build() *GetByCardUserMailboxMessageReq {
+	req := &GetByCardUserMailboxMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type GetByCardUserMailboxMessageReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type GetByCardUserMailboxMessageRespData struct {
+	OwnerInfo *UserInfo `json:"owner_info,omitempty"` // 邮件Owner信息
+
+	MessageIds []string `json:"message_ids,omitempty"` // 邮件ID列表
+
+	CardId *string `json:"card_id,omitempty"` // 卡片ID
+}
+
+type GetByCardUserMailboxMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *GetByCardUserMailboxMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *GetByCardUserMailboxMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListUserMailboxMessageReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListUserMailboxMessageReqBuilder() *ListUserMailboxMessageReqBuilder {
+	builder := &ListUserMailboxMessageReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListUserMailboxMessageReqBuilder) Limit(limit int) *ListUserMailboxMessageReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *ListUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxMessageReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：1
+func (builder *ListUserMailboxMessageReqBuilder) PageSize(pageSize int) *ListUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：xxx
+func (builder *ListUserMailboxMessageReqBuilder) PageToken(pageToken string) *ListUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 文件夹 id
+//
+// 示例值：INBOX 或者用户文件夹 id
+func (builder *ListUserMailboxMessageReqBuilder) FolderId(folderId string) *ListUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("folder_id", fmt.Sprint(folderId))
+	return builder
+}
+
+// 是否只查询未读邮件
+//
+// 示例值：true
+func (builder *ListUserMailboxMessageReqBuilder) OnlyUnread(onlyUnread bool) *ListUserMailboxMessageReqBuilder {
+	builder.apiReq.QueryParams.Set("only_unread", fmt.Sprint(onlyUnread))
+	return builder
+}
+
+func (builder *ListUserMailboxMessageReqBuilder) Build() *ListUserMailboxMessageReq {
+	req := &ListUserMailboxMessageReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListUserMailboxMessageReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListUserMailboxMessageRespData struct {
+	Items []string `json:"items,omitempty"` // 邮件 id 列表
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+}
+
+type ListUserMailboxMessageResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListUserMailboxMessageRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListUserMailboxMessageResp) Success() bool {
+	return resp.Code == 0
+}
+
 type SendUserMailboxMessageReqBuilder struct {
 	apiReq  *larkcore.ApiReq
 	message *Message
@@ -5583,6 +6541,406 @@ type SendUserMailboxMessageResp struct {
 
 func (resp *SendUserMailboxMessageResp) Success() bool {
 	return resp.Code == 0
+}
+
+type DownloadUrlUserMailboxMessageAttachmentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDownloadUrlUserMailboxMessageAttachmentReqBuilder() *DownloadUrlUserMailboxMessageAttachmentReqBuilder {
+	builder := &DownloadUrlUserMailboxMessageAttachmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *DownloadUrlUserMailboxMessageAttachmentReqBuilder) UserMailboxId(userMailboxId string) *DownloadUrlUserMailboxMessageAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 用户邮件 id
+//
+// 示例值：TUlHc1NoWFhJMXgyUi9VZTNVL3h6UnlkRUdzPQ==
+func (builder *DownloadUrlUserMailboxMessageAttachmentReqBuilder) MessageId(messageId string) *DownloadUrlUserMailboxMessageAttachmentReqBuilder {
+	builder.apiReq.PathParams.Set("message_id", fmt.Sprint(messageId))
+	return builder
+}
+
+// 附件 id 列表
+//
+// 示例值：
+func (builder *DownloadUrlUserMailboxMessageAttachmentReqBuilder) AttachmentIds(attachmentIds []string) *DownloadUrlUserMailboxMessageAttachmentReqBuilder {
+	for _, v := range attachmentIds {
+		builder.apiReq.QueryParams.Add("attachment_ids", fmt.Sprint(v))
+	}
+	return builder
+}
+
+func (builder *DownloadUrlUserMailboxMessageAttachmentReqBuilder) Build() *DownloadUrlUserMailboxMessageAttachmentReq {
+	req := &DownloadUrlUserMailboxMessageAttachmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type DownloadUrlUserMailboxMessageAttachmentReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DownloadUrlUserMailboxMessageAttachmentRespData struct {
+	DownloadUrls []*AttachmentDownloadUrlItem `json:"download_urls,omitempty"` // 下载链接列表
+
+	FailedIds []string `json:"failed_ids,omitempty"` // 获取失败的附件 id 列表
+}
+
+type DownloadUrlUserMailboxMessageAttachmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *DownloadUrlUserMailboxMessageAttachmentRespData `json:"data"` // 业务数据
+}
+
+func (resp *DownloadUrlUserMailboxMessageAttachmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateUserMailboxRuleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	rule   *Rule
+}
+
+func NewCreateUserMailboxRuleReqBuilder() *CreateUserMailboxRuleReqBuilder {
+	builder := &CreateUserMailboxRuleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，使用 user_access_token 时可使用 me
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *CreateUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId string) *CreateUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *CreateUserMailboxRuleReqBuilder) Rule(rule *Rule) *CreateUserMailboxRuleReqBuilder {
+	builder.rule = rule
+	return builder
+}
+
+func (builder *CreateUserMailboxRuleReqBuilder) Build() *CreateUserMailboxRuleReq {
+	req := &CreateUserMailboxRuleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.rule
+	return req
+}
+
+type CreateUserMailboxRuleReq struct {
+	apiReq *larkcore.ApiReq
+	Rule   *Rule `body:""`
+}
+
+type CreateUserMailboxRuleRespData struct {
+	Rule *Rule `json:"rule,omitempty"` // 规则实体
+}
+
+type CreateUserMailboxRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateUserMailboxRuleRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateUserMailboxRuleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteUserMailboxRuleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteUserMailboxRuleReqBuilder() *DeleteUserMailboxRuleReqBuilder {
+	builder := &DeleteUserMailboxRuleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *DeleteUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId string) *DeleteUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 规则 id
+//
+// 示例值：123123123
+func (builder *DeleteUserMailboxRuleReqBuilder) RuleId(ruleId string) *DeleteUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("rule_id", fmt.Sprint(ruleId))
+	return builder
+}
+
+func (builder *DeleteUserMailboxRuleReqBuilder) Build() *DeleteUserMailboxRuleReq {
+	req := &DeleteUserMailboxRuleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteUserMailboxRuleReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteUserMailboxRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteUserMailboxRuleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListUserMailboxRuleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListUserMailboxRuleReqBuilder() *ListUserMailboxRuleReqBuilder {
+	builder := &ListUserMailboxRuleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *ListUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId string) *ListUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *ListUserMailboxRuleReqBuilder) Build() *ListUserMailboxRuleReq {
+	req := &ListUserMailboxRuleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type ListUserMailboxRuleReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListUserMailboxRuleRespData struct {
+	Items []*Rule `json:"items,omitempty"` // 规则列表
+}
+
+type ListUserMailboxRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListUserMailboxRuleRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListUserMailboxRuleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ReorderUserMailboxRuleReqBodyBuilder struct {
+	ruleIds     []string // 规则 id 列表
+	ruleIdsFlag bool
+}
+
+func NewReorderUserMailboxRuleReqBodyBuilder() *ReorderUserMailboxRuleReqBodyBuilder {
+	builder := &ReorderUserMailboxRuleReqBodyBuilder{}
+	return builder
+}
+
+// 规则 id 列表
+//
+// 示例值：111111111
+func (builder *ReorderUserMailboxRuleReqBodyBuilder) RuleIds(ruleIds []string) *ReorderUserMailboxRuleReqBodyBuilder {
+	builder.ruleIds = ruleIds
+	builder.ruleIdsFlag = true
+	return builder
+}
+
+func (builder *ReorderUserMailboxRuleReqBodyBuilder) Build() *ReorderUserMailboxRuleReqBody {
+	req := &ReorderUserMailboxRuleReqBody{}
+	if builder.ruleIdsFlag {
+		req.RuleIds = builder.ruleIds
+	}
+	return req
+}
+
+type ReorderUserMailboxRulePathReqBodyBuilder struct {
+	ruleIds     []string
+	ruleIdsFlag bool
+}
+
+func NewReorderUserMailboxRulePathReqBodyBuilder() *ReorderUserMailboxRulePathReqBodyBuilder {
+	builder := &ReorderUserMailboxRulePathReqBodyBuilder{}
+	return builder
+}
+
+// 规则 id 列表
+//
+// 示例值：111111111
+func (builder *ReorderUserMailboxRulePathReqBodyBuilder) RuleIds(ruleIds []string) *ReorderUserMailboxRulePathReqBodyBuilder {
+	builder.ruleIds = ruleIds
+	builder.ruleIdsFlag = true
+	return builder
+}
+
+func (builder *ReorderUserMailboxRulePathReqBodyBuilder) Build() (*ReorderUserMailboxRuleReqBody, error) {
+	req := &ReorderUserMailboxRuleReqBody{}
+	if builder.ruleIdsFlag {
+		req.RuleIds = builder.ruleIds
+	}
+	return req, nil
+}
+
+type ReorderUserMailboxRuleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ReorderUserMailboxRuleReqBody
+}
+
+func NewReorderUserMailboxRuleReqBuilder() *ReorderUserMailboxRuleReqBuilder {
+	builder := &ReorderUserMailboxRuleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址，使用 user_access_token 时可使用 me
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *ReorderUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId string) *ReorderUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+func (builder *ReorderUserMailboxRuleReqBuilder) Body(body *ReorderUserMailboxRuleReqBody) *ReorderUserMailboxRuleReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ReorderUserMailboxRuleReqBuilder) Build() *ReorderUserMailboxRuleReq {
+	req := &ReorderUserMailboxRuleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ReorderUserMailboxRuleReqBody struct {
+	RuleIds []string `json:"rule_ids,omitempty"` // 规则 id 列表
+}
+
+type ReorderUserMailboxRuleReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ReorderUserMailboxRuleReqBody `body:""`
+}
+
+type ReorderUserMailboxRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *ReorderUserMailboxRuleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateUserMailboxRuleReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	rule   *Rule
+}
+
+func NewUpdateUserMailboxRuleReqBuilder() *UpdateUserMailboxRuleReqBuilder {
+	builder := &UpdateUserMailboxRuleReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户邮箱地址 或 输入me代表当前调用接口用户
+//
+// 示例值：user@xxx.xx 或 me
+func (builder *UpdateUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId string) *UpdateUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("user_mailbox_id", fmt.Sprint(userMailboxId))
+	return builder
+}
+
+// 规则 id
+//
+// 示例值：123123123
+func (builder *UpdateUserMailboxRuleReqBuilder) RuleId(ruleId string) *UpdateUserMailboxRuleReqBuilder {
+	builder.apiReq.PathParams.Set("rule_id", fmt.Sprint(ruleId))
+	return builder
+}
+
+func (builder *UpdateUserMailboxRuleReqBuilder) Rule(rule *Rule) *UpdateUserMailboxRuleReqBuilder {
+	builder.rule = rule
+	return builder
+}
+
+func (builder *UpdateUserMailboxRuleReqBuilder) Build() *UpdateUserMailboxRuleReq {
+	req := &UpdateUserMailboxRuleReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.rule
+	return req
+}
+
+type UpdateUserMailboxRuleReq struct {
+	apiReq *larkcore.ApiReq
+	Rule   *Rule `body:""`
+}
+
+type UpdateUserMailboxRuleResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateUserMailboxRuleResp) Success() bool {
+	return resp.Code == 0
+}
+
+type P2UserMailboxEventMessageReceivedV1Data struct {
+	MailAddress *string `json:"mail_address,omitempty"` // 收信的邮箱
+
+	MessageId *string `json:"message_id,omitempty"` // 邮件 id
+
+	MailboxType *int `json:"mailbox_type,omitempty"` // 收到邮件的邮箱类型
+
+	Subscriber *Subscriber `json:"subscriber,omitempty"` // 订阅者
+}
+
+type P2UserMailboxEventMessageReceivedV1 struct {
+	*larkevent.EventV2Base                                          // 事件基础数据
+	*larkevent.EventReq                                             // 请求原生数据
+	Event                  *P2UserMailboxEventMessageReceivedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2UserMailboxEventMessageReceivedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type ListMailgroupIterator struct {
@@ -5906,5 +7264,113 @@ func (iterator *ListPublicMailboxMemberIterator) Next() (bool, *PublicMailboxMem
 }
 
 func (iterator *ListPublicMailboxMemberIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListUserMailboxMailContactIterator struct {
+	nextPageToken *string
+	items         []*MailContact
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListUserMailboxMailContactReq
+	listFunc      func(ctx context.Context, req *ListUserMailboxMailContactReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxMailContactResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListUserMailboxMailContactIterator) Next() (bool, *MailContact, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListUserMailboxMailContactIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListUserMailboxMessageIterator struct {
+	nextPageToken *string
+	items         []string
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListUserMailboxMessageReq
+	listFunc      func(ctx context.Context, req *ListUserMailboxMessageReq, options ...larkcore.RequestOptionFunc) (*ListUserMailboxMessageResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListUserMailboxMessageIterator) Next() (bool, string, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, "", nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, "", nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, "", err
+		}
+
+		if resp.Code != 0 {
+			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, "", nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListUserMailboxMessageIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

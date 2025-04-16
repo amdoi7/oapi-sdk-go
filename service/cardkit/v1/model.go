@@ -74,6 +74,229 @@ func (builder *ActionBuilder) Build() *Action {
 	return req
 }
 
+type CallbackAction struct {
+	Value map[string]string `json:"value,omitempty"` // 交互组件绑定的开发者自定义回传数据，对应组件中的 value 属性。类型为 string 或 object，可由开发者指定
+
+	Tag *string `json:"tag,omitempty"` // 用户操作交互组件的标签
+
+	Option *string `json:"option,omitempty"` // 用户操作单选组件的选项值
+
+	Options []string `json:"options,omitempty"` // 用户操作多选组件的选项值
+
+	Timezone *string `json:"timezone,omitempty"` // 用户当前所在地区的时区。当用户操作日期选择器、时间选择器、或日期时间选择器时返回
+
+	InputValue *string `json:"input_value,omitempty"` // 用户操作输入组件的输入值
+
+	FormValue map[string]string `json:"form_value,omitempty"` // 用户操作表单容器内用户提交的数据
+
+	Name *string `json:"name,omitempty"` // 用户操作交互组件的名称，由开发者自定义
+
+	Checked *bool `json:"checked,omitempty"` // 用户操作勾选器组件的勾选状态
+}
+
+type CallbackActionBuilder struct {
+	value     map[string]string // 交互组件绑定的开发者自定义回传数据，对应组件中的 value 属性。类型为 string 或 object，可由开发者指定
+	valueFlag bool
+
+	tag     string // 用户操作交互组件的标签
+	tagFlag bool
+
+	option     string // 用户操作单选组件的选项值
+	optionFlag bool
+
+	options     []string // 用户操作多选组件的选项值
+	optionsFlag bool
+
+	timezone     string // 用户当前所在地区的时区。当用户操作日期选择器、时间选择器、或日期时间选择器时返回
+	timezoneFlag bool
+
+	inputValue     string // 用户操作输入组件的输入值
+	inputValueFlag bool
+
+	formValue     map[string]string // 用户操作表单容器内用户提交的数据
+	formValueFlag bool
+
+	name     string // 用户操作交互组件的名称，由开发者自定义
+	nameFlag bool
+
+	checked     bool // 用户操作勾选器组件的勾选状态
+	checkedFlag bool
+}
+
+func NewCallbackActionBuilder() *CallbackActionBuilder {
+	builder := &CallbackActionBuilder{}
+	return builder
+}
+
+// 交互组件绑定的开发者自定义回传数据，对应组件中的 value 属性。类型为 string 或 object，可由开发者指定
+//
+// 示例值：
+func (builder *CallbackActionBuilder) Value(value map[string]string) *CallbackActionBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+// 用户操作交互组件的标签
+//
+// 示例值：button
+func (builder *CallbackActionBuilder) Tag(tag string) *CallbackActionBuilder {
+	builder.tag = tag
+	builder.tagFlag = true
+	return builder
+}
+
+// 用户操作单选组件的选项值
+//
+// 示例值：selectDemo1
+func (builder *CallbackActionBuilder) Option(option string) *CallbackActionBuilder {
+	builder.option = option
+	builder.optionFlag = true
+	return builder
+}
+
+// 用户操作多选组件的选项值
+//
+// 示例值：
+func (builder *CallbackActionBuilder) Options(options []string) *CallbackActionBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+// 用户当前所在地区的时区。当用户操作日期选择器、时间选择器、或日期时间选择器时返回
+//
+// 示例值：Asia/Shanghai
+func (builder *CallbackActionBuilder) Timezone(timezone string) *CallbackActionBuilder {
+	builder.timezone = timezone
+	builder.timezoneFlag = true
+	return builder
+}
+
+// 用户操作输入组件的输入值
+//
+// 示例值：input_value
+func (builder *CallbackActionBuilder) InputValue(inputValue string) *CallbackActionBuilder {
+	builder.inputValue = inputValue
+	builder.inputValueFlag = true
+	return builder
+}
+
+// 用户操作表单容器内用户提交的数据
+//
+// 示例值：
+func (builder *CallbackActionBuilder) FormValue(formValue map[string]string) *CallbackActionBuilder {
+	builder.formValue = formValue
+	builder.formValueFlag = true
+	return builder
+}
+
+// 用户操作交互组件的名称，由开发者自定义
+//
+// 示例值：approval_button
+func (builder *CallbackActionBuilder) Name(name string) *CallbackActionBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 用户操作勾选器组件的勾选状态
+//
+// 示例值：
+func (builder *CallbackActionBuilder) Checked(checked bool) *CallbackActionBuilder {
+	builder.checked = checked
+	builder.checkedFlag = true
+	return builder
+}
+
+func (builder *CallbackActionBuilder) Build() *CallbackAction {
+	req := &CallbackAction{}
+	if builder.valueFlag {
+		req.Value = builder.value
+	}
+	if builder.tagFlag {
+		req.Tag = &builder.tag
+
+	}
+	if builder.optionFlag {
+		req.Option = &builder.option
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	if builder.timezoneFlag {
+		req.Timezone = &builder.timezone
+
+	}
+	if builder.inputValueFlag {
+		req.InputValue = &builder.inputValue
+
+	}
+	if builder.formValueFlag {
+		req.FormValue = builder.formValue
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.checkedFlag {
+		req.Checked = &builder.checked
+
+	}
+	return req
+}
+
+type CallbackActionContext struct {
+	OpenMessageId *string `json:"open_message_id,omitempty"` // 卡片所在的消息 ID
+
+	OpenChatId *string `json:"open_chat_id,omitempty"` // 卡片所在的会话 ID
+}
+
+type CallbackActionContextBuilder struct {
+	openMessageId     string // 卡片所在的消息 ID
+	openMessageIdFlag bool
+
+	openChatId     string // 卡片所在的会话 ID
+	openChatIdFlag bool
+}
+
+func NewCallbackActionContextBuilder() *CallbackActionContextBuilder {
+	builder := &CallbackActionContextBuilder{}
+	return builder
+}
+
+// 卡片所在的消息 ID
+//
+// 示例值：om_574d639e4a44e4dd646eaf628e2*****
+func (builder *CallbackActionContextBuilder) OpenMessageId(openMessageId string) *CallbackActionContextBuilder {
+	builder.openMessageId = openMessageId
+	builder.openMessageIdFlag = true
+	return builder
+}
+
+// 卡片所在的会话 ID
+//
+// 示例值：oc_e4d2605ca917e695f54f11aaf56*****
+func (builder *CallbackActionContextBuilder) OpenChatId(openChatId string) *CallbackActionContextBuilder {
+	builder.openChatId = openChatId
+	builder.openChatIdFlag = true
+	return builder
+}
+
+func (builder *CallbackActionContextBuilder) Build() *CallbackActionContext {
+	req := &CallbackActionContext{}
+	if builder.openMessageIdFlag {
+		req.OpenMessageId = &builder.openMessageId
+
+	}
+	if builder.openChatIdFlag {
+		req.OpenChatId = &builder.openChatId
+
+	}
+	return req
+}
+
 type Card struct {
 	Type *string `json:"type,omitempty"` // 卡片数据的类型
 
@@ -205,6 +428,164 @@ func (builder *CardLinkBuilder) Build() *CardLink {
 	}
 	if builder.androidUrlFlag {
 		req.AndroidUrl = &builder.androidUrl
+
+	}
+	return req
+}
+
+type CardTemplate struct {
+	TemplateId *string `json:"template_id,omitempty"` // 卡片模板 ID
+
+	TemplateName *string `json:"template_name,omitempty"` // 卡片模板名
+
+	TemplateOwner *string `json:"template_owner,omitempty"` // 卡片模板所有者
+
+	TemplateVersionName *string `json:"template_version_name,omitempty"` // 卡片模板版本
+
+	SchemaVersion *string `json:"schema_version,omitempty"` // 卡片 Schema 版本
+
+	Status *string `json:"status,omitempty"` // 卡片模板发布状态
+
+	CreateTime *string `json:"create_time,omitempty"` // 卡片模板创建时间（毫秒）
+
+	UpdateTime *string `json:"update_time,omitempty"` // 卡片模板更新时间（毫秒）
+}
+
+type CardTemplateBuilder struct {
+	templateId     string // 卡片模板 ID
+	templateIdFlag bool
+
+	templateName     string // 卡片模板名
+	templateNameFlag bool
+
+	templateOwner     string // 卡片模板所有者
+	templateOwnerFlag bool
+
+	templateVersionName     string // 卡片模板版本
+	templateVersionNameFlag bool
+
+	schemaVersion     string // 卡片 Schema 版本
+	schemaVersionFlag bool
+
+	status     string // 卡片模板发布状态
+	statusFlag bool
+
+	createTime     string // 卡片模板创建时间（毫秒）
+	createTimeFlag bool
+
+	updateTime     string // 卡片模板更新时间（毫秒）
+	updateTimeFlag bool
+}
+
+func NewCardTemplateBuilder() *CardTemplateBuilder {
+	builder := &CardTemplateBuilder{}
+	return builder
+}
+
+// 卡片模板 ID
+//
+// 示例值：AAqSZ3wf5hupo
+func (builder *CardTemplateBuilder) TemplateId(templateId string) *CardTemplateBuilder {
+	builder.templateId = templateId
+	builder.templateIdFlag = true
+	return builder
+}
+
+// 卡片模板名
+//
+// 示例值：同事圈分享卡片
+func (builder *CardTemplateBuilder) TemplateName(templateName string) *CardTemplateBuilder {
+	builder.templateName = templateName
+	builder.templateNameFlag = true
+	return builder
+}
+
+// 卡片模板所有者
+//
+// 示例值：cli_a62a4fe4e938d01c
+func (builder *CardTemplateBuilder) TemplateOwner(templateOwner string) *CardTemplateBuilder {
+	builder.templateOwner = templateOwner
+	builder.templateOwnerFlag = true
+	return builder
+}
+
+// 卡片模板版本
+//
+// 示例值：1.0.0
+func (builder *CardTemplateBuilder) TemplateVersionName(templateVersionName string) *CardTemplateBuilder {
+	builder.templateVersionName = templateVersionName
+	builder.templateVersionNameFlag = true
+	return builder
+}
+
+// 卡片 Schema 版本
+//
+// 示例值：2.0
+func (builder *CardTemplateBuilder) SchemaVersion(schemaVersion string) *CardTemplateBuilder {
+	builder.schemaVersion = schemaVersion
+	builder.schemaVersionFlag = true
+	return builder
+}
+
+// 卡片模板发布状态
+//
+// 示例值：PUBLISHED
+func (builder *CardTemplateBuilder) Status(status string) *CardTemplateBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 卡片模板创建时间（毫秒）
+//
+// 示例值：1675742789470
+func (builder *CardTemplateBuilder) CreateTime(createTime string) *CardTemplateBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 卡片模板更新时间（毫秒）
+//
+// 示例值：1675742789470
+func (builder *CardTemplateBuilder) UpdateTime(updateTime string) *CardTemplateBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+func (builder *CardTemplateBuilder) Build() *CardTemplate {
+	req := &CardTemplate{}
+	if builder.templateIdFlag {
+		req.TemplateId = &builder.templateId
+
+	}
+	if builder.templateNameFlag {
+		req.TemplateName = &builder.templateName
+
+	}
+	if builder.templateOwnerFlag {
+		req.TemplateOwner = &builder.templateOwner
+
+	}
+	if builder.templateVersionNameFlag {
+		req.TemplateVersionName = &builder.templateVersionName
+
+	}
+	if builder.schemaVersionFlag {
+		req.SchemaVersion = &builder.schemaVersion
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
 
 	}
 	return req
@@ -483,6 +864,92 @@ func (builder *HeaderBuilder) Build() *Header {
 	req := &Header{}
 	if builder.titleFlag {
 		req.Title = &builder.title
+
+	}
+	return req
+}
+
+type Operator struct {
+	TenantKey *string `json:"tenant_key,omitempty"` // 回调触发者的 tenant key，即租户唯一标识
+
+	UserId *string `json:"user_id,omitempty"` // 回调触发者的 user ID
+
+	OpenId *string `json:"open_id,omitempty"` // 回调触发者的 open ID
+
+	UnionId *string `json:"union_id,omitempty"` // 回调触发者的 union ID
+}
+
+type OperatorBuilder struct {
+	tenantKey     string // 回调触发者的 tenant key，即租户唯一标识
+	tenantKeyFlag bool
+
+	userId     string // 回调触发者的 user ID
+	userIdFlag bool
+
+	openId     string // 回调触发者的 open ID
+	openIdFlag bool
+
+	unionId     string // 回调触发者的 union ID
+	unionIdFlag bool
+}
+
+func NewOperatorBuilder() *OperatorBuilder {
+	builder := &OperatorBuilder{}
+	return builder
+}
+
+// 回调触发者的 tenant key，即租户唯一标识
+//
+// 示例值：2af7399175062872
+func (builder *OperatorBuilder) TenantKey(tenantKey string) *OperatorBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+// 回调触发者的 user ID
+//
+// 示例值：
+func (builder *OperatorBuilder) UserId(userId string) *OperatorBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 回调触发者的 open ID
+//
+// 示例值：
+func (builder *OperatorBuilder) OpenId(openId string) *OperatorBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+
+// 回调触发者的 union ID
+//
+// 示例值：
+func (builder *OperatorBuilder) UnionId(unionId string) *OperatorBuilder {
+	builder.unionId = unionId
+	builder.unionIdFlag = true
+	return builder
+}
+
+func (builder *OperatorBuilder) Build() *Operator {
+	req := &Operator{}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.unionIdFlag {
+		req.UnionId = &builder.unionId
 
 	}
 	return req

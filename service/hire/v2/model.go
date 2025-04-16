@@ -96,7 +96,7 @@ type Attachment struct {
 
 	ContentType *string `json:"content_type,omitempty"` // 附件类型
 
-	FileSize *int `json:"file_size,omitempty"` // 附件大小
+	FileSize *int64 `json:"file_size,omitempty"` // 附件大小
 
 	CreateTime *string `json:"create_time,omitempty"` // 附件创建时间(ms)
 }
@@ -111,7 +111,7 @@ type AttachmentBuilder struct {
 	contentType     string // 附件类型
 	contentTypeFlag bool
 
-	fileSize     int // 附件大小
+	fileSize     int64 // 附件大小
 	fileSizeFlag bool
 
 	createTime     string // 附件创建时间(ms)
@@ -153,7 +153,7 @@ func (builder *AttachmentBuilder) ContentType(contentType string) *AttachmentBui
 // 附件大小
 //
 // 示例值：16615
-func (builder *AttachmentBuilder) FileSize(fileSize int) *AttachmentBuilder {
+func (builder *AttachmentBuilder) FileSize(fileSize int64) *AttachmentBuilder {
 	builder.fileSize = fileSize
 	builder.fileSizeFlag = true
 	return builder
@@ -747,9 +747,9 @@ type CompositeTalentBasicInfo struct {
 
 	Email *string `json:"email,omitempty"` // 邮箱
 
-	ExperienceYears *int `json:"experience_years,omitempty"` // 工作年限
+	ExperienceYears *int64 `json:"experience_years,omitempty"` // 工作年限
 
-	Age *int `json:"age,omitempty"` // 年龄
+	Age *int64 `json:"age,omitempty"` // 年龄
 
 	NationalityCode *string `json:"nationality_code,omitempty"` // 国籍
 
@@ -795,10 +795,10 @@ type CompositeTalentBasicInfoBuilder struct {
 	email     string // 邮箱
 	emailFlag bool
 
-	experienceYears     int // 工作年限
+	experienceYears     int64 // 工作年限
 	experienceYearsFlag bool
 
-	age     int // 年龄
+	age     int64 // 年龄
 	ageFlag bool
 
 	nationalityCode     string // 国籍
@@ -891,7 +891,7 @@ func (builder *CompositeTalentBasicInfoBuilder) Email(email string) *CompositeTa
 // 工作年限
 //
 // 示例值：5
-func (builder *CompositeTalentBasicInfoBuilder) ExperienceYears(experienceYears int) *CompositeTalentBasicInfoBuilder {
+func (builder *CompositeTalentBasicInfoBuilder) ExperienceYears(experienceYears int64) *CompositeTalentBasicInfoBuilder {
 	builder.experienceYears = experienceYears
 	builder.experienceYearsFlag = true
 	return builder
@@ -900,7 +900,7 @@ func (builder *CompositeTalentBasicInfoBuilder) ExperienceYears(experienceYears 
 // 年龄
 //
 // 示例值：22
-func (builder *CompositeTalentBasicInfoBuilder) Age(age int) *CompositeTalentBasicInfoBuilder {
+func (builder *CompositeTalentBasicInfoBuilder) Age(age int64) *CompositeTalentBasicInfoBuilder {
 	builder.age = age
 	builder.ageFlag = true
 	return builder
@@ -2096,7 +2096,7 @@ type DimensionAssessment struct {
 
 	DimensionOptions []*DimensionOption `json:"dimension_options,omitempty"` // 当维度类型为多选题时，从此取值
 
-	DimensionScore *int `json:"dimension_score,omitempty"` // 当维度评价方式为「打分题(填空)时」，从此取值
+	DimensionScore *int64 `json:"dimension_score,omitempty"` // 当维度评价方式为「打分题(填空)时」，从此取值
 
 	RecommendedJobLevel *RecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度为「职级建议」时，从此取值
 
@@ -2125,7 +2125,7 @@ type DimensionAssessmentBuilder struct {
 	dimensionOptions     []*DimensionOption // 当维度类型为多选题时，从此取值
 	dimensionOptionsFlag bool
 
-	dimensionScore     int // 当维度评价方式为「打分题(填空)时」，从此取值
+	dimensionScore     int64 // 当维度评价方式为「打分题(填空)时」，从此取值
 	dimensionScoreFlag bool
 
 	recommendedJobLevel     *RecommendedJobLevel // 当维度为「职级建议」时，从此取值
@@ -2206,7 +2206,7 @@ func (builder *DimensionAssessmentBuilder) DimensionOptions(dimensionOptions []*
 // 当维度评价方式为「打分题(填空)时」，从此取值
 //
 // 示例值：10
-func (builder *DimensionAssessmentBuilder) DimensionScore(dimensionScore int) *DimensionAssessmentBuilder {
+func (builder *DimensionAssessmentBuilder) DimensionScore(dimensionScore int64) *DimensionAssessmentBuilder {
 	builder.dimensionScore = dimensionScore
 	builder.dimensionScoreFlag = true
 	return builder
@@ -2275,7 +2275,7 @@ type DimensionOption struct {
 
 	Name *I18n `json:"name,omitempty"` // 选项名称
 
-	ScoreVal *int `json:"score_val,omitempty"` // 选项对应的分数
+	ScoreVal *int64 `json:"score_val,omitempty"` // 选项对应的分数
 }
 
 type DimensionOptionBuilder struct {
@@ -2285,7 +2285,7 @@ type DimensionOptionBuilder struct {
 	name     *I18n // 选项名称
 	nameFlag bool
 
-	scoreVal     int // 选项对应的分数
+	scoreVal     int64 // 选项对应的分数
 	scoreValFlag bool
 }
 
@@ -2315,7 +2315,7 @@ func (builder *DimensionOptionBuilder) Name(name *I18n) *DimensionOptionBuilder 
 // 选项对应的分数
 //
 // 示例值：10
-func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int) *DimensionOptionBuilder {
+func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int64) *DimensionOptionBuilder {
 	builder.scoreVal = scoreVal
 	builder.scoreValFlag = true
 	return builder

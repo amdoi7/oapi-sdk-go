@@ -6930,6 +6930,128 @@ func (builder *SimpleUserBuilder) Build() *SimpleUser {
 	return req
 }
 
+type SubscribeAuditLogFile struct {
+	FileId *string `json:"file_id,omitempty"` // 文件 id
+
+	FileUrl *string `json:"file_url,omitempty"` // 文件地址
+
+	FileUrlExpireTime *int `json:"file_url_expire_time,omitempty"` // 文件过期时间，秒级时间戳
+
+	FileSize *int `json:"file_size,omitempty"` // 文件大小
+
+	StartTime *int `json:"start_time,omitempty"` // 文件打包的日志的开始时间
+
+	EndTime *int `json:"end_time,omitempty"` // 文件打包的日志的结束时间
+}
+
+type SubscribeAuditLogFileBuilder struct {
+	fileId     string // 文件 id
+	fileIdFlag bool
+
+	fileUrl     string // 文件地址
+	fileUrlFlag bool
+
+	fileUrlExpireTime     int // 文件过期时间，秒级时间戳
+	fileUrlExpireTimeFlag bool
+
+	fileSize     int // 文件大小
+	fileSizeFlag bool
+
+	startTime     int // 文件打包的日志的开始时间
+	startTimeFlag bool
+
+	endTime     int // 文件打包的日志的结束时间
+	endTimeFlag bool
+}
+
+func NewSubscribeAuditLogFileBuilder() *SubscribeAuditLogFileBuilder {
+	builder := &SubscribeAuditLogFileBuilder{}
+	return builder
+}
+
+// 文件 id
+//
+// 示例值：example
+func (builder *SubscribeAuditLogFileBuilder) FileId(fileId string) *SubscribeAuditLogFileBuilder {
+	builder.fileId = fileId
+	builder.fileIdFlag = true
+	return builder
+}
+
+// 文件地址
+//
+// 示例值：example.gz
+func (builder *SubscribeAuditLogFileBuilder) FileUrl(fileUrl string) *SubscribeAuditLogFileBuilder {
+	builder.fileUrl = fileUrl
+	builder.fileUrlFlag = true
+	return builder
+}
+
+// 文件过期时间，秒级时间戳
+//
+// 示例值：1741759604
+func (builder *SubscribeAuditLogFileBuilder) FileUrlExpireTime(fileUrlExpireTime int) *SubscribeAuditLogFileBuilder {
+	builder.fileUrlExpireTime = fileUrlExpireTime
+	builder.fileUrlExpireTimeFlag = true
+	return builder
+}
+
+// 文件大小
+//
+// 示例值：10
+func (builder *SubscribeAuditLogFileBuilder) FileSize(fileSize int) *SubscribeAuditLogFileBuilder {
+	builder.fileSize = fileSize
+	builder.fileSizeFlag = true
+	return builder
+}
+
+// 文件打包的日志的开始时间
+//
+// 示例值：1741759604
+func (builder *SubscribeAuditLogFileBuilder) StartTime(startTime int) *SubscribeAuditLogFileBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 文件打包的日志的结束时间
+//
+// 示例值：1741759704
+func (builder *SubscribeAuditLogFileBuilder) EndTime(endTime int) *SubscribeAuditLogFileBuilder {
+	builder.endTime = endTime
+	builder.endTimeFlag = true
+	return builder
+}
+
+func (builder *SubscribeAuditLogFileBuilder) Build() *SubscribeAuditLogFile {
+	req := &SubscribeAuditLogFile{}
+	if builder.fileIdFlag {
+		req.FileId = &builder.fileId
+
+	}
+	if builder.fileUrlFlag {
+		req.FileUrl = &builder.fileUrl
+
+	}
+	if builder.fileUrlExpireTimeFlag {
+		req.FileUrlExpireTime = &builder.fileUrlExpireTime
+
+	}
+	if builder.fileSizeFlag {
+		req.FileSize = &builder.fileSize
+
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+
+	}
+	if builder.endTimeFlag {
+		req.EndTime = &builder.endTime
+
+	}
+	return req
+}
+
 type TaskStatus struct {
 	FailureReason *string `json:"failure_reason,omitempty"` // 任务失败原因
 

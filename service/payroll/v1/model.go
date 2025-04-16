@@ -3550,6 +3550,182 @@ func (builder *DmpTimelineFieldBuilder) Build() *DmpTimelineField {
 	return req
 }
 
+type DonationsTaxData struct {
+	EmployeeId *int `json:"employee_id,omitempty"` // 员工工号（老工号）
+
+	LegalName *string `json:"legal_name,omitempty"` // 法定姓名
+
+	IdentityType *string `json:"identity_type,omitempty"` // 证件类型
+
+	IdentityNumber *string `json:"identity_number,omitempty"` // 证件号码
+
+	IssuingCompany *string `json:"issuing_company,omitempty"` // 发薪公司主体
+
+	NonTaxResidence *string `json:"non_tax_residence,omitempty"` // 非居民纳税标签
+
+	TotalDonationAmount *string `json:"total_donation_amount,omitempty"` // 本月实际捐赠金额
+
+	TaxFreeDonationAmount30 *string `json:"tax_free_donation_amount30,omitempty"` // 本月实际免税捐赠-30%
+
+	TaxFreeDonationAmount100 *string `json:"tax_free_donation_amount100,omitempty"` // 本月实际免税捐赠-100%
+}
+
+type DonationsTaxDataBuilder struct {
+	employeeId     int // 员工工号（老工号）
+	employeeIdFlag bool
+
+	legalName     string // 法定姓名
+	legalNameFlag bool
+
+	identityType     string // 证件类型
+	identityTypeFlag bool
+
+	identityNumber     string // 证件号码
+	identityNumberFlag bool
+
+	issuingCompany     string // 发薪公司主体
+	issuingCompanyFlag bool
+
+	nonTaxResidence     string // 非居民纳税标签
+	nonTaxResidenceFlag bool
+
+	totalDonationAmount     string // 本月实际捐赠金额
+	totalDonationAmountFlag bool
+
+	taxFreeDonationAmount30     string // 本月实际免税捐赠-30%
+	taxFreeDonationAmount30Flag bool
+
+	taxFreeDonationAmount100     string // 本月实际免税捐赠-100%
+	taxFreeDonationAmount100Flag bool
+}
+
+func NewDonationsTaxDataBuilder() *DonationsTaxDataBuilder {
+	builder := &DonationsTaxDataBuilder{}
+	return builder
+}
+
+// 员工工号（老工号）
+//
+// 示例值：111
+func (builder *DonationsTaxDataBuilder) EmployeeId(employeeId int) *DonationsTaxDataBuilder {
+	builder.employeeId = employeeId
+	builder.employeeIdFlag = true
+	return builder
+}
+
+// 法定姓名
+//
+// 示例值：张三
+func (builder *DonationsTaxDataBuilder) LegalName(legalName string) *DonationsTaxDataBuilder {
+	builder.legalName = legalName
+	builder.legalNameFlag = true
+	return builder
+}
+
+// 证件类型
+//
+// 示例值：居民身份证
+func (builder *DonationsTaxDataBuilder) IdentityType(identityType string) *DonationsTaxDataBuilder {
+	builder.identityType = identityType
+	builder.identityTypeFlag = true
+	return builder
+}
+
+// 证件号码
+//
+// 示例值：123456789
+func (builder *DonationsTaxDataBuilder) IdentityNumber(identityNumber string) *DonationsTaxDataBuilder {
+	builder.identityNumber = identityNumber
+	builder.identityNumberFlag = true
+	return builder
+}
+
+// 发薪公司主体
+//
+// 示例值：字节跳动
+func (builder *DonationsTaxDataBuilder) IssuingCompany(issuingCompany string) *DonationsTaxDataBuilder {
+	builder.issuingCompany = issuingCompany
+	builder.issuingCompanyFlag = true
+	return builder
+}
+
+// 非居民纳税标签
+//
+// 示例值：是
+func (builder *DonationsTaxDataBuilder) NonTaxResidence(nonTaxResidence string) *DonationsTaxDataBuilder {
+	builder.nonTaxResidence = nonTaxResidence
+	builder.nonTaxResidenceFlag = true
+	return builder
+}
+
+// 本月实际捐赠金额
+//
+// 示例值：123.45
+func (builder *DonationsTaxDataBuilder) TotalDonationAmount(totalDonationAmount string) *DonationsTaxDataBuilder {
+	builder.totalDonationAmount = totalDonationAmount
+	builder.totalDonationAmountFlag = true
+	return builder
+}
+
+// 本月实际免税捐赠-30%
+//
+// 示例值：123.45
+func (builder *DonationsTaxDataBuilder) TaxFreeDonationAmount30(taxFreeDonationAmount30 string) *DonationsTaxDataBuilder {
+	builder.taxFreeDonationAmount30 = taxFreeDonationAmount30
+	builder.taxFreeDonationAmount30Flag = true
+	return builder
+}
+
+// 本月实际免税捐赠-100%
+//
+// 示例值：123.45
+func (builder *DonationsTaxDataBuilder) TaxFreeDonationAmount100(taxFreeDonationAmount100 string) *DonationsTaxDataBuilder {
+	builder.taxFreeDonationAmount100 = taxFreeDonationAmount100
+	builder.taxFreeDonationAmount100Flag = true
+	return builder
+}
+
+func (builder *DonationsTaxDataBuilder) Build() *DonationsTaxData {
+	req := &DonationsTaxData{}
+	if builder.employeeIdFlag {
+		req.EmployeeId = &builder.employeeId
+
+	}
+	if builder.legalNameFlag {
+		req.LegalName = &builder.legalName
+
+	}
+	if builder.identityTypeFlag {
+		req.IdentityType = &builder.identityType
+
+	}
+	if builder.identityNumberFlag {
+		req.IdentityNumber = &builder.identityNumber
+
+	}
+	if builder.issuingCompanyFlag {
+		req.IssuingCompany = &builder.issuingCompany
+
+	}
+	if builder.nonTaxResidenceFlag {
+		req.NonTaxResidence = &builder.nonTaxResidence
+
+	}
+	if builder.totalDonationAmountFlag {
+		req.TotalDonationAmount = &builder.totalDonationAmount
+
+	}
+	if builder.taxFreeDonationAmount30Flag {
+		req.TaxFreeDonationAmount30 = &builder.taxFreeDonationAmount30
+
+	}
+	if builder.taxFreeDonationAmount100Flag {
+		req.TaxFreeDonationAmount100 = &builder.taxFreeDonationAmount100
+
+	}
+	return req
+}
+
 type EmployeeInfo struct {
 	UserId *string `json:"user_id,omitempty"` // saas user id
 

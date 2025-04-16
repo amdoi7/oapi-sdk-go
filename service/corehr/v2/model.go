@@ -24305,6 +24305,8 @@ type JobFamily struct {
 
 	Active *bool `json:"active,omitempty"` // 启用
 
+	Selectable *bool `json:"selectable,omitempty"` // 可选
+
 	ParentId *string `json:"parent_id,omitempty"` // 上级序列
 
 	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道ID
@@ -24329,6 +24331,9 @@ type JobFamilyBuilder struct {
 
 	active     bool // 启用
 	activeFlag bool
+
+	selectable     bool // 可选
+	selectableFlag bool
 
 	parentId     string // 上级序列
 	parentIdFlag bool
@@ -24381,6 +24386,15 @@ func (builder *JobFamilyBuilder) Name(name []*I18n) *JobFamilyBuilder {
 func (builder *JobFamilyBuilder) Active(active bool) *JobFamilyBuilder {
 	builder.active = active
 	builder.activeFlag = true
+	return builder
+}
+
+// 可选
+//
+// 示例值：true
+func (builder *JobFamilyBuilder) Selectable(selectable bool) *JobFamilyBuilder {
+	builder.selectable = selectable
+	builder.selectableFlag = true
 	return builder
 }
 
@@ -24460,6 +24474,10 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 		req.Active = &builder.active
 
 	}
+	if builder.selectableFlag {
+		req.Selectable = &builder.selectable
+
+	}
 	if builder.parentIdFlag {
 		req.ParentId = &builder.parentId
 
@@ -24534,6 +24552,8 @@ type JobFamilyVersionData struct {
 
 	Descriptions []*I18n `json:"descriptions,omitempty"` // 描述
 
+	Selectable *bool `json:"selectable,omitempty"` // 可选
+
 	ParentJobFamilyId *string `json:"parent_job_family_id,omitempty"` // 上级序列
 
 	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道 ID 列表
@@ -24562,6 +24582,9 @@ type JobFamilyVersionDataBuilder struct {
 
 	descriptions     []*I18n // 描述
 	descriptionsFlag bool
+
+	selectable     bool // 可选
+	selectableFlag bool
 
 	parentJobFamilyId     string // 上级序列
 	parentJobFamilyIdFlag bool
@@ -24641,6 +24664,15 @@ func (builder *JobFamilyVersionDataBuilder) Descriptions(descriptions []*I18n) *
 	return builder
 }
 
+// 可选
+//
+// 示例值：true
+func (builder *JobFamilyVersionDataBuilder) Selectable(selectable bool) *JobFamilyVersionDataBuilder {
+	builder.selectable = selectable
+	builder.selectableFlag = true
+	return builder
+}
+
 // 上级序列
 //
 // 示例值：4698020757495316313
@@ -24695,6 +24727,10 @@ func (builder *JobFamilyVersionDataBuilder) Build() *JobFamilyVersionData {
 	}
 	if builder.descriptionsFlag {
 		req.Descriptions = builder.descriptions
+	}
+	if builder.selectableFlag {
+		req.Selectable = &builder.selectable
+
 	}
 	if builder.parentJobFamilyIdFlag {
 		req.ParentJobFamilyId = &builder.parentJobFamilyId

@@ -10681,6 +10681,8 @@ type JobFamily struct {
 
 	Active *bool `json:"active,omitempty"` // 是否启用
 
+	Selectable *bool `json:"selectable,omitempty"` // 可选
+
 	ParentId *string `json:"parent_id,omitempty"` // 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 
 	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道ID
@@ -10705,6 +10707,9 @@ type JobFamilyBuilder struct {
 
 	active     bool // 是否启用
 	activeFlag bool
+
+	selectable     bool // 可选
+	selectableFlag bool
 
 	parentId     string // 上级职务序列 ID，枚举值及详细信息可通过【批量查询职务序列】接口查询获得
 	parentIdFlag bool
@@ -10757,6 +10762,15 @@ func (builder *JobFamilyBuilder) Name(name []*I18n) *JobFamilyBuilder {
 func (builder *JobFamilyBuilder) Active(active bool) *JobFamilyBuilder {
 	builder.active = active
 	builder.activeFlag = true
+	return builder
+}
+
+// 可选
+//
+// 示例值：true
+func (builder *JobFamilyBuilder) Selectable(selectable bool) *JobFamilyBuilder {
+	builder.selectable = selectable
+	builder.selectableFlag = true
 	return builder
 }
 
@@ -10834,6 +10848,10 @@ func (builder *JobFamilyBuilder) Build() *JobFamily {
 	}
 	if builder.activeFlag {
 		req.Active = &builder.active
+
+	}
+	if builder.selectableFlag {
+		req.Selectable = &builder.selectable
 
 	}
 	if builder.parentIdFlag {
