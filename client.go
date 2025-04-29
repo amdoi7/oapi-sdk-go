@@ -79,58 +79,58 @@ import (
 
 type Client struct {
 	config                 *larkcore.Config
-	Im                     *im.Service
+	Docs                   *docs.Service
+	OpticalCharRecognition *optical_char_recognition.Service
+	Payroll                *payroll.Service
+	Report                 *report.Service
+	Translation            *translation.Service
+	Aily                   *aily.Service
+	Attendance             *attendance.Service
+	Baike                  *baike.Service
+	Vc                     *vc.Service
+	Passport               *passport.Service
+	Authen                 *authen.Service
+	Contact                *contact.Service
+	Docx                   *docx.Service
+	Mdm                    *mdm.Service
+	Acs                    *acs.Service
+	Auth                   *auth.Service
+	Helpdesk               *helpdesk.Service
+	Hire                   *hire.Service
+	MeetingRoom            *meeting_room.Service
+	Tenant                 *tenant.Service
+	Apaas                  *apaas.Service
+	Bitable                *bitable.Service
+	Corehr                 *corehr.Service
+	Moments                *moments.Service
+	Okr                    *okr.Service
+	Admin                  *admin.Service
+	Board                  *board.Service
+	Event                  *event.Service
 	SecurityAndCompliance  *security_and_compliance.Service
 	Sheets                 *sheets.Service
-	Vc                     *vc.Service
-	Contact                *contact.Service
-	Corehr                 *corehr.Service
-	Docx                   *docx.Service
-	Event                  *event.Service
-	Hire                   *hire.Service
-	Moments                *moments.Service
-	Report                 *report.Service
-	Task                   *task.Service
-	Apaas                  *apaas.Service
-	Authen                 *authen.Service
-	Baike                  *baike.Service
-	OpticalCharRecognition *optical_char_recognition.Service
-	Wiki                   *wiki.Service
-	Admin                  *admin.Service
-	Application            *application.Service
-	Ehr                    *ehr.Service
-	Attendance             *attendance.Service
-	HumanAuthentication    *human_authentication.Service
-	Mdm                    *mdm.Service
-	Performance            *performance.Service
+	SpeechToText           *speech_to_text.Service
 	Approval               *approval.Service
-	Calendar               *calendar.Service
-	Docs                   *docs.Service
-	Helpdesk               *helpdesk.Service
-	Lingo                  *lingo.Service
-	Minutes                *minutes.Service
-	Okr                    *okr.Service
-	Tenant                 *tenant.Service
-	Bitable                *bitable.Service
+	Block                  *block.Service
+	PersonalSettings       *personal_settings.Service
+	Task                   *task.Service
+	Verification           *verification.Service
+	Wiki                   *wiki.Service
 	DocumentAi             *document_ai.Service
 	Drive                  *drive.Service
-	Workplace              *workplace.Service
-	Passport               *passport.Service
-	Payroll                *payroll.Service
-	Acs                    *acs.Service
-	Block                  *block.Service
-	Board                  *board.Service
+	Performance            *performance.Service
 	Compensation           *compensation.Service
-	Mail                   *mail.Service
-	MeetingRoom            *meeting_room.Service
-	PersonalSettings       *personal_settings.Service
-	Search                 *search.Service
-	Aily                   *aily.Service
-	Auth                   *auth.Service
+	Ehr                    *ehr.Service
+	HumanAuthentication    *human_authentication.Service
+	Im                     *im.Service
+	Lingo                  *lingo.Service
+	Application            *application.Service
+	Calendar               *calendar.Service
 	Cardkit                *cardkit.Service
-	SpeechToText           *speech_to_text.Service
-	Translation            *translation.Service
-	Verification           *verification.Service
+	Workplace              *workplace.Service
+	Mail                   *mail.Service
+	Minutes                *minutes.Service
+	Search                 *search.Service
 	Ext                    *larkext.ExtService
 }
 
@@ -254,58 +254,58 @@ func NewClient(appId, appSecret string, options ...ClientOptionFunc) *Client {
 }
 
 func initService(client *Client, config *larkcore.Config) {
-	client.Im = im.NewService(config)
+	client.Docs = docs.NewService(config)
+	client.OpticalCharRecognition = optical_char_recognition.NewService(config)
+	client.Payroll = payroll.NewService(config)
+	client.Report = report.NewService(config)
+	client.Translation = translation.NewService(config)
+	client.Aily = aily.NewService(config)
+	client.Attendance = attendance.NewService(config)
+	client.Baike = baike.NewService(config)
+	client.Vc = vc.NewService(config)
+	client.Passport = passport.NewService(config)
+	client.Authen = authen.NewService(config)
+	client.Contact = contact.NewService(config)
+	client.Docx = docx.NewService(config)
+	client.Mdm = mdm.NewService(config)
+	client.Acs = acs.NewService(config)
+	client.Auth = auth.NewService(config)
+	client.Helpdesk = helpdesk.NewService(config)
+	client.Hire = hire.NewService(config)
+	client.MeetingRoom = meeting_room.NewService(config)
+	client.Tenant = tenant.NewService(config)
+	client.Apaas = apaas.NewService(config)
+	client.Bitable = bitable.NewService(config)
+	client.Corehr = corehr.NewService(config)
+	client.Moments = moments.NewService(config)
+	client.Okr = okr.NewService(config)
+	client.Admin = admin.NewService(config)
+	client.Board = board.NewService(config)
+	client.Event = event.NewService(config)
 	client.SecurityAndCompliance = security_and_compliance.NewService(config)
 	client.Sheets = sheets.NewService(config)
-	client.Vc = vc.NewService(config)
-	client.Contact = contact.NewService(config)
-	client.Corehr = corehr.NewService(config)
-	client.Docx = docx.NewService(config)
-	client.Event = event.NewService(config)
-	client.Hire = hire.NewService(config)
-	client.Moments = moments.NewService(config)
-	client.Report = report.NewService(config)
-	client.Task = task.NewService(config)
-	client.Apaas = apaas.NewService(config)
-	client.Authen = authen.NewService(config)
-	client.Baike = baike.NewService(config)
-	client.OpticalCharRecognition = optical_char_recognition.NewService(config)
-	client.Wiki = wiki.NewService(config)
-	client.Admin = admin.NewService(config)
-	client.Application = application.NewService(config)
-	client.Ehr = ehr.NewService(config)
-	client.Attendance = attendance.NewService(config)
-	client.HumanAuthentication = human_authentication.NewService(config)
-	client.Mdm = mdm.NewService(config)
-	client.Performance = performance.NewService(config)
+	client.SpeechToText = speech_to_text.NewService(config)
 	client.Approval = approval.NewService(config)
-	client.Calendar = calendar.NewService(config)
-	client.Docs = docs.NewService(config)
-	client.Helpdesk = helpdesk.NewService(config)
-	client.Lingo = lingo.NewService(config)
-	client.Minutes = minutes.NewService(config)
-	client.Okr = okr.NewService(config)
-	client.Tenant = tenant.NewService(config)
-	client.Bitable = bitable.NewService(config)
+	client.Block = block.NewService(config)
+	client.PersonalSettings = personal_settings.NewService(config)
+	client.Task = task.NewService(config)
+	client.Verification = verification.NewService(config)
+	client.Wiki = wiki.NewService(config)
 	client.DocumentAi = document_ai.NewService(config)
 	client.Drive = drive.NewService(config)
-	client.Workplace = workplace.NewService(config)
-	client.Passport = passport.NewService(config)
-	client.Payroll = payroll.NewService(config)
-	client.Acs = acs.NewService(config)
-	client.Block = block.NewService(config)
-	client.Board = board.NewService(config)
+	client.Performance = performance.NewService(config)
 	client.Compensation = compensation.NewService(config)
-	client.Mail = mail.NewService(config)
-	client.MeetingRoom = meeting_room.NewService(config)
-	client.PersonalSettings = personal_settings.NewService(config)
-	client.Search = search.NewService(config)
-	client.Aily = aily.NewService(config)
-	client.Auth = auth.NewService(config)
+	client.Ehr = ehr.NewService(config)
+	client.HumanAuthentication = human_authentication.NewService(config)
+	client.Im = im.NewService(config)
+	client.Lingo = lingo.NewService(config)
+	client.Application = application.NewService(config)
+	client.Calendar = calendar.NewService(config)
 	client.Cardkit = cardkit.NewService(config)
-	client.SpeechToText = speech_to_text.NewService(config)
-	client.Translation = translation.NewService(config)
-	client.Verification = verification.NewService(config)
+	client.Workplace = workplace.NewService(config)
+	client.Mail = mail.NewService(config)
+	client.Minutes = minutes.NewService(config)
+	client.Search = search.NewService(config)
 	client.Ext = larkext.NewService(config)
 }
 

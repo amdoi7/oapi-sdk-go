@@ -2054,6 +2054,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -2061,6 +2063,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2415,7 +2419,7 @@ func (builder *IdNameObjectBuilder) Id(id string) *IdNameObjectBuilder {
 	return builder
 }
 
-//	用户姓名
+//  用户姓名
 //
 // 示例值：
 func (builder *IdNameObjectBuilder) Name(name *I18n) *IdNameObjectBuilder {

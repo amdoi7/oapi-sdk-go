@@ -3200,6 +3200,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -3207,6 +3209,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -6422,6 +6426,8 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -6429,6 +6435,8 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -6436,6 +6444,8 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -7183,7 +7193,7 @@ func NewSearchCalendarReqBodyBuilder() *SearchCalendarReqBodyBuilder {
 
 // 搜索关键字
 //
-// 示例值：query words
+//示例值：query words
 func (builder *SearchCalendarReqBodyBuilder) Query(query string) *SearchCalendarReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -8265,7 +8275,7 @@ func NewReplyCalendarEventReqBodyBuilder() *ReplyCalendarEventReqBodyBuilder {
 
 // rsvp-日程状态
 //
-// 示例值：accept
+//示例值：accept
 func (builder *ReplyCalendarEventReqBodyBuilder) RsvpStatus(rsvpStatus string) *ReplyCalendarEventReqBodyBuilder {
 	builder.rsvpStatus = rsvpStatus
 	builder.rsvpStatusFlag = true
@@ -8337,6 +8347,7 @@ func (builder *ReplyCalendarEventReqBuilder) EventId(eventId string) *ReplyCalen
 	return builder
 }
 
+//
 func (builder *ReplyCalendarEventReqBuilder) Body(body *ReplyCalendarEventReqBody) *ReplyCalendarEventReqBuilder {
 	builder.body = body
 	return builder
@@ -8383,7 +8394,7 @@ func NewSearchCalendarEventReqBodyBuilder() *SearchCalendarEventReqBodyBuilder {
 
 // 搜索关键字
 //
-// 示例值：query words
+//示例值：query words
 func (builder *SearchCalendarEventReqBodyBuilder) Query(query string) *SearchCalendarEventReqBodyBuilder {
 	builder.query = query
 	builder.queryFlag = true
@@ -8392,7 +8403,7 @@ func (builder *SearchCalendarEventReqBodyBuilder) Query(query string) *SearchCal
 
 // 搜索过滤器
 //
-// 示例值：
+//示例值：
 func (builder *SearchCalendarEventReqBodyBuilder) Filter(filter *EventSearchFilter) *SearchCalendarEventReqBodyBuilder {
 	builder.filter = filter
 	builder.filterFlag = true
@@ -8655,7 +8666,7 @@ func NewBatchDeleteCalendarEventAttendeeReqBodyBuilder() *BatchDeleteCalendarEve
 
 // 要移除的参与人 ID 列表。参见[参与人ID说明](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/calendar-v4/calendar-event-attendee/introduction#4998889c)
 //
-// 示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
+//示例值：["user_xxxxx", "chat_xxxxx", "resource_xxxxx", "third_party_xxxxx"]
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) AttendeeIds(attendeeIds []string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.attendeeIds = attendeeIds
 	builder.attendeeIdsFlag = true
@@ -8664,7 +8675,7 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) AttendeeIds(atten
 
 // 需要删除的参与人类型实体ID，作为attendee_ids字段的补充。
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) DeleteIds(deleteIds []*CalendarEventAttendeeId) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.deleteIds = deleteIds
 	builder.deleteIdsFlag = true
@@ -8673,7 +8684,7 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) DeleteIds(deleteI
 
 // 删除日程参与人时是否要给参与人发送bot通知，默认为true
 //
-// 示例值：false
+//示例值：false
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) NeedNotification(needNotification bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.needNotification = needNotification
 	builder.needNotificationFlag = true
@@ -8682,7 +8693,7 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) NeedNotification(
 
 // 使用管理员身份访问时要修改的实例
 //
-// 示例值：1647320400
+//示例值：1647320400
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
 	builder.instanceStartTimeAdminFlag = true
@@ -8691,7 +8702,7 @@ func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) InstanceStartTime
 
 // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
 //
-// 示例值：false
+//示例值：false
 func (builder *BatchDeleteCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *BatchDeleteCalendarEventAttendeeReqBodyBuilder {
 	builder.isEnableAdmin = isEnableAdmin
 	builder.isEnableAdminFlag = true
@@ -8904,7 +8915,7 @@ func NewCreateCalendarEventAttendeeReqBodyBuilder() *CreateCalendarEventAttendee
 
 // 新增参与人列表；;- 单次请求会议室的数量限制为100。
 //
-// 示例值：
+//示例值：
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Attendees(attendees []*CalendarEventAttendee) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.attendees = attendees
 	builder.attendeesFlag = true
@@ -8913,7 +8924,7 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) Attendees(attendees []
 
 // 是否给参与人发送bot通知 默认为true
 //
-// 示例值：false
+//示例值：false
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) NeedNotification(needNotification bool) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.needNotification = needNotification
 	builder.needNotificationFlag = true
@@ -8922,7 +8933,7 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) NeedNotification(needN
 
 // 使用管理员身份访问时要修改的实例(仅用于重复日程修改其中的一个实例，非重复日程无需填此字段)
 //
-// 示例值：1647320400
+//示例值：1647320400
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin(instanceStartTimeAdmin string) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.instanceStartTimeAdmin = instanceStartTimeAdmin
 	builder.instanceStartTimeAdminFlag = true
@@ -8931,7 +8942,7 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) InstanceStartTimeAdmin
 
 // 是否启用管理员身份(需先在管理后台设置某人为会议室管理员)
 //
-// 示例值：false
+//示例值：false
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnableAdmin bool) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.isEnableAdmin = isEnableAdmin
 	builder.isEnableAdminFlag = true
@@ -8940,7 +8951,7 @@ func (builder *CreateCalendarEventAttendeeReqBodyBuilder) IsEnableAdmin(isEnable
 
 // 是否添加会议室operate_id标识的用户到参与人
 //
-// 示例值：false
+//示例值：false
 func (builder *CreateCalendarEventAttendeeReqBodyBuilder) AddOperatorToAttendee(addOperatorToAttendee bool) *CreateCalendarEventAttendeeReqBodyBuilder {
 	builder.addOperatorToAttendee = addOperatorToAttendee
 	builder.addOperatorToAttendeeFlag = true
@@ -9698,7 +9709,7 @@ func NewListFreebusyReqBodyBuilder() *ListFreebusyReqBodyBuilder {
 
 // 查询时段开始时间，需要url编码
 //
-// 示例值：2020-10-28T12:00:00+08:00
+//示例值：2020-10-28T12:00:00+08:00
 func (builder *ListFreebusyReqBodyBuilder) TimeMin(timeMin string) *ListFreebusyReqBodyBuilder {
 	builder.timeMin = timeMin
 	builder.timeMinFlag = true
@@ -9707,7 +9718,7 @@ func (builder *ListFreebusyReqBodyBuilder) TimeMin(timeMin string) *ListFreebusy
 
 // 查询时段结束时间，需要url编码
 //
-// 示例值：2020-12-28T12:00:00+08:00
+//示例值：2020-12-28T12:00:00+08:00
 func (builder *ListFreebusyReqBodyBuilder) TimeMax(timeMax string) *ListFreebusyReqBodyBuilder {
 	builder.timeMax = timeMax
 	builder.timeMaxFlag = true
@@ -9716,7 +9727,7 @@ func (builder *ListFreebusyReqBodyBuilder) TimeMax(timeMax string) *ListFreebusy
 
 // 用户user_id，输入时与 room_id 二选一。参见[用户相关的 ID 概念](https://open.feishu.cn/document/home/user-identity-introduction/introduction)
 //
-// 示例值：ou_xxxxxxxxxx
+//示例值：ou_xxxxxxxxxx
 func (builder *ListFreebusyReqBodyBuilder) UserId(userId string) *ListFreebusyReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true
@@ -9725,7 +9736,7 @@ func (builder *ListFreebusyReqBodyBuilder) UserId(userId string) *ListFreebusyRe
 
 // 会议室room_id，输入时与 user_id 二选一
 //
-// 示例值：omm_xxxxxxxxxx
+//示例值：omm_xxxxxxxxxx
 func (builder *ListFreebusyReqBodyBuilder) RoomId(roomId string) *ListFreebusyReqBodyBuilder {
 	builder.roomId = roomId
 	builder.roomIdFlag = true
@@ -9734,7 +9745,7 @@ func (builder *ListFreebusyReqBodyBuilder) RoomId(roomId string) *ListFreebusyRe
 
 // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
 //
-// 示例值：true
+//示例值：true
 func (builder *ListFreebusyReqBodyBuilder) IncludeExternalCalendar(includeExternalCalendar bool) *ListFreebusyReqBodyBuilder {
 	builder.includeExternalCalendar = includeExternalCalendar
 	builder.includeExternalCalendarFlag = true
@@ -9743,7 +9754,7 @@ func (builder *ListFreebusyReqBodyBuilder) IncludeExternalCalendar(includeExtern
 
 // 是否包含标记为空闲的日程，不传默认为true，即包含。
 //
-// 示例值：true
+//示例值：true
 func (builder *ListFreebusyReqBodyBuilder) OnlyBusy(onlyBusy bool) *ListFreebusyReqBodyBuilder {
 	builder.onlyBusy = onlyBusy
 	builder.onlyBusyFlag = true
@@ -9951,7 +9962,7 @@ func NewGenerateCaldavConfSettingReqBodyBuilder() *GenerateCaldavConfSettingReqB
 
 // 需要同步日历的设备名，在日历中展示用来管理密码
 //
-// 示例值：iPhone
+//示例值：iPhone
 func (builder *GenerateCaldavConfSettingReqBodyBuilder) DeviceName(deviceName string) *GenerateCaldavConfSettingReqBodyBuilder {
 	builder.deviceName = deviceName
 	builder.deviceNameFlag = true

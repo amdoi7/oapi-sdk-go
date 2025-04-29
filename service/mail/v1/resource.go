@@ -896,6 +896,32 @@ func (p *publicMailbox) Patch(ctx context.Context, req *PatchPublicMailboxReq, o
 	return resp, err
 }
 
+// RemoveToRecycleBin
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_to_recycle_bin&project=mail&resource=public_mailbox&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/mailv1/removeToRecycleBin_publicMailbox.go
+func (p *publicMailbox) RemoveToRecycleBin(ctx context.Context, req *RemoveToRecycleBinPublicMailboxReq, options ...larkcore.RequestOptionFunc) (*RemoveToRecycleBinPublicMailboxResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/mail/v1/public_mailboxes/:public_mailbox_id/remove_to_recycle_bin"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RemoveToRecycleBinPublicMailboxResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Update 更新公共邮箱
 //
 // - 更新公共邮箱所有信息

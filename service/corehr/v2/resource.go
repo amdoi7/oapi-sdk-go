@@ -24,8 +24,10 @@ type V2 struct {
 	Bp                                *bp                                // bp
 	Company                           *company                           // company
 	Contract                          *contract                          // contract
+	CostAllocation                    *costAllocation                    // cost_allocation
 	CostCenter                        *costCenter                        // cost_center
 	CostCenterVersion                 *costCenterVersion                 // cost_center.version
+	DefaultCostCenter                 *defaultCostCenter                 // default_cost_center
 	Department                        *department                        // department
 	Employee                          *employee                          // employee
 	EmployeesAdditionalJob            *employeesAdditionalJob            // employees.additional_job
@@ -77,8 +79,10 @@ func New(config *larkcore.Config) *V2 {
 		Bp:                                &bp{config: config},
 		Company:                           &company{config: config},
 		Contract:                          &contract{config: config},
+		CostAllocation:                    &costAllocation{config: config},
 		CostCenter:                        &costCenter{config: config},
 		CostCenterVersion:                 &costCenterVersion{config: config},
+		DefaultCostCenter:                 &defaultCostCenter{config: config},
 		Department:                        &department{config: config},
 		Employee:                          &employee{config: config},
 		EmployeesAdditionalJob:            &employeesAdditionalJob{config: config},
@@ -159,10 +163,16 @@ type company struct {
 type contract struct {
 	config *larkcore.Config
 }
+type costAllocation struct {
+	config *larkcore.Config
+}
 type costCenter struct {
 	config *larkcore.Config
 }
 type costCenterVersion struct {
+	config *larkcore.Config
+}
+type defaultCostCenter struct {
 	config *larkcore.Config
 }
 type department struct {
@@ -886,6 +896,110 @@ func (c *contract) SearchByIterator(ctx context.Context, req *SearchContractReq,
 		limit:    req.Limit}, nil
 }
 
+// BatchQuery
+//
+// - 通过员工ID批量获取通道信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=corehr&resource=cost_allocation&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchQuery_costAllocation.go
+func (c *costAllocation) BatchQuery(ctx context.Context, req *BatchQueryCostAllocationReq, options ...larkcore.RequestOptionFunc) (*BatchQueryCostAllocationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_allocations/batch_query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchQueryCostAllocationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// CreateVersion
+//
+// - 创建成本分摊
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_version&project=corehr&resource=cost_allocation&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/createVersion_costAllocation.go
+func (c *costAllocation) CreateVersion(ctx context.Context, req *CreateVersionCostAllocationReq, options ...larkcore.RequestOptionFunc) (*CreateVersionCostAllocationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_allocations/create_version"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateVersionCostAllocationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RemoveVersion
+//
+// - 删除成本分摊
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_version&project=corehr&resource=cost_allocation&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/removeVersion_costAllocation.go
+func (c *costAllocation) RemoveVersion(ctx context.Context, req *RemoveVersionCostAllocationReq, options ...larkcore.RequestOptionFunc) (*RemoveVersionCostAllocationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_allocations/remove_version"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RemoveVersionCostAllocationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// UpdateVersion
+//
+// - 更新成本分摊
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_version&project=corehr&resource=cost_allocation&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/updateVersion_costAllocation.go
+func (c *costAllocation) UpdateVersion(ctx context.Context, req *UpdateVersionCostAllocationReq, options ...larkcore.RequestOptionFunc) (*UpdateVersionCostAllocationResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/cost_allocations/update_version"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateVersionCostAllocationResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create
 //
 // - 创建成本中心
@@ -1088,6 +1202,110 @@ func (c *costCenterVersion) Patch(ctx context.Context, req *PatchCostCenterVersi
 	// 反序列响应结果
 	resp := &PatchCostCenterVersionResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchQuery
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=corehr&resource=default_cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchQuery_defaultCostCenter.go
+func (d *defaultCostCenter) BatchQuery(ctx context.Context, req *BatchQueryDefaultCostCenterReq, options ...larkcore.RequestOptionFunc) (*BatchQueryDefaultCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/default_cost_centers/batch_query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchQueryDefaultCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// CreateVersion
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_version&project=corehr&resource=default_cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/createVersion_defaultCostCenter.go
+func (d *defaultCostCenter) CreateVersion(ctx context.Context, req *CreateVersionDefaultCostCenterReq, options ...larkcore.RequestOptionFunc) (*CreateVersionDefaultCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/default_cost_centers/create_version"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateVersionDefaultCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RemoveVersion
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=remove_version&project=corehr&resource=default_cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/removeVersion_defaultCostCenter.go
+func (d *defaultCostCenter) RemoveVersion(ctx context.Context, req *RemoveVersionDefaultCostCenterReq, options ...larkcore.RequestOptionFunc) (*RemoveVersionDefaultCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/default_cost_centers/remove_version"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RemoveVersionDefaultCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// UpdateVersion
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_version&project=corehr&resource=default_cost_center&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/updateVersion_defaultCostCenter.go
+func (d *defaultCostCenter) UpdateVersion(ctx context.Context, req *UpdateVersionDefaultCostCenterReq, options ...larkcore.RequestOptionFunc) (*UpdateVersionDefaultCostCenterResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/default_cost_centers/update_version"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateVersionDefaultCostCenterResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
 	if err != nil {
 		return nil, err
 	}

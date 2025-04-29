@@ -734,6 +734,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -741,6 +743,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -3925,6 +3929,8 @@ func NewReviewDataPermissionBuilder() *ReviewDataPermissionBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *ReviewDataPermissionBuilder) UserId(userId *User) *ReviewDataPermissionBuilder {
 	builder.userId = userId
@@ -6126,6 +6132,8 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -6133,6 +6141,8 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -6140,6 +6150,8 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -6424,7 +6436,7 @@ func NewQueryActivityReqBodyBuilder() *QueryActivityReqBodyBuilder {
 
 // 评估周期 ID 列表，获取指定评估周期的项目 ID，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：
+//示例值：
 func (builder *QueryActivityReqBodyBuilder) SemesterIds(semesterIds []string) *QueryActivityReqBodyBuilder {
 	builder.semesterIds = semesterIds
 	builder.semesterIdsFlag = true
@@ -6433,7 +6445,7 @@ func (builder *QueryActivityReqBodyBuilder) SemesterIds(semesterIds []string) *Q
 
 // 项目 ID 列表，如果同时传了「semester_ids」，则优先以「activity_ids」进行查询
 //
-// 示例值：
+//示例值：
 func (builder *QueryActivityReqBodyBuilder) ActivityIds(activityIds []string) *QueryActivityReqBodyBuilder {
 	builder.activityIds = activityIds
 	builder.activityIdsFlag = true
@@ -6506,6 +6518,8 @@ func NewQueryActivityReqBuilder() *QueryActivityReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryActivityReqBuilder) UserIdType(userIdType string) *QueryActivityReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -6569,7 +6583,7 @@ func NewImportAdditionalInformationReqBodyBuilder() *ImportAdditionalInformation
 
 // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：7348736302176534547
+//示例值：7348736302176534547
 func (builder *ImportAdditionalInformationReqBodyBuilder) SemesterId(semesterId string) *ImportAdditionalInformationReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdFlag = true
@@ -6578,7 +6592,7 @@ func (builder *ImportAdditionalInformationReqBodyBuilder) SemesterId(semesterId 
 
 // 补充信息列表，一次最多 1000 个
 //
-// 示例值：
+//示例值：
 func (builder *ImportAdditionalInformationReqBodyBuilder) AdditionalInformations(additionalInformations []*AdditionalInformation) *ImportAdditionalInformationReqBodyBuilder {
 	builder.additionalInformations = additionalInformations
 	builder.additionalInformationsFlag = true
@@ -6587,7 +6601,7 @@ func (builder *ImportAdditionalInformationReqBodyBuilder) AdditionalInformations
 
 // 导入记录名称，管理员可在补充信息管理的导入记录中查看。不传则默认为 API 导入。
 //
-// 示例值：API导入
+//示例值：API导入
 func (builder *ImportAdditionalInformationReqBodyBuilder) ImportRecordName(importRecordName string) *ImportAdditionalInformationReqBodyBuilder {
 	builder.importRecordName = importRecordName
 	builder.importRecordNameFlag = true
@@ -6685,6 +6699,8 @@ func (builder *ImportAdditionalInformationReqBuilder) ClientToken(clientToken st
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *ImportAdditionalInformationReqBuilder) UserIdType(userIdType string) *ImportAdditionalInformationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -6755,7 +6771,7 @@ func NewQueryAdditionalInformationReqBodyBuilder() *QueryAdditionalInformationRe
 
 // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：7348736302176534547
+//示例值：7348736302176534547
 func (builder *QueryAdditionalInformationReqBodyBuilder) SemesterId(semesterId string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdFlag = true
@@ -6764,7 +6780,7 @@ func (builder *QueryAdditionalInformationReqBodyBuilder) SemesterId(semesterId s
 
 // 事项 ID 列表，获取指定事项 ID 的信息。以下请求参数中「item_ids」、「external_ids」、「reviewee_user_ids」均为空时，返回该评估周期的所有补充信息。若单次请求中多个请求参数有值，按照【item_ids > external_ids > reviewee_user_ids】的顺序只识别第一个有值的请求参数
 //
-// 示例值：
+//示例值：
 func (builder *QueryAdditionalInformationReqBodyBuilder) ItemIds(itemIds []string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.itemIds = itemIds
 	builder.itemIdsFlag = true
@@ -6773,7 +6789,7 @@ func (builder *QueryAdditionalInformationReqBodyBuilder) ItemIds(itemIds []strin
 
 // 外部系统的事项 ID 列表，获取对应的飞书绩效事项 ID。「item_ids」参数有值时该参数不生效
 //
-// 示例值：
+//示例值：
 func (builder *QueryAdditionalInformationReqBodyBuilder) ExternalIds(externalIds []string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.externalIds = externalIds
 	builder.externalIdsFlag = true
@@ -6782,7 +6798,7 @@ func (builder *QueryAdditionalInformationReqBodyBuilder) ExternalIds(externalIds
 
 // 被评估人 ID 列表，获取周期下被评估人的事项信息。「item_ids」、「external_ids」参数有值时该参数不生效
 //
-// 示例值：
+//示例值：
 func (builder *QueryAdditionalInformationReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryAdditionalInformationReqBodyBuilder {
 	builder.revieweeUserIds = revieweeUserIds
 	builder.revieweeUserIdsFlag = true
@@ -6896,6 +6912,8 @@ func (builder *QueryAdditionalInformationReqBuilder) Limit(limit int) *QueryAddi
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryAdditionalInformationReqBuilder) UserIdType(userIdType string) *QueryAdditionalInformationReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -6983,7 +7001,7 @@ func NewDeleteAdditionalInformationsBatchReqBodyBuilder() *DeleteAdditionalInfor
 
 // 评估周期 ID 列表，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：7348736302176534547
+//示例值：7348736302176534547
 func (builder *DeleteAdditionalInformationsBatchReqBodyBuilder) SemesterId(semesterId string) *DeleteAdditionalInformationsBatchReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdFlag = true
@@ -6992,7 +7010,7 @@ func (builder *DeleteAdditionalInformationsBatchReqBodyBuilder) SemesterId(semes
 
 // 补充信息列表，一次最多 100 个
 //
-// 示例值：
+//示例值：
 func (builder *DeleteAdditionalInformationsBatchReqBodyBuilder) AdditionalInformations(additionalInformations []string) *DeleteAdditionalInformationsBatchReqBodyBuilder {
 	builder.additionalInformations = additionalInformations
 	builder.additionalInformationsFlag = true
@@ -7065,6 +7083,8 @@ func NewDeleteAdditionalInformationsBatchReqBuilder() *DeleteAdditionalInformati
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *DeleteAdditionalInformationsBatchReqBuilder) UserIdType(userIdType string) *DeleteAdditionalInformationsBatchReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -7122,7 +7142,7 @@ func NewQueryIndicatorReqBodyBuilder() *QueryIndicatorReqBodyBuilder {
 
 // 评估项 ID 列表，获取指定评估项的配置数据
 //
-// 示例值：
+//示例值：
 func (builder *QueryIndicatorReqBodyBuilder) IndicatorIds(indicatorIds []string) *QueryIndicatorReqBodyBuilder {
 	builder.indicatorIds = indicatorIds
 	builder.indicatorIdsFlag = true
@@ -7263,7 +7283,7 @@ func NewImportMetricDetailReqBodyBuilder() *ImportMetricDetailReqBodyBuilder {
 
 // 周期 ID，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：7293040702907514899
+//示例值：7293040702907514899
 func (builder *ImportMetricDetailReqBodyBuilder) SemesterId(semesterId string) *ImportMetricDetailReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdFlag = true
@@ -7272,7 +7292,7 @@ func (builder *ImportMetricDetailReqBodyBuilder) SemesterId(semesterId string) *
 
 // 录入记录名称，数据源录入人在录入记录页面可以查看该记录名称。如果不传则默认为「API 录入」
 //
-// 示例值：API录入
+//示例值：API录入
 func (builder *ImportMetricDetailReqBodyBuilder) ImportRecordName(importRecordName string) *ImportMetricDetailReqBodyBuilder {
 	builder.importRecordName = importRecordName
 	builder.importRecordNameFlag = true
@@ -7281,7 +7301,7 @@ func (builder *ImportMetricDetailReqBodyBuilder) ImportRecordName(importRecordNa
 
 // 指标明细列表，一次最多50个
 //
-// 示例值：
+//示例值：
 func (builder *ImportMetricDetailReqBodyBuilder) ImportedMetrics(importedMetrics []*ImportedMetric) *ImportMetricDetailReqBodyBuilder {
 	builder.importedMetrics = importedMetrics
 	builder.importedMetricsFlag = true
@@ -7443,7 +7463,7 @@ func NewQueryMetricDetailReqBodyBuilder() *QueryMetricDetailReqBodyBuilder {
 
 // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：6992035450862224940
+//示例值：6992035450862224940
 func (builder *QueryMetricDetailReqBodyBuilder) SemesterId(semesterId string) *QueryMetricDetailReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdFlag = true
@@ -7452,7 +7472,7 @@ func (builder *QueryMetricDetailReqBodyBuilder) SemesterId(semesterId string) *Q
 
 // 被评估人 ID 列表。如果不传则返回该周期所有参与的被评估人的关键指标详情
 //
-// 示例值：
+//示例值：
 func (builder *QueryMetricDetailReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryMetricDetailReqBodyBuilder {
 	builder.revieweeUserIds = revieweeUserIds
 	builder.revieweeUserIdsFlag = true
@@ -7525,6 +7545,8 @@ func NewQueryMetricDetailReqBuilder() *QueryMetricDetailReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryMetricDetailReqBuilder) UserIdType(userIdType string) *QueryMetricDetailReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -7584,7 +7606,7 @@ func NewQueryMetricFieldReqBodyBuilder() *QueryMetricFieldReqBodyBuilder {
 
 // 指标的字段 ID，不传则默认获取全部字段信息
 //
-// 示例值：
+//示例值：
 func (builder *QueryMetricFieldReqBodyBuilder) FieldIds(fieldIds []string) *QueryMetricFieldReqBodyBuilder {
 	builder.fieldIds = fieldIds
 	builder.fieldIdsFlag = true
@@ -7700,7 +7722,7 @@ func NewQueryMetricLibReqBodyBuilder() *QueryMetricLibReqBodyBuilder {
 
 // 状态是否为启用
 //
-// 示例值：
+//示例值：
 func (builder *QueryMetricLibReqBodyBuilder) IsActive(isActive bool) *QueryMetricLibReqBodyBuilder {
 	builder.isActive = isActive
 	builder.isActiveFlag = true
@@ -7709,7 +7731,7 @@ func (builder *QueryMetricLibReqBodyBuilder) IsActive(isActive bool) *QueryMetri
 
 // 指标所属的标签 ID
 //
-// 示例值：
+//示例值：
 func (builder *QueryMetricLibReqBodyBuilder) TagIds(tagIds []string) *QueryMetricLibReqBodyBuilder {
 	builder.tagIds = tagIds
 	builder.tagIdsFlag = true
@@ -7718,7 +7740,7 @@ func (builder *QueryMetricLibReqBodyBuilder) TagIds(tagIds []string) *QueryMetri
 
 // 所属的指标类型 ID
 //
-// 示例值：
+//示例值：
 func (builder *QueryMetricLibReqBodyBuilder) TypeIds(typeIds []string) *QueryMetricLibReqBodyBuilder {
 	builder.typeIds = typeIds
 	builder.typeIdsFlag = true
@@ -7727,7 +7749,7 @@ func (builder *QueryMetricLibReqBodyBuilder) TypeIds(typeIds []string) *QueryMet
 
 // 可用范围
 //
-// 示例值：admins_and_reviewees
+//示例值：admins_and_reviewees
 func (builder *QueryMetricLibReqBodyBuilder) RangeOfAvailability(rangeOfAvailability string) *QueryMetricLibReqBodyBuilder {
 	builder.rangeOfAvailability = rangeOfAvailability
 	builder.rangeOfAvailabilityFlag = true
@@ -7736,7 +7758,7 @@ func (builder *QueryMetricLibReqBodyBuilder) RangeOfAvailability(rangeOfAvailabi
 
 // 评分设置类型
 //
-// 示例值：score_manually
+//示例值：score_manually
 func (builder *QueryMetricLibReqBodyBuilder) ScoringSettingType(scoringSettingType string) *QueryMetricLibReqBodyBuilder {
 	builder.scoringSettingType = scoringSettingType
 	builder.scoringSettingTypeFlag = true
@@ -7860,6 +7882,8 @@ func NewQueryMetricLibReqBuilder() *QueryMetricLibReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryMetricLibReqBuilder) UserIdType(userIdType string) *QueryMetricLibReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -8024,7 +8048,7 @@ func NewQueryMetricTemplateReqBodyBuilder() *QueryMetricTemplateReqBodyBuilder {
 
 // 指标模板 ID 列表，metrics_template_id 可以通过指标模板的后台配置详情页的 url 获取，也可通过本接口的返回值获取。不填写则默认返回所有指标模板
 //
-// 示例值：
+//示例值：
 func (builder *QueryMetricTemplateReqBodyBuilder) MetricsTemplateIds(metricsTemplateIds []string) *QueryMetricTemplateReqBodyBuilder {
 	builder.metricsTemplateIds = metricsTemplateIds
 	builder.metricsTemplateIdsFlag = true
@@ -8033,7 +8057,7 @@ func (builder *QueryMetricTemplateReqBodyBuilder) MetricsTemplateIds(metricsTemp
 
 // 状态
 //
-// 示例值：to_be_configured
+//示例值：to_be_configured
 func (builder *QueryMetricTemplateReqBodyBuilder) Status(status string) *QueryMetricTemplateReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -8106,6 +8130,8 @@ func NewQueryMetricTemplateReqBuilder() *QueryMetricTemplateReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryMetricTemplateReqBuilder) UserIdType(userIdType string) *QueryMetricTemplateReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -8183,7 +8209,7 @@ func NewQueryQuestionReqBodyBuilder() *QueryQuestionReqBodyBuilder {
 
 // 标签填写题 ID 列表，获取指定标签填写题的配置数据。如果不传则返回所有
 //
-// 示例值：
+//示例值：
 func (builder *QueryQuestionReqBodyBuilder) TagBasedQuestionIds(tagBasedQuestionIds []string) *QueryQuestionReqBodyBuilder {
 	builder.tagBasedQuestionIds = tagBasedQuestionIds
 	builder.tagBasedQuestionIdsFlag = true
@@ -8339,7 +8365,7 @@ func NewQueryReviewDataReqBodyBuilder() *QueryReviewDataReqBodyBuilder {
 
 // 评估周期 ID 列表，semester_id 可通过【获取周期】
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) SemesterIds(semesterIds []string) *QueryReviewDataReqBodyBuilder {
 	builder.semesterIds = semesterIds
 	builder.semesterIdsFlag = true
@@ -8348,7 +8374,7 @@ func (builder *QueryReviewDataReqBodyBuilder) SemesterIds(semesterIds []string) 
 
 // 被评估人 ID 列表
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) RevieweeUserIds(revieweeUserIds []string) *QueryReviewDataReqBodyBuilder {
 	builder.revieweeUserIds = revieweeUserIds
 	builder.revieweeUserIdsFlag = true
@@ -8357,7 +8383,7 @@ func (builder *QueryReviewDataReqBodyBuilder) RevieweeUserIds(revieweeUserIds []
 
 // 环节类型
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageTypes(stageTypes []string) *QueryReviewDataReqBodyBuilder {
 	builder.stageTypes = stageTypes
 	builder.stageTypesFlag = true
@@ -8366,7 +8392,7 @@ func (builder *QueryReviewDataReqBodyBuilder) StageTypes(stageTypes []string) *Q
 
 // 评估型环节的执行人角色，不传默认包含所有的执行人角色。当传入的环节类型中有评估型环节时，返回指定执行人角色的评估型环节数据
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) ReviewStageRoles(reviewStageRoles []string) *QueryReviewDataReqBodyBuilder {
 	builder.reviewStageRoles = reviewStageRoles
 	builder.reviewStageRolesFlag = true
@@ -8375,7 +8401,7 @@ func (builder *QueryReviewDataReqBodyBuilder) ReviewStageRoles(reviewStageRoles 
 
 // 环节 ID，如果同时传了环节 ID 和环节类型，优先返回环节 ID 对应的绩效数据
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageIds(stageIds []string) *QueryReviewDataReqBodyBuilder {
 	builder.stageIds = stageIds
 	builder.stageIdsFlag = true
@@ -8384,7 +8410,7 @@ func (builder *QueryReviewDataReqBodyBuilder) StageIds(stageIds []string) *Query
 
 // 当要获取的绩效数据的环节类型包含终评环节时，可指定是否需要返回绩效终评数据的具体环节来源。不填则默认不返回 返回的来源枚举值为： 枚举值： review 产生终评结果的评估型环节 calibaration 校准环节 reconsideration 结果复议环节
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) NeedLeaderReviewDataSource(needLeaderReviewDataSource bool) *QueryReviewDataReqBodyBuilder {
 	builder.needLeaderReviewDataSource = needLeaderReviewDataSource
 	builder.needLeaderReviewDataSourceFlag = true
@@ -8393,7 +8419,7 @@ func (builder *QueryReviewDataReqBodyBuilder) NeedLeaderReviewDataSource(needLea
 
 // 环节更新时间晚于，可筛选出在此时间之后，有内容提交的环节数据
 //
-// 示例值：1630425599999
+//示例值：1630425599999
 func (builder *QueryReviewDataReqBodyBuilder) UpdatedLaterThan(updatedLaterThan string) *QueryReviewDataReqBodyBuilder {
 	builder.updatedLaterThan = updatedLaterThan
 	builder.updatedLaterThanFlag = true
@@ -8402,7 +8428,7 @@ func (builder *QueryReviewDataReqBodyBuilder) UpdatedLaterThan(updatedLaterThan 
 
 // 环节状态，不传默认包含所有状态。各类型的环节分别有以下环节状态：  绩效结果查看环节状态 可选值： 0：已开通，绩效结果已开通，未发起复议也无需确认结果 1：待确认，绩效结果已开通但被评估人还未确认结果，确认的截止时间还未到达 2：已截止，绩效结果已开通但被评估人还未确认结果，确认的截止时间已到达 3：已确认，绩效结果已开通，被评估人已确认结果 4：已复议，绩效结果已开通，且被评估人已发起  绩效结果复议环节状态 可选值： 1：待完成，任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成  除上述类型外的其他环节类型状态 可选值： 0：未开始，任务的开始时间未到达 1：待完成，任务的开始时间到达而截止时间未到达，且任务未完成 2：已截止，任务的截止时间已到达，且任务未完成 3：已完成，任务已完成
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewDataReqBodyBuilder) StageProgresses(stageProgresses []int) *QueryReviewDataReqBodyBuilder {
 	builder.stageProgresses = stageProgresses
 	builder.stageProgressesFlag = true
@@ -8577,6 +8603,8 @@ func NewQueryReviewDataReqBuilder() *QueryReviewDataReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryReviewDataReqBuilder) UserIdType(userIdType string) *QueryReviewDataReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -8646,7 +8674,7 @@ func NewQueryReviewTemplateReqBodyBuilder() *QueryReviewTemplateReqBodyBuilder {
 
 // 评估模板 ID 列表，获取指定评估模板的配置数据。如果不传则返回所有
 //
-// 示例值：
+//示例值：
 func (builder *QueryReviewTemplateReqBodyBuilder) ReviewTemplateIds(reviewTemplateIds []string) *QueryReviewTemplateReqBodyBuilder {
 	builder.reviewTemplateIds = reviewTemplateIds
 	builder.reviewTemplateIdsFlag = true
@@ -8787,7 +8815,7 @@ func NewQueryRevieweeReqBodyBuilder() *QueryRevieweeReqBodyBuilder {
 
 // 周期 ID，1 次只允许查询 1 个周期，semester_id 可通过【获取周期】接口获得
 //
-// 示例值：6992035450862224940
+//示例值：6992035450862224940
 func (builder *QueryRevieweeReqBodyBuilder) SemesterId(semesterId string) *QueryRevieweeReqBodyBuilder {
 	builder.semesterId = semesterId
 	builder.semesterIdFlag = true
@@ -8796,7 +8824,7 @@ func (builder *QueryRevieweeReqBodyBuilder) SemesterId(semesterId string) *Query
 
 // 用户 ID，类型需要与查询参数中的user_id_type保持一致。不传则默认返回该周期所有被评估人的信息。
 //
-// 示例值：
+//示例值：
 func (builder *QueryRevieweeReqBodyBuilder) UserIds(userIds []string) *QueryRevieweeReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true
@@ -8805,7 +8833,7 @@ func (builder *QueryRevieweeReqBodyBuilder) UserIds(userIds []string) *QueryRevi
 
 // 项目 ID 列表，查询指定的项目下的被评估人数据
 //
-// 示例值：
+//示例值：
 func (builder *QueryRevieweeReqBodyBuilder) ActivityIds(activityIds []string) *QueryRevieweeReqBodyBuilder {
 	builder.activityIds = activityIds
 	builder.activityIdsFlag = true
@@ -8895,6 +8923,8 @@ func NewQueryRevieweeReqBuilder() *QueryRevieweeReqBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：open_id
 func (builder *QueryRevieweeReqBuilder) UserIdType(userIdType string) *QueryRevieweeReqBuilder {
 	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
@@ -8982,7 +9012,7 @@ func NewWriteUserGroupUserRelReqBodyBuilder() *WriteUserGroupUserRelReqBodyBuild
 
 // 分组id key
 //
-// 示例值：ABCDEFG
+//示例值：ABCDEFG
 func (builder *WriteUserGroupUserRelReqBodyBuilder) GroupId(groupId string) *WriteUserGroupUserRelReqBodyBuilder {
 	builder.groupId = groupId
 	builder.groupIdFlag = true
@@ -8991,7 +9021,7 @@ func (builder *WriteUserGroupUserRelReqBodyBuilder) GroupId(groupId string) *Wri
 
 // 人员组查看人员名单可见性配置
 //
-// 示例值：1
+//示例值：1
 func (builder *WriteUserGroupUserRelReqBodyBuilder) ScopeVisibleSetting(scopeVisibleSetting int) *WriteUserGroupUserRelReqBodyBuilder {
 	builder.scopeVisibleSetting = scopeVisibleSetting
 	builder.scopeVisibleSettingFlag = true
@@ -9000,7 +9030,7 @@ func (builder *WriteUserGroupUserRelReqBodyBuilder) ScopeVisibleSetting(scopeVis
 
 // 人员列表
 //
-// 示例值：
+//示例值：
 func (builder *WriteUserGroupUserRelReqBodyBuilder) UserIds(userIds []string) *WriteUserGroupUserRelReqBodyBuilder {
 	builder.userIds = userIds
 	builder.userIdsFlag = true

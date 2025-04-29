@@ -36,6 +36,7 @@ func main() {
 		WorkLocationId("7094869485965870636").
 		CompanyId("7091599096804394540").
 		JobFamilyId("7039313681989502508").
+		JobId("7342883436321097257").
 		JobLevelId("7086415175263258156").
 		EmployeeTypeId("7039310401359775276").
 		RecruitmentType("experienced_professionals").

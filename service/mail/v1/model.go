@@ -385,6 +385,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -392,6 +394,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -2168,6 +2172,8 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -2175,6 +2181,8 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -2182,6 +2190,8 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -2819,7 +2829,7 @@ func NewBatchCreateMailgroupManagerReqBodyBuilder() *BatchCreateMailgroupManager
 
 // 邮件组管理员列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreateMailgroupManagerReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchCreateMailgroupManagerReqBodyBuilder {
 	builder.mailgroupManagerList = mailgroupManagerList
 	builder.mailgroupManagerListFlag = true
@@ -2936,7 +2946,7 @@ func NewBatchDeleteMailgroupManagerReqBodyBuilder() *BatchDeleteMailgroupManager
 
 // 邮件组管理员列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeleteMailgroupManagerReqBodyBuilder) MailgroupManagerList(mailgroupManagerList []*MailgroupManager) *BatchDeleteMailgroupManagerReqBodyBuilder {
 	builder.mailgroupManagerList = mailgroupManagerList
 	builder.mailgroupManagerListFlag = true
@@ -3138,7 +3148,7 @@ func NewBatchCreateMailgroupMemberReqBodyBuilder() *BatchCreateMailgroupMemberRe
 
 // 本次添加的邮件组成员列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreateMailgroupMemberReqBodyBuilder) Items(items []*MailgroupMember) *BatchCreateMailgroupMemberReqBodyBuilder {
 	builder.items = items
 	builder.itemsFlag = true
@@ -3218,6 +3228,7 @@ func (builder *BatchCreateMailgroupMemberReqBuilder) DepartmentIdType(department
 	return builder
 }
 
+//
 func (builder *BatchCreateMailgroupMemberReqBuilder) Body(body *BatchCreateMailgroupMemberReqBody) *BatchCreateMailgroupMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -3267,7 +3278,7 @@ func NewBatchDeleteMailgroupMemberReqBodyBuilder() *BatchDeleteMailgroupMemberRe
 
 // 本次调用删除的成员ID列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeleteMailgroupMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeleteMailgroupMemberReqBodyBuilder {
 	builder.memberIdList = memberIdList
 	builder.memberIdListFlag = true
@@ -3331,6 +3342,7 @@ func (builder *BatchDeleteMailgroupMemberReqBuilder) MailgroupId(mailgroupId str
 	return builder
 }
 
+//
 func (builder *BatchDeleteMailgroupMemberReqBuilder) Body(body *BatchDeleteMailgroupMemberReqBody) *BatchDeleteMailgroupMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -3675,7 +3687,7 @@ func NewBatchCreateMailgroupPermissionMemberReqBodyBuilder() *BatchCreateMailgro
 
 // 本次添加的邮件组权限成员列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreateMailgroupPermissionMemberReqBodyBuilder) Items(items []*MailgroupPermissionMember) *BatchCreateMailgroupPermissionMemberReqBodyBuilder {
 	builder.items = items
 	builder.itemsFlag = true
@@ -3755,6 +3767,7 @@ func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) DepartmentIdType(
 	return builder
 }
 
+//
 func (builder *BatchCreateMailgroupPermissionMemberReqBuilder) Body(body *BatchCreateMailgroupPermissionMemberReqBody) *BatchCreateMailgroupPermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -3804,7 +3817,7 @@ func NewBatchDeleteMailgroupPermissionMemberReqBodyBuilder() *BatchDeleteMailgro
 
 // 本次调用删除的权限成员ID列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeleteMailgroupPermissionMemberReqBodyBuilder) PermissionMemberIdList(permissionMemberIdList []string) *BatchDeleteMailgroupPermissionMemberReqBodyBuilder {
 	builder.permissionMemberIdList = permissionMemberIdList
 	builder.permissionMemberIdListFlag = true
@@ -3868,6 +3881,7 @@ func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) MailgroupId(mailg
 	return builder
 }
 
+//
 func (builder *BatchDeleteMailgroupPermissionMemberReqBuilder) Body(body *BatchDeleteMailgroupPermissionMemberReqBody) *BatchDeleteMailgroupPermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -4490,6 +4504,114 @@ func (resp *PatchPublicMailboxResp) Success() bool {
 	return resp.Code == 0
 }
 
+type RemoveToRecycleBinPublicMailboxReqBodyBuilder struct {
+	toMailAddress     string // 接收删除邮件的邮箱地址，不填则删除该公共邮箱的邮件
+	toMailAddressFlag bool
+}
+
+func NewRemoveToRecycleBinPublicMailboxReqBodyBuilder() *RemoveToRecycleBinPublicMailboxReqBodyBuilder {
+	builder := &RemoveToRecycleBinPublicMailboxReqBodyBuilder{}
+	return builder
+}
+
+// 接收删除邮件的邮箱地址，不填则删除该公共邮箱的邮件
+//
+//示例值：user@xxx.xx
+func (builder *RemoveToRecycleBinPublicMailboxReqBodyBuilder) ToMailAddress(toMailAddress string) *RemoveToRecycleBinPublicMailboxReqBodyBuilder {
+	builder.toMailAddress = toMailAddress
+	builder.toMailAddressFlag = true
+	return builder
+}
+
+func (builder *RemoveToRecycleBinPublicMailboxReqBodyBuilder) Build() *RemoveToRecycleBinPublicMailboxReqBody {
+	req := &RemoveToRecycleBinPublicMailboxReqBody{}
+	if builder.toMailAddressFlag {
+		req.ToMailAddress = &builder.toMailAddress
+	}
+	return req
+}
+
+type RemoveToRecycleBinPublicMailboxPathReqBodyBuilder struct {
+	toMailAddress     string
+	toMailAddressFlag bool
+}
+
+func NewRemoveToRecycleBinPublicMailboxPathReqBodyBuilder() *RemoveToRecycleBinPublicMailboxPathReqBodyBuilder {
+	builder := &RemoveToRecycleBinPublicMailboxPathReqBodyBuilder{}
+	return builder
+}
+
+// 接收删除邮件的邮箱地址，不填则删除该公共邮箱的邮件
+//
+// 示例值：user@xxx.xx
+func (builder *RemoveToRecycleBinPublicMailboxPathReqBodyBuilder) ToMailAddress(toMailAddress string) *RemoveToRecycleBinPublicMailboxPathReqBodyBuilder {
+	builder.toMailAddress = toMailAddress
+	builder.toMailAddressFlag = true
+	return builder
+}
+
+func (builder *RemoveToRecycleBinPublicMailboxPathReqBodyBuilder) Build() (*RemoveToRecycleBinPublicMailboxReqBody, error) {
+	req := &RemoveToRecycleBinPublicMailboxReqBody{}
+	if builder.toMailAddressFlag {
+		req.ToMailAddress = &builder.toMailAddress
+	}
+	return req, nil
+}
+
+type RemoveToRecycleBinPublicMailboxReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RemoveToRecycleBinPublicMailboxReqBody
+}
+
+func NewRemoveToRecycleBinPublicMailboxReqBuilder() *RemoveToRecycleBinPublicMailboxReqBuilder {
+	builder := &RemoveToRecycleBinPublicMailboxReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 公共邮箱地址
+//
+// 示例值：test_public_mailbox@xxx.xx
+func (builder *RemoveToRecycleBinPublicMailboxReqBuilder) PublicMailboxId(publicMailboxId string) *RemoveToRecycleBinPublicMailboxReqBuilder {
+	builder.apiReq.PathParams.Set("public_mailbox_id", fmt.Sprint(publicMailboxId))
+	return builder
+}
+
+//
+func (builder *RemoveToRecycleBinPublicMailboxReqBuilder) Body(body *RemoveToRecycleBinPublicMailboxReqBody) *RemoveToRecycleBinPublicMailboxReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RemoveToRecycleBinPublicMailboxReqBuilder) Build() *RemoveToRecycleBinPublicMailboxReq {
+	req := &RemoveToRecycleBinPublicMailboxReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RemoveToRecycleBinPublicMailboxReqBody struct {
+	ToMailAddress *string `json:"to_mail_address,omitempty"` // 接收删除邮件的邮箱地址，不填则删除该公共邮箱的邮件
+}
+
+type RemoveToRecycleBinPublicMailboxReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RemoveToRecycleBinPublicMailboxReqBody `body:""`
+}
+
+type RemoveToRecycleBinPublicMailboxResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *RemoveToRecycleBinPublicMailboxResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdatePublicMailboxReqBuilder struct {
 	apiReq        *larkcore.ApiReq
 	publicMailbox *PublicMailbox
@@ -4713,7 +4835,7 @@ func NewBatchCreatePublicMailboxMemberReqBodyBuilder() *BatchCreatePublicMailbox
 
 // 本次调用添加的公共邮箱成员列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreatePublicMailboxMemberReqBodyBuilder) Items(items []*PublicMailboxMember) *BatchCreatePublicMailboxMemberReqBodyBuilder {
 	builder.items = items
 	builder.itemsFlag = true
@@ -4785,6 +4907,7 @@ func (builder *BatchCreatePublicMailboxMemberReqBuilder) UserIdType(userIdType s
 	return builder
 }
 
+//
 func (builder *BatchCreatePublicMailboxMemberReqBuilder) Body(body *BatchCreatePublicMailboxMemberReqBody) *BatchCreatePublicMailboxMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -4834,7 +4957,7 @@ func NewBatchDeletePublicMailboxMemberReqBodyBuilder() *BatchDeletePublicMailbox
 
 // 本次调用删除的公共邮箱成员ID列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchDeletePublicMailboxMemberReqBodyBuilder) MemberIdList(memberIdList []string) *BatchDeletePublicMailboxMemberReqBodyBuilder {
 	builder.memberIdList = memberIdList
 	builder.memberIdListFlag = true
@@ -4898,6 +5021,7 @@ func (builder *BatchDeletePublicMailboxMemberReqBuilder) PublicMailboxId(publicM
 	return builder
 }
 
+//
 func (builder *BatchDeletePublicMailboxMemberReqBuilder) Body(body *BatchDeletePublicMailboxMemberReqBody) *BatchDeletePublicMailboxMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -5251,7 +5375,7 @@ func NewQueryUserReqBodyBuilder() *QueryUserReqBodyBuilder {
 
 // 需要查询的邮箱地址列表
 //
-// 示例值：["aaa@lark.com","bbb@lark.com"]
+//示例值：["aaa@lark.com","bbb@lark.com"]
 func (builder *QueryUserReqBodyBuilder) EmailList(emailList []string) *QueryUserReqBodyBuilder {
 	builder.emailList = emailList
 	builder.emailListFlag = true
@@ -5572,7 +5696,7 @@ func NewSubscribeUserMailboxEventReqBodyBuilder() *SubscribeUserMailboxEventReqB
 
 // 事件类型
 //
-// 示例值：1
+//示例值：1
 func (builder *SubscribeUserMailboxEventReqBodyBuilder) EventType(eventType int) *SubscribeUserMailboxEventReqBodyBuilder {
 	builder.eventType = eventType
 	builder.eventTypeFlag = true
@@ -5636,6 +5760,7 @@ func (builder *SubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxId 
 	return builder
 }
 
+//
 func (builder *SubscribeUserMailboxEventReqBuilder) Body(body *SubscribeUserMailboxEventReqBody) *SubscribeUserMailboxEventReqBuilder {
 	builder.body = body
 	return builder
@@ -5725,7 +5850,7 @@ func NewUnsubscribeUserMailboxEventReqBodyBuilder() *UnsubscribeUserMailboxEvent
 
 // 事件类型
 //
-// 示例值：1
+//示例值：1
 func (builder *UnsubscribeUserMailboxEventReqBodyBuilder) EventType(eventType int) *UnsubscribeUserMailboxEventReqBodyBuilder {
 	builder.eventType = eventType
 	builder.eventTypeFlag = true
@@ -5789,6 +5914,7 @@ func (builder *UnsubscribeUserMailboxEventReqBuilder) UserMailboxId(userMailboxI
 	return builder
 }
 
+//
 func (builder *UnsubscribeUserMailboxEventReqBuilder) Body(body *UnsubscribeUserMailboxEventReqBody) *UnsubscribeUserMailboxEventReqBuilder {
 	builder.body = body
 	return builder
@@ -5842,6 +5968,7 @@ func (builder *CreateUserMailboxFolderReqBuilder) UserMailboxId(userMailboxId st
 	return builder
 }
 
+//
 func (builder *CreateUserMailboxFolderReqBuilder) Folder(folder *Folder) *CreateUserMailboxFolderReqBuilder {
 	builder.folder = folder
 	return builder
@@ -6008,6 +6135,7 @@ func (builder *PatchUserMailboxFolderReqBuilder) FolderId(folderId string) *Patc
 	return builder
 }
 
+//
 func (builder *PatchUserMailboxFolderReqBuilder) Folder(folder *Folder) *PatchUserMailboxFolderReqBuilder {
 	builder.folder = folder
 	return builder
@@ -6057,6 +6185,7 @@ func (builder *CreateUserMailboxMailContactReqBuilder) UserMailboxId(userMailbox
 	return builder
 }
 
+//
 func (builder *CreateUserMailboxMailContactReqBuilder) MailContact(mailContact *MailContact) *CreateUserMailboxMailContactReqBuilder {
 	builder.mailContact = mailContact
 	return builder
@@ -6245,6 +6374,7 @@ func (builder *PatchUserMailboxMailContactReqBuilder) MailContactId(mailContactI
 	return builder
 }
 
+//
 func (builder *PatchUserMailboxMailContactReqBuilder) MailContact(mailContact *MailContact) *PatchUserMailboxMailContactReqBuilder {
 	builder.mailContact = mailContact
 	return builder
@@ -6516,6 +6646,7 @@ func (builder *SendUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
+//
 func (builder *SendUserMailboxMessageReqBuilder) Message(message *Message) *SendUserMailboxMessageReqBuilder {
 	builder.message = message
 	return builder
@@ -6632,6 +6763,7 @@ func (builder *CreateUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId stri
 	return builder
 }
 
+//
 func (builder *CreateUserMailboxRuleReqBuilder) Rule(rule *Rule) *CreateUserMailboxRuleReqBuilder {
 	builder.rule = rule
 	return builder
@@ -6771,7 +6903,7 @@ func NewReorderUserMailboxRuleReqBodyBuilder() *ReorderUserMailboxRuleReqBodyBui
 
 // 规则 id 列表
 //
-// 示例值：111111111
+//示例值：111111111
 func (builder *ReorderUserMailboxRuleReqBodyBuilder) RuleIds(ruleIds []string) *ReorderUserMailboxRuleReqBodyBuilder {
 	builder.ruleIds = ruleIds
 	builder.ruleIdsFlag = true
@@ -6835,6 +6967,7 @@ func (builder *ReorderUserMailboxRuleReqBuilder) UserMailboxId(userMailboxId str
 	return builder
 }
 
+//
 func (builder *ReorderUserMailboxRuleReqBuilder) Body(body *ReorderUserMailboxRuleReqBody) *ReorderUserMailboxRuleReqBuilder {
 	builder.body = body
 	return builder
@@ -6896,6 +7029,7 @@ func (builder *UpdateUserMailboxRuleReqBuilder) RuleId(ruleId string) *UpdateUse
 	return builder
 }
 
+//
 func (builder *UpdateUserMailboxRuleReqBuilder) Rule(rule *Rule) *UpdateUserMailboxRuleReqBuilder {
 	builder.rule = rule
 	return builder

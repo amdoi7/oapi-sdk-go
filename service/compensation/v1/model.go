@@ -812,6 +812,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -819,6 +821,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1451,6 +1455,10 @@ type LumpSumPayment struct {
 
 	ModifyTime *string `json:"modify_time,omitempty"` // 更新时间
 
+	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期
+
+	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
+
 	Details []*LumpSumPaymentDetail `json:"details,omitempty"` // 发放明细列表
 }
 
@@ -1502,6 +1510,12 @@ type LumpSumPaymentBuilder struct {
 
 	modifyTime     string // 更新时间
 	modifyTimeFlag bool
+
+	referencePeriodStartDate     string // 所属期开始日期
+	referencePeriodStartDateFlag bool
+
+	referencePeriodEndDate     string // 所属期结束日期
+	referencePeriodEndDateFlag bool
 
 	details     []*LumpSumPaymentDetail // 发放明细列表
 	detailsFlag bool
@@ -1656,6 +1670,24 @@ func (builder *LumpSumPaymentBuilder) ModifyTime(modifyTime string) *LumpSumPaym
 	return builder
 }
 
+// 所属期开始日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentBuilder) ReferencePeriodStartDate(referencePeriodStartDate string) *LumpSumPaymentBuilder {
+	builder.referencePeriodStartDate = referencePeriodStartDate
+	builder.referencePeriodStartDateFlag = true
+	return builder
+}
+
+// 所属期结束日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentBuilder) ReferencePeriodEndDate(referencePeriodEndDate string) *LumpSumPaymentBuilder {
+	builder.referencePeriodEndDate = referencePeriodEndDate
+	builder.referencePeriodEndDateFlag = true
+	return builder
+}
+
 // 发放明细列表
 //
 // 示例值：
@@ -1730,6 +1762,14 @@ func (builder *LumpSumPaymentBuilder) Build() *LumpSumPayment {
 		req.ModifyTime = &builder.modifyTime
 
 	}
+	if builder.referencePeriodStartDateFlag {
+		req.ReferencePeriodStartDate = &builder.referencePeriodStartDate
+
+	}
+	if builder.referencePeriodEndDateFlag {
+		req.ReferencePeriodEndDate = &builder.referencePeriodEndDate
+
+	}
 	if builder.detailsFlag {
 		req.Details = builder.details
 	}
@@ -1758,6 +1798,10 @@ type LumpSumPaymentDetail struct {
 	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 
 	ModifyTime *string `json:"modify_time,omitempty"` // 更新时间
+
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+
+	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
 }
 
 type LumpSumPaymentDetailBuilder struct {
@@ -1793,6 +1837,12 @@ type LumpSumPaymentDetailBuilder struct {
 
 	modifyTime     string // 更新时间
 	modifyTimeFlag bool
+
+	issuanceCountryRegionId     string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdFlag bool
+
+	issuancePayGroupId     string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupIdFlag bool
 }
 
 func NewLumpSumPaymentDetailBuilder() *LumpSumPaymentDetailBuilder {
@@ -1899,6 +1949,24 @@ func (builder *LumpSumPaymentDetailBuilder) ModifyTime(modifyTime string) *LumpS
 	return builder
 }
 
+// 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+//
+// 示例值：6862995757234914824
+func (builder *LumpSumPaymentDetailBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailBuilder {
+	builder.issuanceCountryRegionId = issuanceCountryRegionId
+	builder.issuanceCountryRegionIdFlag = true
+	return builder
+}
+
+// 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+//
+// 示例值：6862995757234914824
+func (builder *LumpSumPaymentDetailBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailBuilder {
+	builder.issuancePayGroupId = issuancePayGroupId
+	builder.issuancePayGroupIdFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentDetailBuilder) Build() *LumpSumPaymentDetail {
 	req := &LumpSumPaymentDetail{}
 	if builder.idFlag {
@@ -1945,6 +2013,14 @@ func (builder *LumpSumPaymentDetailBuilder) Build() *LumpSumPaymentDetail {
 		req.ModifyTime = &builder.modifyTime
 
 	}
+	if builder.issuanceCountryRegionIdFlag {
+		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
+
+	}
+	if builder.issuancePayGroupIdFlag {
+		req.IssuancePayGroupId = &builder.issuancePayGroupId
+
+	}
 	return req
 }
 
@@ -1958,6 +2034,10 @@ type LumpSumPaymentDetailForCreate struct {
 	IssuanceTime *string `json:"issuance_time,omitempty"` // 发放日期
 
 	BelongTime *string `json:"belong_time,omitempty"` // 申请发放日期
+
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+
+	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
 }
 
 type LumpSumPaymentDetailForCreateBuilder struct {
@@ -1975,6 +2055,12 @@ type LumpSumPaymentDetailForCreateBuilder struct {
 
 	belongTime     string // 申请发放日期
 	belongTimeFlag bool
+
+	issuanceCountryRegionId     string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdFlag bool
+
+	issuancePayGroupId     string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupIdFlag bool
 }
 
 func NewLumpSumPaymentDetailForCreateBuilder() *LumpSumPaymentDetailForCreateBuilder {
@@ -2027,6 +2113,24 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) BelongTime(belongTime strin
 	return builder
 }
 
+// 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+//
+// 示例值：6862995757234914824
+func (builder *LumpSumPaymentDetailForCreateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailForCreateBuilder {
+	builder.issuanceCountryRegionId = issuanceCountryRegionId
+	builder.issuanceCountryRegionIdFlag = true
+	return builder
+}
+
+// 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+//
+// 示例值：6862995757234914824
+func (builder *LumpSumPaymentDetailForCreateBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailForCreateBuilder {
+	builder.issuancePayGroupId = issuancePayGroupId
+	builder.issuancePayGroupIdFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentDetailForCreateBuilder) Build() *LumpSumPaymentDetailForCreate {
 	req := &LumpSumPaymentDetailForCreate{}
 	if builder.issuanceAmountFlag {
@@ -2049,6 +2153,14 @@ func (builder *LumpSumPaymentDetailForCreateBuilder) Build() *LumpSumPaymentDeta
 		req.BelongTime = &builder.belongTime
 
 	}
+	if builder.issuanceCountryRegionIdFlag {
+		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
+
+	}
+	if builder.issuancePayGroupIdFlag {
+		req.IssuancePayGroupId = &builder.issuancePayGroupId
+
+	}
 	return req
 }
 
@@ -2064,6 +2176,10 @@ type LumpSumPaymentDetailForUpdate struct {
 	IssuanceTime *string `json:"issuance_time,omitempty"` // 发放日期
 
 	BelongTime *string `json:"belong_time,omitempty"` // 申请发放日期
+
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+
+	IssuancePayGroupId *string `json:"issuance_pay_group_id,omitempty"` // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
 }
 
 type LumpSumPaymentDetailForUpdateBuilder struct {
@@ -2084,6 +2200,12 @@ type LumpSumPaymentDetailForUpdateBuilder struct {
 
 	belongTime     string // 申请发放日期
 	belongTimeFlag bool
+
+	issuanceCountryRegionId     string // 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdFlag bool
+
+	issuancePayGroupId     string // 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+	issuancePayGroupIdFlag bool
 }
 
 func NewLumpSumPaymentDetailForUpdateBuilder() *LumpSumPaymentDetailForUpdateBuilder {
@@ -2145,6 +2267,24 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) BelongTime(belongTime strin
 	return builder
 }
 
+// 发放国家ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+//
+// 示例值：6862995757234914824
+func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *LumpSumPaymentDetailForUpdateBuilder {
+	builder.issuanceCountryRegionId = issuanceCountryRegionId
+	builder.issuanceCountryRegionIdFlag = true
+	return builder
+}
+
+// 发放薪资组ID（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/payroll-v1/paygroup/list进行查询）
+//
+// 示例值：6862995757234914824
+func (builder *LumpSumPaymentDetailForUpdateBuilder) IssuancePayGroupId(issuancePayGroupId string) *LumpSumPaymentDetailForUpdateBuilder {
+	builder.issuancePayGroupId = issuancePayGroupId
+	builder.issuancePayGroupIdFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentDetailForUpdateBuilder) Build() *LumpSumPaymentDetailForUpdate {
 	req := &LumpSumPaymentDetailForUpdate{}
 	if builder.idFlag {
@@ -2171,6 +2311,14 @@ func (builder *LumpSumPaymentDetailForUpdateBuilder) Build() *LumpSumPaymentDeta
 		req.BelongTime = &builder.belongTime
 
 	}
+	if builder.issuanceCountryRegionIdFlag {
+		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
+
+	}
+	if builder.issuancePayGroupIdFlag {
+		req.IssuancePayGroupId = &builder.issuancePayGroupId
+
+	}
 	return req
 }
 
@@ -2188,6 +2336,10 @@ type LumpSumPaymentForCreate struct {
 	IssuanceFrequency *int `json:"issuance_frequency,omitempty"` // 发放次数，必须与 details 的长度一致
 
 	ItemId *string `json:"item_id,omitempty"` // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
+
+	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期
+
+	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
 
 	Details []*LumpSumPaymentDetailForCreate `json:"details,omitempty"` // 发放明细列表
 
@@ -2215,6 +2367,12 @@ type LumpSumPaymentForCreateBuilder struct {
 
 	itemId     string // 薪酬项id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list?appId=cli_a3077e2bb03c100d 进行查询）
 	itemIdFlag bool
+
+	referencePeriodStartDate     string // 所属期开始日期
+	referencePeriodStartDateFlag bool
+
+	referencePeriodEndDate     string // 所属期结束日期
+	referencePeriodEndDateFlag bool
 
 	details     []*LumpSumPaymentDetailForCreate // 发放明细列表
 	detailsFlag bool
@@ -2291,6 +2449,24 @@ func (builder *LumpSumPaymentForCreateBuilder) ItemId(itemId string) *LumpSumPay
 	return builder
 }
 
+// 所属期开始日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentForCreateBuilder) ReferencePeriodStartDate(referencePeriodStartDate string) *LumpSumPaymentForCreateBuilder {
+	builder.referencePeriodStartDate = referencePeriodStartDate
+	builder.referencePeriodStartDateFlag = true
+	return builder
+}
+
+// 所属期结束日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentForCreateBuilder) ReferencePeriodEndDate(referencePeriodEndDate string) *LumpSumPaymentForCreateBuilder {
+	builder.referencePeriodEndDate = referencePeriodEndDate
+	builder.referencePeriodEndDateFlag = true
+	return builder
+}
+
 // 发放明细列表
 //
 // 示例值：
@@ -2339,6 +2515,14 @@ func (builder *LumpSumPaymentForCreateBuilder) Build() *LumpSumPaymentForCreate 
 		req.ItemId = &builder.itemId
 
 	}
+	if builder.referencePeriodStartDateFlag {
+		req.ReferencePeriodStartDate = &builder.referencePeriodStartDate
+
+	}
+	if builder.referencePeriodEndDateFlag {
+		req.ReferencePeriodEndDate = &builder.referencePeriodEndDate
+
+	}
 	if builder.detailsFlag {
 		req.Details = builder.details
 	}
@@ -2362,6 +2546,10 @@ type LumpSumPaymentForUpdate struct {
 
 	Remark *string `json:"remark,omitempty"` // 备注
 
+	ReferencePeriodStartDate *string `json:"reference_period_start_date,omitempty"` // 所属期开始日期
+
+	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
+
 	Details []*LumpSumPaymentDetailForUpdate `json:"details,omitempty"` // 发放明细列表
 }
 
@@ -2383,6 +2571,12 @@ type LumpSumPaymentForUpdateBuilder struct {
 
 	remark     string // 备注
 	remarkFlag bool
+
+	referencePeriodStartDate     string // 所属期开始日期
+	referencePeriodStartDateFlag bool
+
+	referencePeriodEndDate     string // 所属期结束日期
+	referencePeriodEndDateFlag bool
 
 	details     []*LumpSumPaymentDetailForUpdate // 发放明细列表
 	detailsFlag bool
@@ -2447,6 +2641,24 @@ func (builder *LumpSumPaymentForUpdateBuilder) Remark(remark string) *LumpSumPay
 	return builder
 }
 
+// 所属期开始日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentForUpdateBuilder) ReferencePeriodStartDate(referencePeriodStartDate string) *LumpSumPaymentForUpdateBuilder {
+	builder.referencePeriodStartDate = referencePeriodStartDate
+	builder.referencePeriodStartDateFlag = true
+	return builder
+}
+
+// 所属期结束日期
+//
+// 示例值：2024-08-01
+func (builder *LumpSumPaymentForUpdateBuilder) ReferencePeriodEndDate(referencePeriodEndDate string) *LumpSumPaymentForUpdateBuilder {
+	builder.referencePeriodEndDate = referencePeriodEndDate
+	builder.referencePeriodEndDateFlag = true
+	return builder
+}
+
 // 发放明细列表
 //
 // 示例值：
@@ -2480,6 +2692,14 @@ func (builder *LumpSumPaymentForUpdateBuilder) Build() *LumpSumPaymentForUpdate 
 	}
 	if builder.remarkFlag {
 		req.Remark = &builder.remark
+
+	}
+	if builder.referencePeriodStartDateFlag {
+		req.ReferencePeriodStartDate = &builder.referencePeriodStartDate
+
+	}
+	if builder.referencePeriodEndDateFlag {
+		req.ReferencePeriodEndDate = &builder.referencePeriodEndDate
 
 	}
 	if builder.detailsFlag {
@@ -3174,6 +3394,8 @@ type RecurringPayment struct {
 	CurrencyId *string `json:"currency_id,omitempty"` // 币种id
 
 	Remark *string `json:"remark,omitempty"` // 备注
+
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
 }
 
 type RecurringPaymentBuilder struct {
@@ -3209,6 +3431,9 @@ type RecurringPaymentBuilder struct {
 
 	remark     string // 备注
 	remarkFlag bool
+
+	issuanceCountryRegionId     string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdFlag bool
 }
 
 func NewRecurringPaymentBuilder() *RecurringPaymentBuilder {
@@ -3315,6 +3540,15 @@ func (builder *RecurringPaymentBuilder) Remark(remark string) *RecurringPaymentB
 	return builder
 }
 
+// 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+//
+// 示例值：6862995745046267400
+func (builder *RecurringPaymentBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *RecurringPaymentBuilder {
+	builder.issuanceCountryRegionId = issuanceCountryRegionId
+	builder.issuanceCountryRegionIdFlag = true
+	return builder
+}
+
 func (builder *RecurringPaymentBuilder) Build() *RecurringPayment {
 	req := &RecurringPayment{}
 	if builder.idFlag {
@@ -3361,6 +3595,10 @@ func (builder *RecurringPaymentBuilder) Build() *RecurringPayment {
 		req.Remark = &builder.remark
 
 	}
+	if builder.issuanceCountryRegionIdFlag {
+		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
+
+	}
 	return req
 }
 
@@ -3384,6 +3622,8 @@ type RecurringPaymentForCreate struct {
 	IssuancePeriod *string `json:"issuance_period,omitempty"` // 发放频率
 
 	Remark *string `json:"remark,omitempty"` // 备注
+
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
 }
 
 type RecurringPaymentForCreateBuilder struct {
@@ -3416,6 +3656,9 @@ type RecurringPaymentForCreateBuilder struct {
 
 	remark     string // 备注
 	remarkFlag bool
+
+	issuanceCountryRegionId     string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdFlag bool
 }
 
 func NewRecurringPaymentForCreateBuilder() *RecurringPaymentForCreateBuilder {
@@ -3513,6 +3756,15 @@ func (builder *RecurringPaymentForCreateBuilder) Remark(remark string) *Recurrin
 	return builder
 }
 
+// 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+//
+// 示例值：6862995745046267400
+func (builder *RecurringPaymentForCreateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *RecurringPaymentForCreateBuilder {
+	builder.issuanceCountryRegionId = issuanceCountryRegionId
+	builder.issuanceCountryRegionIdFlag = true
+	return builder
+}
+
 func (builder *RecurringPaymentForCreateBuilder) Build() *RecurringPaymentForCreate {
 	req := &RecurringPaymentForCreate{}
 	if builder.uniqueIdFlag {
@@ -3555,6 +3807,10 @@ func (builder *RecurringPaymentForCreateBuilder) Build() *RecurringPaymentForCre
 		req.Remark = &builder.remark
 
 	}
+	if builder.issuanceCountryRegionIdFlag {
+		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
+
+	}
 	return req
 }
 
@@ -3572,6 +3828,8 @@ type RecurringPaymentForUpdate struct {
 	IssuanceType *string `json:"issuance_type,omitempty"` // 发放方式
 
 	Remark *string `json:"remark,omitempty"` // 原因
+
+	IssuanceCountryRegionId *string `json:"issuance_country_region_id,omitempty"` // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
 }
 
 type RecurringPaymentForUpdateBuilder struct {
@@ -3595,6 +3853,9 @@ type RecurringPaymentForUpdateBuilder struct {
 
 	remark     string // 原因
 	remarkFlag bool
+
+	issuanceCountryRegionId     string // 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+	issuanceCountryRegionIdFlag bool
 }
 
 func NewRecurringPaymentForUpdateBuilder() *RecurringPaymentForUpdateBuilder {
@@ -3665,6 +3926,15 @@ func (builder *RecurringPaymentForUpdateBuilder) Remark(remark string) *Recurrin
 	return builder
 }
 
+// 发放国家id（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-country_region/search进行查询）
+//
+// 示例值：6862995745046267400
+func (builder *RecurringPaymentForUpdateBuilder) IssuanceCountryRegionId(issuanceCountryRegionId string) *RecurringPaymentForUpdateBuilder {
+	builder.issuanceCountryRegionId = issuanceCountryRegionId
+	builder.issuanceCountryRegionIdFlag = true
+	return builder
+}
+
 func (builder *RecurringPaymentForUpdateBuilder) Build() *RecurringPaymentForUpdate {
 	req := &RecurringPaymentForUpdate{}
 	if builder.idFlag {
@@ -3693,6 +3963,10 @@ func (builder *RecurringPaymentForUpdateBuilder) Build() *RecurringPaymentForUpd
 	}
 	if builder.remarkFlag {
 		req.Remark = &builder.remark
+
+	}
+	if builder.issuanceCountryRegionIdFlag {
+		req.IssuanceCountryRegionId = &builder.issuanceCountryRegionId
 
 	}
 	return req
@@ -4970,7 +5244,7 @@ func NewQueryArchiveReqBodyBuilder() *QueryArchiveReqBodyBuilder {
 
 // 用户ID列表
 //
-// 示例值：
+//示例值：
 func (builder *QueryArchiveReqBodyBuilder) UserIdList(userIdList []string) *QueryArchiveReqBodyBuilder {
 	builder.userIdList = userIdList
 	builder.userIdListFlag = true
@@ -4979,7 +5253,7 @@ func (builder *QueryArchiveReqBodyBuilder) UserIdList(userIdList []string) *Quer
 
 // 档案Tid列表
 //
-// 示例值：
+//示例值：
 func (builder *QueryArchiveReqBodyBuilder) TidList(tidList []string) *QueryArchiveReqBodyBuilder {
 	builder.tidList = tidList
 	builder.tidListFlag = true
@@ -4988,7 +5262,7 @@ func (builder *QueryArchiveReqBodyBuilder) TidList(tidList []string) *QueryArchi
 
 // 生效开始时间
 //
-// 示例值：2022-05-10
+//示例值：2022-05-10
 func (builder *QueryArchiveReqBodyBuilder) EffectiveStartDate(effectiveStartDate string) *QueryArchiveReqBodyBuilder {
 	builder.effectiveStartDate = effectiveStartDate
 	builder.effectiveStartDateFlag = true
@@ -4997,7 +5271,7 @@ func (builder *QueryArchiveReqBodyBuilder) EffectiveStartDate(effectiveStartDate
 
 // 生效结束时间
 //
-// 示例值：2023-05-15
+//示例值：2023-05-15
 func (builder *QueryArchiveReqBodyBuilder) EffectiveEndDate(effectiveEndDate string) *QueryArchiveReqBodyBuilder {
 	builder.effectiveEndDate = effectiveEndDate
 	builder.effectiveEndDateFlag = true
@@ -5128,6 +5402,7 @@ func (builder *QueryArchiveReqBuilder) UserIdType(userIdType string) *QueryArchi
 	return builder
 }
 
+//
 func (builder *QueryArchiveReqBuilder) Body(body *QueryArchiveReqBody) *QueryArchiveReqBuilder {
 	builder.body = body
 	return builder

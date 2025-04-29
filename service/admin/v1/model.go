@@ -1792,6 +1792,8 @@ func NewAdministratorBuilder() *AdministratorBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *AdministratorBuilder) UserId(userId string) *AdministratorBuilder {
 	builder.userId = userId
@@ -4342,6 +4344,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -4349,6 +4353,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -9260,7 +9266,7 @@ func NewCreateBadgeImageReqBodyBuilder() *CreateBadgeImageReqBodyBuilder {
 
 // 勋章图片的文件，仅支持 PNG 格式，320 x 320 像素，大小不超过 1024 KB。
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *CreateBadgeImageReqBodyBuilder {
 	builder.imageFile = imageFile
 	builder.imageFileFlag = true
@@ -9269,7 +9275,7 @@ func (builder *CreateBadgeImageReqBodyBuilder) ImageFile(imageFile io.Reader) *C
 
 // 图片的类型
 //
-// 示例值：1
+//示例值：1
 func (builder *CreateBadgeImageReqBodyBuilder) ImageType(imageType int) *CreateBadgeImageReqBodyBuilder {
 	builder.imageType = imageType
 	builder.imageTypeFlag = true
@@ -9399,7 +9405,7 @@ func NewResetPasswordReqBodyBuilder() *ResetPasswordReqBodyBuilder {
 
 // 需要重置的密码参数，不少于8个字符，字母、数字和符号，至少三选二
 //
-// 示例值：1234abcd
+//示例值：1234abcd
 func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetPasswordReqBodyBuilder {
 	builder.password = password
 	builder.passwordFlag = true
@@ -9408,7 +9414,7 @@ func (builder *ResetPasswordReqBodyBuilder) Password(password *Password) *ResetP
 
 // 待修改密码的用户ID，只针对邮箱登录凭证与企业邮箱(包括别名)相等的用户生效
 //
-// 示例值：abc123
+//示例值：abc123
 func (builder *ResetPasswordReqBodyBuilder) UserId(userId string) *ResetPasswordReqBodyBuilder {
 	builder.userId = userId
 	builder.userIdFlag = true

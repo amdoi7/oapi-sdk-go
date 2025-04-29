@@ -1355,6 +1355,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1362,6 +1364,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -1427,6 +1431,145 @@ func (builder *EventBuilder) Build() *Event {
 	}
 	if builder.subtypeFlag {
 		req.Subtype = &builder.subtype
+
+	}
+	return req
+}
+
+type ExportTicketMessageContent struct {
+	Content *string `json:"content,omitempty"` // 消息内容
+
+	MsgType *string `json:"msg_type,omitempty"` // 消息类型
+
+	ImageKeys []string `json:"image_keys,omitempty"` // 图片 Keys
+
+	ImageKey *string `json:"image_key,omitempty"` // 图片 Key
+
+	AudioKey *string `json:"audio_key,omitempty"` // 音频消息文件 Key
+
+	MediaKey *string `json:"media_key,omitempty"` // 视频文件 Key
+
+	FileKey *string `json:"file_key,omitempty"` // 文件 Key
+}
+
+type ExportTicketMessageContentBuilder struct {
+	content     string // 消息内容
+	contentFlag bool
+
+	msgType     string // 消息类型
+	msgTypeFlag bool
+
+	imageKeys     []string // 图片 Keys
+	imageKeysFlag bool
+
+	imageKey     string // 图片 Key
+	imageKeyFlag bool
+
+	audioKey     string // 音频消息文件 Key
+	audioKeyFlag bool
+
+	mediaKey     string // 视频文件 Key
+	mediaKeyFlag bool
+
+	fileKey     string // 文件 Key
+	fileKeyFlag bool
+}
+
+func NewExportTicketMessageContentBuilder() *ExportTicketMessageContentBuilder {
+	builder := &ExportTicketMessageContentBuilder{}
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：test message text
+func (builder *ExportTicketMessageContentBuilder) Content(content string) *ExportTicketMessageContentBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 消息类型
+//
+// 示例值：text
+func (builder *ExportTicketMessageContentBuilder) MsgType(msgType string) *ExportTicketMessageContentBuilder {
+	builder.msgType = msgType
+	builder.msgTypeFlag = true
+	return builder
+}
+
+// 图片 Keys
+//
+// 示例值：
+func (builder *ExportTicketMessageContentBuilder) ImageKeys(imageKeys []string) *ExportTicketMessageContentBuilder {
+	builder.imageKeys = imageKeys
+	builder.imageKeysFlag = true
+	return builder
+}
+
+// 图片 Key
+//
+// 示例值：file_18acc4bd98d9a8c79a
+func (builder *ExportTicketMessageContentBuilder) ImageKey(imageKey string) *ExportTicketMessageContentBuilder {
+	builder.imageKey = imageKey
+	builder.imageKeyFlag = true
+	return builder
+}
+
+// 音频消息文件 Key
+//
+// 示例值："file_18accbd98d9a8c79a"
+func (builder *ExportTicketMessageContentBuilder) AudioKey(audioKey string) *ExportTicketMessageContentBuilder {
+	builder.audioKey = audioKey
+	builder.audioKeyFlag = true
+	return builder
+}
+
+// 视频文件 Key
+//
+// 示例值：file_18acc4bd98d9a8c79a
+func (builder *ExportTicketMessageContentBuilder) MediaKey(mediaKey string) *ExportTicketMessageContentBuilder {
+	builder.mediaKey = mediaKey
+	builder.mediaKeyFlag = true
+	return builder
+}
+
+// 文件 Key
+//
+// 示例值：file_18acc4bd98d9a8c79a
+func (builder *ExportTicketMessageContentBuilder) FileKey(fileKey string) *ExportTicketMessageContentBuilder {
+	builder.fileKey = fileKey
+	builder.fileKeyFlag = true
+	return builder
+}
+
+func (builder *ExportTicketMessageContentBuilder) Build() *ExportTicketMessageContent {
+	req := &ExportTicketMessageContent{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.msgTypeFlag {
+		req.MsgType = &builder.msgType
+
+	}
+	if builder.imageKeysFlag {
+		req.ImageKeys = builder.imageKeys
+	}
+	if builder.imageKeyFlag {
+		req.ImageKey = &builder.imageKey
+
+	}
+	if builder.audioKeyFlag {
+		req.AudioKey = &builder.audioKey
+
+	}
+	if builder.mediaKeyFlag {
+		req.MediaKey = &builder.mediaKey
+
+	}
+	if builder.fileKeyFlag {
+		req.FileKey = &builder.fileKey
 
 	}
 	return req
@@ -1943,6 +2086,709 @@ func (builder *I18nBuilder) Build() *I18n {
 	}
 	if builder.jaJpFlag {
 		req.JaJp = &builder.jaJp
+
+	}
+	return req
+}
+
+type MigrationTicket struct {
+	GuestId *string `json:"guest_id,omitempty"` // 工单用户 ID
+
+	CloseBy *string `json:"close_by,omitempty"` // 关闭工单用户 ID
+
+	CreatorId *string `json:"creator_id,omitempty"` // 工单创建用户 ID
+
+	OwnerAgentId *string `json:"owner_agent_id,omitempty"` // 工单主责客服 ID
+
+	CreateAtMs *string `json:"create_at_ms,omitempty"` // 工单创建时间（毫秒）
+
+	CloseAtMs *string `json:"close_at_ms,omitempty"` // 工单关闭时间（毫秒）
+
+	UpdateAtMs *string `json:"update_at_ms,omitempty"` // 工单更新时间（毫秒）
+
+	QueuedAtMs *string `json:"queued_at_ms,omitempty"` // 工单用户开始排队时间（毫秒）
+
+	FirstResponseMs *string `json:"first_response_ms,omitempty"` // 客服首次响应时间（毫秒）
+
+	LastResponseMs *string `json:"last_response_ms,omitempty"` // 客服最后响应时间（毫秒）
+
+	Stage *int `json:"stage,omitempty"` // 工单阶段：1. 机器人 2. 人工
+
+	Status *int `json:"status,omitempty"` // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+
+	Score *int `json:"score,omitempty"` // 工单评分，1：不满意，2:一般，3:满意
+
+	Channel *int `json:"channel,omitempty"` // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+
+	AgentEntryTimeMs *string `json:"agent_entry_time_ms,omitempty"` // 客服进入时间，单位毫秒
+
+	Comments []*MigrationTicketComment `json:"comments,omitempty"` // 工单备注
+
+	DissatisfactionReasons []*I18n `json:"dissatisfaction_reasons,omitempty"` // 不满意原因
+
+	ActualProcessingTime *string `json:"actual_processing_time,omitempty"` // 工单实际处理时长，处理时长=解决时长-工单待定时长（将工单状态修改为待定后的时间），单位秒
+
+	Language *string `json:"language,omitempty"` // 工单语言（中文：zh_cn，日文： ja_jp，英文：en_us）
+
+	FirstAgentEntryChatTime *string `json:"first_agent_entry_chat_time,omitempty"` // 第一个客服进群的时间，单位秒
+
+	GuestCountry *string `json:"guest_country,omitempty"` // 工单用户国家信息
+
+	GuestCity *string `json:"guest_city,omitempty"` // 工单用户城市
+
+	AgentGroupName *string `json:"agent_group_name,omitempty"` // 工单客服技能组名称
+
+	TransferComment *string `json:"transfer_comment,omitempty"` // 转单备注
+
+	Description *string `json:"description,omitempty"` // 工单描述
+
+	CloseWay *int `json:"close_way,omitempty"` // 工单关单方式（1：客服直接结束，2：客服转接结束）
+
+	Collaborators []string `json:"collaborators,omitempty"` // 工单协作者 ID
+
+	AgentIds []string `json:"agent_ids,omitempty"` // 工单关联客服 ID
+
+	Id *string `json:"id,omitempty"` // 工单 ID
+}
+
+type MigrationTicketBuilder struct {
+	guestId     string // 工单用户 ID
+	guestIdFlag bool
+
+	closeBy     string // 关闭工单用户 ID
+	closeByFlag bool
+
+	creatorId     string // 工单创建用户 ID
+	creatorIdFlag bool
+
+	ownerAgentId     string // 工单主责客服 ID
+	ownerAgentIdFlag bool
+
+	createAtMs     string // 工单创建时间（毫秒）
+	createAtMsFlag bool
+
+	closeAtMs     string // 工单关闭时间（毫秒）
+	closeAtMsFlag bool
+
+	updateAtMs     string // 工单更新时间（毫秒）
+	updateAtMsFlag bool
+
+	queuedAtMs     string // 工单用户开始排队时间（毫秒）
+	queuedAtMsFlag bool
+
+	firstResponseMs     string // 客服首次响应时间（毫秒）
+	firstResponseMsFlag bool
+
+	lastResponseMs     string // 客服最后响应时间（毫秒）
+	lastResponseMsFlag bool
+
+	stage     int // 工单阶段：1. 机器人 2. 人工
+	stageFlag bool
+
+	status     int // 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+	statusFlag bool
+
+	score     int // 工单评分，1：不满意，2:一般，3:满意
+	scoreFlag bool
+
+	channel     int // 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+	channelFlag bool
+
+	agentEntryTimeMs     string // 客服进入时间，单位毫秒
+	agentEntryTimeMsFlag bool
+
+	comments     []*MigrationTicketComment // 工单备注
+	commentsFlag bool
+
+	dissatisfactionReasons     []*I18n // 不满意原因
+	dissatisfactionReasonsFlag bool
+
+	actualProcessingTime     string // 工单实际处理时长，处理时长=解决时长-工单待定时长（将工单状态修改为待定后的时间），单位秒
+	actualProcessingTimeFlag bool
+
+	language     string // 工单语言（中文：zh_cn，日文： ja_jp，英文：en_us）
+	languageFlag bool
+
+	firstAgentEntryChatTime     string // 第一个客服进群的时间，单位秒
+	firstAgentEntryChatTimeFlag bool
+
+	guestCountry     string // 工单用户国家信息
+	guestCountryFlag bool
+
+	guestCity     string // 工单用户城市
+	guestCityFlag bool
+
+	agentGroupName     string // 工单客服技能组名称
+	agentGroupNameFlag bool
+
+	transferComment     string // 转单备注
+	transferCommentFlag bool
+
+	description     string // 工单描述
+	descriptionFlag bool
+
+	closeWay     int // 工单关单方式（1：客服直接结束，2：客服转接结束）
+	closeWayFlag bool
+
+	collaborators     []string // 工单协作者 ID
+	collaboratorsFlag bool
+
+	agentIds     []string // 工单关联客服 ID
+	agentIdsFlag bool
+
+	id     string // 工单 ID
+	idFlag bool
+}
+
+func NewMigrationTicketBuilder() *MigrationTicketBuilder {
+	builder := &MigrationTicketBuilder{}
+	return builder
+}
+
+// 工单用户 ID
+//
+// 示例值：ou_37019b7c830210acd88fdce886e25c71
+func (builder *MigrationTicketBuilder) GuestId(guestId string) *MigrationTicketBuilder {
+	builder.guestId = guestId
+	builder.guestIdFlag = true
+	return builder
+}
+
+// 关闭工单用户 ID
+//
+// 示例值：ou_37019b7c830210acd88fdce886e25c71
+func (builder *MigrationTicketBuilder) CloseBy(closeBy string) *MigrationTicketBuilder {
+	builder.closeBy = closeBy
+	builder.closeByFlag = true
+	return builder
+}
+
+// 工单创建用户 ID
+//
+// 示例值：ou_37019b7c830210acd88fdce886e25c71
+func (builder *MigrationTicketBuilder) CreatorId(creatorId string) *MigrationTicketBuilder {
+	builder.creatorId = creatorId
+	builder.creatorIdFlag = true
+	return builder
+}
+
+// 工单主责客服 ID
+//
+// 示例值：ou_41119b7c830210abb12fdce886e25b98
+func (builder *MigrationTicketBuilder) OwnerAgentId(ownerAgentId string) *MigrationTicketBuilder {
+	builder.ownerAgentId = ownerAgentId
+	builder.ownerAgentIdFlag = true
+	return builder
+}
+
+// 工单创建时间（毫秒）
+//
+// 示例值：1742377835277
+func (builder *MigrationTicketBuilder) CreateAtMs(createAtMs string) *MigrationTicketBuilder {
+	builder.createAtMs = createAtMs
+	builder.createAtMsFlag = true
+	return builder
+}
+
+// 工单关闭时间（毫秒）
+//
+// 示例值：1742377835277
+func (builder *MigrationTicketBuilder) CloseAtMs(closeAtMs string) *MigrationTicketBuilder {
+	builder.closeAtMs = closeAtMs
+	builder.closeAtMsFlag = true
+	return builder
+}
+
+// 工单更新时间（毫秒）
+//
+// 示例值：1742377835277
+func (builder *MigrationTicketBuilder) UpdateAtMs(updateAtMs string) *MigrationTicketBuilder {
+	builder.updateAtMs = updateAtMs
+	builder.updateAtMsFlag = true
+	return builder
+}
+
+// 工单用户开始排队时间（毫秒）
+//
+// 示例值：1742377835277
+func (builder *MigrationTicketBuilder) QueuedAtMs(queuedAtMs string) *MigrationTicketBuilder {
+	builder.queuedAtMs = queuedAtMs
+	builder.queuedAtMsFlag = true
+	return builder
+}
+
+// 客服首次响应时间（毫秒）
+//
+// 示例值：1741849380
+func (builder *MigrationTicketBuilder) FirstResponseMs(firstResponseMs string) *MigrationTicketBuilder {
+	builder.firstResponseMs = firstResponseMs
+	builder.firstResponseMsFlag = true
+	return builder
+}
+
+// 客服最后响应时间（毫秒）
+//
+// 示例值：1741849380
+func (builder *MigrationTicketBuilder) LastResponseMs(lastResponseMs string) *MigrationTicketBuilder {
+	builder.lastResponseMs = lastResponseMs
+	builder.lastResponseMsFlag = true
+	return builder
+}
+
+// 工单阶段：1. 机器人 2. 人工
+//
+// 示例值：1
+func (builder *MigrationTicketBuilder) Stage(stage int) *MigrationTicketBuilder {
+	builder.stage = stage
+	builder.stageFlag = true
+	return builder
+}
+
+// 工单状态，1：已创建 2: 处理中 3: 排队中 4：待定 5：待用户响应 50: 被机器人关闭 51: 被客服关闭 52: 用户自己关闭
+//
+// 示例值：1
+func (builder *MigrationTicketBuilder) Status(status int) *MigrationTicketBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 工单评分，1：不满意，2:一般，3:满意
+//
+// 示例值：3
+func (builder *MigrationTicketBuilder) Score(score int) *MigrationTicketBuilder {
+	builder.score = score
+	builder.scoreFlag = true
+	return builder
+}
+
+// 工单渠道，描述：9：Open API 2：二维码 14：分享 13：搜索 其他数字：其他渠道
+//
+// 示例值：9
+func (builder *MigrationTicketBuilder) Channel(channel int) *MigrationTicketBuilder {
+	builder.channel = channel
+	builder.channelFlag = true
+	return builder
+}
+
+// 客服进入时间，单位毫秒
+//
+// 示例值：1742377835277
+func (builder *MigrationTicketBuilder) AgentEntryTimeMs(agentEntryTimeMs string) *MigrationTicketBuilder {
+	builder.agentEntryTimeMs = agentEntryTimeMs
+	builder.agentEntryTimeMsFlag = true
+	return builder
+}
+
+// 工单备注
+//
+// 示例值：
+func (builder *MigrationTicketBuilder) Comments(comments []*MigrationTicketComment) *MigrationTicketBuilder {
+	builder.comments = comments
+	builder.commentsFlag = true
+	return builder
+}
+
+// 不满意原因
+//
+// 示例值：
+func (builder *MigrationTicketBuilder) DissatisfactionReasons(dissatisfactionReasons []*I18n) *MigrationTicketBuilder {
+	builder.dissatisfactionReasons = dissatisfactionReasons
+	builder.dissatisfactionReasonsFlag = true
+	return builder
+}
+
+// 工单实际处理时长，处理时长=解决时长-工单待定时长（将工单状态修改为待定后的时间），单位秒
+//
+// 示例值：1741849380
+func (builder *MigrationTicketBuilder) ActualProcessingTime(actualProcessingTime string) *MigrationTicketBuilder {
+	builder.actualProcessingTime = actualProcessingTime
+	builder.actualProcessingTimeFlag = true
+	return builder
+}
+
+// 工单语言（中文：zh_cn，日文： ja_jp，英文：en_us）
+//
+// 示例值：zh_cn
+func (builder *MigrationTicketBuilder) Language(language string) *MigrationTicketBuilder {
+	builder.language = language
+	builder.languageFlag = true
+	return builder
+}
+
+// 第一个客服进群的时间，单位秒
+//
+// 示例值：1742377835277
+func (builder *MigrationTicketBuilder) FirstAgentEntryChatTime(firstAgentEntryChatTime string) *MigrationTicketBuilder {
+	builder.firstAgentEntryChatTime = firstAgentEntryChatTime
+	builder.firstAgentEntryChatTimeFlag = true
+	return builder
+}
+
+// 工单用户国家信息
+//
+// 示例值：国家
+func (builder *MigrationTicketBuilder) GuestCountry(guestCountry string) *MigrationTicketBuilder {
+	builder.guestCountry = guestCountry
+	builder.guestCountryFlag = true
+	return builder
+}
+
+// 工单用户城市
+//
+// 示例值：城市
+func (builder *MigrationTicketBuilder) GuestCity(guestCity string) *MigrationTicketBuilder {
+	builder.guestCity = guestCity
+	builder.guestCityFlag = true
+	return builder
+}
+
+// 工单客服技能组名称
+//
+// 示例值：测试技能组
+func (builder *MigrationTicketBuilder) AgentGroupName(agentGroupName string) *MigrationTicketBuilder {
+	builder.agentGroupName = agentGroupName
+	builder.agentGroupNameFlag = true
+	return builder
+}
+
+// 转单备注
+//
+// 示例值：这是一个转接工单备注
+func (builder *MigrationTicketBuilder) TransferComment(transferComment string) *MigrationTicketBuilder {
+	builder.transferComment = transferComment
+	builder.transferCommentFlag = true
+	return builder
+}
+
+// 工单描述
+//
+// 示例值：这是一个工单描述
+func (builder *MigrationTicketBuilder) Description(description string) *MigrationTicketBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 工单关单方式（1：客服直接结束，2：客服转接结束）
+//
+// 示例值：1
+func (builder *MigrationTicketBuilder) CloseWay(closeWay int) *MigrationTicketBuilder {
+	builder.closeWay = closeWay
+	builder.closeWayFlag = true
+	return builder
+}
+
+// 工单协作者 ID
+//
+// 示例值：
+func (builder *MigrationTicketBuilder) Collaborators(collaborators []string) *MigrationTicketBuilder {
+	builder.collaborators = collaborators
+	builder.collaboratorsFlag = true
+	return builder
+}
+
+// 工单关联客服 ID
+//
+// 示例值：
+func (builder *MigrationTicketBuilder) AgentIds(agentIds []string) *MigrationTicketBuilder {
+	builder.agentIds = agentIds
+	builder.agentIdsFlag = true
+	return builder
+}
+
+// 工单 ID
+//
+// 示例值：7475259964853534722
+func (builder *MigrationTicketBuilder) Id(id string) *MigrationTicketBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *MigrationTicketBuilder) Build() *MigrationTicket {
+	req := &MigrationTicket{}
+	if builder.guestIdFlag {
+		req.GuestId = &builder.guestId
+
+	}
+	if builder.closeByFlag {
+		req.CloseBy = &builder.closeBy
+
+	}
+	if builder.creatorIdFlag {
+		req.CreatorId = &builder.creatorId
+
+	}
+	if builder.ownerAgentIdFlag {
+		req.OwnerAgentId = &builder.ownerAgentId
+
+	}
+	if builder.createAtMsFlag {
+		req.CreateAtMs = &builder.createAtMs
+
+	}
+	if builder.closeAtMsFlag {
+		req.CloseAtMs = &builder.closeAtMs
+
+	}
+	if builder.updateAtMsFlag {
+		req.UpdateAtMs = &builder.updateAtMs
+
+	}
+	if builder.queuedAtMsFlag {
+		req.QueuedAtMs = &builder.queuedAtMs
+
+	}
+	if builder.firstResponseMsFlag {
+		req.FirstResponseMs = &builder.firstResponseMs
+
+	}
+	if builder.lastResponseMsFlag {
+		req.LastResponseMs = &builder.lastResponseMs
+
+	}
+	if builder.stageFlag {
+		req.Stage = &builder.stage
+
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.scoreFlag {
+		req.Score = &builder.score
+
+	}
+	if builder.channelFlag {
+		req.Channel = &builder.channel
+
+	}
+	if builder.agentEntryTimeMsFlag {
+		req.AgentEntryTimeMs = &builder.agentEntryTimeMs
+
+	}
+	if builder.commentsFlag {
+		req.Comments = builder.comments
+	}
+	if builder.dissatisfactionReasonsFlag {
+		req.DissatisfactionReasons = builder.dissatisfactionReasons
+	}
+	if builder.actualProcessingTimeFlag {
+		req.ActualProcessingTime = &builder.actualProcessingTime
+
+	}
+	if builder.languageFlag {
+		req.Language = &builder.language
+
+	}
+	if builder.firstAgentEntryChatTimeFlag {
+		req.FirstAgentEntryChatTime = &builder.firstAgentEntryChatTime
+
+	}
+	if builder.guestCountryFlag {
+		req.GuestCountry = &builder.guestCountry
+
+	}
+	if builder.guestCityFlag {
+		req.GuestCity = &builder.guestCity
+
+	}
+	if builder.agentGroupNameFlag {
+		req.AgentGroupName = &builder.agentGroupName
+
+	}
+	if builder.transferCommentFlag {
+		req.TransferComment = &builder.transferComment
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.closeWayFlag {
+		req.CloseWay = &builder.closeWay
+
+	}
+	if builder.collaboratorsFlag {
+		req.Collaborators = builder.collaborators
+	}
+	if builder.agentIdsFlag {
+		req.AgentIds = builder.agentIds
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	return req
+}
+
+type MigrationTicketComment struct {
+	UserId *string `json:"user_id,omitempty"` // 评论用户 ID
+
+	CreateAtMs *string `json:"create_at_ms,omitempty"` // 评论创建时间（毫秒）
+
+	Content *string `json:"content,omitempty"` // 评论内容
+}
+
+type MigrationTicketCommentBuilder struct {
+	userId     string // 评论用户 ID
+	userIdFlag bool
+
+	createAtMs     string // 评论创建时间（毫秒）
+	createAtMsFlag bool
+
+	content     string // 评论内容
+	contentFlag bool
+}
+
+func NewMigrationTicketCommentBuilder() *MigrationTicketCommentBuilder {
+	builder := &MigrationTicketCommentBuilder{}
+	return builder
+}
+
+// 评论用户 ID
+//
+// 示例值：ou_37019b7c830210acd88fdce886e25c71
+func (builder *MigrationTicketCommentBuilder) UserId(userId string) *MigrationTicketCommentBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 评论创建时间（毫秒）
+//
+// 示例值：1741849380
+func (builder *MigrationTicketCommentBuilder) CreateAtMs(createAtMs string) *MigrationTicketCommentBuilder {
+	builder.createAtMs = createAtMs
+	builder.createAtMsFlag = true
+	return builder
+}
+
+// 评论内容
+//
+// 示例值：这是一条工单评论
+func (builder *MigrationTicketCommentBuilder) Content(content string) *MigrationTicketCommentBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *MigrationTicketCommentBuilder) Build() *MigrationTicketComment {
+	req := &MigrationTicketComment{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.createAtMsFlag {
+		req.CreateAtMs = &builder.createAtMs
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
+type MigrationTicketMessage struct {
+	Uuid *string `json:"uuid,omitempty"` // 导入工单消息幂等 ID（当前幂等时间支持 24 小时）
+
+	UserId *string `json:"user_id,omitempty"` // 发送消息的用户 ID
+
+	MessageType *string `json:"message_type,omitempty"` // 消息类型
+
+	Content *ExportTicketMessageContent `json:"content,omitempty"` // 消息内容
+
+	CreatedAtMs *string `json:"created_at_ms,omitempty"` // 消息创建时间，单位毫秒
+}
+
+type MigrationTicketMessageBuilder struct {
+	uuid     string // 导入工单消息幂等 ID（当前幂等时间支持 24 小时）
+	uuidFlag bool
+
+	userId     string // 发送消息的用户 ID
+	userIdFlag bool
+
+	messageType     string // 消息类型
+	messageTypeFlag bool
+
+	content     *ExportTicketMessageContent // 消息内容
+	contentFlag bool
+
+	createdAtMs     string // 消息创建时间，单位毫秒
+	createdAtMsFlag bool
+}
+
+func NewMigrationTicketMessageBuilder() *MigrationTicketMessageBuilder {
+	builder := &MigrationTicketMessageBuilder{}
+	return builder
+}
+
+// 导入工单消息幂等 ID（当前幂等时间支持 24 小时）
+//
+// 示例值：9263a772-3849-401b-883b-16e5c3f25127
+func (builder *MigrationTicketMessageBuilder) Uuid(uuid string) *MigrationTicketMessageBuilder {
+	builder.uuid = uuid
+	builder.uuidFlag = true
+	return builder
+}
+
+// 发送消息的用户 ID
+//
+// 示例值：ou_41119b7c830210abb12fdce886e25b98
+func (builder *MigrationTicketMessageBuilder) UserId(userId string) *MigrationTicketMessageBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 消息类型
+//
+// 示例值：text
+func (builder *MigrationTicketMessageBuilder) MessageType(messageType string) *MigrationTicketMessageBuilder {
+	builder.messageType = messageType
+	builder.messageTypeFlag = true
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：
+func (builder *MigrationTicketMessageBuilder) Content(content *ExportTicketMessageContent) *MigrationTicketMessageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 消息创建时间，单位毫秒
+//
+// 示例值：1741856554686
+func (builder *MigrationTicketMessageBuilder) CreatedAtMs(createdAtMs string) *MigrationTicketMessageBuilder {
+	builder.createdAtMs = createdAtMs
+	builder.createdAtMsFlag = true
+	return builder
+}
+
+func (builder *MigrationTicketMessageBuilder) Build() *MigrationTicketMessage {
+	req := &MigrationTicketMessage{}
+	if builder.uuidFlag {
+		req.Uuid = &builder.uuid
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.messageTypeFlag {
+		req.MessageType = &builder.messageType
+
+	}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
+	if builder.createdAtMsFlag {
+		req.CreatedAtMs = &builder.createdAtMs
 
 	}
 	return req
@@ -4107,6 +4953,109 @@ func (builder *TicketMessageEventBuilder) Build() *TicketMessageEvent {
 	return req
 }
 
+type TicketMessageExportEntity struct {
+	Id *string `json:"id,omitempty"` // 实体 ID
+
+	MessageType *string `json:"message_type,omitempty"` // 消息类型
+
+	CreatedAtMs *string `json:"created_at_ms,omitempty"` // 消息创建时间（单位毫秒）
+
+	UserId *string `json:"user_id,omitempty"` // 发送消息用户 ID
+
+	Content *ExportTicketMessageContent `json:"content,omitempty"` // 消息内容
+}
+
+type TicketMessageExportEntityBuilder struct {
+	id     string // 实体 ID
+	idFlag bool
+
+	messageType     string // 消息类型
+	messageTypeFlag bool
+
+	createdAtMs     string // 消息创建时间（单位毫秒）
+	createdAtMsFlag bool
+
+	userId     string // 发送消息用户 ID
+	userIdFlag bool
+
+	content     *ExportTicketMessageContent // 消息内容
+	contentFlag bool
+}
+
+func NewTicketMessageExportEntityBuilder() *TicketMessageExportEntityBuilder {
+	builder := &TicketMessageExportEntityBuilder{}
+	return builder
+}
+
+// 实体 ID
+//
+// 示例值：7482725333856829443
+func (builder *TicketMessageExportEntityBuilder) Id(id string) *TicketMessageExportEntityBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 消息类型
+//
+// 示例值：text
+func (builder *TicketMessageExportEntityBuilder) MessageType(messageType string) *TicketMessageExportEntityBuilder {
+	builder.messageType = messageType
+	builder.messageTypeFlag = true
+	return builder
+}
+
+// 消息创建时间（单位毫秒）
+//
+// 示例值：1742376324964
+func (builder *TicketMessageExportEntityBuilder) CreatedAtMs(createdAtMs string) *TicketMessageExportEntityBuilder {
+	builder.createdAtMs = createdAtMs
+	builder.createdAtMsFlag = true
+	return builder
+}
+
+// 发送消息用户 ID
+//
+// 示例值：ou_41119b7c830210abb12fdce886e25b98
+func (builder *TicketMessageExportEntityBuilder) UserId(userId string) *TicketMessageExportEntityBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：test
+func (builder *TicketMessageExportEntityBuilder) Content(content *ExportTicketMessageContent) *TicketMessageExportEntityBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *TicketMessageExportEntityBuilder) Build() *TicketMessageExportEntity {
+	req := &TicketMessageExportEntity{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.messageTypeFlag {
+		req.MessageType = &builder.messageType
+
+	}
+	if builder.createdAtMsFlag {
+		req.CreatedAtMs = &builder.createdAtMs
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.contentFlag {
+		req.Content = builder.content
+	}
+	return req
+}
+
 type TicketTag struct {
 	Id *string `json:"id,omitempty"` // ticket tag
 
@@ -4706,7 +5655,7 @@ func (builder *TicketV2Builder) BotServiceDuration(botServiceDuration int64) *Ti
 	return builder
 }
 
-//	客服解决时长，关单时间距离客服进入时间的间隔，单位秒
+//  客服解决时长，关单时间距离客服进入时间的间隔，单位秒
 //
 // 示例值：1741145995
 func (builder *TicketV2Builder) AgentResolutionTime(agentResolutionTime int64) *TicketV2Builder {
@@ -5145,6 +6094,8 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -5152,6 +6103,8 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -5159,6 +6112,8 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -5327,7 +6282,7 @@ func NewPatchAgentReqBodyBuilder() *PatchAgentReqBodyBuilder {
 
 // agent status
 //
-// 示例值：1：在线；2：离线
+//示例值：1：在线；2：离线
 func (builder *PatchAgentReqBodyBuilder) Status(status int) *PatchAgentReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -5477,7 +6432,7 @@ func NewGetAgentSchedulesReqBuilder() *GetAgentSchedulesReqBuilder {
 	return builder
 }
 
-//	客服 id
+// 	客服 id
 //
 // 示例值：	客服 id
 func (builder *GetAgentSchedulesReqBuilder) AgentId(agentId string) *GetAgentSchedulesReqBuilder {
@@ -5522,7 +6477,7 @@ func NewPatchAgentSchedulesReqBodyBuilder() *PatchAgentSchedulesReqBodyBuilder {
 
 // 工作日程列表
 //
-// 示例值：
+//示例值：
 func (builder *PatchAgentSchedulesReqBodyBuilder) AgentSchedule(agentSchedule *AgentScheduleUpdateInfo) *PatchAgentSchedulesReqBodyBuilder {
 	builder.agentSchedule = agentSchedule
 	builder.agentScheduleFlag = true
@@ -5630,7 +6585,7 @@ func NewCreateAgentScheduleReqBodyBuilder() *CreateAgentScheduleReqBodyBuilder {
 
 // 新客服日程
 //
-// 示例值：
+//示例值：
 func (builder *CreateAgentScheduleReqBodyBuilder) AgentSchedules(agentSchedules []*AgentScheduleUpdateInfo) *CreateAgentScheduleReqBodyBuilder {
 	builder.agentSchedules = agentSchedules
 	builder.agentSchedulesFlag = true
@@ -5783,7 +6738,7 @@ func NewCreateAgentSkillReqBodyBuilder() *CreateAgentSkillReqBodyBuilder {
 
 // 技能名
 //
-// 示例值：test-skill
+//示例值：test-skill
 func (builder *CreateAgentSkillReqBodyBuilder) Name(name string) *CreateAgentSkillReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -5792,7 +6747,7 @@ func (builder *CreateAgentSkillReqBodyBuilder) Name(name string) *CreateAgentSki
 
 // 技能rules
 //
-// 示例值：
+//示例值：
 func (builder *CreateAgentSkillReqBodyBuilder) Rules(rules []*AgentSkillRule) *CreateAgentSkillReqBodyBuilder {
 	builder.rules = rules
 	builder.rulesFlag = true
@@ -5801,7 +6756,7 @@ func (builder *CreateAgentSkillReqBodyBuilder) Rules(rules []*AgentSkillRule) *C
 
 // 客服 ids
 //
-// 示例值：["客服ID"]
+//示例值：["客服ID"]
 func (builder *CreateAgentSkillReqBodyBuilder) AgentIds(agentIds []string) *CreateAgentSkillReqBodyBuilder {
 	builder.agentIds = agentIds
 	builder.agentIdsFlag = true
@@ -6044,7 +6999,7 @@ func NewPatchAgentSkillReqBodyBuilder() *PatchAgentSkillReqBodyBuilder {
 
 // 更新技能
 //
-// 示例值：
+//示例值：
 func (builder *PatchAgentSkillReqBodyBuilder) AgentSkill(agentSkill *AgentSkill) *PatchAgentSkillReqBodyBuilder {
 	builder.agentSkill = agentSkill
 	builder.agentSkillFlag = true
@@ -6474,7 +7429,7 @@ func NewSubscribeEventReqBodyBuilder() *SubscribeEventReqBodyBuilder {
 
 // 可订阅的事件列表
 //
-// 示例值：
+//示例值：
 func (builder *SubscribeEventReqBodyBuilder) Events(events []*Event) *SubscribeEventReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -6573,7 +7528,7 @@ func NewUnsubscribeEventReqBodyBuilder() *UnsubscribeEventReqBodyBuilder {
 
 // event list to unsubscribe
 //
-// 示例值：
+//示例值：
 func (builder *UnsubscribeEventReqBodyBuilder) Events(events []*Event) *UnsubscribeEventReqBodyBuilder {
 	builder.events = events
 	builder.eventsFlag = true
@@ -6672,7 +7627,7 @@ func NewCreateFaqReqBodyBuilder() *CreateFaqReqBodyBuilder {
 
 // 知识库详情
 //
-// 示例值：
+//示例值：
 func (builder *CreateFaqReqBodyBuilder) Faq(faq *FaqCreateInfo) *CreateFaqReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -6935,7 +7890,7 @@ func (builder *ListFaqReqBuilder) Limit(limit int) *ListFaqReqBuilder {
 	return builder
 }
 
-//	知识库分类ID
+//  知识库分类ID
 //
 // 示例值：6856395522433908739
 func (builder *ListFaqReqBuilder) CategoryId(categoryId string) *ListFaqReqBuilder {
@@ -7023,7 +7978,7 @@ func NewPatchFaqReqBodyBuilder() *PatchFaqReqBodyBuilder {
 
 // 修改的知识库内容
 //
-// 示例值：
+//示例值：
 func (builder *PatchFaqReqBodyBuilder) Faq(faq *FaqUpdateInfo) *PatchFaqReqBodyBuilder {
 	builder.faq = faq
 	builder.faqFlag = true
@@ -7256,7 +8211,7 @@ func NewCancelSendNotificationReqBodyBuilder() *CancelSendNotificationReqBodyBui
 
 // 是否召回已发送的消息,新人入职消息同样适用
 //
-// 示例值：true
+//示例值：true
 func (builder *CancelSendNotificationReqBodyBuilder) IsRecall(isRecall bool) *CancelSendNotificationReqBodyBuilder {
 	builder.isRecall = isRecall
 	builder.isRecallFlag = true
@@ -7421,7 +8376,7 @@ func NewExecuteSendNotificationReqBodyBuilder() *ExecuteSendNotificationReqBodyB
 
 // 发送时间戳(毫秒)
 //
-// 示例值：1624326025000
+//示例值：1624326025000
 func (builder *ExecuteSendNotificationReqBodyBuilder) SendAt(sendAt string) *ExecuteSendNotificationReqBodyBuilder {
 	builder.sendAt = sendAt
 	builder.sendAtFlag = true
@@ -7686,7 +8641,7 @@ func NewSubmitApproveNotificationReqBodyBuilder() *SubmitApproveNotificationReqB
 
 // 提交审批理由
 //
-// 示例值：测试发送消息
+//示例值：测试发送消息
 func (builder *SubmitApproveNotificationReqBodyBuilder) Reason(reason string) *SubmitApproveNotificationReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -7802,7 +8757,7 @@ func NewAnswerUserQueryTicketReqBodyBuilder() *AnswerUserQueryTicketReqBodyBuild
 
 // 事件ID,可从订阅事件中提取
 //
-// 示例值：abcd
+//示例值：abcd
 func (builder *AnswerUserQueryTicketReqBodyBuilder) EventId(eventId string) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.eventId = eventId
 	builder.eventIdFlag = true
@@ -7811,7 +8766,7 @@ func (builder *AnswerUserQueryTicketReqBodyBuilder) EventId(eventId string) *Ans
 
 // faq结果列表
 //
-// 示例值：
+//示例值：
 func (builder *AnswerUserQueryTicketReqBodyBuilder) Faqs(faqs []*UserQueryFaqInfo) *AnswerUserQueryTicketReqBodyBuilder {
 	builder.faqs = faqs
 	builder.faqsFlag = true
@@ -8221,7 +9176,7 @@ func NewStartServiceTicketReqBodyBuilder() *StartServiceTicketReqBodyBuilder {
 
 // 是否直接进入人工(若appointed_agents填写了，该值为必填)
 //
-// 示例值：false
+//示例值：false
 func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool) *StartServiceTicketReqBodyBuilder {
 	builder.humanService = humanService
 	builder.humanServiceFlag = true
@@ -8230,7 +9185,7 @@ func (builder *StartServiceTicketReqBodyBuilder) HumanService(humanService bool)
 
 // 客服 open ids (获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))，human_service需要为true
 //
-// 示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
+//示例值：[ou_7dab8a3d3cdcc9da365777c7ad535d62]
 func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents []string) *StartServiceTicketReqBodyBuilder {
 	builder.appointedAgents = appointedAgents
 	builder.appointedAgentsFlag = true
@@ -8239,7 +9194,7 @@ func (builder *StartServiceTicketReqBodyBuilder) AppointedAgents(appointedAgents
 
 // 用户 open id,(获取方式参考[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get))
 //
-// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+//示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
 func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartServiceTicketReqBodyBuilder {
 	builder.openId = openId
 	builder.openIdFlag = true
@@ -8248,7 +9203,7 @@ func (builder *StartServiceTicketReqBodyBuilder) OpenId(openId string) *StartSer
 
 // 工单来源自定义信息，长度限制1024字符，如设置，[获取工单详情](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/helpdesk-v1/ticket/get)会返回此信息
 //
-// 示例值：测试自定义字段信息
+//示例值：测试自定义字段信息
 func (builder *StartServiceTicketReqBodyBuilder) CustomizedInfo(customizedInfo string) *StartServiceTicketReqBodyBuilder {
 	builder.customizedInfo = customizedInfo
 	builder.customizedInfoFlag = true
@@ -8501,7 +9456,7 @@ func NewUpdateTicketReqBodyBuilder() *UpdateTicketReqBodyBuilder {
 
 // new status, 1: 已创建, 2: 处理中, 3: 排队中, 5: 待定, 50: 机器人关闭工单, 51: 关闭工单
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Status(status int) *UpdateTicketReqBodyBuilder {
 	builder.status = status
 	builder.statusFlag = true
@@ -8510,7 +9465,7 @@ func (builder *UpdateTicketReqBodyBuilder) Status(status int) *UpdateTicketReqBo
 
 // 新标签名
 //
-// 示例值：abc
+//示例值：abc
 func (builder *UpdateTicketReqBodyBuilder) TagNames(tagNames []string) *UpdateTicketReqBodyBuilder {
 	builder.tagNames = tagNames
 	builder.tagNamesFlag = true
@@ -8519,7 +9474,7 @@ func (builder *UpdateTicketReqBodyBuilder) TagNames(tagNames []string) *UpdateTi
 
 // 新评论
 //
-// 示例值：good
+//示例值：good
 func (builder *UpdateTicketReqBodyBuilder) Comment(comment string) *UpdateTicketReqBodyBuilder {
 	builder.comment = comment
 	builder.commentFlag = true
@@ -8528,7 +9483,7 @@ func (builder *UpdateTicketReqBodyBuilder) Comment(comment string) *UpdateTicket
 
 // 自定义字段
 //
-// 示例值：
+//示例值：
 func (builder *UpdateTicketReqBodyBuilder) CustomizedFields(customizedFields []*CustomizedFieldDisplayItem) *UpdateTicketReqBodyBuilder {
 	builder.customizedFields = customizedFields
 	builder.customizedFieldsFlag = true
@@ -8537,7 +9492,7 @@ func (builder *UpdateTicketReqBodyBuilder) CustomizedFields(customizedFields []*
 
 // ticket stage
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) TicketType(ticketType int) *UpdateTicketReqBodyBuilder {
 	builder.ticketType = ticketType
 	builder.ticketTypeFlag = true
@@ -8546,7 +9501,7 @@ func (builder *UpdateTicketReqBodyBuilder) TicketType(ticketType int) *UpdateTic
 
 // 工单是否解决，1: 未解决, 2: 已解决
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Solved(solved int) *UpdateTicketReqBodyBuilder {
 	builder.solved = solved
 	builder.solvedFlag = true
@@ -8555,7 +9510,7 @@ func (builder *UpdateTicketReqBodyBuilder) Solved(solved int) *UpdateTicketReqBo
 
 // 工单来源渠道ID
 //
-// 示例值：1
+//示例值：1
 func (builder *UpdateTicketReqBodyBuilder) Channel(channel int) *UpdateTicketReqBodyBuilder {
 	builder.channel = channel
 	builder.channelFlag = true
@@ -8780,7 +9735,7 @@ func NewCreateTicketMessageReqBodyBuilder() *CreateTicketMessageReqBodyBuilder {
 
 // 消息类型；text：纯文本；post：富文本
 //
-// 示例值：post
+//示例值：post
 func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *CreateTicketMessageReqBodyBuilder {
 	builder.msgType = msgType
 	builder.msgTypeFlag = true
@@ -8789,7 +9744,7 @@ func (builder *CreateTicketMessageReqBodyBuilder) MsgType(msgType string) *Creat
 
 // - 纯文本，参考[发送文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uUjNz4SN2MjL1YzM)中的content；;- 富文本，参考[发送富文本消息](https://open.feishu.cn/document/ukTMukTMukTM/uMDMxEjLzATMx4yMwETM)中的content
 //
-// 示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
+//示例值：{;	"msg_type": "post",;	"content": {;		"post": {;			"zh_cn": {;				"title": "this is title",;				"content": [;					[;						{;							"tag": "text",;							"un_escape": true,;							"text": "第一行&nbsp;:";						},;						{;							"tag": "a",;							"text": "超链接",;							"href": "http://www.feishu.cn";						};					],;					[;						{;							"tag": "text",;							"text": "第二行 :";						},;						{;							"tag": "text",;							"text": "文本测试";						};					];				];			};		};	};}
 func (builder *CreateTicketMessageReqBodyBuilder) Content(content string) *CreateTicketMessageReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -9158,7 +10113,7 @@ func NewListTicketCustomizedFieldReqBodyBuilder() *ListTicketCustomizedFieldReqB
 
 // 是否可见
 //
-// 示例值：true
+//示例值：true
 func (builder *ListTicketCustomizedFieldReqBodyBuilder) Visible(visible bool) *ListTicketCustomizedFieldReqBodyBuilder {
 	builder.visible = visible
 	builder.visibleFlag = true

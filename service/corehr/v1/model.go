@@ -5203,6 +5203,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -5210,6 +5212,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -20240,6 +20244,8 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -20247,6 +20253,8 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -20254,6 +20262,8 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -20946,7 +20956,7 @@ func NewSearchAssignedUserReqBodyBuilder() *SearchAssignedUserReqBodyBuilder {
 
 // 角色 ID，仅支持组织类角色， 角色 ID 可通过【批量获取角色列表】接口获取
 //
-// 示例值：100
+//示例值：100
 func (builder *SearchAssignedUserReqBodyBuilder) RoleId(roleId string) *SearchAssignedUserReqBodyBuilder {
 	builder.roleId = roleId
 	builder.roleIdFlag = true
@@ -20955,7 +20965,7 @@ func (builder *SearchAssignedUserReqBodyBuilder) RoleId(roleId string) *SearchAs
 
 // 管理范围信息
 //
-// 示例值：
+//示例值：
 func (builder *SearchAssignedUserReqBodyBuilder) ManagementScopeList(managementScopeList []*ManagementScope) *SearchAssignedUserReqBodyBuilder {
 	builder.managementScopeList = managementScopeList
 	builder.managementScopeListFlag = true
@@ -20964,7 +20974,7 @@ func (builder *SearchAssignedUserReqBodyBuilder) ManagementScopeList(managementS
 
 // 查找方式;;可选值有：;- 1：只查找指定 部门/工作地点/公司/社保城市，如无授权信息则返回为空;- 2：当指定的 部门/工作地点/公司/社保城市 无授权信息，向上查找第一个授权记录并直接返回
 //
-// 示例值：1
+//示例值：1
 func (builder *SearchAssignedUserReqBodyBuilder) SearchMethod(searchMethod string) *SearchAssignedUserReqBodyBuilder {
 	builder.searchMethod = searchMethod
 	builder.searchMethodFlag = true
@@ -20973,7 +20983,7 @@ func (builder *SearchAssignedUserReqBodyBuilder) SearchMethod(searchMethod strin
 
 // 页码标识，获取第一页传空，每次查询会返回下一页的page_token
 //
-// 示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+//示例值：eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
 func (builder *SearchAssignedUserReqBodyBuilder) PageToken(pageToken string) *SearchAssignedUserReqBodyBuilder {
 	builder.pageToken = pageToken
 	builder.pageTokenFlag = true
@@ -20982,7 +20992,7 @@ func (builder *SearchAssignedUserReqBodyBuilder) PageToken(pageToken string) *Se
 
 // 每页获取记录数量，最大100
 //
-// 示例值：100
+//示例值：100
 func (builder *SearchAssignedUserReqBodyBuilder) PageSize(pageSize string) *SearchAssignedUserReqBodyBuilder {
 	builder.pageSize = pageSize
 	builder.pageSizeFlag = true
@@ -21175,7 +21185,7 @@ func NewAddRoleAssignAuthorizationReqBodyBuilder() *AddRoleAssignAuthorizationRe
 
 // 授权
 //
-// 示例值：67489937334909845
+//示例值：67489937334909845
 func (builder *AddRoleAssignAuthorizationReqBodyBuilder) AssignedOrganizationItems(assignedOrganizationItems [][]*AssignedOrganizationWithCode) *AddRoleAssignAuthorizationReqBodyBuilder {
 	builder.assignedOrganizationItems = assignedOrganizationItems
 	builder.assignedOrganizationItemsFlag = true
@@ -21522,7 +21532,7 @@ func NewUpdateRoleAssignAuthorizationReqBodyBuilder() *UpdateRoleAssignAuthoriza
 
 // 授权
 //
-// 示例值：67489937334909845
+//示例值：67489937334909845
 func (builder *UpdateRoleAssignAuthorizationReqBodyBuilder) AssignedOrganizationItems(assignedOrganizationItems [][]*AssignedOrganizationWithCode) *UpdateRoleAssignAuthorizationReqBodyBuilder {
 	builder.assignedOrganizationItems = assignedOrganizationItems
 	builder.assignedOrganizationItemsFlag = true
@@ -21651,7 +21661,7 @@ func NewConvertCommonDataIdReqBodyBuilder() *ConvertCommonDataIdReqBodyBuilder {
 
 // ID 列表（最多传入 100 个 ID，ID 长度限制 50 个字符）
 //
-// 示例值：
+//示例值：
 func (builder *ConvertCommonDataIdReqBodyBuilder) Ids(ids []string) *ConvertCommonDataIdReqBodyBuilder {
 	builder.ids = ids
 	builder.idsFlag = true
@@ -21739,6 +21749,7 @@ func (builder *ConvertCommonDataIdReqBuilder) FeishuDepartmentIdType(feishuDepar
 	return builder
 }
 
+//
 func (builder *ConvertCommonDataIdReqBuilder) Body(body *ConvertCommonDataIdReqBody) *ConvertCommonDataIdReqBuilder {
 	builder.body = body
 	return builder
@@ -21793,7 +21804,7 @@ func NewAddEnumOptionCommonDataMetaDataReqBodyBuilder() *AddEnumOptionCommonData
 
 // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 //
-// 示例值：probation_management
+//示例值：probation_management
 func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) ObjectApiName(objectApiName string) *AddEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.objectApiName = objectApiName
 	builder.objectApiNameFlag = true
@@ -21802,7 +21813,7 @@ func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) ObjectApiName(obje
 
 // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
-// 示例值：final_assessment_grade
+//示例值：final_assessment_grade
 func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(enumFieldApiName string) *AddEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldApiName = enumFieldApiName
 	builder.enumFieldApiNameFlag = true
@@ -21811,7 +21822,7 @@ func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(e
 
 // 新增枚举选项列表
 //
-// 示例值：
+//示例值：
 func (builder *AddEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldOptions(enumFieldOptions []*EnumFieldOption) *AddEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldOptions = enumFieldOptions
 	builder.enumFieldOptionsFlag = true
@@ -21909,6 +21920,7 @@ func (builder *AddEnumOptionCommonDataMetaDataReqBuilder) ClientToken(clientToke
 	return builder
 }
 
+//
 func (builder *AddEnumOptionCommonDataMetaDataReqBuilder) Body(body *AddEnumOptionCommonDataMetaDataReqBody) *AddEnumOptionCommonDataMetaDataReqBuilder {
 	builder.body = body
 	return builder
@@ -21969,7 +21981,7 @@ func NewEditEnumOptionCommonDataMetaDataReqBodyBuilder() *EditEnumOptionCommonDa
 
 // 所属对象 API name，可通过[获取飞书人事对象列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/list_object_api_name)接口中返回的 `object_api_name` 字段获取
 //
-// 示例值：probation_management
+//示例值：probation_management
 func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) ObjectApiName(objectApiName string) *EditEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.objectApiName = objectApiName
 	builder.objectApiNameFlag = true
@@ -21978,7 +21990,7 @@ func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) ObjectApiName(obj
 
 // 枚举字段 API name，可通过[获取自定义字段列表](https://open.feishu.cn/document/server-docs/corehr-v1/basic-infomation/custom_field/query)接口中返回的 `custom_api_name` 字段获取
 //
-// 示例值：final_assessment_grade
+//示例值：final_assessment_grade
 func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(enumFieldApiName string) *EditEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldApiName = enumFieldApiName
 	builder.enumFieldApiNameFlag = true
@@ -21987,7 +21999,7 @@ func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldApiName(
 
 // 枚举选项
 //
-// 示例值：
+//示例值：
 func (builder *EditEnumOptionCommonDataMetaDataReqBodyBuilder) EnumFieldOption(enumFieldOption *EnumFieldOption) *EditEnumOptionCommonDataMetaDataReqBodyBuilder {
 	builder.enumFieldOption = enumFieldOption
 	builder.enumFieldOptionFlag = true
@@ -22085,6 +22097,7 @@ func (builder *EditEnumOptionCommonDataMetaDataReqBuilder) ClientToken(clientTok
 	return builder
 }
 
+//
 func (builder *EditEnumOptionCommonDataMetaDataReqBuilder) Body(body *EditEnumOptionCommonDataMetaDataReqBody) *EditEnumOptionCommonDataMetaDataReqBuilder {
 	builder.body = body
 	return builder
@@ -22473,6 +22486,14 @@ func (builder *MatchCompensationStandardReqBuilder) CompanyId(companyId string) 
 // 示例值：7039313681989502508
 func (builder *MatchCompensationStandardReqBuilder) JobFamilyId(jobFamilyId string) *MatchCompensationStandardReqBuilder {
 	builder.apiReq.QueryParams.Set("job_family_id", fmt.Sprint(jobFamilyId))
+	return builder
+}
+
+// 职务ID
+//
+// 示例值：7342883436321097257
+func (builder *MatchCompensationStandardReqBuilder) JobId(jobId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("job_id", fmt.Sprint(jobId))
 	return builder
 }
 
@@ -24360,7 +24381,7 @@ func NewCreateJobChangeReqBodyBuilder() *CreateJobChangeReqBodyBuilder {
 
 // 异动方式
 //
-// 示例值：2
+//示例值：2
 func (builder *CreateJobChangeReqBodyBuilder) TransferMode(transferMode int) *CreateJobChangeReqBodyBuilder {
 	builder.transferMode = transferMode
 	builder.transferModeFlag = true
@@ -24369,7 +24390,7 @@ func (builder *CreateJobChangeReqBodyBuilder) TransferMode(transferMode int) *Cr
 
 // 雇员id
 //
-// 示例值：ou_a294793e8fa21529f2a60e3e9de45520
+//示例值：ou_a294793e8fa21529f2a60e3e9de45520
 func (builder *CreateJobChangeReqBodyBuilder) EmploymentId(employmentId string) *CreateJobChangeReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdFlag = true
@@ -24378,7 +24399,7 @@ func (builder *CreateJobChangeReqBodyBuilder) EmploymentId(employmentId string) 
 
 // 异动类型唯一标识
 //
-// 示例值：internal_transfer
+//示例值：internal_transfer
 func (builder *CreateJobChangeReqBodyBuilder) TransferTypeUniqueIdentifier(transferTypeUniqueIdentifier string) *CreateJobChangeReqBodyBuilder {
 	builder.transferTypeUniqueIdentifier = transferTypeUniqueIdentifier
 	builder.transferTypeUniqueIdentifierFlag = true
@@ -24387,7 +24408,7 @@ func (builder *CreateJobChangeReqBodyBuilder) TransferTypeUniqueIdentifier(trans
 
 // 异动流程ID
 //
-// 示例值：people_6963913041981490725_6983885526583627531
+//示例值：people_6963913041981490725_6983885526583627531
 func (builder *CreateJobChangeReqBodyBuilder) FlowId(flowId string) *CreateJobChangeReqBodyBuilder {
 	builder.flowId = flowId
 	builder.flowIdFlag = true
@@ -24396,7 +24417,7 @@ func (builder *CreateJobChangeReqBodyBuilder) FlowId(flowId string) *CreateJobCh
 
 // 生效日期
 //
-// 示例值：2022-03-01
+//示例值：2022-03-01
 func (builder *CreateJobChangeReqBodyBuilder) EffectiveDate(effectiveDate string) *CreateJobChangeReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
 	builder.effectiveDateFlag = true
@@ -24405,7 +24426,7 @@ func (builder *CreateJobChangeReqBodyBuilder) EffectiveDate(effectiveDate string
 
 // 异动详细信息
 //
-// 示例值：
+//示例值：
 func (builder *CreateJobChangeReqBodyBuilder) TransferInfo(transferInfo *TransferInfo) *CreateJobChangeReqBodyBuilder {
 	builder.transferInfo = transferInfo
 	builder.transferInfoFlag = true
@@ -24414,7 +24435,7 @@ func (builder *CreateJobChangeReqBodyBuilder) TransferInfo(transferInfo *Transfe
 
 // 异动记录标识符
 //
-// 示例值：transfer_3627531
+//示例值：transfer_3627531
 func (builder *CreateJobChangeReqBodyBuilder) TransferKey(transferKey string) *CreateJobChangeReqBodyBuilder {
 	builder.transferKey = transferKey
 	builder.transferKeyFlag = true
@@ -24423,7 +24444,7 @@ func (builder *CreateJobChangeReqBodyBuilder) TransferKey(transferKey string) *C
 
 // 异动发起人 ID
 //
-// 示例值：ou_a294793e8fa21529f2a60e3e9de45520
+//示例值：ou_a294793e8fa21529f2a60e3e9de45520
 func (builder *CreateJobChangeReqBodyBuilder) InitiatorId(initiatorId string) *CreateJobChangeReqBodyBuilder {
 	builder.initiatorId = initiatorId
 	builder.initiatorIdFlag = true
@@ -26121,6 +26142,7 @@ func NewWorkCalendarLeaveReqBuilder() *WorkCalendarLeaveReqBuilder {
 	return builder
 }
 
+//
 func (builder *WorkCalendarLeaveReqBuilder) WorkCalendarFilter(workCalendarFilter *WorkCalendarFilter) *WorkCalendarLeaveReqBuilder {
 	builder.workCalendarFilter = workCalendarFilter
 	return builder
@@ -26168,6 +26190,7 @@ func NewWorkCalendarDateLeaveReqBuilder() *WorkCalendarDateLeaveReqBuilder {
 	return builder
 }
 
+//
 func (builder *WorkCalendarDateLeaveReqBuilder) CalendarDateByDateFilter(calendarDateByDateFilter *CalendarDateByDateFilter) *WorkCalendarDateLeaveReqBuilder {
 	builder.calendarDateByDateFilter = calendarDateByDateFilter
 	return builder
@@ -26235,7 +26258,7 @@ func NewCreateLeaveGrantingRecordReqBodyBuilder() *CreateLeaveGrantingRecordReqB
 
 // 假期类型 ID，枚举值可通过【获取假期类型列表】接口获取（若假期类型下存在假期子类，此处仅支持传入假期子类的 ID）
 //
-// 示例值：7111688079785723436
+//示例值：7111688079785723436
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) LeaveTypeId(leaveTypeId string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.leaveTypeId = leaveTypeId
 	builder.leaveTypeIdFlag = true
@@ -26244,7 +26267,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) LeaveTypeId(leaveTypeId 
 
 // 员工 ID
 //
-// 示例值：6982509313466189342
+//示例值：6982509313466189342
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EmploymentId(employmentId string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdFlag = true
@@ -26253,7 +26276,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EmploymentId(employmentI
 
 // 授予数量
 //
-// 示例值：0.5
+//示例值：0.5
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) GrantingQuantity(grantingQuantity string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.grantingQuantity = grantingQuantity
 	builder.grantingQuantityFlag = true
@@ -26262,7 +26285,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) GrantingQuantity(grantin
 
 // 授予时长单位;;可选值有：;;- 1: 天;- 2: 小时
 //
-// 示例值：1
+//示例值：1
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) GrantingUnit(grantingUnit int) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.grantingUnit = grantingUnit
 	builder.grantingUnitFlag = true
@@ -26271,7 +26294,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) GrantingUnit(grantingUni
 
 // 生效时间
 //
-// 示例值：2022-01-01
+//示例值：2022-01-01
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EffectiveDate(effectiveDate string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.effectiveDate = effectiveDate
 	builder.effectiveDateFlag = true
@@ -26280,7 +26303,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) EffectiveDate(effectiveD
 
 // 失效时间
 //
-// 示例值：2022-01-01
+//示例值：2022-01-01
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExpirationDate(expirationDate string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.expirationDate = expirationDate
 	builder.expirationDateFlag = true
@@ -26289,7 +26312,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExpirationDate(expiratio
 
 // 是否参与折算
 //
-// 示例值：1
+//示例值：1
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) SectionType(sectionType int) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.sectionType = sectionType
 	builder.sectionTypeFlag = true
@@ -26298,7 +26321,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) SectionType(sectionType 
 
 // 授予原因
 //
-// 示例值：
+//示例值：
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) Reason(reason []*I18n) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.reason = reason
 	builder.reasonFlag = true
@@ -26307,7 +26330,7 @@ func (builder *CreateLeaveGrantingRecordReqBodyBuilder) Reason(reason []*I18n) *
 
 // 自定义外部 ID，可用于避免数据重复写入（不能超过 64 字符）
 //
-// 示例值：111
+//示例值：111
 func (builder *CreateLeaveGrantingRecordReqBodyBuilder) ExternalId(externalId string) *CreateLeaveGrantingRecordReqBodyBuilder {
 	builder.externalId = externalId
 	builder.externalIdFlag = true
@@ -27104,7 +27127,7 @@ func NewQueryOffboardingReqBodyBuilder() *QueryOffboardingReqBodyBuilder {
 
 // 是否启用
 //
-// 示例值：true
+//示例值：true
 func (builder *QueryOffboardingReqBodyBuilder) Active(active bool) *QueryOffboardingReqBodyBuilder {
 	builder.active = active
 	builder.activeFlag = true
@@ -27113,7 +27136,7 @@ func (builder *QueryOffboardingReqBodyBuilder) Active(active bool) *QueryOffboar
 
 // 离职原因唯一标识列表，用于过滤，最大20个
 //
-// 示例值：["reason_for_offboarding_option"]
+//示例值：["reason_for_offboarding_option"]
 func (builder *QueryOffboardingReqBodyBuilder) OffboardingReasonUniqueIdentifier(offboardingReasonUniqueIdentifier []string) *QueryOffboardingReqBodyBuilder {
 	builder.offboardingReasonUniqueIdentifier = offboardingReasonUniqueIdentifier
 	builder.offboardingReasonUniqueIdentifierFlag = true
@@ -27269,7 +27292,7 @@ func NewSearchOffboardingReqBodyBuilder() *SearchOffboardingReqBodyBuilder {
 
 // 雇佣 ID 列表，为空默认查询所有离职人员
 //
-// 示例值：
+//示例值：
 func (builder *SearchOffboardingReqBodyBuilder) EmploymentIds(employmentIds []string) *SearchOffboardingReqBodyBuilder {
 	builder.employmentIds = employmentIds
 	builder.employmentIdsFlag = true
@@ -27278,7 +27301,7 @@ func (builder *SearchOffboardingReqBodyBuilder) EmploymentIds(employmentIds []st
 
 // 离职审批发起时间-搜索范围开始，需要与搜索范围结束一同使用
 //
-// 示例值：2022-01-01 11:22:33
+//示例值：2022-01-01 11:22:33
 func (builder *SearchOffboardingReqBodyBuilder) ApplyInitiatingTimeStart(applyInitiatingTimeStart string) *SearchOffboardingReqBodyBuilder {
 	builder.applyInitiatingTimeStart = applyInitiatingTimeStart
 	builder.applyInitiatingTimeStartFlag = true
@@ -27287,7 +27310,7 @@ func (builder *SearchOffboardingReqBodyBuilder) ApplyInitiatingTimeStart(applyIn
 
 // 离职审批发起时间 - 搜索范围结束
 //
-// 示例值：2022-01-01 11:22:33
+//示例值：2022-01-01 11:22:33
 func (builder *SearchOffboardingReqBodyBuilder) ApplyInitiatingTimeEnd(applyInitiatingTimeEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.applyInitiatingTimeEnd = applyInitiatingTimeEnd
 	builder.applyInitiatingTimeEndFlag = true
@@ -27296,7 +27319,7 @@ func (builder *SearchOffboardingReqBodyBuilder) ApplyInitiatingTimeEnd(applyInit
 
 // 离职审批结束时间 - 搜索范围开始，需要与搜索范围结束一同使用
 //
-// 示例值：1641007353
+//示例值：1641007353
 func (builder *SearchOffboardingReqBodyBuilder) ApplyFinishedTimeStart(applyFinishedTimeStart string) *SearchOffboardingReqBodyBuilder {
 	builder.applyFinishedTimeStart = applyFinishedTimeStart
 	builder.applyFinishedTimeStartFlag = true
@@ -27305,7 +27328,7 @@ func (builder *SearchOffboardingReqBodyBuilder) ApplyFinishedTimeStart(applyFini
 
 // 离职审批结束时间 - 搜索范围结束
 //
-// 示例值：1641007353
+//示例值：1641007353
 func (builder *SearchOffboardingReqBodyBuilder) ApplyFinishedTimeEnd(applyFinishedTimeEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.applyFinishedTimeEnd = applyFinishedTimeEnd
 	builder.applyFinishedTimeEndFlag = true
@@ -27314,7 +27337,7 @@ func (builder *SearchOffboardingReqBodyBuilder) ApplyFinishedTimeEnd(applyFinish
 
 // 期望离职日期-搜索范围开始，需要与搜索范围结束一同使用
 //
-// 示例值：2022-01-01
+//示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) ExpectedOffboardingDateStart(expectedOffboardingDateStart string) *SearchOffboardingReqBodyBuilder {
 	builder.expectedOffboardingDateStart = expectedOffboardingDateStart
 	builder.expectedOffboardingDateStartFlag = true
@@ -27323,7 +27346,7 @@ func (builder *SearchOffboardingReqBodyBuilder) ExpectedOffboardingDateStart(exp
 
 // 期望离职日期 - 搜索范围结束
 //
-// 示例值：2022-01-01
+//示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) ExpectedOffboardingDateEnd(expectedOffboardingDateEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.expectedOffboardingDateEnd = expectedOffboardingDateEnd
 	builder.expectedOffboardingDateEndFlag = true
@@ -27332,7 +27355,7 @@ func (builder *SearchOffboardingReqBodyBuilder) ExpectedOffboardingDateEnd(expec
 
 // 离职日期-搜索范围开始，需要与搜索范围结束一同使用
 //
-// 示例值：2022-01-01
+//示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) OffboardingDateStart(offboardingDateStart string) *SearchOffboardingReqBodyBuilder {
 	builder.offboardingDateStart = offboardingDateStart
 	builder.offboardingDateStartFlag = true
@@ -27341,7 +27364,7 @@ func (builder *SearchOffboardingReqBodyBuilder) OffboardingDateStart(offboarding
 
 // 离职日期 - 搜索范围结束
 //
-// 示例值：2022-01-01
+//示例值：2022-01-01
 func (builder *SearchOffboardingReqBodyBuilder) OffboardingDateEnd(offboardingDateEnd string) *SearchOffboardingReqBodyBuilder {
 	builder.offboardingDateEnd = offboardingDateEnd
 	builder.offboardingDateEndFlag = true
@@ -27350,7 +27373,7 @@ func (builder *SearchOffboardingReqBodyBuilder) OffboardingDateEnd(offboardingDa
 
 // 离职状态，多个状态之间为「或」的关系
 //
-// 示例值：
+//示例值：
 func (builder *SearchOffboardingReqBodyBuilder) Statuses(statuses []string) *SearchOffboardingReqBodyBuilder {
 	builder.statuses = statuses
 	builder.statusesFlag = true
@@ -27359,7 +27382,7 @@ func (builder *SearchOffboardingReqBodyBuilder) Statuses(statuses []string) *Sea
 
 // 离职原因列表 , 可以通过【查询员工离职原因列表】接口获取 ，查询时不返回下级原因相关的离职信息
 //
-// 示例值：
+//示例值：
 func (builder *SearchOffboardingReqBodyBuilder) Reasons(reasons []string) *SearchOffboardingReqBodyBuilder {
 	builder.reasons = reasons
 	builder.reasonsFlag = true
@@ -27368,7 +27391,7 @@ func (builder *SearchOffboardingReqBodyBuilder) Reasons(reasons []string) *Searc
 
 // 离职原因（员工）列表 , 可以通过【查询员工离职原因列表】接口获取，查询时不返回下级原因相关的离职信息
 //
-// 示例值：
+//示例值：
 func (builder *SearchOffboardingReqBodyBuilder) EmployeeReasons(employeeReasons []string) *SearchOffboardingReqBodyBuilder {
 	builder.employeeReasons = employeeReasons
 	builder.employeeReasonsFlag = true
@@ -27747,7 +27770,7 @@ func NewSubmitOffboardingReqBodyBuilder() *SubmitOffboardingReqBodyBuilder {
 
 // 离职方式
 //
-// 示例值：1
+//示例值：1
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingMode(offboardingMode int) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingMode = offboardingMode
 	builder.offboardingModeFlag = true
@@ -27756,7 +27779,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) OffboardingMode(offboardingMode 
 
 // 雇员 id
 //
-// 示例值：6982509313466189342
+//示例值：6982509313466189342
 func (builder *SubmitOffboardingReqBodyBuilder) EmploymentId(employmentId string) *SubmitOffboardingReqBodyBuilder {
 	builder.employmentId = employmentId
 	builder.employmentIdFlag = true
@@ -27765,7 +27788,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) EmploymentId(employmentId string
 
 // 离职日期
 //
-// 示例值：2022-05-18
+//示例值：2022-05-18
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingDate(offboardingDate string) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingDate = offboardingDate
 	builder.offboardingDateFlag = true
@@ -27774,7 +27797,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) OffboardingDate(offboardingDate 
 
 // 离职原因，可通过接口;[【查询员工离职原因列表】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/offboarding/query)获取
 //
-// 示例值：reason_for_offboarding_option8
+//示例值：reason_for_offboarding_option8
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingReasonUniqueIdentifier(offboardingReasonUniqueIdentifier string) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingReasonUniqueIdentifier = offboardingReasonUniqueIdentifier
 	builder.offboardingReasonUniqueIdentifierFlag = true
@@ -27783,7 +27806,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) OffboardingReasonUniqueIdentifie
 
 // 离职原因说明，长度限制6000
 //
-// 示例值：离职原因说明
+//示例值：离职原因说明
 func (builder *SubmitOffboardingReqBodyBuilder) OffboardingReasonExplanation(offboardingReasonExplanation string) *SubmitOffboardingReqBodyBuilder {
 	builder.offboardingReasonExplanation = offboardingReasonExplanation
 	builder.offboardingReasonExplanationFlag = true
@@ -27792,7 +27815,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) OffboardingReasonExplanation(off
 
 // 操作发起人 ID（employment_id），为空默认为系统发起。注意：只有操作发起人可以撤销流程
 //
-// 示例值：6982509313466189341
+//示例值：6982509313466189341
 func (builder *SubmitOffboardingReqBodyBuilder) InitiatorId(initiatorId string) *SubmitOffboardingReqBodyBuilder {
 	builder.initiatorId = initiatorId
 	builder.initiatorIdFlag = true
@@ -27801,7 +27824,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) InitiatorId(initiatorId string) 
 
 // 是否加入离职屏蔽名单
 //
-// 示例值：false
+//示例值：false
 func (builder *SubmitOffboardingReqBodyBuilder) AddBlockList(addBlockList bool) *SubmitOffboardingReqBodyBuilder {
 	builder.addBlockList = addBlockList
 	builder.addBlockListFlag = true
@@ -27810,7 +27833,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) AddBlockList(addBlockList bool) 
 
 // 屏蔽原因
 //
-// 示例值：红线
+//示例值：红线
 func (builder *SubmitOffboardingReqBodyBuilder) BlockReason(blockReason string) *SubmitOffboardingReqBodyBuilder {
 	builder.blockReason = blockReason
 	builder.blockReasonFlag = true
@@ -27819,7 +27842,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) BlockReason(blockReason string) 
 
 // 屏蔽原因说明
 //
-// 示例值：xx 年 xx 月 xx 日因 xx 原因红线
+//示例值：xx 年 xx 月 xx 日因 xx 原因红线
 func (builder *SubmitOffboardingReqBodyBuilder) BlockReasonExplanation(blockReasonExplanation string) *SubmitOffboardingReqBodyBuilder {
 	builder.blockReasonExplanation = blockReasonExplanation
 	builder.blockReasonExplanationFlag = true
@@ -27828,7 +27851,7 @@ func (builder *SubmitOffboardingReqBodyBuilder) BlockReasonExplanation(blockReas
 
 // 自定义字段
 //
-// 示例值：
+//示例值：
 func (builder *SubmitOffboardingReqBodyBuilder) CustomFields(customFields []*ObjectFieldData) *SubmitOffboardingReqBodyBuilder {
 	builder.customFields = customFields
 	builder.customFieldsFlag = true
@@ -28346,7 +28369,7 @@ func NewUploadPersonReqBodyBuilder() *UploadPersonReqBodyBuilder {
 
 // 文件二进制内容
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *UploadPersonReqBodyBuilder) FileContent(fileContent io.Reader) *UploadPersonReqBodyBuilder {
 	builder.fileContent = fileContent
 	builder.fileContentFlag = true
@@ -28355,7 +28378,7 @@ func (builder *UploadPersonReqBodyBuilder) FileContent(fileContent io.Reader) *U
 
 // 文件名称
 //
-// 示例值：个人信息
+//示例值：个人信息
 func (builder *UploadPersonReqBodyBuilder) FileName(fileName string) *UploadPersonReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -28811,7 +28834,7 @@ func NewQuerySecurityGroupReqBodyBuilder() *QuerySecurityGroupReqBodyBuilder {
 
 // 角色列表，一次最多支持查询 50 个
 //
-// 示例值：
+//示例值：
 func (builder *QuerySecurityGroupReqBodyBuilder) ItemList(itemList []*BpRoleOrganization) *QuerySecurityGroupReqBodyBuilder {
 	builder.itemList = itemList
 	builder.itemListFlag = true
@@ -28820,7 +28843,7 @@ func (builder *QuerySecurityGroupReqBodyBuilder) ItemList(itemList []*BpRoleOrga
 
 // 授权时间大于
 //
-// 示例值：1729773628
+//示例值：1729773628
 func (builder *QuerySecurityGroupReqBodyBuilder) UpdatedAtGte(updatedAtGte string) *QuerySecurityGroupReqBodyBuilder {
 	builder.updatedAtGte = updatedAtGte
 	builder.updatedAtGteFlag = true
@@ -28829,7 +28852,7 @@ func (builder *QuerySecurityGroupReqBodyBuilder) UpdatedAtGte(updatedAtGte strin
 
 // 授权时间小于
 //
-// 示例值：1729773628
+//示例值：1729773628
 func (builder *QuerySecurityGroupReqBodyBuilder) UpdatedAtLte(updatedAtLte string) *QuerySecurityGroupReqBodyBuilder {
 	builder.updatedAtLte = updatedAtLte
 	builder.updatedAtLteFlag = true

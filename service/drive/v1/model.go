@@ -1764,6 +1764,8 @@ func NewDepartmentIdBuilder() *DepartmentIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *DepartmentIdBuilder {
 	builder.departmentId = departmentId
@@ -1771,6 +1773,8 @@ func (builder *DepartmentIdBuilder) DepartmentId(departmentId string) *Departmen
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *DepartmentIdBuilder) OpenDepartmentId(openDepartmentId string) *DepartmentIdBuilder {
 	builder.openDepartmentId = openDepartmentId
@@ -5016,6 +5020,8 @@ func NewUserIdBuilder() *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	builder.userId = userId
@@ -5023,6 +5029,8 @@ func (builder *UserIdBuilder) UserId(userId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	builder.openId = openId
@@ -5030,6 +5038,8 @@ func (builder *UserIdBuilder) OpenId(openId string) *UserIdBuilder {
 	return builder
 }
 
+//
+//
 // 示例值：
 func (builder *UserIdBuilder) UnionId(unionId string) *UserIdBuilder {
 	builder.unionId = unionId
@@ -5426,7 +5436,7 @@ func NewCopyFileReqBodyBuilder() *CopyFileReqBodyBuilder {
 
 // 被复制文件的新名称
 //
-// 示例值：test.txt
+//示例值：test.txt
 func (builder *CopyFileReqBodyBuilder) Name(name string) *CopyFileReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -5435,7 +5445,7 @@ func (builder *CopyFileReqBodyBuilder) Name(name string) *CopyFileReqBodyBuilder
 
 // 被复制文件的类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
 //
-// 示例值：doc
+//示例值：doc
 func (builder *CopyFileReqBodyBuilder) Type(type_ string) *CopyFileReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -5444,7 +5454,7 @@ func (builder *CopyFileReqBodyBuilder) Type(type_ string) *CopyFileReqBodyBuilde
 
 // 文件被复制到的目标文件夹token
 //
-// 示例值：fldbcO1UuPz8VwnpPx5a92abcef
+//示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *CopyFileReqBodyBuilder) FolderToken(folderToken string) *CopyFileReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -5453,7 +5463,7 @@ func (builder *CopyFileReqBodyBuilder) FolderToken(folderToken string) *CopyFile
 
 // 用户自定义请求附加参数，用于实现特殊的复制语义
 //
-// 示例值：
+//示例值：
 func (builder *CopyFileReqBodyBuilder) Extra(extra []*Property) *CopyFileReqBodyBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
@@ -5635,7 +5645,7 @@ func NewCreateFolderFileReqBodyBuilder() *CreateFolderFileReqBodyBuilder {
 
 // 文件夹名称
 //
-// 示例值：New Folder
+//示例值：New Folder
 func (builder *CreateFolderFileReqBodyBuilder) Name(name string) *CreateFolderFileReqBodyBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -5644,7 +5654,7 @@ func (builder *CreateFolderFileReqBodyBuilder) Name(name string) *CreateFolderFi
 
 // 父文件夹token
 //
-// 示例值：fldbcO1UuPz8VwnpPx5a92abcef
+//示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *CreateFolderFileReqBodyBuilder) FolderToken(folderToken string) *CreateFolderFileReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -5772,7 +5782,7 @@ func NewCreateShortcutFileReqBodyBuilder() *CreateShortcutFileReqBodyBuilder {
 
 // 创建快捷方式的目标父文件夹 token
 //
-// 示例值：fldbc5qgwyQnO0uedNllWuF3fAd
+//示例值：fldbc5qgwyQnO0uedNllWuF3fAd
 func (builder *CreateShortcutFileReqBodyBuilder) ParentToken(parentToken string) *CreateShortcutFileReqBodyBuilder {
 	builder.parentToken = parentToken
 	builder.parentTokenFlag = true
@@ -5781,7 +5791,7 @@ func (builder *CreateShortcutFileReqBodyBuilder) ParentToken(parentToken string)
 
 // 快捷方式映射到的文档和文件列表信息
 //
-// 示例值：
+//示例值：
 func (builder *CreateShortcutFileReqBodyBuilder) ReferEntity(referEntity *ReferEntity) *CreateShortcutFileReqBodyBuilder {
 	builder.referEntity = referEntity
 	builder.referEntityFlag = true
@@ -5862,6 +5872,7 @@ func (builder *CreateShortcutFileReqBuilder) UserIdType(userIdType string) *Crea
 	return builder
 }
 
+//
 func (builder *CreateShortcutFileReqBuilder) Body(body *CreateShortcutFileReqBody) *CreateShortcutFileReqBuilder {
 	builder.body = body
 	return builder
@@ -6245,7 +6256,7 @@ func NewMoveFileReqBodyBuilder() *MoveFileReqBodyBuilder {
 
 // 文件类型，如果该值为空或者与文件实际类型不匹配，接口会返回失败。
 //
-// 示例值：file
+//示例值：file
 func (builder *MoveFileReqBodyBuilder) Type(type_ string) *MoveFileReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -6254,7 +6265,7 @@ func (builder *MoveFileReqBodyBuilder) Type(type_ string) *MoveFileReqBodyBuilde
 
 // 目标文件夹token
 //
-// 示例值：fldbcO1UuPz8VwnpPx5a92abcef
+//示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *MoveFileReqBodyBuilder) FolderToken(folderToken string) *MoveFileReqBodyBuilder {
 	builder.folderToken = folderToken
 	builder.folderTokenFlag = true
@@ -6505,7 +6516,7 @@ func NewUploadAllFileReqBodyBuilder() *UploadAllFileReqBodyBuilder {
 
 // 文件名。
 //
-// 示例值：demo.pdf
+//示例值：demo.pdf
 func (builder *UploadAllFileReqBodyBuilder) FileName(fileName string) *UploadAllFileReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -6514,7 +6525,7 @@ func (builder *UploadAllFileReqBodyBuilder) FileName(fileName string) *UploadAll
 
 // 上传点类型。
 //
-// 示例值：explorer
+//示例值：explorer
 func (builder *UploadAllFileReqBodyBuilder) ParentType(parentType string) *UploadAllFileReqBodyBuilder {
 	builder.parentType = parentType
 	builder.parentTypeFlag = true
@@ -6523,7 +6534,7 @@ func (builder *UploadAllFileReqBodyBuilder) ParentType(parentType string) *Uploa
 
 // 文件夹token，;获取方式见 [概述](https://open.feishu.cn/document/ukTMukTMukTM/uUDN04SN0QjL1QDN/files/guide/introduction)
 //
-// 示例值：fldbcO1UuPz8VwnpPx5a92abcef
+//示例值：fldbcO1UuPz8VwnpPx5a92abcef
 func (builder *UploadAllFileReqBodyBuilder) ParentNode(parentNode string) *UploadAllFileReqBodyBuilder {
 	builder.parentNode = parentNode
 	builder.parentNodeFlag = true
@@ -6532,7 +6543,7 @@ func (builder *UploadAllFileReqBodyBuilder) ParentNode(parentNode string) *Uploa
 
 // 文件大小（以字节为单位）。
 //
-// 示例值：1024
+//示例值：1024
 func (builder *UploadAllFileReqBodyBuilder) Size(size int) *UploadAllFileReqBodyBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -6541,7 +6552,7 @@ func (builder *UploadAllFileReqBodyBuilder) Size(size int) *UploadAllFileReqBody
 
 // 文件adler32校验和(可选)。
 //
-// 示例值：123423882374238912356
+//示例值：123423882374238912356
 func (builder *UploadAllFileReqBodyBuilder) Checksum(checksum string) *UploadAllFileReqBodyBuilder {
 	builder.checksum = checksum
 	builder.checksumFlag = true
@@ -6550,7 +6561,7 @@ func (builder *UploadAllFileReqBodyBuilder) Checksum(checksum string) *UploadAll
 
 // 文件二进制内容。
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *UploadAllFileReqBodyBuilder) File(file io.Reader) *UploadAllFileReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -6756,7 +6767,7 @@ func NewUploadFinishFileReqBodyBuilder() *UploadFinishFileReqBodyBuilder {
 
 // 分片上传事务ID
 //
-// 示例值：7111211691345512356
+//示例值：7111211691345512356
 func (builder *UploadFinishFileReqBodyBuilder) UploadId(uploadId string) *UploadFinishFileReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -6765,7 +6776,7 @@ func (builder *UploadFinishFileReqBodyBuilder) UploadId(uploadId string) *Upload
 
 // 分片数量
 //
-// 示例值：1
+//示例值：1
 func (builder *UploadFinishFileReqBodyBuilder) BlockNum(blockNum int) *UploadFinishFileReqBodyBuilder {
 	builder.blockNum = blockNum
 	builder.blockNumFlag = true
@@ -6900,7 +6911,7 @@ func NewUploadPartFileReqBodyBuilder() *UploadPartFileReqBodyBuilder {
 
 // 分片上传事务ID。
 //
-// 示例值：7111211691345512356
+//示例值：7111211691345512356
 func (builder *UploadPartFileReqBodyBuilder) UploadId(uploadId string) *UploadPartFileReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -6909,7 +6920,7 @@ func (builder *UploadPartFileReqBodyBuilder) UploadId(uploadId string) *UploadPa
 
 // 块号，从0开始计数。
 //
-// 示例值：0
+//示例值：0
 func (builder *UploadPartFileReqBodyBuilder) Seq(seq int) *UploadPartFileReqBodyBuilder {
 	builder.seq = seq
 	builder.seqFlag = true
@@ -6918,7 +6929,7 @@ func (builder *UploadPartFileReqBodyBuilder) Seq(seq int) *UploadPartFileReqBody
 
 // 块大小（以字节为单位）。
 //
-// 示例值：4194304
+//示例值：4194304
 func (builder *UploadPartFileReqBodyBuilder) Size(size int) *UploadPartFileReqBodyBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -6927,7 +6938,7 @@ func (builder *UploadPartFileReqBodyBuilder) Size(size int) *UploadPartFileReqBo
 
 // 文件分块adler32校验和(可选)。
 //
-// 示例值：12342388237783212356
+//示例值：12342388237783212356
 func (builder *UploadPartFileReqBodyBuilder) Checksum(checksum string) *UploadPartFileReqBodyBuilder {
 	builder.checksum = checksum
 	builder.checksumFlag = true
@@ -6936,7 +6947,7 @@ func (builder *UploadPartFileReqBodyBuilder) Checksum(checksum string) *UploadPa
 
 // 文件分片二进制内容。
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *UploadPartFileReqBodyBuilder) File(file io.Reader) *UploadPartFileReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -7165,7 +7176,7 @@ func NewBatchQueryFileCommentReqBodyBuilder() *BatchQueryFileCommentReqBodyBuild
 
 // 需要获取数据的评论id
 //
-// 示例值：1654857036541812356
+//示例值：1654857036541812356
 func (builder *BatchQueryFileCommentReqBodyBuilder) CommentIds(commentIds []string) *BatchQueryFileCommentReqBodyBuilder {
 	builder.commentIds = commentIds
 	builder.commentIdsFlag = true
@@ -7591,7 +7602,7 @@ func NewPatchFileCommentReqBodyBuilder() *PatchFileCommentReqBodyBuilder {
 
 // 评论解决标志
 //
-// 示例值：true
+//示例值：true
 func (builder *PatchFileCommentReqBodyBuilder) IsSolved(isSolved bool) *PatchFileCommentReqBodyBuilder {
 	builder.isSolved = isSolved
 	builder.isSolvedFlag = true
@@ -7883,7 +7894,7 @@ func NewUpdateFileCommentReplyReqBodyBuilder() *UpdateFileCommentReplyReqBodyBui
 
 // 回复内容
 //
-// 示例值：
+//示例值：
 func (builder *UpdateFileCommentReplyReqBodyBuilder) Content(content *ReplyContent) *UpdateFileCommentReplyReqBodyBuilder {
 	builder.content = content
 	builder.contentFlag = true
@@ -8144,7 +8155,7 @@ func NewGetFileSubscriptionReqBodyBuilder() *GetFileSubscriptionReqBodyBuilder {
 
 // 文档类型
 //
-// 示例值：doc
+//示例值：doc
 func (builder *GetFileSubscriptionReqBodyBuilder) FileType(fileType string) *GetFileSubscriptionReqBodyBuilder {
 	builder.fileType = fileType
 	builder.fileTypeFlag = true
@@ -8274,7 +8285,7 @@ func NewPatchFileSubscriptionReqBodyBuilder() *PatchFileSubscriptionReqBodyBuild
 
 // 是否订阅
 //
-// 示例值：true
+//示例值：true
 func (builder *PatchFileSubscriptionReqBodyBuilder) IsSubscribe(isSubscribe bool) *PatchFileSubscriptionReqBodyBuilder {
 	builder.isSubscribe = isSubscribe
 	builder.isSubscribeFlag = true
@@ -8283,7 +8294,7 @@ func (builder *PatchFileSubscriptionReqBodyBuilder) IsSubscribe(isSubscribe bool
 
 // 文档类型
 //
-// 示例值：doc
+//示例值：doc
 func (builder *PatchFileSubscriptionReqBodyBuilder) FileType(fileType string) *PatchFileSubscriptionReqBodyBuilder {
 	builder.fileType = fileType
 	builder.fileTypeFlag = true
@@ -9083,7 +9094,7 @@ func NewUploadAllMediaReqBodyBuilder() *UploadAllMediaReqBodyBuilder {
 
 // 文件名。
 //
-// 示例值：demo.jpeg
+//示例值：demo.jpeg
 func (builder *UploadAllMediaReqBodyBuilder) FileName(fileName string) *UploadAllMediaReqBodyBuilder {
 	builder.fileName = fileName
 	builder.fileNameFlag = true
@@ -9092,7 +9103,7 @@ func (builder *UploadAllMediaReqBodyBuilder) FileName(fileName string) *UploadAl
 
 // 上传点类型。
 //
-// 示例值：doc_image
+//示例值：doc_image
 func (builder *UploadAllMediaReqBodyBuilder) ParentType(parentType string) *UploadAllMediaReqBodyBuilder {
 	builder.parentType = parentType
 	builder.parentTypeFlag = true
@@ -9101,7 +9112,7 @@ func (builder *UploadAllMediaReqBodyBuilder) ParentType(parentType string) *Uplo
 
 // 上传点的token。
 //
-// 示例值：doccnFivLCfJfblZjGZtxgabcef
+//示例值：doccnFivLCfJfblZjGZtxgabcef
 func (builder *UploadAllMediaReqBodyBuilder) ParentNode(parentNode string) *UploadAllMediaReqBodyBuilder {
 	builder.parentNode = parentNode
 	builder.parentNodeFlag = true
@@ -9110,7 +9121,7 @@ func (builder *UploadAllMediaReqBodyBuilder) ParentNode(parentNode string) *Uplo
 
 // 文件大小（以字节为单位）。
 //
-// 示例值：1024
+//示例值：1024
 func (builder *UploadAllMediaReqBodyBuilder) Size(size int) *UploadAllMediaReqBodyBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -9119,7 +9130,7 @@ func (builder *UploadAllMediaReqBodyBuilder) Size(size int) *UploadAllMediaReqBo
 
 // 文件adler32校验和（可选）。
 //
-// 示例值：12345678
+//示例值：12345678
 func (builder *UploadAllMediaReqBodyBuilder) Checksum(checksum string) *UploadAllMediaReqBodyBuilder {
 	builder.checksum = checksum
 	builder.checksumFlag = true
@@ -9128,7 +9139,7 @@ func (builder *UploadAllMediaReqBodyBuilder) Checksum(checksum string) *UploadAl
 
 // 扩展信息(可选)。
 //
-// 示例值：{"test":"test"}
+//示例值：{"test":"test"}
 func (builder *UploadAllMediaReqBodyBuilder) Extra(extra string) *UploadAllMediaReqBodyBuilder {
 	builder.extra = extra
 	builder.extraFlag = true
@@ -9137,7 +9148,7 @@ func (builder *UploadAllMediaReqBodyBuilder) Extra(extra string) *UploadAllMedia
 
 // 文件二进制内容。
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *UploadAllMediaReqBodyBuilder) File(file io.Reader) *UploadAllMediaReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -9362,7 +9373,7 @@ func NewUploadFinishMediaReqBodyBuilder() *UploadFinishMediaReqBodyBuilder {
 
 // 分片上传事务ID
 //
-// 示例值：7111211691345512356
+//示例值：7111211691345512356
 func (builder *UploadFinishMediaReqBodyBuilder) UploadId(uploadId string) *UploadFinishMediaReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -9371,7 +9382,7 @@ func (builder *UploadFinishMediaReqBodyBuilder) UploadId(uploadId string) *Uploa
 
 // 分片数量
 //
-// 示例值：1
+//示例值：1
 func (builder *UploadFinishMediaReqBodyBuilder) BlockNum(blockNum int) *UploadFinishMediaReqBodyBuilder {
 	builder.blockNum = blockNum
 	builder.blockNumFlag = true
@@ -9506,7 +9517,7 @@ func NewUploadPartMediaReqBodyBuilder() *UploadPartMediaReqBodyBuilder {
 
 // 分片上传事务ID。
 //
-// 示例值：7111211691345512356
+//示例值：7111211691345512356
 func (builder *UploadPartMediaReqBodyBuilder) UploadId(uploadId string) *UploadPartMediaReqBodyBuilder {
 	builder.uploadId = uploadId
 	builder.uploadIdFlag = true
@@ -9515,7 +9526,7 @@ func (builder *UploadPartMediaReqBodyBuilder) UploadId(uploadId string) *UploadP
 
 // 块号，从0开始计数。
 //
-// 示例值：0
+//示例值：0
 func (builder *UploadPartMediaReqBodyBuilder) Seq(seq int) *UploadPartMediaReqBodyBuilder {
 	builder.seq = seq
 	builder.seqFlag = true
@@ -9524,7 +9535,7 @@ func (builder *UploadPartMediaReqBodyBuilder) Seq(seq int) *UploadPartMediaReqBo
 
 // 块大小（以字节为单位）。
 //
-// 示例值：4194304
+//示例值：4194304
 func (builder *UploadPartMediaReqBodyBuilder) Size(size int) *UploadPartMediaReqBodyBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -9533,7 +9544,7 @@ func (builder *UploadPartMediaReqBodyBuilder) Size(size int) *UploadPartMediaReq
 
 // 文件分块adler32校验和(可选)。
 //
-// 示例值：12345678
+//示例值：12345678
 func (builder *UploadPartMediaReqBodyBuilder) Checksum(checksum string) *UploadPartMediaReqBodyBuilder {
 	builder.checksum = checksum
 	builder.checksumFlag = true
@@ -9542,7 +9553,7 @@ func (builder *UploadPartMediaReqBodyBuilder) Checksum(checksum string) *UploadP
 
 // 文件分片二进制内容。
 //
-// 示例值：file binary
+//示例值：file binary
 func (builder *UploadPartMediaReqBodyBuilder) File(file io.Reader) *UploadPartMediaReqBodyBuilder {
 	builder.file = file
 	builder.fileFlag = true
@@ -9891,7 +9902,7 @@ func NewBatchCreatePermissionMemberReqBodyBuilder() *BatchCreatePermissionMember
 
 // 协作者列表
 //
-// 示例值：
+//示例值：
 func (builder *BatchCreatePermissionMemberReqBodyBuilder) Members(members []*BaseMember) *BatchCreatePermissionMemberReqBodyBuilder {
 	builder.members = members
 	builder.membersFlag = true
@@ -9971,6 +9982,7 @@ func (builder *BatchCreatePermissionMemberReqBuilder) NeedNotification(needNotif
 	return builder
 }
 
+//
 func (builder *BatchCreatePermissionMemberReqBuilder) Body(body *BatchCreatePermissionMemberReqBody) *BatchCreatePermissionMemberReqBuilder {
 	builder.body = body
 	return builder
@@ -10095,7 +10107,7 @@ func NewDeletePermissionMemberReqBodyBuilder() *DeletePermissionMemberReqBodyBui
 
 // 协作者类型
 //
-// 示例值：user
+//示例值：user
 func (builder *DeletePermissionMemberReqBodyBuilder) Type(type_ string) *DeletePermissionMemberReqBodyBuilder {
 	builder.type_ = type_
 	builder.typeFlag = true
@@ -10104,7 +10116,7 @@ func (builder *DeletePermissionMemberReqBodyBuilder) Type(type_ string) *DeleteP
 
 // 协作者的权限角色类型
 //
-// 示例值：container
+//示例值：container
 func (builder *DeletePermissionMemberReqBodyBuilder) PermType(permType string) *DeletePermissionMemberReqBodyBuilder {
 	builder.permType = permType
 	builder.permTypeFlag = true
@@ -10377,6 +10389,7 @@ func (builder *TransferOwnerPermissionMemberReqBuilder) OldOwnerPerm(oldOwnerPer
 	return builder
 }
 
+//
 func (builder *TransferOwnerPermissionMemberReqBuilder) Owner(owner *Owner) *TransferOwnerPermissionMemberReqBuilder {
 	builder.owner = owner
 	return builder
