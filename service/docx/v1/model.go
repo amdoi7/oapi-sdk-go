@@ -600,6 +600,10 @@ type Block struct {
 	SourceSynced *SourceSynced `json:"source_synced,omitempty"` // 源同步块
 
 	ReferenceSynced *ReferenceSynced `json:"reference_synced,omitempty"` // 引用同步块
+
+	SubPageList *SubPageList `json:"sub_page_list,omitempty"` // 新版 Wiki 子目录 Block
+
+	AiTemplate *AiTemplate `json:"ai_template,omitempty"` // AI 模板 Block
 }
 
 type BlockBuilder struct {
@@ -770,6 +774,12 @@ type BlockBuilder struct {
 
 	referenceSynced     *ReferenceSynced // 引用同步块
 	referenceSyncedFlag bool
+
+	subPageList     *SubPageList // 新版 Wiki 子目录 Block
+	subPageListFlag bool
+
+	aiTemplate     *AiTemplate // AI 模板 Block
+	aiTemplateFlag bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -1281,6 +1291,24 @@ func (builder *BlockBuilder) ReferenceSynced(referenceSynced *ReferenceSynced) *
 	return builder
 }
 
+// 新版 Wiki 子目录 Block
+//
+// 示例值：
+func (builder *BlockBuilder) SubPageList(subPageList *SubPageList) *BlockBuilder {
+	builder.subPageList = subPageList
+	builder.subPageListFlag = true
+	return builder
+}
+
+// AI 模板 Block
+//
+// 示例值：
+func (builder *BlockBuilder) AiTemplate(aiTemplate *AiTemplate) *BlockBuilder {
+	builder.aiTemplate = aiTemplate
+	builder.aiTemplateFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -1453,6 +1481,12 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.referenceSyncedFlag {
 		req.ReferenceSynced = builder.referenceSynced
+	}
+	if builder.subPageListFlag {
+		req.SubPageList = builder.subPageList
+	}
+	if builder.aiTemplateFlag {
+		req.AiTemplate = builder.aiTemplate
 	}
 	return req
 }
@@ -2603,6 +2637,8 @@ type Image struct {
 	Token *string `json:"token,omitempty"` // 图片 Token
 
 	Align *int `json:"align,omitempty"` // 对齐方式
+
+	Caption *Caption `json:"caption,omitempty"` // 图片描述
 }
 
 type ImageBuilder struct {
@@ -2617,6 +2653,9 @@ type ImageBuilder struct {
 
 	align     int // 对齐方式
 	alignFlag bool
+
+	caption     *Caption // 图片描述
+	captionFlag bool
 }
 
 func NewImageBuilder() *ImageBuilder {
@@ -2660,6 +2699,15 @@ func (builder *ImageBuilder) Align(align int) *ImageBuilder {
 	return builder
 }
 
+// 图片描述
+//
+// 示例值：
+func (builder *ImageBuilder) Caption(caption *Caption) *ImageBuilder {
+	builder.caption = caption
+	builder.captionFlag = true
+	return builder
+}
+
 func (builder *ImageBuilder) Build() *Image {
 	req := &Image{}
 	if builder.widthFlag {
@@ -2677,6 +2725,9 @@ func (builder *ImageBuilder) Build() *Image {
 	if builder.alignFlag {
 		req.Align = &builder.align
 
+	}
+	if builder.captionFlag {
+		req.Caption = builder.caption
 	}
 	return req
 }
@@ -3085,6 +3136,8 @@ type MentionDoc struct {
 	Title *string `json:"title,omitempty"` // 文档标题，只读属性
 
 	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+
+	FallbackType *string `json:"fallback_type,omitempty"` // 无云文档阅读权限或云文档已删除时的降级方式
 }
 
 type MentionDocBuilder struct {
@@ -3102,6 +3155,9 @@ type MentionDocBuilder struct {
 
 	textElementStyle     *TextElementStyle // 文本局部样式
 	textElementStyleFlag bool
+
+	fallbackType     string // 无云文档阅读权限或云文档已删除时的降级方式
+	fallbackTypeFlag bool
 }
 
 func NewMentionDocBuilder() *MentionDocBuilder {
@@ -3154,6 +3210,15 @@ func (builder *MentionDocBuilder) TextElementStyle(textElementStyle *TextElement
 	return builder
 }
 
+// 无云文档阅读权限或云文档已删除时的降级方式
+//
+// 示例值：FallbackToLink
+func (builder *MentionDocBuilder) FallbackType(fallbackType string) *MentionDocBuilder {
+	builder.fallbackType = fallbackType
+	builder.fallbackTypeFlag = true
+	return builder
+}
+
 func (builder *MentionDocBuilder) Build() *MentionDoc {
 	req := &MentionDoc{}
 	if builder.tokenFlag {
@@ -3174,6 +3239,10 @@ func (builder *MentionDocBuilder) Build() *MentionDoc {
 	}
 	if builder.textElementStyleFlag {
 		req.TextElementStyle = builder.textElementStyle
+	}
+	if builder.fallbackTypeFlag {
+		req.FallbackType = &builder.fallbackType
+
 	}
 	return req
 }
@@ -4295,6 +4364,8 @@ type ReplaceImageRequest struct {
 	Height *int `json:"height,omitempty"` // 图片高度，单位 px
 
 	Align *int `json:"align,omitempty"` // 对齐方式
+
+	Caption *Caption `json:"caption,omitempty"` // 图片描述
 }
 
 type ReplaceImageRequestBuilder struct {
@@ -4309,6 +4380,9 @@ type ReplaceImageRequestBuilder struct {
 
 	align     int // 对齐方式
 	alignFlag bool
+
+	caption     *Caption // 图片描述
+	captionFlag bool
 }
 
 func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
@@ -4352,6 +4426,15 @@ func (builder *ReplaceImageRequestBuilder) Align(align int) *ReplaceImageRequest
 	return builder
 }
 
+// 图片描述
+//
+// 示例值：
+func (builder *ReplaceImageRequestBuilder) Caption(caption *Caption) *ReplaceImageRequestBuilder {
+	builder.caption = caption
+	builder.captionFlag = true
+	return builder
+}
+
 func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 	req := &ReplaceImageRequest{}
 	if builder.tokenFlag {
@@ -4369,6 +4452,9 @@ func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 	if builder.alignFlag {
 		req.Align = &builder.align
 
+	}
+	if builder.captionFlag {
+		req.Caption = builder.caption
 	}
 	return req
 }

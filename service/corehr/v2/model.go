@@ -15,7 +15,7 @@ package larkcorehr
 
 import (
 	"fmt"
-	  
+
 	"context"
 	"errors"
 
@@ -7900,6 +7900,14 @@ type CreateTransferInfo struct {
 	IsTransferWithWorkforce *bool `json:"is_transfer_with_workforce,omitempty"` // 编制随人员一起调整
 
 	TargetPathway *string `json:"target_pathway,omitempty"` // 新通道
+
+	TargetAllocationEffectiveTime *string `json:"target_allocation_effective_time,omitempty"` // 新分摊生效时间
+
+	TargetAllocationExpirationTime *string `json:"target_allocation_expiration_time,omitempty"` // 新分摊失效时间
+
+	TargetDefaultCostCenter *string `json:"target_default_cost_center,omitempty"` // 新默认成本中心
+
+	TargetIsDefaultCostCenterInherited *bool `json:"target_is_default_cost_center_inherited,omitempty"` // 新默认成本中心是否继承
 }
 
 type CreateTransferInfoBuilder struct {
@@ -8004,6 +8012,18 @@ type CreateTransferInfoBuilder struct {
 
 	targetPathway     string // 新通道
 	targetPathwayFlag bool
+
+	targetAllocationEffectiveTime     string // 新分摊生效时间
+	targetAllocationEffectiveTimeFlag bool
+
+	targetAllocationExpirationTime     string // 新分摊失效时间
+	targetAllocationExpirationTimeFlag bool
+
+	targetDefaultCostCenter     string // 新默认成本中心
+	targetDefaultCostCenterFlag bool
+
+	targetIsDefaultCostCenterInherited     bool // 新默认成本中心是否继承
+	targetIsDefaultCostCenterInheritedFlag bool
 }
 
 func NewCreateTransferInfoBuilder() *CreateTransferInfoBuilder {
@@ -8317,6 +8337,42 @@ func (builder *CreateTransferInfoBuilder) TargetPathway(targetPathway string) *C
 	return builder
 }
 
+// 新分摊生效时间
+//
+// 示例值：2022-03-01
+func (builder *CreateTransferInfoBuilder) TargetAllocationEffectiveTime(targetAllocationEffectiveTime string) *CreateTransferInfoBuilder {
+	builder.targetAllocationEffectiveTime = targetAllocationEffectiveTime
+	builder.targetAllocationEffectiveTimeFlag = true
+	return builder
+}
+
+// 新分摊失效时间
+//
+// 示例值：2022-03-01
+func (builder *CreateTransferInfoBuilder) TargetAllocationExpirationTime(targetAllocationExpirationTime string) *CreateTransferInfoBuilder {
+	builder.targetAllocationExpirationTime = targetAllocationExpirationTime
+	builder.targetAllocationExpirationTimeFlag = true
+	return builder
+}
+
+// 新默认成本中心
+//
+// 示例值：7380264299728602661
+func (builder *CreateTransferInfoBuilder) TargetDefaultCostCenter(targetDefaultCostCenter string) *CreateTransferInfoBuilder {
+	builder.targetDefaultCostCenter = targetDefaultCostCenter
+	builder.targetDefaultCostCenterFlag = true
+	return builder
+}
+
+// 新默认成本中心是否继承
+//
+// 示例值：
+func (builder *CreateTransferInfoBuilder) TargetIsDefaultCostCenterInherited(targetIsDefaultCostCenterInherited bool) *CreateTransferInfoBuilder {
+	builder.targetIsDefaultCostCenterInherited = targetIsDefaultCostCenterInherited
+	builder.targetIsDefaultCostCenterInheritedFlag = true
+	return builder
+}
+
 func (builder *CreateTransferInfoBuilder) Build() *CreateTransferInfo {
 	req := &CreateTransferInfo{}
 	if builder.remarkFlag {
@@ -8451,6 +8507,22 @@ func (builder *CreateTransferInfoBuilder) Build() *CreateTransferInfo {
 	}
 	if builder.targetPathwayFlag {
 		req.TargetPathway = &builder.targetPathway
+
+	}
+	if builder.targetAllocationEffectiveTimeFlag {
+		req.TargetAllocationEffectiveTime = &builder.targetAllocationEffectiveTime
+
+	}
+	if builder.targetAllocationExpirationTimeFlag {
+		req.TargetAllocationExpirationTime = &builder.targetAllocationExpirationTime
+
+	}
+	if builder.targetDefaultCostCenterFlag {
+		req.TargetDefaultCostCenter = &builder.targetDefaultCostCenter
+
+	}
+	if builder.targetIsDefaultCostCenterInheritedFlag {
+		req.TargetIsDefaultCostCenterInherited = &builder.targetIsDefaultCostCenterInherited
 
 	}
 	return req
@@ -30234,6 +30306,8 @@ type OfferInfo struct {
 	DefaultCostCenter *PrehireDefaultCostCenterUpdate `json:"default_cost_center,omitempty"` // 默认成本中心
 
 	CostAllocation *CostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
+
+	TalentId *string `json:"talent_id,omitempty"` // 人才ID
 }
 
 type OfferInfoBuilder struct {
@@ -30416,6 +30490,9 @@ type OfferInfoBuilder struct {
 
 	costAllocation     *CostAllocation // 成本分摊
 	costAllocationFlag bool
+
+	talentId     string // 人才ID
+	talentIdFlag bool
 }
 
 func NewOfferInfoBuilder() *OfferInfoBuilder {
@@ -30963,6 +31040,15 @@ func (builder *OfferInfoBuilder) CostAllocation(costAllocation *CostAllocation) 
 	return builder
 }
 
+// 人才ID
+//
+// 示例值：8234698927348
+func (builder *OfferInfoBuilder) TalentId(talentId string) *OfferInfoBuilder {
+	builder.talentId = talentId
+	builder.talentIdFlag = true
+	return builder
+}
+
 func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	req := &OfferInfo{}
 	if builder.offerIdFlag {
@@ -31195,6 +31281,10 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	}
 	if builder.costAllocationFlag {
 		req.CostAllocation = builder.costAllocation
+	}
+	if builder.talentIdFlag {
+		req.TalentId = &builder.talentId
+
 	}
 	return req
 }
@@ -32943,7 +33033,9 @@ func (builder *OperationLogListRespItemBuilder) Build() *OperationLogListRespIte
 }
 
 type OrgRole struct {
-	ApiName *string `json:"api_name,omitempty"` // 唯一标识
+	ApiName *string `json:"api_name,omitempty"` // 角色key
+
+	SecurityGroupId *string `json:"security_group_id,omitempty"` // 角色ID
 
 	EmploymentIds []string `json:"employment_ids,omitempty"` // 授权员工列表
 
@@ -32951,8 +33043,11 @@ type OrgRole struct {
 }
 
 type OrgRoleBuilder struct {
-	apiName     string // 唯一标识
+	apiName     string // 角色key
 	apiNameFlag bool
+
+	securityGroupId     string // 角色ID
+	securityGroupIdFlag bool
 
 	employmentIds     []string // 授权员工列表
 	employmentIdsFlag bool
@@ -32966,12 +33061,21 @@ func NewOrgRoleBuilder() *OrgRoleBuilder {
 	return builder
 }
 
-// 唯一标识
+// 角色key
 //
 // 示例值：hrbp
 func (builder *OrgRoleBuilder) ApiName(apiName string) *OrgRoleBuilder {
 	builder.apiName = apiName
 	builder.apiNameFlag = true
+	return builder
+}
+
+// 角色ID
+//
+// 示例值：7034393015968122400
+func (builder *OrgRoleBuilder) SecurityGroupId(securityGroupId string) *OrgRoleBuilder {
+	builder.securityGroupId = securityGroupId
+	builder.securityGroupIdFlag = true
 	return builder
 }
 
@@ -32999,6 +33103,10 @@ func (builder *OrgRoleBuilder) Build() *OrgRole {
 		req.ApiName = &builder.apiName
 
 	}
+	if builder.securityGroupIdFlag {
+		req.SecurityGroupId = &builder.securityGroupId
+
+	}
 	if builder.employmentIdsFlag {
 		req.EmploymentIds = builder.employmentIds
 	}
@@ -33009,14 +33117,19 @@ func (builder *OrgRoleBuilder) Build() *OrgRole {
 }
 
 type OrgRoleUpdate struct {
-	ApiName *string `json:"api_name,omitempty"` // 唯一标识
+	ApiName *string `json:"api_name,omitempty"` // 角色key（ID、key必须填一个）
+
+	SecurityGroupId *string `json:"security_group_id,omitempty"` // 角色ID（ID、key必须填一个）
 
 	EmploymentIds []string `json:"employment_ids,omitempty"` // 授权员工列表
 }
 
 type OrgRoleUpdateBuilder struct {
-	apiName     string // 唯一标识
+	apiName     string // 角色key（ID、key必须填一个）
 	apiNameFlag bool
+
+	securityGroupId     string // 角色ID（ID、key必须填一个）
+	securityGroupIdFlag bool
 
 	employmentIds     []string // 授权员工列表
 	employmentIdsFlag bool
@@ -33027,12 +33140,21 @@ func NewOrgRoleUpdateBuilder() *OrgRoleUpdateBuilder {
 	return builder
 }
 
-// 唯一标识
+// 角色key（ID、key必须填一个）
 //
 // 示例值：hrbp
 func (builder *OrgRoleUpdateBuilder) ApiName(apiName string) *OrgRoleUpdateBuilder {
 	builder.apiName = apiName
 	builder.apiNameFlag = true
+	return builder
+}
+
+// 角色ID（ID、key必须填一个）
+//
+// 示例值：7034393015968122400
+func (builder *OrgRoleUpdateBuilder) SecurityGroupId(securityGroupId string) *OrgRoleUpdateBuilder {
+	builder.securityGroupId = securityGroupId
+	builder.securityGroupIdFlag = true
 	return builder
 }
 
@@ -33049,6 +33171,10 @@ func (builder *OrgRoleUpdateBuilder) Build() *OrgRoleUpdate {
 	req := &OrgRoleUpdate{}
 	if builder.apiNameFlag {
 		req.ApiName = &builder.apiName
+
+	}
+	if builder.securityGroupIdFlag {
+		req.SecurityGroupId = &builder.securityGroupId
 
 	}
 	if builder.employmentIdsFlag {
@@ -36657,6 +36783,8 @@ type Position struct {
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效日期
 
 	CustomFields []*CustomFieldData `json:"custom_fields,omitempty"` // 自定义字段
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人
 }
 
 type PositionBuilder struct {
@@ -36719,6 +36847,9 @@ type PositionBuilder struct {
 
 	customFields     []*CustomFieldData // 自定义字段
 	customFieldsFlag bool
+
+	createdBy     string // 创建人
+	createdByFlag bool
 }
 
 func NewPositionBuilder() *PositionBuilder {
@@ -36906,6 +37037,15 @@ func (builder *PositionBuilder) CustomFields(customFields []*CustomFieldData) *P
 	return builder
 }
 
+// 创建人
+//
+// 示例值：4719519211875096301
+func (builder *PositionBuilder) CreatedBy(createdBy string) *PositionBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
 func (builder *PositionBuilder) Build() *Position {
 	req := &Position{}
 	if builder.positionIdFlag {
@@ -36979,6 +37119,10 @@ func (builder *PositionBuilder) Build() *Position {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = &builder.createdBy
+
 	}
 	return req
 }

@@ -14,10 +14,9 @@
 package larkapaas
 
 import (
-	"fmt"
-
 	"context"
 	"errors"
+	"fmt"
 	"io"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
@@ -112,11 +111,33 @@ type App struct {
 
 	CreatedAt *int `json:"created_at,omitempty"` // aPaaS 产品应用的创建时间
 
+	Creator *int `json:"creator,omitempty"` // aPaaS 产品应用的创建者
+
 	Owner *int `json:"owner,omitempty"` // aPaaS 产品应用的所有者
 
 	Status *string `json:"status,omitempty"` // aPaaS 产品应用的状态
 
 	AppRolesInfo *AppRolesInfo `json:"app_roles_info,omitempty"` // aPaaS 产品应用的成员管理信息
+
+	Icon *string `json:"icon,omitempty"` // aPaaS 产品应用的图标
+
+	Description []*I18n `json:"description,omitempty"` // aPaaS 产品应用的描述
+
+	Type *string `json:"type,omitempty"` // aPaaS 产品应用的类型
+
+	EnableStatus *string `json:"enable_status,omitempty"` // aPaaS 产品应用的启用状态
+
+	ReleaseStatus *string `json:"release_status,omitempty"` // aPaaS 产品应用的发布状态
+
+	ServiceStatus *string `json:"service_status,omitempty"` // aPaaS 产品应用的服务状态
+
+	ServiceUnavailableReason *string `json:"service_unavailable_reason,omitempty"` // aPaaS 产品应用的停服原因
+
+	FeatureSet *string `json:"feature_set,omitempty"` // aPaaS 产品应用的版本
+
+	ChargeMode *string `json:"charge_mode,omitempty"` // aPaaS 产品应用的计费方式
+
+	IsvTenant *ClientIsvTenant `json:"isv_tenant,omitempty"` // aPaaS 产品应用的服务商信息
 }
 
 type AppBuilder struct {
@@ -129,6 +150,9 @@ type AppBuilder struct {
 	createdAt     int // aPaaS 产品应用的创建时间
 	createdAtFlag bool
 
+	creator     int // aPaaS 产品应用的创建者
+	creatorFlag bool
+
 	owner     int // aPaaS 产品应用的所有者
 	ownerFlag bool
 
@@ -137,6 +161,36 @@ type AppBuilder struct {
 
 	appRolesInfo     *AppRolesInfo // aPaaS 产品应用的成员管理信息
 	appRolesInfoFlag bool
+
+	icon     string // aPaaS 产品应用的图标
+	iconFlag bool
+
+	description     []*I18n // aPaaS 产品应用的描述
+	descriptionFlag bool
+
+	type_    string // aPaaS 产品应用的类型
+	typeFlag bool
+
+	enableStatus     string // aPaaS 产品应用的启用状态
+	enableStatusFlag bool
+
+	releaseStatus     string // aPaaS 产品应用的发布状态
+	releaseStatusFlag bool
+
+	serviceStatus     string // aPaaS 产品应用的服务状态
+	serviceStatusFlag bool
+
+	serviceUnavailableReason     string // aPaaS 产品应用的停服原因
+	serviceUnavailableReasonFlag bool
+
+	featureSet     string // aPaaS 产品应用的版本
+	featureSetFlag bool
+
+	chargeMode     string // aPaaS 产品应用的计费方式
+	chargeModeFlag bool
+
+	isvTenant     *ClientIsvTenant // aPaaS 产品应用的服务商信息
+	isvTenantFlag bool
 }
 
 func NewAppBuilder() *AppBuilder {
@@ -171,6 +225,15 @@ func (builder *AppBuilder) CreatedAt(createdAt int) *AppBuilder {
 	return builder
 }
 
+// aPaaS 产品应用的创建者
+//
+// 示例值：1818624575806604
+func (builder *AppBuilder) Creator(creator int) *AppBuilder {
+	builder.creator = creator
+	builder.creatorFlag = true
+	return builder
+}
+
 // aPaaS 产品应用的所有者
 //
 // 示例值：1818624575806604
@@ -198,6 +261,96 @@ func (builder *AppBuilder) AppRolesInfo(appRolesInfo *AppRolesInfo) *AppBuilder 
 	return builder
 }
 
+// aPaaS 产品应用的图标
+//
+// 示例值：https://ae.feishu.cn/img/namespaces/_global/download/namespace_8aed421832fa4586968596f70e6eaebd_p.jpg
+func (builder *AppBuilder) Icon(icon string) *AppBuilder {
+	builder.icon = icon
+	builder.iconFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的描述
+//
+// 示例值：
+func (builder *AppBuilder) Description(description []*I18n) *AppBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的类型
+//
+// 示例值：custom
+func (builder *AppBuilder) Type(type_ string) *AppBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的启用状态
+//
+// 示例值：enabled
+func (builder *AppBuilder) EnableStatus(enableStatus string) *AppBuilder {
+	builder.enableStatus = enableStatus
+	builder.enableStatusFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的发布状态
+//
+// 示例值：released
+func (builder *AppBuilder) ReleaseStatus(releaseStatus string) *AppBuilder {
+	builder.releaseStatus = releaseStatus
+	builder.releaseStatusFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的服务状态
+//
+// 示例值：available
+func (builder *AppBuilder) ServiceStatus(serviceStatus string) *AppBuilder {
+	builder.serviceStatus = serviceStatus
+	builder.serviceStatusFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的停服原因
+//
+// 示例值：entitlement_expire
+func (builder *AppBuilder) ServiceUnavailableReason(serviceUnavailableReason string) *AppBuilder {
+	builder.serviceUnavailableReason = serviceUnavailableReason
+	builder.serviceUnavailableReasonFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的版本
+//
+// 示例值：paid
+func (builder *AppBuilder) FeatureSet(featureSet string) *AppBuilder {
+	builder.featureSet = featureSet
+	builder.featureSetFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的计费方式
+//
+// 示例值：per_user_per_app
+func (builder *AppBuilder) ChargeMode(chargeMode string) *AppBuilder {
+	builder.chargeMode = chargeMode
+	builder.chargeModeFlag = true
+	return builder
+}
+
+// aPaaS 产品应用的服务商信息
+//
+// 示例值：
+func (builder *AppBuilder) IsvTenant(isvTenant *ClientIsvTenant) *AppBuilder {
+	builder.isvTenant = isvTenant
+	builder.isvTenantFlag = true
+	return builder
+}
+
 func (builder *AppBuilder) Build() *App {
 	req := &App{}
 	if builder.nameFlag {
@@ -211,6 +364,10 @@ func (builder *AppBuilder) Build() *App {
 		req.CreatedAt = &builder.createdAt
 
 	}
+	if builder.creatorFlag {
+		req.Creator = &builder.creator
+
+	}
 	if builder.ownerFlag {
 		req.Owner = &builder.owner
 
@@ -221,6 +378,44 @@ func (builder *AppBuilder) Build() *App {
 	}
 	if builder.appRolesInfoFlag {
 		req.AppRolesInfo = builder.appRolesInfo
+	}
+	if builder.iconFlag {
+		req.Icon = &builder.icon
+
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.enableStatusFlag {
+		req.EnableStatus = &builder.enableStatus
+
+	}
+	if builder.releaseStatusFlag {
+		req.ReleaseStatus = &builder.releaseStatus
+
+	}
+	if builder.serviceStatusFlag {
+		req.ServiceStatus = &builder.serviceStatus
+
+	}
+	if builder.serviceUnavailableReasonFlag {
+		req.ServiceUnavailableReason = &builder.serviceUnavailableReason
+
+	}
+	if builder.featureSetFlag {
+		req.FeatureSet = &builder.featureSet
+
+	}
+	if builder.chargeModeFlag {
+		req.ChargeMode = &builder.chargeMode
+
+	}
+	if builder.isvTenantFlag {
+		req.IsvTenant = builder.isvTenant
 	}
 	return req
 }
@@ -2354,6 +2549,56 @@ func (builder *BasicInfoBuilder) Build() *BasicInfo {
 	}
 	if builder.appNameFlag {
 		req.AppName = builder.appName
+	}
+	return req
+}
+
+type ClientIsvTenant struct {
+	Id *string `json:"id,omitempty"` // 服务商ID
+
+	Name *string `json:"name,omitempty"` // 服务商名称
+}
+
+type ClientIsvTenantBuilder struct {
+	id     string // 服务商ID
+	idFlag bool
+
+	name     string // 服务商名称
+	nameFlag bool
+}
+
+func NewClientIsvTenantBuilder() *ClientIsvTenantBuilder {
+	builder := &ClientIsvTenantBuilder{}
+	return builder
+}
+
+// 服务商ID
+//
+// 示例值：798456
+func (builder *ClientIsvTenantBuilder) Id(id string) *ClientIsvTenantBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 服务商名称
+//
+// 示例值：北京飞书科技有限公司
+func (builder *ClientIsvTenantBuilder) Name(name string) *ClientIsvTenantBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *ClientIsvTenantBuilder) Build() *ClientIsvTenant {
+	req := &ClientIsvTenant{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
 	}
 	return req
 }

@@ -9323,6 +9323,8 @@ type RevertEvent struct {
 	OperateTime *string `json:"operate_time,omitempty"` // 操作时间
 
 	Status *string `json:"status,omitempty"` // 状态
+
+	ApprovalCode *string `json:"approval_code,omitempty"` // 审批定义 Code
 }
 
 type RevertEventBuilder struct {
@@ -9337,6 +9339,9 @@ type RevertEventBuilder struct {
 
 	status     string // 状态
 	statusFlag bool
+
+	approvalCode     string // 审批定义 Code
+	approvalCodeFlag bool
 }
 
 func NewRevertEventBuilder() *RevertEventBuilder {
@@ -9380,6 +9385,15 @@ func (builder *RevertEventBuilder) Status(status string) *RevertEventBuilder {
 	return builder
 }
 
+// 审批定义 Code
+//
+// 示例值：D0CA783E-F0BB-4U36-LADC-91BECS6DDA29
+func (builder *RevertEventBuilder) ApprovalCode(approvalCode string) *RevertEventBuilder {
+	builder.approvalCode = approvalCode
+	builder.approvalCodeFlag = true
+	return builder
+}
+
 func (builder *RevertEventBuilder) Build() *RevertEvent {
 	req := &RevertEvent{}
 	if builder.typeFlag {
@@ -9396,6 +9410,10 @@ func (builder *RevertEventBuilder) Build() *RevertEvent {
 	}
 	if builder.statusFlag {
 		req.Status = &builder.status
+
+	}
+	if builder.approvalCodeFlag {
+		req.ApprovalCode = &builder.approvalCode
 
 	}
 	return req
