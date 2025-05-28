@@ -147,9 +147,22 @@ const (
 )
 
 const (
-	TerminationTypeTerminateApplication我们拒绝了候选人 = 1  // 我们拒绝了候选人
-	TerminationTypeTerminateApplication候选人拒绝了我们 = 22 // 候选人拒绝了我们
-	TerminationTypeTerminateApplication其他       = 27 // 其他
+	TerminationTypeTerminateApplicationWeRejected        = 1  // 我们拒绝了候选人
+	TerminationTypeTerminateApplicationCandidateRejected = 22 // 候选人拒绝了我们
+	TerminationTypeTerminateApplicationOther             = 27 // 其他
+
+)
+
+const (
+	TerminateOfferOperateTypeCancelOffer       = 1 // 撤销offer
+	TerminateOfferOperateTypeCandidateRejected = 2 // 标记为候选人拒绝
+
+)
+
+const (
+	CancelOfferTerminationTypeWeRejected        = 1  // 我们拒绝了候选人
+	CancelOfferTerminationTypeCandidateRejected = 22 // 候选人拒绝了我们
+	CancelOfferTerminationTypeOther             = 27 // 其他
 
 )
 
@@ -1088,6 +1101,13 @@ const (
 	OfferStatusOfferRejected   = 8  // Offer 被候选人拒绝
 	OfferStatusObsolete        = 9  // Offer 已失效
 	OfferStatusNoApproval      = 10 // Offer 已创建
+
+)
+
+const (
+	CancelOfferTerminationTypeOfferStatusOfferWeRejected        = 1  // 我们拒绝了候选人
+	CancelOfferTerminationTypeOfferStatusOfferCandidateRejected = 22 // 候选人拒绝了我们
+	CancelOfferTerminationTypeOfferStatusOfferOther             = 27 // 其他
 
 )
 
@@ -55549,6 +55569,24 @@ type TerminateApplicationReqBodyBuilder struct {
 
 	terminationReasonNote     string // 终止备注
 	terminationReasonNoteFlag bool
+
+	needTerminateOffer     bool // 是否终止offer（撤销offer或者标记为候选人拒绝）
+	needTerminateOfferFlag bool
+
+	terminateOfferOperateType     int // 终止 Offer 操作类型
+	terminateOfferOperateTypeFlag bool
+
+	cancelOfferTerminationType     int // 撤销offer的终止原因的类型
+	cancelOfferTerminationTypeFlag bool
+
+	cancelOfferTerminationReasonList     []string // 撤销offer的终止的具体原因的id列表
+	cancelOfferTerminationReasonListFlag bool
+
+	candidateRejectOfferTerminationReasonList     []string // 候选人拒绝offer的终止的具体原因的id列表
+	candidateRejectOfferTerminationReasonListFlag bool
+
+	needWithdrawOfferApproval     bool // 是否撤回offer审批
+	needWithdrawOfferApprovalFlag bool
 }
 
 func NewTerminateApplicationReqBodyBuilder() *TerminateApplicationReqBodyBuilder {
@@ -55583,6 +55621,60 @@ func (builder *TerminateApplicationReqBodyBuilder) TerminationReasonNote(termina
 	return builder
 }
 
+// 是否终止offer（撤销offer或者标记为候选人拒绝）
+//
+//示例值：false
+func (builder *TerminateApplicationReqBodyBuilder) NeedTerminateOffer(needTerminateOffer bool) *TerminateApplicationReqBodyBuilder {
+	builder.needTerminateOffer = needTerminateOffer
+	builder.needTerminateOfferFlag = true
+	return builder
+}
+
+// 终止 Offer 操作类型
+//
+//示例值：1
+func (builder *TerminateApplicationReqBodyBuilder) TerminateOfferOperateType(terminateOfferOperateType int) *TerminateApplicationReqBodyBuilder {
+	builder.terminateOfferOperateType = terminateOfferOperateType
+	builder.terminateOfferOperateTypeFlag = true
+	return builder
+}
+
+// 撤销offer的终止原因的类型
+//
+//示例值：1
+func (builder *TerminateApplicationReqBodyBuilder) CancelOfferTerminationType(cancelOfferTerminationType int) *TerminateApplicationReqBodyBuilder {
+	builder.cancelOfferTerminationType = cancelOfferTerminationType
+	builder.cancelOfferTerminationTypeFlag = true
+	return builder
+}
+
+// 撤销offer的终止的具体原因的id列表
+//
+//示例值：
+func (builder *TerminateApplicationReqBodyBuilder) CancelOfferTerminationReasonList(cancelOfferTerminationReasonList []string) *TerminateApplicationReqBodyBuilder {
+	builder.cancelOfferTerminationReasonList = cancelOfferTerminationReasonList
+	builder.cancelOfferTerminationReasonListFlag = true
+	return builder
+}
+
+// 候选人拒绝offer的终止的具体原因的id列表
+//
+//示例值：
+func (builder *TerminateApplicationReqBodyBuilder) CandidateRejectOfferTerminationReasonList(candidateRejectOfferTerminationReasonList []string) *TerminateApplicationReqBodyBuilder {
+	builder.candidateRejectOfferTerminationReasonList = candidateRejectOfferTerminationReasonList
+	builder.candidateRejectOfferTerminationReasonListFlag = true
+	return builder
+}
+
+// 是否撤回offer审批
+//
+//示例值：false
+func (builder *TerminateApplicationReqBodyBuilder) NeedWithdrawOfferApproval(needWithdrawOfferApproval bool) *TerminateApplicationReqBodyBuilder {
+	builder.needWithdrawOfferApproval = needWithdrawOfferApproval
+	builder.needWithdrawOfferApprovalFlag = true
+	return builder
+}
+
 func (builder *TerminateApplicationReqBodyBuilder) Build() *TerminateApplicationReqBody {
 	req := &TerminateApplicationReqBody{}
 	if builder.terminationTypeFlag {
@@ -55594,16 +55686,46 @@ func (builder *TerminateApplicationReqBodyBuilder) Build() *TerminateApplication
 	if builder.terminationReasonNoteFlag {
 		req.TerminationReasonNote = &builder.terminationReasonNote
 	}
+	if builder.needTerminateOfferFlag {
+		req.NeedTerminateOffer = &builder.needTerminateOffer
+	}
+	if builder.terminateOfferOperateTypeFlag {
+		req.TerminateOfferOperateType = &builder.terminateOfferOperateType
+	}
+	if builder.cancelOfferTerminationTypeFlag {
+		req.CancelOfferTerminationType = &builder.cancelOfferTerminationType
+	}
+	if builder.cancelOfferTerminationReasonListFlag {
+		req.CancelOfferTerminationReasonList = builder.cancelOfferTerminationReasonList
+	}
+	if builder.candidateRejectOfferTerminationReasonListFlag {
+		req.CandidateRejectOfferTerminationReasonList = builder.candidateRejectOfferTerminationReasonList
+	}
+	if builder.needWithdrawOfferApprovalFlag {
+		req.NeedWithdrawOfferApproval = &builder.needWithdrawOfferApproval
+	}
 	return req
 }
 
 type TerminateApplicationPathReqBodyBuilder struct {
-	terminationType           int
-	terminationTypeFlag       bool
-	terminationReasonList     []string
-	terminationReasonListFlag bool
-	terminationReasonNote     string
-	terminationReasonNoteFlag bool
+	terminationType                               int
+	terminationTypeFlag                           bool
+	terminationReasonList                         []string
+	terminationReasonListFlag                     bool
+	terminationReasonNote                         string
+	terminationReasonNoteFlag                     bool
+	needTerminateOffer                            bool
+	needTerminateOfferFlag                        bool
+	terminateOfferOperateType                     int
+	terminateOfferOperateTypeFlag                 bool
+	cancelOfferTerminationType                    int
+	cancelOfferTerminationTypeFlag                bool
+	cancelOfferTerminationReasonList              []string
+	cancelOfferTerminationReasonListFlag          bool
+	candidateRejectOfferTerminationReasonList     []string
+	candidateRejectOfferTerminationReasonListFlag bool
+	needWithdrawOfferApproval                     bool
+	needWithdrawOfferApprovalFlag                 bool
 }
 
 func NewTerminateApplicationPathReqBodyBuilder() *TerminateApplicationPathReqBodyBuilder {
@@ -55638,6 +55760,60 @@ func (builder *TerminateApplicationPathReqBodyBuilder) TerminationReasonNote(ter
 	return builder
 }
 
+// 是否终止offer（撤销offer或者标记为候选人拒绝）
+//
+// 示例值：false
+func (builder *TerminateApplicationPathReqBodyBuilder) NeedTerminateOffer(needTerminateOffer bool) *TerminateApplicationPathReqBodyBuilder {
+	builder.needTerminateOffer = needTerminateOffer
+	builder.needTerminateOfferFlag = true
+	return builder
+}
+
+// 终止 Offer 操作类型
+//
+// 示例值：1
+func (builder *TerminateApplicationPathReqBodyBuilder) TerminateOfferOperateType(terminateOfferOperateType int) *TerminateApplicationPathReqBodyBuilder {
+	builder.terminateOfferOperateType = terminateOfferOperateType
+	builder.terminateOfferOperateTypeFlag = true
+	return builder
+}
+
+// 撤销offer的终止原因的类型
+//
+// 示例值：1
+func (builder *TerminateApplicationPathReqBodyBuilder) CancelOfferTerminationType(cancelOfferTerminationType int) *TerminateApplicationPathReqBodyBuilder {
+	builder.cancelOfferTerminationType = cancelOfferTerminationType
+	builder.cancelOfferTerminationTypeFlag = true
+	return builder
+}
+
+// 撤销offer的终止的具体原因的id列表
+//
+// 示例值：
+func (builder *TerminateApplicationPathReqBodyBuilder) CancelOfferTerminationReasonList(cancelOfferTerminationReasonList []string) *TerminateApplicationPathReqBodyBuilder {
+	builder.cancelOfferTerminationReasonList = cancelOfferTerminationReasonList
+	builder.cancelOfferTerminationReasonListFlag = true
+	return builder
+}
+
+// 候选人拒绝offer的终止的具体原因的id列表
+//
+// 示例值：
+func (builder *TerminateApplicationPathReqBodyBuilder) CandidateRejectOfferTerminationReasonList(candidateRejectOfferTerminationReasonList []string) *TerminateApplicationPathReqBodyBuilder {
+	builder.candidateRejectOfferTerminationReasonList = candidateRejectOfferTerminationReasonList
+	builder.candidateRejectOfferTerminationReasonListFlag = true
+	return builder
+}
+
+// 是否撤回offer审批
+//
+// 示例值：false
+func (builder *TerminateApplicationPathReqBodyBuilder) NeedWithdrawOfferApproval(needWithdrawOfferApproval bool) *TerminateApplicationPathReqBodyBuilder {
+	builder.needWithdrawOfferApproval = needWithdrawOfferApproval
+	builder.needWithdrawOfferApprovalFlag = true
+	return builder
+}
+
 func (builder *TerminateApplicationPathReqBodyBuilder) Build() (*TerminateApplicationReqBody, error) {
 	req := &TerminateApplicationReqBody{}
 	if builder.terminationTypeFlag {
@@ -55648,6 +55824,24 @@ func (builder *TerminateApplicationPathReqBodyBuilder) Build() (*TerminateApplic
 	}
 	if builder.terminationReasonNoteFlag {
 		req.TerminationReasonNote = &builder.terminationReasonNote
+	}
+	if builder.needTerminateOfferFlag {
+		req.NeedTerminateOffer = &builder.needTerminateOffer
+	}
+	if builder.terminateOfferOperateTypeFlag {
+		req.TerminateOfferOperateType = &builder.terminateOfferOperateType
+	}
+	if builder.cancelOfferTerminationTypeFlag {
+		req.CancelOfferTerminationType = &builder.cancelOfferTerminationType
+	}
+	if builder.cancelOfferTerminationReasonListFlag {
+		req.CancelOfferTerminationReasonList = builder.cancelOfferTerminationReasonList
+	}
+	if builder.candidateRejectOfferTerminationReasonListFlag {
+		req.CandidateRejectOfferTerminationReasonList = builder.candidateRejectOfferTerminationReasonList
+	}
+	if builder.needWithdrawOfferApprovalFlag {
+		req.NeedWithdrawOfferApproval = &builder.needWithdrawOfferApproval
 	}
 	return req, nil
 }
@@ -55694,6 +55888,18 @@ type TerminateApplicationReqBody struct {
 	TerminationReasonList []string `json:"termination_reason_list,omitempty"` // 终止的具体原因的id列表
 
 	TerminationReasonNote *string `json:"termination_reason_note,omitempty"` // 终止备注
+
+	NeedTerminateOffer *bool `json:"need_terminate_offer,omitempty"` // 是否终止offer（撤销offer或者标记为候选人拒绝）
+
+	TerminateOfferOperateType *int `json:"terminate_offer_operate_type,omitempty"` // 终止 Offer 操作类型
+
+	CancelOfferTerminationType *int `json:"cancel_offer_termination_type,omitempty"` // 撤销offer的终止原因的类型
+
+	CancelOfferTerminationReasonList []string `json:"cancel_offer_termination_reason_list,omitempty"` // 撤销offer的终止的具体原因的id列表
+
+	CandidateRejectOfferTerminationReasonList []string `json:"candidate_reject_offer_termination_reason_list,omitempty"` // 候选人拒绝offer的终止的具体原因的id列表
+
+	NeedWithdrawOfferApproval *bool `json:"need_withdraw_offer_approval,omitempty"` // 是否撤回offer审批
 }
 
 type TerminateApplicationReq struct {
@@ -64605,11 +64811,14 @@ type OfferStatusOfferReqBodyBuilder struct {
 	expirationDate     string // offer 失效时间，当反馈状态是「offer已发出」时为必填项
 	expirationDateFlag bool
 
-	terminationReasonIdList     []string // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+	terminationReasonIdList     []string // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项，或者当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项；最多传入50个
 	terminationReasonIdListFlag bool
 
 	terminationReasonNote     string // 终止备注
 	terminationReasonNoteFlag bool
+
+	cancelOfferTerminationType     int // 撤销Offer时终止原因的类型，当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项
+	cancelOfferTerminationTypeFlag bool
 }
 
 func NewOfferStatusOfferReqBodyBuilder() *OfferStatusOfferReqBodyBuilder {
@@ -64635,7 +64844,7 @@ func (builder *OfferStatusOfferReqBodyBuilder) ExpirationDate(expirationDate str
 	return builder
 }
 
-// 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+// 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项，或者当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项；最多传入50个
 //
 //示例值：
 func (builder *OfferStatusOfferReqBodyBuilder) TerminationReasonIdList(terminationReasonIdList []string) *OfferStatusOfferReqBodyBuilder {
@@ -64653,6 +64862,15 @@ func (builder *OfferStatusOfferReqBodyBuilder) TerminationReasonNote(termination
 	return builder
 }
 
+// 撤销Offer时终止原因的类型，当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项
+//
+//示例值：1
+func (builder *OfferStatusOfferReqBodyBuilder) CancelOfferTerminationType(cancelOfferTerminationType int) *OfferStatusOfferReqBodyBuilder {
+	builder.cancelOfferTerminationType = cancelOfferTerminationType
+	builder.cancelOfferTerminationTypeFlag = true
+	return builder
+}
+
 func (builder *OfferStatusOfferReqBodyBuilder) Build() *OfferStatusOfferReqBody {
 	req := &OfferStatusOfferReqBody{}
 	if builder.offerStatusFlag {
@@ -64667,18 +64885,23 @@ func (builder *OfferStatusOfferReqBodyBuilder) Build() *OfferStatusOfferReqBody 
 	if builder.terminationReasonNoteFlag {
 		req.TerminationReasonNote = &builder.terminationReasonNote
 	}
+	if builder.cancelOfferTerminationTypeFlag {
+		req.CancelOfferTerminationType = &builder.cancelOfferTerminationType
+	}
 	return req
 }
 
 type OfferStatusOfferPathReqBodyBuilder struct {
-	offerStatus                 int
-	offerStatusFlag             bool
-	expirationDate              string
-	expirationDateFlag          bool
-	terminationReasonIdList     []string
-	terminationReasonIdListFlag bool
-	terminationReasonNote       string
-	terminationReasonNoteFlag   bool
+	offerStatus                    int
+	offerStatusFlag                bool
+	expirationDate                 string
+	expirationDateFlag             bool
+	terminationReasonIdList        []string
+	terminationReasonIdListFlag    bool
+	terminationReasonNote          string
+	terminationReasonNoteFlag      bool
+	cancelOfferTerminationType     int
+	cancelOfferTerminationTypeFlag bool
 }
 
 func NewOfferStatusOfferPathReqBodyBuilder() *OfferStatusOfferPathReqBodyBuilder {
@@ -64704,7 +64927,7 @@ func (builder *OfferStatusOfferPathReqBodyBuilder) ExpirationDate(expirationDate
 	return builder
 }
 
-// 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+// 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项，或者当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项；最多传入50个
 //
 // 示例值：
 func (builder *OfferStatusOfferPathReqBodyBuilder) TerminationReasonIdList(terminationReasonIdList []string) *OfferStatusOfferPathReqBodyBuilder {
@@ -64722,6 +64945,15 @@ func (builder *OfferStatusOfferPathReqBodyBuilder) TerminationReasonNote(termina
 	return builder
 }
 
+// 撤销Offer时终止原因的类型，当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项
+//
+// 示例值：1
+func (builder *OfferStatusOfferPathReqBodyBuilder) CancelOfferTerminationType(cancelOfferTerminationType int) *OfferStatusOfferPathReqBodyBuilder {
+	builder.cancelOfferTerminationType = cancelOfferTerminationType
+	builder.cancelOfferTerminationTypeFlag = true
+	return builder
+}
+
 func (builder *OfferStatusOfferPathReqBodyBuilder) Build() (*OfferStatusOfferReqBody, error) {
 	req := &OfferStatusOfferReqBody{}
 	if builder.offerStatusFlag {
@@ -64735,6 +64967,9 @@ func (builder *OfferStatusOfferPathReqBodyBuilder) Build() (*OfferStatusOfferReq
 	}
 	if builder.terminationReasonNoteFlag {
 		req.TerminationReasonNote = &builder.terminationReasonNote
+	}
+	if builder.cancelOfferTerminationTypeFlag {
+		req.CancelOfferTerminationType = &builder.cancelOfferTerminationType
 	}
 	return req, nil
 }
@@ -64780,9 +65015,11 @@ type OfferStatusOfferReqBody struct {
 
 	ExpirationDate *string `json:"expiration_date,omitempty"` // offer 失效时间，当反馈状态是「offer已发出」时为必填项
 
-	TerminationReasonIdList []string `json:"termination_reason_id_list,omitempty"` // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项；最多传入50个
+	TerminationReasonIdList []string `json:"termination_reason_id_list,omitempty"` // 终止原因列表，当反馈状态是「候选人已拒绝」时为必填项，或者当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项；最多传入50个
 
 	TerminationReasonNote *string `json:"termination_reason_note,omitempty"` // 终止备注
+
+	CancelOfferTerminationType *int `json:"cancel_offer_termination_type,omitempty"` // 撤销Offer时终止原因的类型，当反馈状态是「Offer 已失效」且开启租户「撤销 Offer 时选择撤销类型」开关时为必填项
 }
 
 type OfferStatusOfferReq struct {

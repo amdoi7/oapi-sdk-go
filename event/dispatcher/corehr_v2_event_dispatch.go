@@ -113,6 +113,45 @@ func ( dispatcher * EventDispatcher ) OnP2CostCenterUpdatedV2(handler func(ctx c
 // - 
 //
 // - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2CustomOrgCreatedV2(handler func(ctx context.Context, event *larkcorehr.P2CustomOrgCreatedV2) error) * EventDispatcher{
+	_, existed := dispatcher.eventType2EventHandler["corehr.custom_org.created_v2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.custom_org.created_v2")
+	}
+	dispatcher.eventType2EventHandler["corehr.custom_org.created_v2"] = larkcorehr.NewP2CustomOrgCreatedV2Handler(handler)
+	return dispatcher
+}
+// 
+//
+// - 
+//
+// - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2CustomOrgDeletedV2(handler func(ctx context.Context, event *larkcorehr.P2CustomOrgDeletedV2) error) * EventDispatcher{
+	_, existed := dispatcher.eventType2EventHandler["corehr.custom_org.deleted_v2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.custom_org.deleted_v2")
+	}
+	dispatcher.eventType2EventHandler["corehr.custom_org.deleted_v2"] = larkcorehr.NewP2CustomOrgDeletedV2Handler(handler)
+	return dispatcher
+}
+// 
+//
+// - 
+//
+// - 事件描述文档链接:
+func ( dispatcher * EventDispatcher ) OnP2CustomOrgUpdatedV2(handler func(ctx context.Context, event *larkcorehr.P2CustomOrgUpdatedV2) error) * EventDispatcher{
+	_, existed := dispatcher.eventType2EventHandler["corehr.custom_org.updated_v2"]
+	if existed {
+		panic("event: multiple handler registrations for " + "corehr.custom_org.updated_v2")
+	}
+	dispatcher.eventType2EventHandler["corehr.custom_org.updated_v2"] = larkcorehr.NewP2CustomOrgUpdatedV2Handler(handler)
+	return dispatcher
+}
+// 
+//
+// - 
+//
+// - 事件描述文档链接:
 func ( dispatcher * EventDispatcher ) OnP2DepartmentCreatedV2(handler func(ctx context.Context, event *larkcorehr.P2DepartmentCreatedV2) error) * EventDispatcher{
 	_, existed := dispatcher.eventType2EventHandler["corehr.department.created_v2"]
 	if existed {

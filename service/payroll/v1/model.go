@@ -2674,6 +2674,8 @@ type Datasource struct {
 	Fields []*DatasourceField `json:"fields,omitempty"` // 数据源字段列表
 
 	I18nDescription []*I18nContent `json:"i18n_description,omitempty"` // 数据源描述
+
+	DataPeriodType *int `json:"data_period_type,omitempty"` // 数据期间类型（数据写入维度）
 }
 
 type DatasourceBuilder struct {
@@ -2691,6 +2693,9 @@ type DatasourceBuilder struct {
 
 	i18nDescription     []*I18nContent // 数据源描述
 	i18nDescriptionFlag bool
+
+	dataPeriodType     int // 数据期间类型（数据写入维度）
+	dataPeriodTypeFlag bool
 }
 
 func NewDatasourceBuilder() *DatasourceBuilder {
@@ -2743,6 +2748,15 @@ func (builder *DatasourceBuilder) I18nDescription(i18nDescription []*I18nContent
 	return builder
 }
 
+// 数据期间类型（数据写入维度）
+//
+// 示例值：
+func (builder *DatasourceBuilder) DataPeriodType(dataPeriodType int) *DatasourceBuilder {
+	builder.dataPeriodType = dataPeriodType
+	builder.dataPeriodTypeFlag = true
+	return builder
+}
+
 func (builder *DatasourceBuilder) Build() *Datasource {
 	req := &Datasource{}
 	if builder.codeFlag {
@@ -2761,6 +2775,10 @@ func (builder *DatasourceBuilder) Build() *Datasource {
 	}
 	if builder.i18nDescriptionFlag {
 		req.I18nDescription = builder.i18nDescription
+	}
+	if builder.dataPeriodTypeFlag {
+		req.DataPeriodType = &builder.dataPeriodType
+
 	}
 	return req
 }
@@ -3003,17 +3021,22 @@ func (builder *DatasourceRecordFieldBuilder) Build() *DatasourceRecordField {
 }
 
 type DatasourceRecordFieldFilter struct {
-	FieldCode *string `json:"field_code,omitempty"` // 字段编码
+	FieldCode *string `json:"field_code,omitempty"` // 查询条件的字段编码
 
-	FieldValues []string `json:"field_values,omitempty"` // 字段值列表，只需要其中1个相等就行
+	FieldValues []string `json:"field_values,omitempty"` // 条件值列表
+
+	Operator *int `json:"operator,omitempty"` // 查询操作符
 }
 
 type DatasourceRecordFieldFilterBuilder struct {
-	fieldCode     string // 字段编码
+	fieldCode     string // 查询条件的字段编码
 	fieldCodeFlag bool
 
-	fieldValues     []string // 字段值列表，只需要其中1个相等就行
+	fieldValues     []string // 条件值列表
 	fieldValuesFlag bool
+
+	operator     int // 查询操作符
+	operatorFlag bool
 }
 
 func NewDatasourceRecordFieldFilterBuilder() *DatasourceRecordFieldFilterBuilder {
@@ -3021,7 +3044,7 @@ func NewDatasourceRecordFieldFilterBuilder() *DatasourceRecordFieldFilterBuilder
 	return builder
 }
 
-// 字段编码
+// 查询条件的字段编码
 //
 // 示例值：test__c
 func (builder *DatasourceRecordFieldFilterBuilder) FieldCode(fieldCode string) *DatasourceRecordFieldFilterBuilder {
@@ -3030,12 +3053,21 @@ func (builder *DatasourceRecordFieldFilterBuilder) FieldCode(fieldCode string) *
 	return builder
 }
 
-// 字段值列表，只需要其中1个相等就行
+// 条件值列表
 //
 // 示例值：
 func (builder *DatasourceRecordFieldFilterBuilder) FieldValues(fieldValues []string) *DatasourceRecordFieldFilterBuilder {
 	builder.fieldValues = fieldValues
 	builder.fieldValuesFlag = true
+	return builder
+}
+
+// 查询操作符
+//
+// 示例值：1
+func (builder *DatasourceRecordFieldFilterBuilder) Operator(operator int) *DatasourceRecordFieldFilterBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
 	return builder
 }
 
@@ -3047,6 +3079,10 @@ func (builder *DatasourceRecordFieldFilterBuilder) Build() *DatasourceRecordFiel
 	}
 	if builder.fieldValuesFlag {
 		req.FieldValues = builder.fieldValues
+	}
+	if builder.operatorFlag {
+		req.Operator = &builder.operator
+
 	}
 	return req
 }

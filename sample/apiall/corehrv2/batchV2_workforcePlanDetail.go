@@ -34,6 +34,8 @@ func main() {
 			IsCentralizedReportingProject(false).
 			CentralizedReportingProjectId("7140964208476371111").
 			DimensionIdInDatas([]*larkcorehr.DimensionIdInData{larkcorehr.NewDimensionIdInDataBuilder().Build()}).
+			IncludeMissingDimensionRows(false).
+			FilterAllZeroValueRows(false).
 			Build()).
 		Build()
 	// 发起请求

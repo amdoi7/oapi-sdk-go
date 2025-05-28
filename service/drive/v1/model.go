@@ -10938,6 +10938,8 @@ type P2FilePermissionMemberAppliedV1Data struct {
 
 	ApplicationDepartmentList []string `json:"application_department_list,omitempty"` // 申请授权的组织架构 ID 列表
 
+	ApplicationRemark *string `json:"application_remark,omitempty"` // 权限申请备注
+
 	Permission *string `json:"permission,omitempty"` // 需要申请的权限
 
 	SubscriberIds []*UserId `json:"subscriber_ids,omitempty"` // 订阅用户 ID 列表

@@ -23,22 +23,22 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	GetInterviewRecordUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetInterviewRecordUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetInterviewRecordUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeListInterviewRecordUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListInterviewRecordUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListInterviewRecordOpenId  = "open_id"  // 以open_id来识别用户
+	ListInterviewRecordUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListInterviewRecordUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListInterviewRecordUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetTalentUserId        = "user_id"         // 以 user_id 来识别用户
-	UserIdTypeGetTalentUnionId       = "union_id"        // 以 union_id 来识别用户
-	UserIdTypeGetTalentOpenId        = "open_id"         // 以 open_id 来识别用户
-	UserIdTypeGetTalentPeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
+	GetTalentUserIDTypeUserId        = "user_id"         // 以 user_id 来识别用户
+	GetTalentUserIDTypeUnionId       = "union_id"        // 以 union_id 来识别用户
+	GetTalentUserIDTypeOpenId        = "open_id"         // 以 open_id 来识别用户
+	GetTalentUserIDTypePeopleAdminId = "people_admin_id" // 以 people_admin_id 来识别用户
 )
 
 type Ability struct {

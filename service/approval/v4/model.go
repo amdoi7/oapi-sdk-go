@@ -5958,6 +5958,8 @@ type InstanceCreate struct {
 	TitleDisplayMethod *int `json:"title_display_method,omitempty"` // 详情页title展示模式
 
 	NodeAutoApprovalList []*NodeAutoApproval `json:"node_auto_approval_list,omitempty"` // 自动通过节点ID
+
+	ByteExtra *string `json:"byte_extra,omitempty"` // 字节内部扩展字段
 }
 
 type InstanceCreateBuilder struct {
@@ -6014,6 +6016,9 @@ type InstanceCreateBuilder struct {
 
 	nodeAutoApprovalList     []*NodeAutoApproval // 自动通过节点ID
 	nodeAutoApprovalListFlag bool
+
+	byteExtra     string // 字节内部扩展字段
+	byteExtraFlag bool
 }
 
 func NewInstanceCreateBuilder() *InstanceCreateBuilder {
@@ -6183,6 +6188,15 @@ func (builder *InstanceCreateBuilder) NodeAutoApprovalList(nodeAutoApprovalList 
 	return builder
 }
 
+// 字节内部扩展字段
+//
+// 示例值：{}
+func (builder *InstanceCreateBuilder) ByteExtra(byteExtra string) *InstanceCreateBuilder {
+	builder.byteExtra = byteExtra
+	builder.byteExtraFlag = true
+	return builder
+}
+
 func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	req := &InstanceCreate{}
 	if builder.approvalCodeFlag {
@@ -6250,6 +6264,10 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	}
 	if builder.nodeAutoApprovalListFlag {
 		req.NodeAutoApprovalList = builder.nodeAutoApprovalList
+	}
+	if builder.byteExtraFlag {
+		req.ByteExtra = &builder.byteExtra
+
 	}
 	return req
 }

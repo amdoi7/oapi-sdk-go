@@ -1541,6 +1541,56 @@ func (builder *BlockIdRelationBuilder) Build() *BlockIdRelation {
 	return req
 }
 
+type BlockIdToImageUrl struct {
+	BlockId *string `json:"block_id,omitempty"` // 块 ID
+
+	ImageUrl *string `json:"image_url,omitempty"` // 图片 URL
+}
+
+type BlockIdToImageUrlBuilder struct {
+	blockId     string // 块 ID
+	blockIdFlag bool
+
+	imageUrl     string // 图片 URL
+	imageUrlFlag bool
+}
+
+func NewBlockIdToImageUrlBuilder() *BlockIdToImageUrlBuilder {
+	builder := &BlockIdToImageUrlBuilder{}
+	return builder
+}
+
+// 块 ID
+//
+// 示例值：93b37f5b-8b45-4c03-9379-af988c178b19
+func (builder *BlockIdToImageUrlBuilder) BlockId(blockId string) *BlockIdToImageUrlBuilder {
+	builder.blockId = blockId
+	builder.blockIdFlag = true
+	return builder
+}
+
+// 图片 URL
+//
+// 示例值：https://sf3-scmcdn-cn.feishucdn.com/obj/feishu-static/lark/open/website/share-logo.png
+func (builder *BlockIdToImageUrlBuilder) ImageUrl(imageUrl string) *BlockIdToImageUrlBuilder {
+	builder.imageUrl = imageUrl
+	builder.imageUrlFlag = true
+	return builder
+}
+
+func (builder *BlockIdToImageUrlBuilder) Build() *BlockIdToImageUrl {
+	req := &BlockIdToImageUrl{}
+	if builder.blockIdFlag {
+		req.BlockId = &builder.blockId
+
+	}
+	if builder.imageUrlFlag {
+		req.ImageUrl = &builder.imageUrl
+
+	}
+	return req
+}
+
 type Board struct {
 	Token *string `json:"token,omitempty"` // 画板 token
 

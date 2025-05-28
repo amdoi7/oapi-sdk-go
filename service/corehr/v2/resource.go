@@ -27,6 +27,7 @@ type V2 struct {
 	CostAllocation                    *costAllocation                    // cost_allocation
 	CostCenter                        *costCenter                        // cost_center
 	CostCenterVersion                 *costCenterVersion                 // cost_center.version
+	CustomOrg                         *customOrg                         // custom_org
 	DefaultCostCenter                 *defaultCostCenter                 // default_cost_center
 	Department                        *department                        // department
 	Employee                          *employee                          // employee
@@ -82,6 +83,7 @@ func New(config *larkcore.Config) *V2 {
 		CostAllocation:                    &costAllocation{config: config},
 		CostCenter:                        &costCenter{config: config},
 		CostCenterVersion:                 &costCenterVersion{config: config},
+		CustomOrg:                         &customOrg{config: config},
 		DefaultCostCenter:                 &defaultCostCenter{config: config},
 		Department:                        &department{config: config},
 		Employee:                          &employee{config: config},
@@ -170,6 +172,9 @@ type costCenter struct {
 	config *larkcore.Config
 }
 type costCenterVersion struct {
+	config *larkcore.Config
+}
+type customOrg struct {
 	config *larkcore.Config
 }
 type defaultCostCenter struct {
@@ -1201,6 +1206,188 @@ func (c *costCenterVersion) Patch(ctx context.Context, req *PatchCostCenterVersi
 	}
 	// 反序列响应结果
 	resp := &PatchCostCenterVersionResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Active
+//
+// - 启/停用自定义组织
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/active_customOrg.go
+func (c *customOrg) Active(ctx context.Context, req *ActiveCustomOrgReq, options ...larkcore.RequestOptionFunc) (*ActiveCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs/active"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ActiveCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_customOrg.go
+func (c *customOrg) Create(ctx context.Context, req *CreateCustomOrgReq, options ...larkcore.RequestOptionFunc) (*CreateCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// DeleteOrg
+//
+// - 删除自定义组织
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete_org&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/deleteOrg_customOrg.go
+func (c *customOrg) DeleteOrg(ctx context.Context, req *DeleteOrgCustomOrgReq, options ...larkcore.RequestOptionFunc) (*DeleteOrgCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs/delete_org"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteOrgCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// - 更新自定义组织
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_customOrg.go
+func (c *customOrg) Patch(ctx context.Context, req *PatchCustomOrgReq, options ...larkcore.RequestOptionFunc) (*PatchCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs/:org_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Query
+//
+// - 查询自定义组织信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/query_customOrg.go
+func (c *customOrg) Query(ctx context.Context, req *QueryCustomOrgReq, options ...larkcore.RequestOptionFunc) (*QueryCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs/query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// QueryRecentChange
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_recent_change&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryRecentChange_customOrg.go
+func (c *customOrg) QueryRecentChange(ctx context.Context, req *QueryRecentChangeCustomOrgReq, options ...larkcore.RequestOptionFunc) (*QueryRecentChangeCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs/query_recent_change"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryRecentChangeCustomOrgResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, c.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// UpdateRule
+//
+// - 更新匹配规则
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_rule&project=corehr&resource=custom_org&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/updateRule_customOrg.go
+func (c *customOrg) UpdateRule(ctx context.Context, req *UpdateRuleCustomOrgReq, options ...larkcore.RequestOptionFunc) (*UpdateRuleCustomOrgResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/custom_orgs/update_rule"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, c.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateRuleCustomOrgResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, c.config)
 	if err != nil {
 		return nil, err

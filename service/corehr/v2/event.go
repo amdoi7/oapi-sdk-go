@@ -158,6 +158,66 @@ func (h *P2CostCenterUpdatedV2Handler) Handle(ctx context.Context, event interfa
 }
 
 // 消息处理器定义
+type P2CustomOrgCreatedV2Handler struct {
+	handler func(context.Context, *P2CustomOrgCreatedV2) error
+}
+
+func NewP2CustomOrgCreatedV2Handler(handler func(context.Context, *P2CustomOrgCreatedV2) error) *P2CustomOrgCreatedV2Handler {
+	h := &P2CustomOrgCreatedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2CustomOrgCreatedV2Handler) Event() interface{} {
+	return &P2CustomOrgCreatedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2CustomOrgCreatedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2CustomOrgCreatedV2))
+}
+
+// 消息处理器定义
+type P2CustomOrgDeletedV2Handler struct {
+	handler func(context.Context, *P2CustomOrgDeletedV2) error
+}
+
+func NewP2CustomOrgDeletedV2Handler(handler func(context.Context, *P2CustomOrgDeletedV2) error) *P2CustomOrgDeletedV2Handler {
+	h := &P2CustomOrgDeletedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2CustomOrgDeletedV2Handler) Event() interface{} {
+	return &P2CustomOrgDeletedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2CustomOrgDeletedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2CustomOrgDeletedV2))
+}
+
+// 消息处理器定义
+type P2CustomOrgUpdatedV2Handler struct {
+	handler func(context.Context, *P2CustomOrgUpdatedV2) error
+}
+
+func NewP2CustomOrgUpdatedV2Handler(handler func(context.Context, *P2CustomOrgUpdatedV2) error) *P2CustomOrgUpdatedV2Handler {
+	h := &P2CustomOrgUpdatedV2Handler{handler: handler}
+	return h
+}
+
+// 返回事件的消息体的实例，用于反序列化用
+func (h *P2CustomOrgUpdatedV2Handler) Event() interface{} {
+	return &P2CustomOrgUpdatedV2{}
+}
+
+// 回调开发者注册的handle
+func (h *P2CustomOrgUpdatedV2Handler) Handle(ctx context.Context, event interface{}) error {
+	return h.handler(ctx, event.(*P2CustomOrgUpdatedV2))
+}
+
+// 消息处理器定义
 type P2DepartmentCreatedV2Handler struct {
 	handler func(context.Context, *P2DepartmentCreatedV2) error
 }

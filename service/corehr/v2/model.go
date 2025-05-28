@@ -177,6 +177,27 @@ const (
 )
 
 const (
+	UserIdTypeCreateCustomOrgOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeCreateCustomOrgUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeCreateCustomOrgUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeCreateCustomOrgPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypePatchCustomOrgUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypePatchCustomOrgUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypePatchCustomOrgOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypePatchCustomOrgPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	UserIdTypeQueryCustomOrgUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeQueryCustomOrgUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeQueryCustomOrgOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeQueryCustomOrgPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
 	UserIdTypeBatchQueryDefaultCostCenterUserId         = "user_id"          // 以 user_id 来识别用户
 	UserIdTypeBatchQueryDefaultCostCenterUnionId        = "union_id"         // 以 union_id 来识别用户
 	UserIdTypeBatchQueryDefaultCostCenterOpenId         = "open_id"          // 以 open_id 来识别用户
@@ -5178,7 +5199,7 @@ type BpmFlowInfo struct {
 
 	BizTypeName *DataengineI18n `json:"biz_type_name,omitempty"` // 业务类型名称
 
-	Active *int `json:"active,omitempty"` // 启用状态
+	Status *int `json:"status,omitempty"` // 启用状态
 
 	CreatorId *string `json:"creator_id,omitempty"` // 创建人id
 
@@ -5211,8 +5232,8 @@ type BpmFlowInfoBuilder struct {
 	bizTypeName     *DataengineI18n // 业务类型名称
 	bizTypeNameFlag bool
 
-	active     int // 启用状态
-	activeFlag bool
+	status     int // 启用状态
+	statusFlag bool
 
 	creatorId     string // 创建人id
 	creatorIdFlag bool
@@ -5289,9 +5310,9 @@ func (builder *BpmFlowInfoBuilder) BizTypeName(bizTypeName *DataengineI18n) *Bpm
 // 启用状态
 //
 // 示例值：1
-func (builder *BpmFlowInfoBuilder) Active(active int) *BpmFlowInfoBuilder {
-	builder.active = active
-	builder.activeFlag = true
+func (builder *BpmFlowInfoBuilder) Status(status int) *BpmFlowInfoBuilder {
+	builder.status = status
+	builder.statusFlag = true
 	return builder
 }
 
@@ -5377,8 +5398,8 @@ func (builder *BpmFlowInfoBuilder) Build() *BpmFlowInfo {
 	if builder.bizTypeNameFlag {
 		req.BizTypeName = builder.bizTypeName
 	}
-	if builder.activeFlag {
-		req.Active = &builder.active
+	if builder.statusFlag {
+		req.Status = &builder.status
 
 	}
 	if builder.creatorIdFlag {
@@ -33528,6 +33549,189 @@ func (builder *OrgdraftDepartmentIdBuilder) Build() *OrgdraftDepartmentId {
 	return req
 }
 
+type OrgdraftOrgroleAssignment struct {
+	GranteeId *string `json:"grantee_id,omitempty"` // 授权用户id
+
+	ManagementScopes []*OrgroleAssignmentOrg `json:"management_scopes,omitempty"` // 管理范围，交叉角色时有值
+}
+
+type OrgdraftOrgroleAssignmentBuilder struct {
+	granteeId     string // 授权用户id
+	granteeIdFlag bool
+
+	managementScopes     []*OrgroleAssignmentOrg // 管理范围，交叉角色时有值
+	managementScopesFlag bool
+}
+
+func NewOrgdraftOrgroleAssignmentBuilder() *OrgdraftOrgroleAssignmentBuilder {
+	builder := &OrgdraftOrgroleAssignmentBuilder{}
+	return builder
+}
+
+// 授权用户id
+//
+// 示例值：6967286856077673994
+func (builder *OrgdraftOrgroleAssignmentBuilder) GranteeId(granteeId string) *OrgdraftOrgroleAssignmentBuilder {
+	builder.granteeId = granteeId
+	builder.granteeIdFlag = true
+	return builder
+}
+
+// 管理范围，交叉角色时有值
+//
+// 示例值：
+func (builder *OrgdraftOrgroleAssignmentBuilder) ManagementScopes(managementScopes []*OrgroleAssignmentOrg) *OrgdraftOrgroleAssignmentBuilder {
+	builder.managementScopes = managementScopes
+	builder.managementScopesFlag = true
+	return builder
+}
+
+func (builder *OrgdraftOrgroleAssignmentBuilder) Build() *OrgdraftOrgroleAssignment {
+	req := &OrgdraftOrgroleAssignment{}
+	if builder.granteeIdFlag {
+		req.GranteeId = &builder.granteeId
+
+	}
+	if builder.managementScopesFlag {
+		req.ManagementScopes = builder.managementScopes
+	}
+	return req
+}
+
+type OrgroleAssignmentOrg struct {
+	OrgId *string `json:"org_id,omitempty"` // 组织ID
+
+	OrgType *string `json:"org_type,omitempty"` // 组织类型
+
+	OrgName *string `json:"org_name,omitempty"` // 组织名称
+}
+
+type OrgroleAssignmentOrgBuilder struct {
+	orgId     string // 组织ID
+	orgIdFlag bool
+
+	orgType     string // 组织类型
+	orgTypeFlag bool
+
+	orgName     string // 组织名称
+	orgNameFlag bool
+}
+
+func NewOrgroleAssignmentOrgBuilder() *OrgroleAssignmentOrgBuilder {
+	builder := &OrgroleAssignmentOrgBuilder{}
+	return builder
+}
+
+// 组织ID
+//
+// 示例值：6967286856077673993
+func (builder *OrgroleAssignmentOrgBuilder) OrgId(orgId string) *OrgroleAssignmentOrgBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 组织类型
+//
+// 示例值：department
+func (builder *OrgroleAssignmentOrgBuilder) OrgType(orgType string) *OrgroleAssignmentOrgBuilder {
+	builder.orgType = orgType
+	builder.orgTypeFlag = true
+	return builder
+}
+
+// 组织名称
+//
+// 示例值：people
+func (builder *OrgroleAssignmentOrgBuilder) OrgName(orgName string) *OrgroleAssignmentOrgBuilder {
+	builder.orgName = orgName
+	builder.orgNameFlag = true
+	return builder
+}
+
+func (builder *OrgroleAssignmentOrgBuilder) Build() *OrgroleAssignmentOrg {
+	req := &OrgroleAssignmentOrg{}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+
+	}
+	if builder.orgTypeFlag {
+		req.OrgType = &builder.orgType
+
+	}
+	if builder.orgNameFlag {
+		req.OrgName = &builder.orgName
+
+	}
+	return req
+}
+
+type OrgroleInfo struct {
+	RoleId *string `json:"role_id,omitempty"` // 角色ID
+
+	OriginOrgroles []*OrgdraftOrgroleAssignment `json:"origin_orgroles,omitempty"` // 原组织角色
+
+	TargetOrgroles []*OrgdraftOrgroleAssignment `json:"target_orgroles,omitempty"` // 新组织角色
+}
+
+type OrgroleInfoBuilder struct {
+	roleId     string // 角色ID
+	roleIdFlag bool
+
+	originOrgroles     []*OrgdraftOrgroleAssignment // 原组织角色
+	originOrgrolesFlag bool
+
+	targetOrgroles     []*OrgdraftOrgroleAssignment // 新组织角色
+	targetOrgrolesFlag bool
+}
+
+func NewOrgroleInfoBuilder() *OrgroleInfoBuilder {
+	builder := &OrgroleInfoBuilder{}
+	return builder
+}
+
+// 角色ID
+//
+// 示例值：hrbp
+func (builder *OrgroleInfoBuilder) RoleId(roleId string) *OrgroleInfoBuilder {
+	builder.roleId = roleId
+	builder.roleIdFlag = true
+	return builder
+}
+
+// 原组织角色
+//
+// 示例值：
+func (builder *OrgroleInfoBuilder) OriginOrgroles(originOrgroles []*OrgdraftOrgroleAssignment) *OrgroleInfoBuilder {
+	builder.originOrgroles = originOrgroles
+	builder.originOrgrolesFlag = true
+	return builder
+}
+
+// 新组织角色
+//
+// 示例值：
+func (builder *OrgroleInfoBuilder) TargetOrgroles(targetOrgroles []*OrgdraftOrgroleAssignment) *OrgroleInfoBuilder {
+	builder.targetOrgroles = targetOrgroles
+	builder.targetOrgrolesFlag = true
+	return builder
+}
+
+func (builder *OrgroleInfoBuilder) Build() *OrgroleInfo {
+	req := &OrgroleInfo{}
+	if builder.roleIdFlag {
+		req.RoleId = &builder.roleId
+
+	}
+	if builder.originOrgrolesFlag {
+		req.OriginOrgroles = builder.originOrgroles
+	}
+	if builder.targetOrgrolesFlag {
+		req.TargetOrgroles = builder.targetOrgroles
+	}
+	return req
+}
+
 type Pathway struct {
 	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
 
@@ -48243,6 +48447,8 @@ type ReorganizationInfo struct {
 	TargetDepartmentIdPath []*OrgdraftDepartmentId `json:"target_department_id_path,omitempty"` // 调整后部门全路径
 
 	CustomFields []*ChangeFieldPair `json:"custom_fields,omitempty"` // 自定义字段
+
+	OrgroleInfos []*OrgroleInfo `json:"orgrole_infos,omitempty"` // 调整前后组织角色信息
 }
 
 type ReorganizationInfoBuilder struct {
@@ -48317,6 +48523,9 @@ type ReorganizationInfoBuilder struct {
 
 	customFields     []*ChangeFieldPair // 自定义字段
 	customFieldsFlag bool
+
+	orgroleInfos     []*OrgroleInfo // 调整前后组织角色信息
+	orgroleInfosFlag bool
 }
 
 func NewReorganizationInfoBuilder() *ReorganizationInfoBuilder {
@@ -48540,6 +48749,15 @@ func (builder *ReorganizationInfoBuilder) CustomFields(customFields []*ChangeFie
 	return builder
 }
 
+// 调整前后组织角色信息
+//
+// 示例值：
+func (builder *ReorganizationInfoBuilder) OrgroleInfos(orgroleInfos []*OrgroleInfo) *ReorganizationInfoBuilder {
+	builder.orgroleInfos = orgroleInfos
+	builder.orgroleInfosFlag = true
+	return builder
+}
+
 func (builder *ReorganizationInfoBuilder) Build() *ReorganizationInfo {
 	req := &ReorganizationInfo{}
 	if builder.originalDepartmentNamesFlag {
@@ -48624,6 +48842,9 @@ func (builder *ReorganizationInfoBuilder) Build() *ReorganizationInfo {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.orgroleInfosFlag {
+		req.OrgroleInfos = builder.orgroleInfos
 	}
 	return req
 }
@@ -54944,6 +55165,8 @@ type WorkforcePlanDetail struct {
 	FulfillmentRateIncludingIndividualsToBeAddedAndRemoved *string `json:"fulfillment_rate_including_individuals_to_be_added_and_removed,omitempty"` // 满编率（含在途）， 返回 0.5 表示满编率为 50%
 
 	EstimatedActiveIndividualsDetail []*WorkforcePlanEaiDetail `json:"estimated_active_individuals_detail,omitempty"` // 预估在职人数明细
+
+	IsMissingDimension *bool `json:"is_missing_dimension,omitempty"` // 是否为缺维度的明细行，true为缺维度明细行，false为非缺维度明细行
 }
 
 type WorkforcePlanDetailBuilder struct {
@@ -54997,6 +55220,9 @@ type WorkforcePlanDetailBuilder struct {
 
 	estimatedActiveIndividualsDetail     []*WorkforcePlanEaiDetail // 预估在职人数明细
 	estimatedActiveIndividualsDetailFlag bool
+
+	isMissingDimension     bool // 是否为缺维度的明细行，true为缺维度明细行，false为非缺维度明细行
+	isMissingDimensionFlag bool
 }
 
 func NewWorkforcePlanDetailBuilder() *WorkforcePlanDetailBuilder {
@@ -55157,6 +55383,15 @@ func (builder *WorkforcePlanDetailBuilder) EstimatedActiveIndividualsDetail(esti
 	return builder
 }
 
+// 是否为缺维度的明细行，true为缺维度明细行，false为非缺维度明细行
+//
+// 示例值：false
+func (builder *WorkforcePlanDetailBuilder) IsMissingDimension(isMissingDimension bool) *WorkforcePlanDetailBuilder {
+	builder.isMissingDimension = isMissingDimension
+	builder.isMissingDimensionFlag = true
+	return builder
+}
+
 func (builder *WorkforcePlanDetailBuilder) Build() *WorkforcePlanDetail {
 	req := &WorkforcePlanDetail{}
 	if builder.workforcePlanDetailIdFlag {
@@ -55218,6 +55453,10 @@ func (builder *WorkforcePlanDetailBuilder) Build() *WorkforcePlanDetail {
 	}
 	if builder.estimatedActiveIndividualsDetailFlag {
 		req.EstimatedActiveIndividualsDetail = builder.estimatedActiveIndividualsDetail
+	}
+	if builder.isMissingDimensionFlag {
+		req.IsMissingDimension = &builder.isMissingDimension
+
 	}
 	return req
 }
@@ -55365,7 +55604,7 @@ type WorkforcePlanDetailV2 struct {
 
 	IndividualsToBeAdded *string `json:"individuals_to_be_added,omitempty"` // 预增员数量
 
-	IndividualsToBeRemoved *string `json:"individuals_to_be_removed,omitempty"` // 预减员
+	IndividualsToBeRemoved *string `json:"individuals_to_be_removed,omitempty"` // 预减员数量
 
 	Vacancy *string `json:"vacancy,omitempty"` // 缺编数
 
@@ -55378,6 +55617,10 @@ type WorkforcePlanDetailV2 struct {
 	EstimatedActiveIndividualsDetails []*WorkforcePlanEaiDetail `json:"estimated_active_individuals_details,omitempty"` // 预估在职人数明细
 
 	MultiPeriodValues []*WorkforcePlanMultiPeriodValue `json:"multi_period_values,omitempty"` // 多周期的编制规划信息
+
+	IsMissingDimension *bool `json:"is_missing_dimension,omitempty"` // 是否为缺维度的明细行，true为缺维度明细行，false为非缺维度明细行
+
+	IsAllZeroValue *bool `json:"is_all_zero_value,omitempty"` // 是否在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true代表在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false代表在职、预增/预减人员、编制数、预估在职人数不全为0的明细行
 }
 
 type WorkforcePlanDetailV2Builder struct {
@@ -55396,7 +55639,7 @@ type WorkforcePlanDetailV2Builder struct {
 	individualsToBeAdded     string // 预增员数量
 	individualsToBeAddedFlag bool
 
-	individualsToBeRemoved     string // 预减员
+	individualsToBeRemoved     string // 预减员数量
 	individualsToBeRemovedFlag bool
 
 	vacancy     string // 缺编数
@@ -55416,6 +55659,12 @@ type WorkforcePlanDetailV2Builder struct {
 
 	multiPeriodValues     []*WorkforcePlanMultiPeriodValue // 多周期的编制规划信息
 	multiPeriodValuesFlag bool
+
+	isMissingDimension     bool // 是否为缺维度的明细行，true为缺维度明细行，false为非缺维度明细行
+	isMissingDimensionFlag bool
+
+	isAllZeroValue     bool // 是否在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true代表在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false代表在职、预增/预减人员、编制数、预估在职人数不全为0的明细行
+	isAllZeroValueFlag bool
 }
 
 func NewWorkforcePlanDetailV2Builder() *WorkforcePlanDetailV2Builder {
@@ -55468,7 +55717,7 @@ func (builder *WorkforcePlanDetailV2Builder) IndividualsToBeAdded(individualsToB
 	return builder
 }
 
-// 预减员
+// 预减员数量
 //
 // 示例值：10.00
 func (builder *WorkforcePlanDetailV2Builder) IndividualsToBeRemoved(individualsToBeRemoved string) *WorkforcePlanDetailV2Builder {
@@ -55531,6 +55780,24 @@ func (builder *WorkforcePlanDetailV2Builder) MultiPeriodValues(multiPeriodValues
 	return builder
 }
 
+// 是否为缺维度的明细行，true为缺维度明细行，false为非缺维度明细行
+//
+// 示例值：false
+func (builder *WorkforcePlanDetailV2Builder) IsMissingDimension(isMissingDimension bool) *WorkforcePlanDetailV2Builder {
+	builder.isMissingDimension = isMissingDimension
+	builder.isMissingDimensionFlag = true
+	return builder
+}
+
+// 是否在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true代表在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false代表在职、预增/预减人员、编制数、预估在职人数不全为0的明细行
+//
+// 示例值：false
+func (builder *WorkforcePlanDetailV2Builder) IsAllZeroValue(isAllZeroValue bool) *WorkforcePlanDetailV2Builder {
+	builder.isAllZeroValue = isAllZeroValue
+	builder.isAllZeroValueFlag = true
+	return builder
+}
+
 func (builder *WorkforcePlanDetailV2Builder) Build() *WorkforcePlanDetailV2 {
 	req := &WorkforcePlanDetailV2{}
 	if builder.workforcePlanDetailIdFlag {
@@ -55577,6 +55844,14 @@ func (builder *WorkforcePlanDetailV2Builder) Build() *WorkforcePlanDetailV2 {
 	}
 	if builder.multiPeriodValuesFlag {
 		req.MultiPeriodValues = builder.multiPeriodValues
+	}
+	if builder.isMissingDimensionFlag {
+		req.IsMissingDimension = &builder.isMissingDimension
+
+	}
+	if builder.isAllZeroValueFlag {
+		req.IsAllZeroValue = &builder.isAllZeroValue
+
 	}
 	return req
 }
@@ -60668,6 +60943,1053 @@ type PatchCostCenterVersionResp struct {
 }
 
 func (resp *PatchCostCenterVersionResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ActiveCustomOrgReqBodyBuilder struct {
+	orgId     string // 组织ID
+	orgIdFlag bool
+
+	objectApiName     string // 组织类型编码
+	objectApiNameFlag bool
+
+	active     bool // 启用停用状态
+	activeFlag bool
+
+	effectiveTime     string // 生效时间
+	effectiveTimeFlag bool
+}
+
+func NewActiveCustomOrgReqBodyBuilder() *ActiveCustomOrgReqBodyBuilder {
+	builder := &ActiveCustomOrgReqBodyBuilder{}
+	return builder
+}
+
+// 组织ID
+//
+//示例值：6862995757234914823
+func (builder *ActiveCustomOrgReqBodyBuilder) OrgId(orgId string) *ActiveCustomOrgReqBodyBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 组织类型编码
+//
+//示例值：apiname__c
+func (builder *ActiveCustomOrgReqBodyBuilder) ObjectApiName(objectApiName string) *ActiveCustomOrgReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 启用停用状态
+//
+//示例值：true
+func (builder *ActiveCustomOrgReqBodyBuilder) Active(active bool) *ActiveCustomOrgReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 生效时间
+//
+//示例值：2020-01-01
+func (builder *ActiveCustomOrgReqBodyBuilder) EffectiveTime(effectiveTime string) *ActiveCustomOrgReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+func (builder *ActiveCustomOrgReqBodyBuilder) Build() *ActiveCustomOrgReqBody {
+	req := &ActiveCustomOrgReqBody{}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+	}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	return req
+}
+
+type ActiveCustomOrgPathReqBodyBuilder struct {
+	orgId             string
+	orgIdFlag         bool
+	objectApiName     string
+	objectApiNameFlag bool
+	active            bool
+	activeFlag        bool
+	effectiveTime     string
+	effectiveTimeFlag bool
+}
+
+func NewActiveCustomOrgPathReqBodyBuilder() *ActiveCustomOrgPathReqBodyBuilder {
+	builder := &ActiveCustomOrgPathReqBodyBuilder{}
+	return builder
+}
+
+// 组织ID
+//
+// 示例值：6862995757234914823
+func (builder *ActiveCustomOrgPathReqBodyBuilder) OrgId(orgId string) *ActiveCustomOrgPathReqBodyBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 组织类型编码
+//
+// 示例值：apiname__c
+func (builder *ActiveCustomOrgPathReqBodyBuilder) ObjectApiName(objectApiName string) *ActiveCustomOrgPathReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 启用停用状态
+//
+// 示例值：true
+func (builder *ActiveCustomOrgPathReqBodyBuilder) Active(active bool) *ActiveCustomOrgPathReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 生效时间
+//
+// 示例值：2020-01-01
+func (builder *ActiveCustomOrgPathReqBodyBuilder) EffectiveTime(effectiveTime string) *ActiveCustomOrgPathReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+func (builder *ActiveCustomOrgPathReqBodyBuilder) Build() (*ActiveCustomOrgReqBody, error) {
+	req := &ActiveCustomOrgReqBody{}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+	}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	return req, nil
+}
+
+type ActiveCustomOrgReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ActiveCustomOrgReqBody
+}
+
+func NewActiveCustomOrgReqBuilder() *ActiveCustomOrgReqBuilder {
+	builder := &ActiveCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 启/停用自定义组织
+func (builder *ActiveCustomOrgReqBuilder) Body(body *ActiveCustomOrgReqBody) *ActiveCustomOrgReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ActiveCustomOrgReqBuilder) Build() *ActiveCustomOrgReq {
+	req := &ActiveCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ActiveCustomOrgReqBody struct {
+	OrgId *string `json:"org_id,omitempty"` // 组织ID
+
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 组织类型编码
+
+	Active *bool `json:"active,omitempty"` // 启用停用状态
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间
+}
+
+type ActiveCustomOrgReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ActiveCustomOrgReqBody `body:""`
+}
+
+type ActiveCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *ActiveCustomOrgResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateCustomOrgReqBuilder struct {
+	apiReq          *larkcore.ApiReq
+	customOrgCreate *CustomOrgCreate
+}
+
+func NewCreateCustomOrgReqBuilder() *CreateCustomOrgReqBuilder {
+	builder := &CreateCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 根据client_token是否一致来判断是否为同一请求
+//
+// 示例值：1245464678
+func (builder *CreateCustomOrgReqBuilder) ClientToken(clientToken string) *CreateCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *CreateCustomOrgReqBuilder) UserIdType(userIdType string) *CreateCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *CreateCustomOrgReqBuilder) CustomOrgCreate(customOrgCreate *CustomOrgCreate) *CreateCustomOrgReqBuilder {
+	builder.customOrgCreate = customOrgCreate
+	return builder
+}
+
+func (builder *CreateCustomOrgReqBuilder) Build() *CreateCustomOrgReq {
+	req := &CreateCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.customOrgCreate
+	return req
+}
+
+type CreateCustomOrgReq struct {
+	apiReq          *larkcore.ApiReq
+	CustomOrgCreate *CustomOrgCreate `body:""`
+}
+
+type CreateCustomOrgRespData struct {
+	OrgId *string `json:"org_id,omitempty"` // 组织ID
+}
+
+type CreateCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateCustomOrgRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateCustomOrgResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteOrgCustomOrgReqBodyBuilder struct {
+	orgId     string // 组织ID
+	orgIdFlag bool
+
+	objectApiName     string // 组织类型编码
+	objectApiNameFlag bool
+}
+
+func NewDeleteOrgCustomOrgReqBodyBuilder() *DeleteOrgCustomOrgReqBodyBuilder {
+	builder := &DeleteOrgCustomOrgReqBodyBuilder{}
+	return builder
+}
+
+// 组织ID
+//
+//示例值：6862995757234914824
+func (builder *DeleteOrgCustomOrgReqBodyBuilder) OrgId(orgId string) *DeleteOrgCustomOrgReqBodyBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 组织类型编码
+//
+//示例值：apiname__c
+func (builder *DeleteOrgCustomOrgReqBodyBuilder) ObjectApiName(objectApiName string) *DeleteOrgCustomOrgReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+func (builder *DeleteOrgCustomOrgReqBodyBuilder) Build() *DeleteOrgCustomOrgReqBody {
+	req := &DeleteOrgCustomOrgReqBody{}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+	}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	return req
+}
+
+type DeleteOrgCustomOrgPathReqBodyBuilder struct {
+	orgId             string
+	orgIdFlag         bool
+	objectApiName     string
+	objectApiNameFlag bool
+}
+
+func NewDeleteOrgCustomOrgPathReqBodyBuilder() *DeleteOrgCustomOrgPathReqBodyBuilder {
+	builder := &DeleteOrgCustomOrgPathReqBodyBuilder{}
+	return builder
+}
+
+// 组织ID
+//
+// 示例值：6862995757234914824
+func (builder *DeleteOrgCustomOrgPathReqBodyBuilder) OrgId(orgId string) *DeleteOrgCustomOrgPathReqBodyBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 组织类型编码
+//
+// 示例值：apiname__c
+func (builder *DeleteOrgCustomOrgPathReqBodyBuilder) ObjectApiName(objectApiName string) *DeleteOrgCustomOrgPathReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+func (builder *DeleteOrgCustomOrgPathReqBodyBuilder) Build() (*DeleteOrgCustomOrgReqBody, error) {
+	req := &DeleteOrgCustomOrgReqBody{}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+	}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	return req, nil
+}
+
+type DeleteOrgCustomOrgReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *DeleteOrgCustomOrgReqBody
+}
+
+func NewDeleteOrgCustomOrgReqBuilder() *DeleteOrgCustomOrgReqBuilder {
+	builder := &DeleteOrgCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 删除自定义组织
+func (builder *DeleteOrgCustomOrgReqBuilder) Body(body *DeleteOrgCustomOrgReqBody) *DeleteOrgCustomOrgReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *DeleteOrgCustomOrgReqBuilder) Build() *DeleteOrgCustomOrgReq {
+	req := &DeleteOrgCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type DeleteOrgCustomOrgReqBody struct {
+	OrgId *string `json:"org_id,omitempty"` // 组织ID
+
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 组织类型编码
+}
+
+type DeleteOrgCustomOrgReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *DeleteOrgCustomOrgReqBody `body:""`
+}
+
+type DeleteOrgCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteOrgCustomOrgResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchCustomOrgReqBuilder struct {
+	apiReq          *larkcore.ApiReq
+	customOrgUpdate *CustomOrgUpdate
+}
+
+func NewPatchCustomOrgReqBuilder() *PatchCustomOrgReqBuilder {
+	builder := &PatchCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 组织ID
+//
+// 示例值：6862995757234914824
+func (builder *PatchCustomOrgReqBuilder) OrgId(orgId string) *PatchCustomOrgReqBuilder {
+	builder.apiReq.PathParams.Set("org_id", fmt.Sprint(orgId))
+	return builder
+}
+
+// 根据client_token是否一致来判断是否为同一请求
+//
+// 示例值：1245464678
+func (builder *PatchCustomOrgReqBuilder) ClientToken(clientToken string) *PatchCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *PatchCustomOrgReqBuilder) UserIdType(userIdType string) *PatchCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 更新自定义组织
+func (builder *PatchCustomOrgReqBuilder) CustomOrgUpdate(customOrgUpdate *CustomOrgUpdate) *PatchCustomOrgReqBuilder {
+	builder.customOrgUpdate = customOrgUpdate
+	return builder
+}
+
+func (builder *PatchCustomOrgReqBuilder) Build() *PatchCustomOrgReq {
+	req := &PatchCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.customOrgUpdate
+	return req
+}
+
+type PatchCustomOrgReq struct {
+	apiReq          *larkcore.ApiReq
+	CustomOrgUpdate *CustomOrgUpdate `body:""`
+}
+
+type PatchCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchCustomOrgResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryCustomOrgReqBodyBuilder struct {
+	objectApiName     string // 组织类型编码
+	objectApiNameFlag bool
+
+	orgFields     []string // 返回基础数据的字段列表
+	orgFieldsFlag bool
+
+	orgRoleFields     []string // 返回org_role数据的字段列表
+	orgRoleFieldsFlag bool
+
+	orgIds     []string // 组织ID列表
+	orgIdsFlag bool
+
+	code     string // 组织编码
+	codeFlag bool
+
+	parentId     string // 上级组织ID
+	parentIdFlag bool
+
+	active     bool // 是否启用
+	activeFlag bool
+
+	needMatchRule     bool // 是否返回匹配规则
+	needMatchRuleFlag bool
+}
+
+func NewQueryCustomOrgReqBodyBuilder() *QueryCustomOrgReqBodyBuilder {
+	builder := &QueryCustomOrgReqBodyBuilder{}
+	return builder
+}
+
+// 组织类型编码
+//
+//示例值：apiname__c
+func (builder *QueryCustomOrgReqBodyBuilder) ObjectApiName(objectApiName string) *QueryCustomOrgReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 返回基础数据的字段列表
+//
+//示例值：
+func (builder *QueryCustomOrgReqBodyBuilder) OrgFields(orgFields []string) *QueryCustomOrgReqBodyBuilder {
+	builder.orgFields = orgFields
+	builder.orgFieldsFlag = true
+	return builder
+}
+
+// 返回org_role数据的字段列表
+//
+//示例值：
+func (builder *QueryCustomOrgReqBodyBuilder) OrgRoleFields(orgRoleFields []string) *QueryCustomOrgReqBodyBuilder {
+	builder.orgRoleFields = orgRoleFields
+	builder.orgRoleFieldsFlag = true
+	return builder
+}
+
+// 组织ID列表
+//
+//示例值：
+func (builder *QueryCustomOrgReqBodyBuilder) OrgIds(orgIds []string) *QueryCustomOrgReqBodyBuilder {
+	builder.orgIds = orgIds
+	builder.orgIdsFlag = true
+	return builder
+}
+
+// 组织编码
+//
+//示例值：MDPD00000023
+func (builder *QueryCustomOrgReqBodyBuilder) Code(code string) *QueryCustomOrgReqBodyBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 上级组织ID
+//
+//示例值：7140964208476371111
+func (builder *QueryCustomOrgReqBodyBuilder) ParentId(parentId string) *QueryCustomOrgReqBodyBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+
+// 是否启用
+//
+//示例值：true
+func (builder *QueryCustomOrgReqBodyBuilder) Active(active bool) *QueryCustomOrgReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 是否返回匹配规则
+//
+//示例值：false
+func (builder *QueryCustomOrgReqBodyBuilder) NeedMatchRule(needMatchRule bool) *QueryCustomOrgReqBodyBuilder {
+	builder.needMatchRule = needMatchRule
+	builder.needMatchRuleFlag = true
+	return builder
+}
+
+func (builder *QueryCustomOrgReqBodyBuilder) Build() *QueryCustomOrgReqBody {
+	req := &QueryCustomOrgReqBody{}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	if builder.orgFieldsFlag {
+		req.OrgFields = builder.orgFields
+	}
+	if builder.orgRoleFieldsFlag {
+		req.OrgRoleFields = builder.orgRoleFields
+	}
+	if builder.orgIdsFlag {
+		req.OrgIds = builder.orgIds
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.needMatchRuleFlag {
+		req.NeedMatchRule = &builder.needMatchRule
+	}
+	return req
+}
+
+type QueryCustomOrgPathReqBodyBuilder struct {
+	objectApiName     string
+	objectApiNameFlag bool
+	orgFields         []string
+	orgFieldsFlag     bool
+	orgRoleFields     []string
+	orgRoleFieldsFlag bool
+	orgIds            []string
+	orgIdsFlag        bool
+	code              string
+	codeFlag          bool
+	parentId          string
+	parentIdFlag      bool
+	active            bool
+	activeFlag        bool
+	needMatchRule     bool
+	needMatchRuleFlag bool
+}
+
+func NewQueryCustomOrgPathReqBodyBuilder() *QueryCustomOrgPathReqBodyBuilder {
+	builder := &QueryCustomOrgPathReqBodyBuilder{}
+	return builder
+}
+
+// 组织类型编码
+//
+// 示例值：apiname__c
+func (builder *QueryCustomOrgPathReqBodyBuilder) ObjectApiName(objectApiName string) *QueryCustomOrgPathReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 返回基础数据的字段列表
+//
+// 示例值：
+func (builder *QueryCustomOrgPathReqBodyBuilder) OrgFields(orgFields []string) *QueryCustomOrgPathReqBodyBuilder {
+	builder.orgFields = orgFields
+	builder.orgFieldsFlag = true
+	return builder
+}
+
+// 返回org_role数据的字段列表
+//
+// 示例值：
+func (builder *QueryCustomOrgPathReqBodyBuilder) OrgRoleFields(orgRoleFields []string) *QueryCustomOrgPathReqBodyBuilder {
+	builder.orgRoleFields = orgRoleFields
+	builder.orgRoleFieldsFlag = true
+	return builder
+}
+
+// 组织ID列表
+//
+// 示例值：
+func (builder *QueryCustomOrgPathReqBodyBuilder) OrgIds(orgIds []string) *QueryCustomOrgPathReqBodyBuilder {
+	builder.orgIds = orgIds
+	builder.orgIdsFlag = true
+	return builder
+}
+
+// 组织编码
+//
+// 示例值：MDPD00000023
+func (builder *QueryCustomOrgPathReqBodyBuilder) Code(code string) *QueryCustomOrgPathReqBodyBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 上级组织ID
+//
+// 示例值：7140964208476371111
+func (builder *QueryCustomOrgPathReqBodyBuilder) ParentId(parentId string) *QueryCustomOrgPathReqBodyBuilder {
+	builder.parentId = parentId
+	builder.parentIdFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true
+func (builder *QueryCustomOrgPathReqBodyBuilder) Active(active bool) *QueryCustomOrgPathReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 是否返回匹配规则
+//
+// 示例值：false
+func (builder *QueryCustomOrgPathReqBodyBuilder) NeedMatchRule(needMatchRule bool) *QueryCustomOrgPathReqBodyBuilder {
+	builder.needMatchRule = needMatchRule
+	builder.needMatchRuleFlag = true
+	return builder
+}
+
+func (builder *QueryCustomOrgPathReqBodyBuilder) Build() (*QueryCustomOrgReqBody, error) {
+	req := &QueryCustomOrgReqBody{}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	if builder.orgFieldsFlag {
+		req.OrgFields = builder.orgFields
+	}
+	if builder.orgRoleFieldsFlag {
+		req.OrgRoleFields = builder.orgRoleFields
+	}
+	if builder.orgIdsFlag {
+		req.OrgIds = builder.orgIds
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+	}
+	if builder.parentIdFlag {
+		req.ParentId = &builder.parentId
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.needMatchRuleFlag {
+		req.NeedMatchRule = &builder.needMatchRule
+	}
+	return req, nil
+}
+
+type QueryCustomOrgReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QueryCustomOrgReqBody
+}
+
+func NewQueryCustomOrgReqBuilder() *QueryCustomOrgReqBuilder {
+	builder := &QueryCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *QueryCustomOrgReqBuilder) PageSize(pageSize int) *QueryCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *QueryCustomOrgReqBuilder) PageToken(pageToken string) *QueryCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *QueryCustomOrgReqBuilder) UserIdType(userIdType string) *QueryCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 查询自定义组织信息
+func (builder *QueryCustomOrgReqBuilder) Body(body *QueryCustomOrgReqBody) *QueryCustomOrgReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QueryCustomOrgReqBuilder) Build() *QueryCustomOrgReq {
+	req := &QueryCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QueryCustomOrgReqBody struct {
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 组织类型编码
+
+	OrgFields []string `json:"org_fields,omitempty"` // 返回基础数据的字段列表
+
+	OrgRoleFields []string `json:"org_role_fields,omitempty"` // 返回org_role数据的字段列表
+
+	OrgIds []string `json:"org_ids,omitempty"` // 组织ID列表
+
+	Code *string `json:"code,omitempty"` // 组织编码
+
+	ParentId *string `json:"parent_id,omitempty"` // 上级组织ID
+
+	Active *bool `json:"active,omitempty"` // 是否启用
+
+	NeedMatchRule *bool `json:"need_match_rule,omitempty"` // 是否返回匹配规则
+}
+
+type QueryCustomOrgReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QueryCustomOrgReqBody `body:""`
+}
+
+type QueryCustomOrgRespData struct {
+	Items []*CustomOrg `json:"items,omitempty"` // 自定义组织信息列表
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+}
+
+type QueryCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryCustomOrgRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryCustomOrgResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryRecentChangeCustomOrgReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewQueryRecentChangeCustomOrgReqBuilder() *QueryRecentChangeCustomOrgReqBuilder {
+	builder := &QueryRecentChangeCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页大小，最大 2000
+//
+// 示例值：100
+func (builder *QueryRecentChangeCustomOrgReqBuilder) PageSize(pageSize int) *QueryRecentChangeCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *QueryRecentChangeCustomOrgReqBuilder) PageToken(pageToken string) *QueryRecentChangeCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 组织类型编码，可在「飞书人事-设置-组织设置」中相应的自定义组织目录下查看
+//
+// 示例值：custom_org_01
+func (builder *QueryRecentChangeCustomOrgReqBuilder) ObjectApiName(objectApiName string) *QueryRecentChangeCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("object_api_name", fmt.Sprint(objectApiName))
+	return builder
+}
+
+// 查询的开始时间，支持"yyyy-MM-dd HH:MM:SS"
+//
+// 示例值：2024-01-01 00:00:00
+func (builder *QueryRecentChangeCustomOrgReqBuilder) StartDate(startDate string) *QueryRecentChangeCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("start_date", fmt.Sprint(startDate))
+	return builder
+}
+
+// 查询的结束时间，格式 "yyyy-MM-dd HH:MM:SS"
+//
+// 示例值：2024-04-01 00:00:00
+func (builder *QueryRecentChangeCustomOrgReqBuilder) EndDate(endDate string) *QueryRecentChangeCustomOrgReqBuilder {
+	builder.apiReq.QueryParams.Set("end_date", fmt.Sprint(endDate))
+	return builder
+}
+
+func (builder *QueryRecentChangeCustomOrgReqBuilder) Build() *QueryRecentChangeCustomOrgReq {
+	req := &QueryRecentChangeCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type QueryRecentChangeCustomOrgReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type QueryRecentChangeCustomOrgRespData struct {
+	CustomOrgIds []string `json:"custom_org_ids,omitempty"` // 自定义组织 ID 列表
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	DeletedCustomOrgIds []string `json:"deleted_custom_org_ids,omitempty"` // 删除的自定义组织 ID 列表
+}
+
+type QueryRecentChangeCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryRecentChangeCustomOrgRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryRecentChangeCustomOrgResp) Success() bool {
+	return resp.Code == 0
+}
+
+type UpdateRuleCustomOrgReqBodyBuilder struct {
+	objectApiName     string // 组织类型编码
+	objectApiNameFlag bool
+
+	orgId     string // 组织ID
+	orgIdFlag bool
+
+	matchRuleGroups     []*MatchRules // 匹配规则组，组间并集
+	matchRuleGroupsFlag bool
+}
+
+func NewUpdateRuleCustomOrgReqBodyBuilder() *UpdateRuleCustomOrgReqBodyBuilder {
+	builder := &UpdateRuleCustomOrgReqBodyBuilder{}
+	return builder
+}
+
+// 组织类型编码
+//
+//示例值：apiname__c
+func (builder *UpdateRuleCustomOrgReqBodyBuilder) ObjectApiName(objectApiName string) *UpdateRuleCustomOrgReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 组织ID
+//
+//示例值：6862995757234914824
+func (builder *UpdateRuleCustomOrgReqBodyBuilder) OrgId(orgId string) *UpdateRuleCustomOrgReqBodyBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 匹配规则组，组间并集
+//
+//示例值：
+func (builder *UpdateRuleCustomOrgReqBodyBuilder) MatchRuleGroups(matchRuleGroups []*MatchRules) *UpdateRuleCustomOrgReqBodyBuilder {
+	builder.matchRuleGroups = matchRuleGroups
+	builder.matchRuleGroupsFlag = true
+	return builder
+}
+
+func (builder *UpdateRuleCustomOrgReqBodyBuilder) Build() *UpdateRuleCustomOrgReqBody {
+	req := &UpdateRuleCustomOrgReqBody{}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+	}
+	if builder.matchRuleGroupsFlag {
+		req.MatchRuleGroups = builder.matchRuleGroups
+	}
+	return req
+}
+
+type UpdateRuleCustomOrgPathReqBodyBuilder struct {
+	objectApiName       string
+	objectApiNameFlag   bool
+	orgId               string
+	orgIdFlag           bool
+	matchRuleGroups     []*MatchRules
+	matchRuleGroupsFlag bool
+}
+
+func NewUpdateRuleCustomOrgPathReqBodyBuilder() *UpdateRuleCustomOrgPathReqBodyBuilder {
+	builder := &UpdateRuleCustomOrgPathReqBodyBuilder{}
+	return builder
+}
+
+// 组织类型编码
+//
+// 示例值：apiname__c
+func (builder *UpdateRuleCustomOrgPathReqBodyBuilder) ObjectApiName(objectApiName string) *UpdateRuleCustomOrgPathReqBodyBuilder {
+	builder.objectApiName = objectApiName
+	builder.objectApiNameFlag = true
+	return builder
+}
+
+// 组织ID
+//
+// 示例值：6862995757234914824
+func (builder *UpdateRuleCustomOrgPathReqBodyBuilder) OrgId(orgId string) *UpdateRuleCustomOrgPathReqBodyBuilder {
+	builder.orgId = orgId
+	builder.orgIdFlag = true
+	return builder
+}
+
+// 匹配规则组，组间并集
+//
+// 示例值：
+func (builder *UpdateRuleCustomOrgPathReqBodyBuilder) MatchRuleGroups(matchRuleGroups []*MatchRules) *UpdateRuleCustomOrgPathReqBodyBuilder {
+	builder.matchRuleGroups = matchRuleGroups
+	builder.matchRuleGroupsFlag = true
+	return builder
+}
+
+func (builder *UpdateRuleCustomOrgPathReqBodyBuilder) Build() (*UpdateRuleCustomOrgReqBody, error) {
+	req := &UpdateRuleCustomOrgReqBody{}
+	if builder.objectApiNameFlag {
+		req.ObjectApiName = &builder.objectApiName
+	}
+	if builder.orgIdFlag {
+		req.OrgId = &builder.orgId
+	}
+	if builder.matchRuleGroupsFlag {
+		req.MatchRuleGroups = builder.matchRuleGroups
+	}
+	return req, nil
+}
+
+type UpdateRuleCustomOrgReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateRuleCustomOrgReqBody
+}
+
+func NewUpdateRuleCustomOrgReqBuilder() *UpdateRuleCustomOrgReqBuilder {
+	builder := &UpdateRuleCustomOrgReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 更新匹配规则
+func (builder *UpdateRuleCustomOrgReqBuilder) Body(body *UpdateRuleCustomOrgReqBody) *UpdateRuleCustomOrgReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateRuleCustomOrgReqBuilder) Build() *UpdateRuleCustomOrgReq {
+	req := &UpdateRuleCustomOrgReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateRuleCustomOrgReqBody struct {
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 组织类型编码
+
+	OrgId *string `json:"org_id,omitempty"` // 组织ID
+
+	MatchRuleGroups []*MatchRules `json:"match_rule_groups,omitempty"` // 匹配规则组，组间并集
+}
+
+type UpdateRuleCustomOrgReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateRuleCustomOrgReqBody `body:""`
+}
+
+type UpdateRuleCustomOrgResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateRuleCustomOrgResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -73214,6 +74536,9 @@ type BatchWorkforcePlanDetailReqBodyBuilder struct {
 
 	costCenterIds     []string // 成本中心 ID 列表，可以通过搜索成本中心信息接口获取对应的成本中心信息
 	costCenterIdsFlag bool
+
+	includeMissingDimensionRows     bool // 是否包含缺维度明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+	includeMissingDimensionRowsFlag bool
 }
 
 func NewBatchWorkforcePlanDetailReqBodyBuilder() *BatchWorkforcePlanDetailReqBodyBuilder {
@@ -73311,6 +74636,15 @@ func (builder *BatchWorkforcePlanDetailReqBodyBuilder) CostCenterIds(costCenterI
 	return builder
 }
 
+// 是否包含缺维度明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+//
+//示例值：false
+func (builder *BatchWorkforcePlanDetailReqBodyBuilder) IncludeMissingDimensionRows(includeMissingDimensionRows bool) *BatchWorkforcePlanDetailReqBodyBuilder {
+	builder.includeMissingDimensionRows = includeMissingDimensionRows
+	builder.includeMissingDimensionRowsFlag = true
+	return builder
+}
+
 func (builder *BatchWorkforcePlanDetailReqBodyBuilder) Build() *BatchWorkforcePlanDetailReqBody {
 	req := &BatchWorkforcePlanDetailReqBody{}
 	if builder.workforcePlanIdFlag {
@@ -73343,6 +74677,9 @@ func (builder *BatchWorkforcePlanDetailReqBodyBuilder) Build() *BatchWorkforcePl
 	if builder.costCenterIdsFlag {
 		req.CostCenterIds = builder.costCenterIds
 	}
+	if builder.includeMissingDimensionRowsFlag {
+		req.IncludeMissingDimensionRows = &builder.includeMissingDimensionRows
+	}
 	return req
 }
 
@@ -73367,6 +74704,8 @@ type BatchWorkforcePlanDetailPathReqBodyBuilder struct {
 	jobIdsFlag                        bool
 	costCenterIds                     []string
 	costCenterIdsFlag                 bool
+	includeMissingDimensionRows       bool
+	includeMissingDimensionRowsFlag   bool
 }
 
 func NewBatchWorkforcePlanDetailPathReqBodyBuilder() *BatchWorkforcePlanDetailPathReqBodyBuilder {
@@ -73464,6 +74803,15 @@ func (builder *BatchWorkforcePlanDetailPathReqBodyBuilder) CostCenterIds(costCen
 	return builder
 }
 
+// 是否包含缺维度明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+//
+// 示例值：false
+func (builder *BatchWorkforcePlanDetailPathReqBodyBuilder) IncludeMissingDimensionRows(includeMissingDimensionRows bool) *BatchWorkforcePlanDetailPathReqBodyBuilder {
+	builder.includeMissingDimensionRows = includeMissingDimensionRows
+	builder.includeMissingDimensionRowsFlag = true
+	return builder
+}
+
 func (builder *BatchWorkforcePlanDetailPathReqBodyBuilder) Build() (*BatchWorkforcePlanDetailReqBody, error) {
 	req := &BatchWorkforcePlanDetailReqBody{}
 	if builder.workforcePlanIdFlag {
@@ -73495,6 +74843,9 @@ func (builder *BatchWorkforcePlanDetailPathReqBodyBuilder) Build() (*BatchWorkfo
 	}
 	if builder.costCenterIdsFlag {
 		req.CostCenterIds = builder.costCenterIds
+	}
+	if builder.includeMissingDimensionRowsFlag {
+		req.IncludeMissingDimensionRows = &builder.includeMissingDimensionRows
 	}
 	return req, nil
 }
@@ -73563,6 +74914,8 @@ type BatchWorkforcePlanDetailReqBody struct {
 	JobIds []string `json:"job_ids,omitempty"` // 职务 ID 列表，枚举值及详细信息可通过查询单个职务接口查询获得
 
 	CostCenterIds []string `json:"cost_center_ids,omitempty"` // 成本中心 ID 列表，可以通过搜索成本中心信息接口获取对应的成本中心信息
+
+	IncludeMissingDimensionRows *bool `json:"include_missing_dimension_rows,omitempty"` // 是否包含缺维度明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
 }
 
 type BatchWorkforcePlanDetailReq struct {
@@ -73604,6 +74957,12 @@ type BatchV2WorkforcePlanDetailReqBodyBuilder struct {
 
 	dimensionIdInDatas     []*DimensionIdInData // 维度筛选
 	dimensionIdInDatasFlag bool
+
+	includeMissingDimensionRows     bool // 是否包含缺维度的明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+	includeMissingDimensionRowsFlag bool
+
+	filterAllZeroValueRows     bool // 是否过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true为过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false为不过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，默认为 false
+	filterAllZeroValueRowsFlag bool
 }
 
 func NewBatchV2WorkforcePlanDetailReqBodyBuilder() *BatchV2WorkforcePlanDetailReqBodyBuilder {
@@ -73647,6 +75006,24 @@ func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) DimensionIdInDatas(dime
 	return builder
 }
 
+// 是否包含缺维度的明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+//
+//示例值：false
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) IncludeMissingDimensionRows(includeMissingDimensionRows bool) *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder.includeMissingDimensionRows = includeMissingDimensionRows
+	builder.includeMissingDimensionRowsFlag = true
+	return builder
+}
+
+// 是否过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true为过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false为不过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，默认为 false
+//
+//示例值：false
+func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) FilterAllZeroValueRows(filterAllZeroValueRows bool) *BatchV2WorkforcePlanDetailReqBodyBuilder {
+	builder.filterAllZeroValueRows = filterAllZeroValueRows
+	builder.filterAllZeroValueRowsFlag = true
+	return builder
+}
+
 func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) Build() *BatchV2WorkforcePlanDetailReqBody {
 	req := &BatchV2WorkforcePlanDetailReqBody{}
 	if builder.workforcePlanIdFlag {
@@ -73661,6 +75038,12 @@ func (builder *BatchV2WorkforcePlanDetailReqBodyBuilder) Build() *BatchV2Workfor
 	if builder.dimensionIdInDatasFlag {
 		req.DimensionIdInDatas = builder.dimensionIdInDatas
 	}
+	if builder.includeMissingDimensionRowsFlag {
+		req.IncludeMissingDimensionRows = &builder.includeMissingDimensionRows
+	}
+	if builder.filterAllZeroValueRowsFlag {
+		req.FilterAllZeroValueRows = &builder.filterAllZeroValueRows
+	}
 	return req
 }
 
@@ -73673,6 +75056,10 @@ type BatchV2WorkforcePlanDetailPathReqBodyBuilder struct {
 	centralizedReportingProjectIdFlag bool
 	dimensionIdInDatas                []*DimensionIdInData
 	dimensionIdInDatasFlag            bool
+	includeMissingDimensionRows       bool
+	includeMissingDimensionRowsFlag   bool
+	filterAllZeroValueRows            bool
+	filterAllZeroValueRowsFlag        bool
 }
 
 func NewBatchV2WorkforcePlanDetailPathReqBodyBuilder() *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
@@ -73716,6 +75103,24 @@ func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) DimensionIdInDatas(
 	return builder
 }
 
+// 是否包含缺维度的明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+//
+// 示例值：false
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) IncludeMissingDimensionRows(includeMissingDimensionRows bool) *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder.includeMissingDimensionRows = includeMissingDimensionRows
+	builder.includeMissingDimensionRowsFlag = true
+	return builder
+}
+
+// 是否过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true为过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false为不过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，默认为 false
+//
+// 示例值：false
+func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) FilterAllZeroValueRows(filterAllZeroValueRows bool) *BatchV2WorkforcePlanDetailPathReqBodyBuilder {
+	builder.filterAllZeroValueRows = filterAllZeroValueRows
+	builder.filterAllZeroValueRowsFlag = true
+	return builder
+}
+
 func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) Build() (*BatchV2WorkforcePlanDetailReqBody, error) {
 	req := &BatchV2WorkforcePlanDetailReqBody{}
 	if builder.workforcePlanIdFlag {
@@ -73729,6 +75134,12 @@ func (builder *BatchV2WorkforcePlanDetailPathReqBodyBuilder) Build() (*BatchV2Wo
 	}
 	if builder.dimensionIdInDatasFlag {
 		req.DimensionIdInDatas = builder.dimensionIdInDatas
+	}
+	if builder.includeMissingDimensionRowsFlag {
+		req.IncludeMissingDimensionRows = &builder.includeMissingDimensionRows
+	}
+	if builder.filterAllZeroValueRowsFlag {
+		req.FilterAllZeroValueRows = &builder.filterAllZeroValueRows
 	}
 	return req, nil
 }
@@ -73785,6 +75196,10 @@ type BatchV2WorkforcePlanDetailReqBody struct {
 	CentralizedReportingProjectId *string `json:"centralized_reporting_project_id,omitempty"` // 编制规划集中填报项目ID，ID可通过访问集中填报页面，从URL中提取report_id参数。如果租户未使用集中填报功能，将此参数置空即可。查询集中填报信息时，集中填报项目ID必填，是否为集中填报项目设置为true，不填写编制规划方案ID（是否填写不影响返回结果）
 
 	DimensionIdInDatas []*DimensionIdInData `json:"dimension_id_in_datas,omitempty"` // 维度筛选
+
+	IncludeMissingDimensionRows *bool `json:"include_missing_dimension_rows,omitempty"` // 是否包含缺维度的明细行数据，true为包含缺维度明细行数据，false为仅获取所有维度都有值的明细行数据，默认为 false
+
+	FilterAllZeroValueRows *bool `json:"filter_all_zero_value_rows,omitempty"` // 是否过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，true为过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，false为不过滤在职、预增/预减人员、编制数、预估在职人数都为0的明细行，默认为 false
 }
 
 type BatchV2WorkforcePlanDetailReq struct {
@@ -74015,6 +75430,56 @@ type P2CostCenterUpdatedV2 struct {
 }
 
 func (m *P2CostCenterUpdatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2CustomOrgCreatedV2Data struct {
+	OrgId *string `json:"org_id,omitempty"` // 自定义组织id
+
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 自定义组织类型
+}
+
+type P2CustomOrgCreatedV2 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2CustomOrgCreatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2CustomOrgCreatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2CustomOrgDeletedV2Data struct {
+	OrgId *string `json:"org_id,omitempty"` // 自定义组织id
+
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 自定义组织类型
+}
+
+type P2CustomOrgDeletedV2 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2CustomOrgDeletedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2CustomOrgDeletedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2CustomOrgUpdatedV2Data struct {
+	OrgId *string `json:"org_id,omitempty"` // 自定义组织id
+
+	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
+
+	ObjectApiName *string `json:"object_api_name,omitempty"` // 自定义组织类型
+}
+
+type P2CustomOrgUpdatedV2 struct {
+	*larkevent.EventV2Base                           // 事件基础数据
+	*larkevent.EventReq                              // 请求原生数据
+	Event                  *P2CustomOrgUpdatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2CustomOrgUpdatedV2) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 

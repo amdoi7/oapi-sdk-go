@@ -793,6 +793,56 @@ func (builder *ChangeReasonBuilder) Build() *ChangeReason {
 	return req
 }
 
+type Currency struct {
+	Code *string `json:"code,omitempty"` // 编码
+
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID
+}
+
+type CurrencyBuilder struct {
+	code     string // 编码
+	codeFlag bool
+
+	currencyId     string // 币种ID
+	currencyIdFlag bool
+}
+
+func NewCurrencyBuilder() *CurrencyBuilder {
+	builder := &CurrencyBuilder{}
+	return builder
+}
+
+// 编码
+//
+// 示例值：CNY
+func (builder *CurrencyBuilder) Code(code string) *CurrencyBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 币种ID
+//
+// 示例值：6863329932261459464
+func (builder *CurrencyBuilder) CurrencyId(currencyId string) *CurrencyBuilder {
+	builder.currencyId = currencyId
+	builder.currencyIdFlag = true
+	return builder
+}
+
+func (builder *CurrencyBuilder) Build() *Currency {
+	req := &Currency{}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.currencyIdFlag {
+		req.CurrencyId = &builder.currencyId
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -937,6 +987,402 @@ func (builder *FormulaParamBuilder) Build() *FormulaParam {
 	}
 	if builder.idFlag {
 		req.Id = &builder.id
+
+	}
+	return req
+}
+
+type Grade struct {
+	Id *string `json:"id,omitempty"` // 标准明细ID
+
+	Tid *string `json:"tid,omitempty"` // 标准明细TID
+
+	Code *int `json:"code,omitempty"` // 编码
+
+	GradeStandardValues []*GradeStandardValue `json:"grade_standard_values,omitempty"` // 薪资标准值列表
+
+	Dimensions []*GradeStandardDimension `json:"dimensions,omitempty"` // 划分维度
+
+	Currency *Currency `json:"currency,omitempty"` // 币种
+
+	Description *I18n `json:"description,omitempty"` // 备注
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间，毫秒时间戳
+
+	StandardGradeVersion *string `json:"standard_grade_version,omitempty"` // 版本
+
+	CreatedAt *string `json:"created_at,omitempty"` // 创建时间，毫秒时间戳
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 更新时间，毫秒时间戳
+
+	StandardId *string `json:"standard_id,omitempty"` // 薪资标准表ID
+
+	StandardKind *int `json:"standard_kind,omitempty"` // 标准明细类型
+}
+
+type GradeBuilder struct {
+	id     string // 标准明细ID
+	idFlag bool
+
+	tid     string // 标准明细TID
+	tidFlag bool
+
+	code     int // 编码
+	codeFlag bool
+
+	gradeStandardValues     []*GradeStandardValue // 薪资标准值列表
+	gradeStandardValuesFlag bool
+
+	dimensions     []*GradeStandardDimension // 划分维度
+	dimensionsFlag bool
+
+	currency     *Currency // 币种
+	currencyFlag bool
+
+	description     *I18n // 备注
+	descriptionFlag bool
+
+	effectiveTime     string // 生效时间，毫秒时间戳
+	effectiveTimeFlag bool
+
+	standardGradeVersion     string // 版本
+	standardGradeVersionFlag bool
+
+	createdAt     string // 创建时间，毫秒时间戳
+	createdAtFlag bool
+
+	updatedAt     string // 更新时间，毫秒时间戳
+	updatedAtFlag bool
+
+	standardId     string // 薪资标准表ID
+	standardIdFlag bool
+
+	standardKind     int // 标准明细类型
+	standardKindFlag bool
+}
+
+func NewGradeBuilder() *GradeBuilder {
+	builder := &GradeBuilder{}
+	return builder
+}
+
+// 标准明细ID
+//
+// 示例值：7481615459021637164
+func (builder *GradeBuilder) Id(id string) *GradeBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 标准明细TID
+//
+// 示例值：7481615459021669932
+func (builder *GradeBuilder) Tid(tid string) *GradeBuilder {
+	builder.tid = tid
+	builder.tidFlag = true
+	return builder
+}
+
+// 编码
+//
+// 示例值：1
+func (builder *GradeBuilder) Code(code int) *GradeBuilder {
+	builder.code = code
+	builder.codeFlag = true
+	return builder
+}
+
+// 薪资标准值列表
+//
+// 示例值：
+func (builder *GradeBuilder) GradeStandardValues(gradeStandardValues []*GradeStandardValue) *GradeBuilder {
+	builder.gradeStandardValues = gradeStandardValues
+	builder.gradeStandardValuesFlag = true
+	return builder
+}
+
+// 划分维度
+//
+// 示例值：
+func (builder *GradeBuilder) Dimensions(dimensions []*GradeStandardDimension) *GradeBuilder {
+	builder.dimensions = dimensions
+	builder.dimensionsFlag = true
+	return builder
+}
+
+// 币种
+//
+// 示例值：
+func (builder *GradeBuilder) Currency(currency *Currency) *GradeBuilder {
+	builder.currency = currency
+	builder.currencyFlag = true
+	return builder
+}
+
+// 备注
+//
+// 示例值：
+func (builder *GradeBuilder) Description(description *I18n) *GradeBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 生效时间，毫秒时间戳
+//
+// 示例值：1704038400000
+func (builder *GradeBuilder) EffectiveTime(effectiveTime string) *GradeBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 版本
+//
+// 示例值：0
+func (builder *GradeBuilder) StandardGradeVersion(standardGradeVersion string) *GradeBuilder {
+	builder.standardGradeVersion = standardGradeVersion
+	builder.standardGradeVersionFlag = true
+	return builder
+}
+
+// 创建时间，毫秒时间戳
+//
+// 示例值：1704038400000
+func (builder *GradeBuilder) CreatedAt(createdAt string) *GradeBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// 更新时间，毫秒时间戳
+//
+// 示例值：1704038400000
+func (builder *GradeBuilder) UpdatedAt(updatedAt string) *GradeBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// 薪资标准表ID
+//
+// 示例值：7361627249681188396
+func (builder *GradeBuilder) StandardId(standardId string) *GradeBuilder {
+	builder.standardId = standardId
+	builder.standardIdFlag = true
+	return builder
+}
+
+// 标准明细类型
+//
+// 示例值：1
+func (builder *GradeBuilder) StandardKind(standardKind int) *GradeBuilder {
+	builder.standardKind = standardKind
+	builder.standardKindFlag = true
+	return builder
+}
+
+func (builder *GradeBuilder) Build() *Grade {
+	req := &Grade{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.tidFlag {
+		req.Tid = &builder.tid
+
+	}
+	if builder.codeFlag {
+		req.Code = &builder.code
+
+	}
+	if builder.gradeStandardValuesFlag {
+		req.GradeStandardValues = builder.gradeStandardValues
+	}
+	if builder.dimensionsFlag {
+		req.Dimensions = builder.dimensions
+	}
+	if builder.currencyFlag {
+		req.Currency = builder.currency
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+
+	}
+	if builder.standardGradeVersionFlag {
+		req.StandardGradeVersion = &builder.standardGradeVersion
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.standardIdFlag {
+		req.StandardId = &builder.standardId
+
+	}
+	if builder.standardKindFlag {
+		req.StandardKind = &builder.standardKind
+
+	}
+	return req
+}
+
+type GradeStandardDimension struct {
+	ApiName *string `json:"api_name,omitempty"` // 资源名
+
+	ContainSub *bool `json:"contain_sub,omitempty"` // 是否包含下级
+
+	Values []string `json:"values,omitempty"` // 维度明细值，具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)， [获取单个职务信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+}
+
+type GradeStandardDimensionBuilder struct {
+	apiName     string // 资源名
+	apiNameFlag bool
+
+	containSub     bool // 是否包含下级
+	containSubFlag bool
+
+	values     []string // 维度明细值，具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)， [获取单个职务信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+	valuesFlag bool
+}
+
+func NewGradeStandardDimensionBuilder() *GradeStandardDimensionBuilder {
+	builder := &GradeStandardDimensionBuilder{}
+	return builder
+}
+
+// 资源名
+//
+// 示例值：cpst_plan
+func (builder *GradeStandardDimensionBuilder) ApiName(apiName string) *GradeStandardDimensionBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 是否包含下级
+//
+// 示例值：false
+func (builder *GradeStandardDimensionBuilder) ContainSub(containSub bool) *GradeStandardDimensionBuilder {
+	builder.containSub = containSub
+	builder.containSubFlag = true
+	return builder
+}
+
+// 维度明细值，具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)， [获取单个职务信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+//
+// 示例值：
+func (builder *GradeStandardDimensionBuilder) Values(values []string) *GradeStandardDimensionBuilder {
+	builder.values = values
+	builder.valuesFlag = true
+	return builder
+}
+
+func (builder *GradeStandardDimensionBuilder) Build() *GradeStandardDimension {
+	req := &GradeStandardDimension{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.containSubFlag {
+		req.ContainSub = &builder.containSub
+
+	}
+	if builder.valuesFlag {
+		req.Values = builder.values
+	}
+	return req
+}
+
+type GradeStandardValue struct {
+	StandardValue *string `json:"standard_value,omitempty"` // 标准值
+
+	ReferenceObject *StandardReferenceObject `json:"reference_object,omitempty"` // 适用项目
+
+	UpperLimit *string `json:"upper_limit,omitempty"` // 上限
+
+	LowerLimit *string `json:"lower_limit,omitempty"` // 下限
+}
+
+type GradeStandardValueBuilder struct {
+	standardValue     string // 标准值
+	standardValueFlag bool
+
+	referenceObject     *StandardReferenceObject // 适用项目
+	referenceObjectFlag bool
+
+	upperLimit     string // 上限
+	upperLimitFlag bool
+
+	lowerLimit     string // 下限
+	lowerLimitFlag bool
+}
+
+func NewGradeStandardValueBuilder() *GradeStandardValueBuilder {
+	builder := &GradeStandardValueBuilder{}
+	return builder
+}
+
+// 标准值
+//
+// 示例值：10
+func (builder *GradeStandardValueBuilder) StandardValue(standardValue string) *GradeStandardValueBuilder {
+	builder.standardValue = standardValue
+	builder.standardValueFlag = true
+	return builder
+}
+
+// 适用项目
+//
+// 示例值：
+func (builder *GradeStandardValueBuilder) ReferenceObject(referenceObject *StandardReferenceObject) *GradeStandardValueBuilder {
+	builder.referenceObject = referenceObject
+	builder.referenceObjectFlag = true
+	return builder
+}
+
+// 上限
+//
+// 示例值：10
+func (builder *GradeStandardValueBuilder) UpperLimit(upperLimit string) *GradeStandardValueBuilder {
+	builder.upperLimit = upperLimit
+	builder.upperLimitFlag = true
+	return builder
+}
+
+// 下限
+//
+// 示例值：1
+func (builder *GradeStandardValueBuilder) LowerLimit(lowerLimit string) *GradeStandardValueBuilder {
+	builder.lowerLimit = lowerLimit
+	builder.lowerLimitFlag = true
+	return builder
+}
+
+func (builder *GradeStandardValueBuilder) Build() *GradeStandardValue {
+	req := &GradeStandardValue{}
+	if builder.standardValueFlag {
+		req.StandardValue = &builder.standardValue
+
+	}
+	if builder.referenceObjectFlag {
+		req.ReferenceObject = builder.referenceObject
+	}
+	if builder.upperLimitFlag {
+		req.UpperLimit = &builder.upperLimit
+
+	}
+	if builder.lowerLimitFlag {
+		req.LowerLimit = &builder.lowerLimit
 
 	}
 	return req
@@ -4058,6 +4504,241 @@ func (builder *RecurringPaymentOperateResultBuilder) Build() *RecurringPaymentOp
 	return req
 }
 
+type SalaryGrade struct {
+	Id *string `json:"id,omitempty"` // ID
+
+	Name *I18n `json:"name,omitempty"` // 名称
+
+	Status *bool `json:"status,omitempty"` // 是否启用
+}
+
+type SalaryGradeBuilder struct {
+	id     string // ID
+	idFlag bool
+
+	name     *I18n // 名称
+	nameFlag bool
+
+	status     bool // 是否启用
+	statusFlag bool
+}
+
+func NewSalaryGradeBuilder() *SalaryGradeBuilder {
+	builder := &SalaryGradeBuilder{}
+	return builder
+}
+
+// ID
+//
+// 示例值：7491135696314353196
+func (builder *SalaryGradeBuilder) Id(id string) *SalaryGradeBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *SalaryGradeBuilder) Name(name *I18n) *SalaryGradeBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true
+func (builder *SalaryGradeBuilder) Status(status bool) *SalaryGradeBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *SalaryGradeBuilder) Build() *SalaryGrade {
+	req := &SalaryGrade{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	return req
+}
+
+type SalaryLevel struct {
+	Id *string `json:"id,omitempty"` // ID
+
+	Name *I18n `json:"name,omitempty"` // 名称
+
+	Status *bool `json:"status,omitempty"` // 是否启用
+
+	SalaryGrades []*SalaryGrade `json:"salary_grades,omitempty"` // 薪等子节点
+}
+
+type SalaryLevelBuilder struct {
+	id     string // ID
+	idFlag bool
+
+	name     *I18n // 名称
+	nameFlag bool
+
+	status     bool // 是否启用
+	statusFlag bool
+
+	salaryGrades     []*SalaryGrade // 薪等子节点
+	salaryGradesFlag bool
+}
+
+func NewSalaryLevelBuilder() *SalaryLevelBuilder {
+	builder := &SalaryLevelBuilder{}
+	return builder
+}
+
+// ID
+//
+// 示例值：7491135696314353196
+func (builder *SalaryLevelBuilder) Id(id string) *SalaryLevelBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *SalaryLevelBuilder) Name(name *I18n) *SalaryLevelBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：
+func (builder *SalaryLevelBuilder) Status(status bool) *SalaryLevelBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 薪等子节点
+//
+// 示例值：
+func (builder *SalaryLevelBuilder) SalaryGrades(salaryGrades []*SalaryGrade) *SalaryLevelBuilder {
+	builder.salaryGrades = salaryGrades
+	builder.salaryGradesFlag = true
+	return builder
+}
+
+func (builder *SalaryLevelBuilder) Build() *SalaryLevel {
+	req := &SalaryLevel{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.salaryGradesFlag {
+		req.SalaryGrades = builder.salaryGrades
+	}
+	return req
+}
+
+type SalaryLevelType struct {
+	Id *string `json:"id,omitempty"` // ID
+
+	Name *I18n `json:"name,omitempty"` // 名称
+
+	Status *bool `json:"status,omitempty"` // 是否启用
+
+	SalaryLevels []*SalaryLevel `json:"salary_levels,omitempty"` // 薪级子节点
+}
+
+type SalaryLevelTypeBuilder struct {
+	id     string // ID
+	idFlag bool
+
+	name     *I18n // 名称
+	nameFlag bool
+
+	status     bool // 是否启用
+	statusFlag bool
+
+	salaryLevels     []*SalaryLevel // 薪级子节点
+	salaryLevelsFlag bool
+}
+
+func NewSalaryLevelTypeBuilder() *SalaryLevelTypeBuilder {
+	builder := &SalaryLevelTypeBuilder{}
+	return builder
+}
+
+// ID
+//
+// 示例值：7491135696314353196
+func (builder *SalaryLevelTypeBuilder) Id(id string) *SalaryLevelTypeBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *SalaryLevelTypeBuilder) Name(name *I18n) *SalaryLevelTypeBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：true
+func (builder *SalaryLevelTypeBuilder) Status(status bool) *SalaryLevelTypeBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+// 薪级子节点
+//
+// 示例值：
+func (builder *SalaryLevelTypeBuilder) SalaryLevels(salaryLevels []*SalaryLevel) *SalaryLevelTypeBuilder {
+	builder.salaryLevels = salaryLevels
+	builder.salaryLevelsFlag = true
+	return builder
+}
+
+func (builder *SalaryLevelTypeBuilder) Build() *SalaryLevelType {
+	req := &SalaryLevelType{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+
+	}
+	if builder.salaryLevelsFlag {
+		req.SalaryLevels = builder.salaryLevels
+	}
+	return req
+}
+
 type SocialArchive struct {
 	UserId *string `json:"user_id,omitempty"` // 员工ID
 
@@ -5219,6 +5900,464 @@ func (builder *SocialPlanScopeBuilder) Build() *SocialPlanScope {
 	}
 	if builder.rulesFlag {
 		req.Rules = builder.rules
+	}
+	return req
+}
+
+type Standard struct {
+	Id *string `json:"id,omitempty"` // 薪资标准表ID
+
+	Name *I18n `json:"name,omitempty"` // 薪资标准表名称
+
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+
+	UpdatedAt *string `json:"updated_at,omitempty"` // 更新时间，毫秒时间戳格式
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+
+	CreatedAt *string `json:"created_at,omitempty"` // 创建时间，毫秒时间戳格式
+
+	AutomaticBackfillStandardValue *bool `json:"automatic_backfill_standard_value,omitempty"` // 是否自动回填标准值
+
+	Scope *StandardScope `json:"scope,omitempty"` // 适用范围
+
+	Dimensions []*StandardDimension `json:"dimensions,omitempty"` // 划分维度
+
+	ReferenceObjects []*StandardReferenceObject `json:"reference_objects,omitempty"` // 适用项目
+}
+
+type StandardBuilder struct {
+	id     string // 薪资标准表ID
+	idFlag bool
+
+	name     *I18n // 薪资标准表名称
+	nameFlag bool
+
+	updatedBy     string // 更新人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	updatedByFlag bool
+
+	updatedAt     string // 更新时间，毫秒时间戳格式
+	updatedAtFlag bool
+
+	createdBy     string // 创建人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	createdByFlag bool
+
+	createdAt     string // 创建时间，毫秒时间戳格式
+	createdAtFlag bool
+
+	automaticBackfillStandardValue     bool // 是否自动回填标准值
+	automaticBackfillStandardValueFlag bool
+
+	scope     *StandardScope // 适用范围
+	scopeFlag bool
+
+	dimensions     []*StandardDimension // 划分维度
+	dimensionsFlag bool
+
+	referenceObjects     []*StandardReferenceObject // 适用项目
+	referenceObjectsFlag bool
+}
+
+func NewStandardBuilder() *StandardBuilder {
+	builder := &StandardBuilder{}
+	return builder
+}
+
+// 薪资标准表ID
+//
+// 示例值：7491187653210293804
+func (builder *StandardBuilder) Id(id string) *StandardBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 薪资标准表名称
+//
+// 示例值：
+func (builder *StandardBuilder) Name(name *I18n) *StandardBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 更新人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+//
+// 示例值：7433328946189796908
+func (builder *StandardBuilder) UpdatedBy(updatedBy string) *StandardBuilder {
+	builder.updatedBy = updatedBy
+	builder.updatedByFlag = true
+	return builder
+}
+
+// 更新时间，毫秒时间戳格式
+//
+// 示例值：1744178149000
+func (builder *StandardBuilder) UpdatedAt(updatedAt string) *StandardBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// 创建人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+//
+// 示例值：7433328946189796908
+func (builder *StandardBuilder) CreatedBy(createdBy string) *StandardBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
+// 创建时间，毫秒时间戳格式
+//
+// 示例值：1744178149000
+func (builder *StandardBuilder) CreatedAt(createdAt string) *StandardBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// 是否自动回填标准值
+//
+// 示例值：true
+func (builder *StandardBuilder) AutomaticBackfillStandardValue(automaticBackfillStandardValue bool) *StandardBuilder {
+	builder.automaticBackfillStandardValue = automaticBackfillStandardValue
+	builder.automaticBackfillStandardValueFlag = true
+	return builder
+}
+
+// 适用范围
+//
+// 示例值：
+func (builder *StandardBuilder) Scope(scope *StandardScope) *StandardBuilder {
+	builder.scope = scope
+	builder.scopeFlag = true
+	return builder
+}
+
+// 划分维度
+//
+// 示例值：
+func (builder *StandardBuilder) Dimensions(dimensions []*StandardDimension) *StandardBuilder {
+	builder.dimensions = dimensions
+	builder.dimensionsFlag = true
+	return builder
+}
+
+// 适用项目
+//
+// 示例值：
+func (builder *StandardBuilder) ReferenceObjects(referenceObjects []*StandardReferenceObject) *StandardBuilder {
+	builder.referenceObjects = referenceObjects
+	builder.referenceObjectsFlag = true
+	return builder
+}
+
+func (builder *StandardBuilder) Build() *Standard {
+	req := &Standard{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.updatedByFlag {
+		req.UpdatedBy = &builder.updatedBy
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.automaticBackfillStandardValueFlag {
+		req.AutomaticBackfillStandardValue = &builder.automaticBackfillStandardValue
+
+	}
+	if builder.scopeFlag {
+		req.Scope = builder.scope
+	}
+	if builder.dimensionsFlag {
+		req.Dimensions = builder.dimensions
+	}
+	if builder.referenceObjectsFlag {
+		req.ReferenceObjects = builder.referenceObjects
+	}
+	return req
+}
+
+type StandardDimension struct {
+	ApiName *string `json:"api_name,omitempty"` // 资源名
+
+	Label *I18n `json:"label,omitempty"` // 名称
+}
+
+type StandardDimensionBuilder struct {
+	apiName     string // 资源名
+	apiNameFlag bool
+
+	label     *I18n // 名称
+	labelFlag bool
+}
+
+func NewStandardDimensionBuilder() *StandardDimensionBuilder {
+	builder := &StandardDimensionBuilder{}
+	return builder
+}
+
+// 资源名
+//
+// 示例值：cpst_plan
+func (builder *StandardDimensionBuilder) ApiName(apiName string) *StandardDimensionBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：
+func (builder *StandardDimensionBuilder) Label(label *I18n) *StandardDimensionBuilder {
+	builder.label = label
+	builder.labelFlag = true
+	return builder
+}
+
+func (builder *StandardDimensionBuilder) Build() *StandardDimension {
+	req := &StandardDimension{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.labelFlag {
+		req.Label = builder.label
+	}
+	return req
+}
+
+type StandardReferenceObject struct {
+	Id *string `json:"id,omitempty"` // ID值，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+
+	ApiName *string `json:"api_name,omitempty"` // 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
+}
+
+type StandardReferenceObjectBuilder struct {
+	id     string // ID值，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+	idFlag bool
+
+	apiName     string // 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
+	apiNameFlag bool
+}
+
+func NewStandardReferenceObjectBuilder() *StandardReferenceObjectBuilder {
+	builder := &StandardReferenceObjectBuilder{}
+	return builder
+}
+
+// ID值，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+//
+// 示例值：7475986561660372524
+func (builder *StandardReferenceObjectBuilder) Id(id string) *StandardReferenceObjectBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
+//
+// 示例值：cpst_indicator
+func (builder *StandardReferenceObjectBuilder) ApiName(apiName string) *StandardReferenceObjectBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+func (builder *StandardReferenceObjectBuilder) Build() *StandardReferenceObject {
+	req := &StandardReferenceObject{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	return req
+}
+
+type StandardScope struct {
+	All *bool `json:"all,omitempty"` // 是否全部
+
+	DefineExpression *string `json:"define_expression,omitempty"` // 条件表达式
+
+	Expressions []*StandardScopeExpression `json:"expressions,omitempty"` // 适用范围明细列表
+}
+
+type StandardScopeBuilder struct {
+	all     bool // 是否全部
+	allFlag bool
+
+	defineExpression     string // 条件表达式
+	defineExpressionFlag bool
+
+	expressions     []*StandardScopeExpression // 适用范围明细列表
+	expressionsFlag bool
+}
+
+func NewStandardScopeBuilder() *StandardScopeBuilder {
+	builder := &StandardScopeBuilder{}
+	return builder
+}
+
+// 是否全部
+//
+// 示例值：false
+func (builder *StandardScopeBuilder) All(all bool) *StandardScopeBuilder {
+	builder.all = all
+	builder.allFlag = true
+	return builder
+}
+
+// 条件表达式
+//
+// 示例值：1 and 2 and 3
+func (builder *StandardScopeBuilder) DefineExpression(defineExpression string) *StandardScopeBuilder {
+	builder.defineExpression = defineExpression
+	builder.defineExpressionFlag = true
+	return builder
+}
+
+// 适用范围明细列表
+//
+// 示例值：
+func (builder *StandardScopeBuilder) Expressions(expressions []*StandardScopeExpression) *StandardScopeBuilder {
+	builder.expressions = expressions
+	builder.expressionsFlag = true
+	return builder
+}
+
+func (builder *StandardScopeBuilder) Build() *StandardScope {
+	req := &StandardScope{}
+	if builder.allFlag {
+		req.All = &builder.all
+
+	}
+	if builder.defineExpressionFlag {
+		req.DefineExpression = &builder.defineExpression
+
+	}
+	if builder.expressionsFlag {
+		req.Expressions = builder.expressions
+	}
+	return req
+}
+
+type StandardScopeExpression struct {
+	ApiName *string `json:"api_name,omitempty"` // 范围API
+
+	OperatorType *int `json:"operator_type,omitempty"` // 操作类型
+
+	ContainSub *bool `json:"contain_sub,omitempty"` // 是否包含下级
+
+	Values []string `json:"values,omitempty"` // 适用范围明细值列表
+
+	ScopeName *I18n `json:"scope_name,omitempty"` // 范围名称
+}
+
+type StandardScopeExpressionBuilder struct {
+	apiName     string // 范围API
+	apiNameFlag bool
+
+	operatorType     int // 操作类型
+	operatorTypeFlag bool
+
+	containSub     bool // 是否包含下级
+	containSubFlag bool
+
+	values     []string // 适用范围明细值列表
+	valuesFlag bool
+
+	scopeName     *I18n // 范围名称
+	scopeNameFlag bool
+}
+
+func NewStandardScopeExpressionBuilder() *StandardScopeExpressionBuilder {
+	builder := &StandardScopeExpressionBuilder{}
+	return builder
+}
+
+// 范围API
+//
+// 示例值："cpst_plan"
+func (builder *StandardScopeExpressionBuilder) ApiName(apiName string) *StandardScopeExpressionBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 操作类型
+//
+// 示例值：1
+func (builder *StandardScopeExpressionBuilder) OperatorType(operatorType int) *StandardScopeExpressionBuilder {
+	builder.operatorType = operatorType
+	builder.operatorTypeFlag = true
+	return builder
+}
+
+// 是否包含下级
+//
+// 示例值：true
+func (builder *StandardScopeExpressionBuilder) ContainSub(containSub bool) *StandardScopeExpressionBuilder {
+	builder.containSub = containSub
+	builder.containSubFlag = true
+	return builder
+}
+
+// 适用范围明细值列表
+//
+// 示例值：
+func (builder *StandardScopeExpressionBuilder) Values(values []string) *StandardScopeExpressionBuilder {
+	builder.values = values
+	builder.valuesFlag = true
+	return builder
+}
+
+// 范围名称
+//
+// 示例值：
+func (builder *StandardScopeExpressionBuilder) ScopeName(scopeName *I18n) *StandardScopeExpressionBuilder {
+	builder.scopeName = scopeName
+	builder.scopeNameFlag = true
+	return builder
+}
+
+func (builder *StandardScopeExpressionBuilder) Build() *StandardScopeExpression {
+	req := &StandardScopeExpression{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.operatorTypeFlag {
+		req.OperatorType = &builder.operatorType
+
+	}
+	if builder.containSubFlag {
+		req.ContainSub = &builder.containSub
+
+	}
+	if builder.valuesFlag {
+		req.Values = builder.values
+	}
+	if builder.scopeNameFlag {
+		req.ScopeName = builder.scopeName
 	}
 	return req
 }
