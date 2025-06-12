@@ -398,6 +398,45 @@ const (
 )
 
 const (
+	UserIdTypeCreateEmployeesInternationalAssignmentUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeCreateEmployeesInternationalAssignmentUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeCreateEmployeesInternationalAssignmentOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeCreateEmployeesInternationalAssignmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	DepartmentIdTypeCreateEmployeesInternationalAssignmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypeCreateEmployeesInternationalAssignmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypeCreateEmployeesInternationalAssignmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	UserIdTypeListEmployeesInternationalAssignmentUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeListEmployeesInternationalAssignmentUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeListEmployeesInternationalAssignmentOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeListEmployeesInternationalAssignmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	DepartmentIdTypeListEmployeesInternationalAssignmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypeListEmployeesInternationalAssignmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypeListEmployeesInternationalAssignmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	UserIdTypePatchEmployeesInternationalAssignmentUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypePatchEmployeesInternationalAssignmentUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypePatchEmployeesInternationalAssignmentOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypePatchEmployeesInternationalAssignmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	DepartmentIdTypePatchEmployeesInternationalAssignmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypePatchEmployeesInternationalAssignmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypePatchEmployeesInternationalAssignmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
 	UserIdTypeBatchGetEmployeesJobDataUserId         = "user_id"          // 以 user_id 来识别用户
 	UserIdTypeBatchGetEmployeesJobDataUnionId        = "union_id"         // 以 union_id 来识别用户
 	UserIdTypeBatchGetEmployeesJobDataOpenId         = "open_id"          // 以 open_id 来识别用户
@@ -40164,6 +40203,8 @@ type PreHireOnboardingInfo struct {
 
 	OfferHrId *string `json:"offer_hr_id,omitempty"` // Offer hr 的 雇佣 ID
 
+	OfferHrIdV2 *string `json:"offer_hr_id_v2,omitempty"` // Offer hr 的 雇佣 ID,ID可以根据user_id_type转换成对应ID
+
 	EntryMode *string `json:"entry_mode,omitempty"` // -| 入职方式，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - object_api_name = "pre_hire" - custom_api_name = "onboarding_method"
 
 	OnboardingDate *string `json:"onboarding_date,omitempty"` // 入职日期
@@ -40197,6 +40238,9 @@ type PreHireOnboardingInfoBuilder struct {
 
 	offerHrId     string // Offer hr 的 雇佣 ID
 	offerHrIdFlag bool
+
+	offerHrIdV2     string // Offer hr 的 雇佣 ID,ID可以根据user_id_type转换成对应ID
+	offerHrIdV2Flag bool
 
 	entryMode     string // -| 入职方式，枚举值可查询【获取字段详情】接口获取，按如下参数查询即可： - object_api_name = "pre_hire" - custom_api_name = "onboarding_method"
 	entryModeFlag bool
@@ -40258,6 +40302,15 @@ func (builder *PreHireOnboardingInfoBuilder) OfferId(offerId string) *PreHireOnb
 func (builder *PreHireOnboardingInfoBuilder) OfferHrId(offerHrId string) *PreHireOnboardingInfoBuilder {
 	builder.offerHrId = offerHrId
 	builder.offerHrIdFlag = true
+	return builder
+}
+
+// Offer hr 的 雇佣 ID,ID可以根据user_id_type转换成对应ID
+//
+// 示例值：7032210902531327521
+func (builder *PreHireOnboardingInfoBuilder) OfferHrIdV2(offerHrIdV2 string) *PreHireOnboardingInfoBuilder {
+	builder.offerHrIdV2 = offerHrIdV2
+	builder.offerHrIdV2Flag = true
 	return builder
 }
 
@@ -40386,6 +40439,10 @@ func (builder *PreHireOnboardingInfoBuilder) Build() *PreHireOnboardingInfo {
 	}
 	if builder.offerHrIdFlag {
 		req.OfferHrId = &builder.offerHrId
+
+	}
+	if builder.offerHrIdV2Flag {
+		req.OfferHrIdV2 = &builder.offerHrIdV2
 
 	}
 	if builder.entryModeFlag {
@@ -66712,6 +66769,496 @@ type BatchGetEmployeesBpResp struct {
 }
 
 func (resp *BatchGetEmployeesBpResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreateEmployeesInternationalAssignmentReqBuilder struct {
+	apiReq                              *larkcore.ApiReq
+	employeesInternationalAssignmentReq *EmployeesInternationalAssignmentReq
+}
+
+func NewCreateEmployeesInternationalAssignmentReqBuilder() *CreateEmployeesInternationalAssignmentReqBuilder {
+	builder := &CreateEmployeesInternationalAssignmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 幂等标识，服务端会忽略 client_token 重复的请求
+//
+// 示例值：12454646
+func (builder *CreateEmployeesInternationalAssignmentReqBuilder) ClientToken(clientToken string) *CreateEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *CreateEmployeesInternationalAssignmentReqBuilder) UserIdType(userIdType string) *CreateEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 类型
+//
+// 示例值：open_department_id
+func (builder *CreateEmployeesInternationalAssignmentReqBuilder) DepartmentIdType(departmentIdType string) *CreateEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *CreateEmployeesInternationalAssignmentReqBuilder) EmployeesInternationalAssignmentReq(employeesInternationalAssignmentReq *EmployeesInternationalAssignmentReq) *CreateEmployeesInternationalAssignmentReqBuilder {
+	builder.employeesInternationalAssignmentReq = employeesInternationalAssignmentReq
+	return builder
+}
+
+func (builder *CreateEmployeesInternationalAssignmentReqBuilder) Build() *CreateEmployeesInternationalAssignmentReq {
+	req := &CreateEmployeesInternationalAssignmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.employeesInternationalAssignmentReq
+	return req
+}
+
+type CreateEmployeesInternationalAssignmentReq struct {
+	apiReq                              *larkcore.ApiReq
+	EmployeesInternationalAssignmentReq *EmployeesInternationalAssignmentReq `body:""`
+}
+
+type CreateEmployeesInternationalAssignmentRespData struct {
+	InternationalAssignment *EmployeesInternationalAssignmentResp `json:"international_assignment,omitempty"` // 外派信息
+}
+
+type CreateEmployeesInternationalAssignmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateEmployeesInternationalAssignmentRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateEmployeesInternationalAssignmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeleteEmployeesInternationalAssignmentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeleteEmployeesInternationalAssignmentReqBuilder() *DeleteEmployeesInternationalAssignmentReqBuilder {
+	builder := &DeleteEmployeesInternationalAssignmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 外派ID
+//
+// 示例值：7127921432117937708
+func (builder *DeleteEmployeesInternationalAssignmentReqBuilder) InternationalAssignmentId(internationalAssignmentId string) *DeleteEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.PathParams.Set("international_assignment_id", fmt.Sprint(internationalAssignmentId))
+	return builder
+}
+
+func (builder *DeleteEmployeesInternationalAssignmentReqBuilder) Build() *DeleteEmployeesInternationalAssignmentReq {
+	req := &DeleteEmployeesInternationalAssignmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeleteEmployeesInternationalAssignmentReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeleteEmployeesInternationalAssignmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeleteEmployeesInternationalAssignmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListEmployeesInternationalAssignmentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListEmployeesInternationalAssignmentReqBuilder() *ListEmployeesInternationalAssignmentReqBuilder {
+	builder := &ListEmployeesInternationalAssignmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) UserIdType(userIdType string) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 类型
+//
+// 示例值：open_department_id
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) DepartmentIdType(departmentIdType string) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：100
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) PageSize(pageSize int) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：123456
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) PageToken(pageToken string) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 雇佣ID;- 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取详细信息;- 类型必须与 user_id_type 一致
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) EmploymentIds(employmentIds []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range employmentIds {
+		builder.apiReq.QueryParams.Add("employment_ids", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派 ID
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) InternationalAssignmentIds(internationalAssignmentIds []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range internationalAssignmentIds {
+		builder.apiReq.QueryParams.Add("international_assignment_ids", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派开始日期;- 范围筛选，格式：yyyy-mm-dd~yyyy-mm-dd
+//
+// 示例值：- "2024-01-01~2024-02-02";- "~2024-02-02";- "2024-01-01~"
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) EffectiveTime(effectiveTime string) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("effective_time", fmt.Sprint(effectiveTime))
+	return builder
+}
+
+// 外派结束日期;- 范围筛选，格式：yyyy-mm-dd~yyyy-mm-dd
+//
+// 示例值：- "2024-01-01~2024-02-02";- "~2024-02-02";- "2024-01-01~"
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) ExpirationTime(expirationTime string) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("expiration_time", fmt.Sprint(expirationTime))
+	return builder
+}
+
+// 雇佣状态;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name：employment;  - custom_api_name：employment_status
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) EmploymentStatusList(employmentStatusList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range employmentStatusList {
+		builder.apiReq.QueryParams.Add("employment_status_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派工作地点;- 可通过[【批量查询地点】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/list)获取;- 需要以下权限点之一：;  - [读取外派地点](corehr:employment.international_assignment.work_location:read);  - [读写外派地点](corehr:employment.international_assignment.work_location:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) WorkLocationIdList(workLocationIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range workLocationIdList {
+		builder.apiReq.QueryParams.Add("work_location_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派部门;- 可通过[【批量查询部门】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get)获取;- 类型与 department_id_type 一致
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) DepartmentIdList(departmentIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range departmentIdList {
+		builder.apiReq.QueryParams.Add("department_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派直属上级;- 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取;- 类型与 user_id_type 一致
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) DirectManagerIdList(directManagerIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range directManagerIdList {
+		builder.apiReq.QueryParams.Add("direct_manager_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派虚线上级;- 可通过[【批量查询员工信息】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/employee/batch_get)获取;- 类型与 user_id_type 一致
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) DottedLineManagerIdList(dottedLineManagerIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range dottedLineManagerIdList {
+		builder.apiReq.QueryParams.Add("dotted_line_manager_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派岗位;- 功能灰度中，请联系[技术支持](https://applink.feishu.cn/TLJpeNdW);- 需要以下权限点之一：;  - [读取外派岗位](corehr:employment.international_assignment.position:read);  - [读写外派岗位](corehr:employment.international_assignment.position:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) PositionIdList(positionIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range positionIdList {
+		builder.apiReq.QueryParams.Add("position_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派职务;- 可通过[【批量查询职务】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/list)获取;- 需要以下权限点之一：;	- [读取外派职务](corehr:employment.international_assignment.job:read);	- [读写外派职务](corehr:employment.international_assignment.job:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) JobIdList(jobIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range jobIdList {
+		builder.apiReq.QueryParams.Add("job_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派序列;- 可通过[【批量查询序列】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/list)获取
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) JobFamilyIdList(jobFamilyIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range jobFamilyIdList {
+		builder.apiReq.QueryParams.Add("job_family_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派职级;- 可通过[【批量查询职级】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/list)获取;- 需要以下权限点之一：;	- [读取外派职级](corehr:employment.international_assignment.job_level:read);	- [读写外派职级](corehr:employment.international_assignment.job_level:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) JobLevelIdList(jobLevelIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range jobLevelIdList {
+		builder.apiReq.QueryParams.Add("job_level_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派职等;- 可通过[【查询职等】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)获取;- 需要以下权限点之一：;	  - [读取外派职等](corehr:employment.international_assignment.job_grade:read);	  - [读写外派职等](corehr:employment.international_assignment.job_grade:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) JobGradeIdList(jobGradeIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range jobGradeIdList {
+		builder.apiReq.QueryParams.Add("job_grade_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派工时制度;- 可通过[【批量查询工时制度】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/working_hours_type/list)获取;- 需要以下权限点之一：;	  - [读取外派工时制度](corehr:employment.international_assignment.working_hours_type:read);	  - [读写外派工时制度](corehr:employment.international_assignment.working_hours_type:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) WorkingHoursTypeIdList(workingHoursTypeIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range workingHoursTypeIdList {
+		builder.apiReq.QueryParams.Add("working_hours_type_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派任职公司;- 可通过[【批量查询公司】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/list)获取;- 需要以下权限点之一：;	- [读取外派公司](corehr:employment.international_assignment.service_company:read);	- [读写外派公司](corehr:employment.international_assignment.service_company:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) ServiceCompanyList(serviceCompanyList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range serviceCompanyList {
+		builder.apiReq.QueryParams.Add("service_company_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派周工作时长;- 限制两位小数;- 需要以下权限点之一：;	- [读取外派周工作时长](corehr:employment.international_assignment.weekly_working_hours:read);	- [读写外派周工作时长](corehr:employment.international_assignment.weekly_working_hours:write)
+//
+// 示例值：10
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) WeeklyWorkingHoursV2(weeklyWorkingHoursV2 float64) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("weekly_working_hours_v2", fmt.Sprint(weeklyWorkingHoursV2))
+	return builder
+}
+
+// 外派排班类型;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;	- object_api_name：job_data;	- custom_api_name：work_shift;- 需要以下权限点之一：;	- [读取外派排班类型](corehr:employment.international_assignment.work_shift:read);	- [读写外派排班类型](corehr:employment.international_assignment.work_shift:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) WorkShiftList(workShiftList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range workShiftList {
+		builder.apiReq.QueryParams.Add("work_shift_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派薪资类型;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;  - object_api_name：job_data;  - custom_api_name：compensation_type;- 需要以下权限点之一：;  - [读取外派薪资类型](corehr:employment.international_assignment.compensation_type:read);  - [读写外派薪资类型](corehr:employment.international_assignment.compensation_type:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) CompensationTypeList(compensationTypeList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range compensationTypeList {
+		builder.apiReq.QueryParams.Add("compensation_type_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派预计结束日期;- 范围筛选，格式：yyyy-mm-dd~yyyy-mm-dd
+//
+// 示例值：- "2024-01-01~2024-02-02";- "~2024-02-02";- "2024-01-01~"
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) InternationalAssignmentExpectedEndDate(internationalAssignmentExpectedEndDate string) *ListEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("international_assignment_expected_end_date", fmt.Sprint(internationalAssignmentExpectedEndDate))
+	return builder
+}
+
+// 外派状态;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;	- object_api_name：international_assignment;	- custom_api_name：international_assignment_status
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) InternationalAssignmentStatusList(internationalAssignmentStatusList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range internationalAssignmentStatusList {
+		builder.apiReq.QueryParams.Add("international_assignment_status_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派类型;- 可通过[【获取字段详情】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/custom_field/get_by_param)接口查询，查询参数如下：;	- object_api_name：international_assignment;	- custom_api_name：international_assignment_type
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) InternationalAssignmentTypeList(internationalAssignmentTypeList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range internationalAssignmentTypeList {
+		builder.apiReq.QueryParams.Add("international_assignment_type_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+// 外派工作日历;- 可通过[【查询工作日历】](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/leave/work_calendar)获取详细信息;- 需要以下权限点之一：;	- [读取外派工作日历](corehr:employment.international_assignment.work_calendar:read);	- [读写外派工作日历](corehr:employment.international_assignment.work_calendar:write)
+//
+// 示例值：
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) WorkCalendarIdList(workCalendarIdList []string) *ListEmployeesInternationalAssignmentReqBuilder {
+	for _, v := range workCalendarIdList {
+		builder.apiReq.QueryParams.Add("work_calendar_id_list", fmt.Sprint(v))
+	}
+	return builder
+}
+
+func (builder *ListEmployeesInternationalAssignmentReqBuilder) Build() *ListEmployeesInternationalAssignmentReq {
+	req := &ListEmployeesInternationalAssignmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListEmployeesInternationalAssignmentReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListEmployeesInternationalAssignmentRespData struct {
+	Items []*EmployeesInternationalAssignment `json:"items,omitempty"` // 外派信息
+
+	NoAuthorityIds []string `json:"no_authority_ids,omitempty"` // 无权限的雇佣ID - 在指定雇佣ID查询时请检查该参数 - 类型与 user_id_type 一致
+
+	PageToken *string `json:"page_token,omitempty"` // 翻页
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有更多项
+}
+
+type ListEmployeesInternationalAssignmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListEmployeesInternationalAssignmentRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListEmployeesInternationalAssignmentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchEmployeesInternationalAssignmentReqBuilder struct {
+	apiReq                              *larkcore.ApiReq
+	employeesInternationalAssignmentReq *EmployeesInternationalAssignmentReq
+}
+
+func NewPatchEmployeesInternationalAssignmentReqBuilder() *PatchEmployeesInternationalAssignmentReqBuilder {
+	builder := &PatchEmployeesInternationalAssignmentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 外派ID
+//
+// 示例值：7127921432117937708
+func (builder *PatchEmployeesInternationalAssignmentReqBuilder) InternationalAssignmentId(internationalAssignmentId string) *PatchEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.PathParams.Set("international_assignment_id", fmt.Sprint(internationalAssignmentId))
+	return builder
+}
+
+// 幂等标识，服务端会忽略client_token重复的请求
+//
+// 示例值：12454646
+func (builder *PatchEmployeesInternationalAssignmentReqBuilder) ClientToken(clientToken string) *PatchEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *PatchEmployeesInternationalAssignmentReqBuilder) UserIdType(userIdType string) *PatchEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 类型
+//
+// 示例值：open_department_id
+func (builder *PatchEmployeesInternationalAssignmentReqBuilder) DepartmentIdType(departmentIdType string) *PatchEmployeesInternationalAssignmentReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *PatchEmployeesInternationalAssignmentReqBuilder) EmployeesInternationalAssignmentReq(employeesInternationalAssignmentReq *EmployeesInternationalAssignmentReq) *PatchEmployeesInternationalAssignmentReqBuilder {
+	builder.employeesInternationalAssignmentReq = employeesInternationalAssignmentReq
+	return builder
+}
+
+func (builder *PatchEmployeesInternationalAssignmentReqBuilder) Build() *PatchEmployeesInternationalAssignmentReq {
+	req := &PatchEmployeesInternationalAssignmentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.employeesInternationalAssignmentReq
+	return req
+}
+
+type PatchEmployeesInternationalAssignmentReq struct {
+	apiReq                              *larkcore.ApiReq
+	EmployeesInternationalAssignmentReq *EmployeesInternationalAssignmentReq `body:""`
+}
+
+type PatchEmployeesInternationalAssignmentRespData struct {
+	InternationalAssignment *EmployeesInternationalAssignmentResp `json:"international_assignment,omitempty"` // 外派信息
+}
+
+type PatchEmployeesInternationalAssignmentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *PatchEmployeesInternationalAssignmentRespData `json:"data"` // 业务数据
+}
+
+func (resp *PatchEmployeesInternationalAssignmentResp) Success() bool {
 	return resp.Code == 0
 }
 

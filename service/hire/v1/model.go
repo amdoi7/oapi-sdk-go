@@ -82,6 +82,12 @@ const (
 )
 
 const (
+	DeliveryTypeHRVisit           = 1 // HR 寻访
+	DeliveryTypeCandidateDelivery = 2 // 候选人主动投递
+
+)
+
+const (
 	UserIdTypeCreateApplicationUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeCreateApplicationUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeCreateApplicationOpenId  = "open_id"  // 以open_id来识别用户
@@ -392,10 +398,10 @@ const (
 )
 
 const (
-	DeliveryTypeHRVisit           = 1 // HR 寻访
-	DeliveryTypeCandidateDelivery = 2 // 候选人主动投递
-	DeliveryTypeTalentRecommend   = 3 // 人才推荐
-	DeliveryTypeOthers            = 4 // 其他
+	DeliveryTypeCreateExternalApplicationHRVisit           = 1 // HR 寻访
+	DeliveryTypeCreateExternalApplicationCandidateDelivery = 2 // 候选人主动投递
+	DeliveryTypeCreateExternalApplicationTalentRecommend   = 3 // 人才推荐
+	DeliveryTypeCreateExternalApplicationOthers            = 4 // 其他
 
 )
 
@@ -33757,6 +33763,8 @@ type OfferApplyFormObjectInfo struct {
 
 	ObjectType *int `json:"object_type,omitempty"` // 字段类型枚举
 
+	ObjectTypeV2 *int `json:"object_type_v2,omitempty"` // 字段类型枚举
+
 	Config *OfferApplyFormObjectConfigInfo `json:"config,omitempty"` // 配置信息
 }
 
@@ -33790,6 +33798,9 @@ type OfferApplyFormObjectInfoBuilder struct {
 
 	objectType     int // 字段类型枚举
 	objectTypeFlag bool
+
+	objectTypeV2     int // 字段类型枚举
+	objectTypeV2Flag bool
 
 	config     *OfferApplyFormObjectConfigInfo // 配置信息
 	configFlag bool
@@ -33890,6 +33901,15 @@ func (builder *OfferApplyFormObjectInfoBuilder) ObjectType(objectType int) *Offe
 	return builder
 }
 
+// 字段类型枚举
+//
+// 示例值：1
+func (builder *OfferApplyFormObjectInfoBuilder) ObjectTypeV2(objectTypeV2 int) *OfferApplyFormObjectInfoBuilder {
+	builder.objectTypeV2 = objectTypeV2
+	builder.objectTypeV2Flag = true
+	return builder
+}
+
 // 配置信息
 //
 // 示例值：
@@ -33937,6 +33957,10 @@ func (builder *OfferApplyFormObjectInfoBuilder) Build() *OfferApplyFormObjectInf
 	}
 	if builder.objectTypeFlag {
 		req.ObjectType = &builder.objectType
+
+	}
+	if builder.objectTypeV2Flag {
+		req.ObjectTypeV2 = &builder.objectTypeV2
 
 	}
 	if builder.configFlag {
@@ -35624,7 +35648,7 @@ type OfferListInfo struct {
 
 	JobInfo *OfferJobInfo `json:"job_info,omitempty"` // Offer 职位
 
-	CreateTime *string `json:"create_time,omitempty"` // 创建时间
+	CreateTime *int64 `json:"create_time,omitempty"` // 创建时间
 
 	OfferStatus *int `json:"offer_status,omitempty"` // Offer 状态
 
@@ -35642,7 +35666,7 @@ type OfferListInfoBuilder struct {
 	jobInfo     *OfferJobInfo // Offer 职位
 	jobInfoFlag bool
 
-	createTime     string // 创建时间
+	createTime     int64 // 创建时间
 	createTimeFlag bool
 
 	offerStatus     int // Offer 状态
@@ -35684,7 +35708,7 @@ func (builder *OfferListInfoBuilder) JobInfo(jobInfo *OfferJobInfo) *OfferListIn
 // 创建时间
 //
 // 示例值：1628512038000
-func (builder *OfferListInfoBuilder) CreateTime(createTime string) *OfferListInfoBuilder {
+func (builder *OfferListInfoBuilder) CreateTime(createTime int64) *OfferListInfoBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
 	return builder
@@ -54924,6 +54948,9 @@ type CreateApplicationReqBodyBuilder struct {
 
 	applicationPreferredCityCodeList     []string // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
 	applicationPreferredCityCodeListFlag bool
+
+	deliveryType     int // 投递方式
+	deliveryTypeFlag bool
 }
 
 func NewCreateApplicationReqBodyBuilder() *CreateApplicationReqBodyBuilder {
@@ -54976,6 +55003,15 @@ func (builder *CreateApplicationReqBodyBuilder) ApplicationPreferredCityCodeList
 	return builder
 }
 
+// 投递方式
+//
+//示例值：1
+func (builder *CreateApplicationReqBodyBuilder) DeliveryType(deliveryType int) *CreateApplicationReqBodyBuilder {
+	builder.deliveryType = deliveryType
+	builder.deliveryTypeFlag = true
+	return builder
+}
+
 func (builder *CreateApplicationReqBodyBuilder) Build() *CreateApplicationReqBody {
 	req := &CreateApplicationReqBody{}
 	if builder.talentIdFlag {
@@ -54993,6 +55029,9 @@ func (builder *CreateApplicationReqBodyBuilder) Build() *CreateApplicationReqBod
 	if builder.applicationPreferredCityCodeListFlag {
 		req.ApplicationPreferredCityCodeList = builder.applicationPreferredCityCodeList
 	}
+	if builder.deliveryTypeFlag {
+		req.DeliveryType = &builder.deliveryType
+	}
 	return req
 }
 
@@ -55007,6 +55046,8 @@ type CreateApplicationPathReqBodyBuilder struct {
 	resumeSourceIdFlag                   bool
 	applicationPreferredCityCodeList     []string
 	applicationPreferredCityCodeListFlag bool
+	deliveryType                         int
+	deliveryTypeFlag                     bool
 }
 
 func NewCreateApplicationPathReqBodyBuilder() *CreateApplicationPathReqBodyBuilder {
@@ -55059,6 +55100,15 @@ func (builder *CreateApplicationPathReqBodyBuilder) ApplicationPreferredCityCode
 	return builder
 }
 
+// 投递方式
+//
+// 示例值：1
+func (builder *CreateApplicationPathReqBodyBuilder) DeliveryType(deliveryType int) *CreateApplicationPathReqBodyBuilder {
+	builder.deliveryType = deliveryType
+	builder.deliveryTypeFlag = true
+	return builder
+}
+
 func (builder *CreateApplicationPathReqBodyBuilder) Build() (*CreateApplicationReqBody, error) {
 	req := &CreateApplicationReqBody{}
 	if builder.talentIdFlag {
@@ -55075,6 +55125,9 @@ func (builder *CreateApplicationPathReqBodyBuilder) Build() (*CreateApplicationR
 	}
 	if builder.applicationPreferredCityCodeListFlag {
 		req.ApplicationPreferredCityCodeList = builder.applicationPreferredCityCodeList
+	}
+	if builder.deliveryTypeFlag {
+		req.DeliveryType = &builder.deliveryType
 	}
 	return req, nil
 }
@@ -55125,6 +55178,8 @@ type CreateApplicationReqBody struct {
 	ResumeSourceId *string `json:"resume_source_id,omitempty"` // 简历来源 ID，可通过「获取简历来源」接口查询。若简历来源类型属于「员工转岗」或「实习生转正」，人才需处于已入职状态。
 
 	ApplicationPreferredCityCodeList []string `json:"application_preferred_city_code_list,omitempty"` // 意向投递城市列表，可从「获取职位信息」返回的工作地点列表获取
+
+	DeliveryType *int `json:"delivery_type,omitempty"` // 投递方式
 }
 
 type CreateApplicationReq struct {

@@ -442,6 +442,10 @@ type CooperationProject struct {
 	Name *I18n `json:"name,omitempty"` // 合作项目的名称
 
 	Roles []*CooperationRole `json:"roles,omitempty"` // 项目角色
+
+	UserRoles []*CooperationUserRole `json:"user_roles,omitempty"` // 评估人项目角色
+
+	UnderlingRoles []*CooperationUserRole `json:"underling_roles,omitempty"` // 被评估人项目角色
 }
 
 type CooperationProjectBuilder struct {
@@ -453,6 +457,12 @@ type CooperationProjectBuilder struct {
 
 	roles     []*CooperationRole // 项目角色
 	rolesFlag bool
+
+	userRoles     []*CooperationUserRole // 评估人项目角色
+	userRolesFlag bool
+
+	underlingRoles     []*CooperationUserRole // 被评估人项目角色
+	underlingRolesFlag bool
 }
 
 func NewCooperationProjectBuilder() *CooperationProjectBuilder {
@@ -487,6 +497,24 @@ func (builder *CooperationProjectBuilder) Roles(roles []*CooperationRole) *Coope
 	return builder
 }
 
+// 评估人项目角色
+//
+// 示例值：
+func (builder *CooperationProjectBuilder) UserRoles(userRoles []*CooperationUserRole) *CooperationProjectBuilder {
+	builder.userRoles = userRoles
+	builder.userRolesFlag = true
+	return builder
+}
+
+// 被评估人项目角色
+//
+// 示例值：
+func (builder *CooperationProjectBuilder) UnderlingRoles(underlingRoles []*CooperationUserRole) *CooperationProjectBuilder {
+	builder.underlingRoles = underlingRoles
+	builder.underlingRolesFlag = true
+	return builder
+}
+
 func (builder *CooperationProjectBuilder) Build() *CooperationProject {
 	req := &CooperationProject{}
 	if builder.idFlag {
@@ -498,6 +526,12 @@ func (builder *CooperationProjectBuilder) Build() *CooperationProject {
 	}
 	if builder.rolesFlag {
 		req.Roles = builder.roles
+	}
+	if builder.userRolesFlag {
+		req.UserRoles = builder.userRoles
+	}
+	if builder.underlingRolesFlag {
+		req.UnderlingRoles = builder.underlingRoles
 	}
 	return req
 }
@@ -769,6 +803,10 @@ type DirectProjectLeaderRecordInfo struct {
 	ReviewerId *User `json:"reviewer_id,omitempty"` // 评估人 ID
 
 	CooperationProjects []*CooperationProject `json:"cooperation_projects,omitempty"` // 评估人作为直属项目上级所在的项目
+
+	ReviewDependProjects []*CooperationProject `json:"review_depend_projects,omitempty"` // 评估依据的项目
+
+	ParticipatedProjects []*CooperationProject `json:"participated_projects,omitempty"` // 共同参与的项目
 }
 
 type DirectProjectLeaderRecordInfoBuilder struct {
@@ -777,6 +815,12 @@ type DirectProjectLeaderRecordInfoBuilder struct {
 
 	cooperationProjects     []*CooperationProject // 评估人作为直属项目上级所在的项目
 	cooperationProjectsFlag bool
+
+	reviewDependProjects     []*CooperationProject // 评估依据的项目
+	reviewDependProjectsFlag bool
+
+	participatedProjects     []*CooperationProject // 共同参与的项目
+	participatedProjectsFlag bool
 }
 
 func NewDirectProjectLeaderRecordInfoBuilder() *DirectProjectLeaderRecordInfoBuilder {
@@ -802,6 +846,24 @@ func (builder *DirectProjectLeaderRecordInfoBuilder) CooperationProjects(coopera
 	return builder
 }
 
+// 评估依据的项目
+//
+// 示例值：
+func (builder *DirectProjectLeaderRecordInfoBuilder) ReviewDependProjects(reviewDependProjects []*CooperationProject) *DirectProjectLeaderRecordInfoBuilder {
+	builder.reviewDependProjects = reviewDependProjects
+	builder.reviewDependProjectsFlag = true
+	return builder
+}
+
+// 共同参与的项目
+//
+// 示例值：
+func (builder *DirectProjectLeaderRecordInfoBuilder) ParticipatedProjects(participatedProjects []*CooperationProject) *DirectProjectLeaderRecordInfoBuilder {
+	builder.participatedProjects = participatedProjects
+	builder.participatedProjectsFlag = true
+	return builder
+}
+
 func (builder *DirectProjectLeaderRecordInfoBuilder) Build() *DirectProjectLeaderRecordInfo {
 	req := &DirectProjectLeaderRecordInfo{}
 	if builder.reviewerIdFlag {
@@ -809,6 +871,12 @@ func (builder *DirectProjectLeaderRecordInfoBuilder) Build() *DirectProjectLeade
 	}
 	if builder.cooperationProjectsFlag {
 		req.CooperationProjects = builder.cooperationProjects
+	}
+	if builder.reviewDependProjectsFlag {
+		req.ReviewDependProjects = builder.reviewDependProjects
+	}
+	if builder.participatedProjectsFlag {
+		req.ParticipatedProjects = builder.participatedProjects
 	}
 	return req
 }
@@ -876,6 +944,8 @@ type Field struct {
 	KeyresultTextQustionTitle *I18n `json:"keyresult_text_qustion_title,omitempty"` // KR 的填写项标题
 
 	ParentFieldId *string `json:"parent_field_id,omitempty"` // 关联的父级评估项 ID
+
+	KpiTemplateId *string `json:"kpi_template_id,omitempty"` // 指标模板ID
 }
 
 type FieldBuilder struct {
@@ -899,6 +969,9 @@ type FieldBuilder struct {
 
 	parentFieldId     string // 关联的父级评估项 ID
 	parentFieldIdFlag bool
+
+	kpiTemplateId     string // 指标模板ID
+	kpiTemplateIdFlag bool
 }
 
 func NewFieldBuilder() *FieldBuilder {
@@ -969,6 +1042,15 @@ func (builder *FieldBuilder) ParentFieldId(parentFieldId string) *FieldBuilder {
 	return builder
 }
 
+// 指标模板ID
+//
+// 示例值：7494252079230222371
+func (builder *FieldBuilder) KpiTemplateId(kpiTemplateId string) *FieldBuilder {
+	builder.kpiTemplateId = kpiTemplateId
+	builder.kpiTemplateIdFlag = true
+	return builder
+}
+
 func (builder *FieldBuilder) Build() *Field {
 	req := &Field{}
 	if builder.fieldIdFlag {
@@ -994,6 +1076,10 @@ func (builder *FieldBuilder) Build() *Field {
 	}
 	if builder.parentFieldIdFlag {
 		req.ParentFieldId = &builder.parentFieldId
+
+	}
+	if builder.kpiTemplateIdFlag {
+		req.KpiTemplateId = &builder.kpiTemplateId
 
 	}
 	return req

@@ -14,10 +14,11 @@
 package larkapaas
 
 import (
-	"context"
-	"errors"
 	"fmt"
 	"io"
+
+	"context"
+	"errors"
 
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )

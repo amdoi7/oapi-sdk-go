@@ -33,6 +33,7 @@ type V2 struct {
 	Employee                          *employee                          // employee
 	EmployeesAdditionalJob            *employeesAdditionalJob            // employees.additional_job
 	EmployeesBp                       *employeesBp                       // employees.bp
+	EmployeesInternationalAssignment  *employeesInternationalAssignment  // employees.international_assignment
 	EmployeesJobData                  *employeesJobData                  // employees.job_data
 	Enum                              *enum                              // enum
 	Job                               *job                               // job
@@ -89,6 +90,7 @@ func New(config *larkcore.Config) *V2 {
 		Employee:                          &employee{config: config},
 		EmployeesAdditionalJob:            &employeesAdditionalJob{config: config},
 		EmployeesBp:                       &employeesBp{config: config},
+		EmployeesInternationalAssignment:  &employeesInternationalAssignment{config: config},
 		EmployeesJobData:                  &employeesJobData{config: config},
 		Enum:                              &enum{config: config},
 		Job:                               &job{config: config},
@@ -190,6 +192,9 @@ type employeesAdditionalJob struct {
 	config *larkcore.Config
 }
 type employeesBp struct {
+	config *larkcore.Config
+}
+type employeesInternationalAssignment struct {
 	config *larkcore.Config
 }
 type employeesJobData struct {
@@ -1805,7 +1810,7 @@ func (e *employee) Create(ctx context.Context, req *CreateEmployeeReq, options .
 	apiReq := req.apiReq
 	apiReq.ApiPath = "/open-apis/corehr/v2/employees"
 	apiReq.HttpMethod = http.MethodPost
-	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant, larkcore.AccessTokenTypeUser}
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
 	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
 	if err != nil {
 		return nil, err
@@ -1984,6 +1989,110 @@ func (e *employeesBp) BatchGet(ctx context.Context, req *BatchGetEmployeesBpReq,
 	}
 	// 反序列响应结果
 	resp := &BatchGetEmployeesBpResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) Create(ctx context.Context, req *CreateEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*CreateEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreateEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/delete_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) Delete(ctx context.Context, req *DeleteEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*DeleteEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments/:international_assignment_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeleteEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/list_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) List(ctx context.Context, req *ListEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*ListEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListEmployeesInternationalAssignmentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, e.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=employees.international_assignment&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_employeesInternationalAssignment.go
+func (e *employeesInternationalAssignment) Patch(ctx context.Context, req *PatchEmployeesInternationalAssignmentReq, options ...larkcore.RequestOptionFunc) (*PatchEmployeesInternationalAssignmentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/employees/international_assignments/:international_assignment_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, e.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchEmployeesInternationalAssignmentResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, e.config)
 	if err != nil {
 		return nil, err
