@@ -2344,7 +2344,7 @@ func (j *jobChange) SearchByIterator(ctx context.Context, req *SearchJobChangeRe
 
 // BatchGet
 //
-// - 通过序列 ID 批量获取序列信息
+// - 批量获取序列信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job_family&version=v2
 //
@@ -2526,7 +2526,7 @@ func (j *jobGrade) QueryRecentChange(ctx context.Context, req *QueryRecentChange
 
 // BatchGet
 //
-// - 通过职级 ID 批量获取职级信息
+// - 批量获取职级信息
 //
 // - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job_level&version=v2
 //

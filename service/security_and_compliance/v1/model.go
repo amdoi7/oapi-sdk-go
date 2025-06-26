@@ -4298,6 +4298,8 @@ type DlpExecuteLog struct {
 	FileToken *string `json:"file_token,omitempty"` // 文件token
 
 	TriggerEventType *string `json:"trigger_event_type,omitempty"` // 触发事件类型
+
+	ChatType *string `json:"chat_type,omitempty"` // 会话类型
 }
 
 type DlpExecuteLogBuilder struct {
@@ -4384,6 +4386,9 @@ type DlpExecuteLogBuilder struct {
 
 	triggerEventType     string // 触发事件类型
 	triggerEventTypeFlag bool
+
+	chatType     string // 会话类型
+	chatTypeFlag bool
 }
 
 func NewDlpExecuteLogBuilder() *DlpExecuteLogBuilder {
@@ -4643,6 +4648,15 @@ func (builder *DlpExecuteLogBuilder) TriggerEventType(triggerEventType string) *
 	return builder
 }
 
+// 会话类型
+//
+// 示例值：1
+func (builder *DlpExecuteLogBuilder) ChatType(chatType string) *DlpExecuteLogBuilder {
+	builder.chatType = chatType
+	builder.chatTypeFlag = true
+	return builder
+}
+
 func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	req := &DlpExecuteLog{}
 	if builder.applicableServiceFlag {
@@ -4753,6 +4767,10 @@ func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	}
 	if builder.triggerEventTypeFlag {
 		req.TriggerEventType = &builder.triggerEventType
+
+	}
+	if builder.chatTypeFlag {
+		req.ChatType = &builder.chatType
 
 	}
 	return req

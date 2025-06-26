@@ -59,6 +59,17 @@ const (
 )
 
 const (
+	ContentTypeMarkdown = "markdown" // Markdown 格式
+	ContentTypeHTML     = "html"     // HTML 格式
+)
+
+const (
+	UserIdTypeConvertDocumentUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeConvertDocumentUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeConvertDocumentOpenId  = "open_id"  // 以open_id来识别用户
+)
+
+const (
 	LangZH = 0 // 中文
 	LangEN = 1 // 英文
 	LangJP = 2 // 日文
@@ -2898,6 +2909,91 @@ func (builder *InlineFileBuilder) Build() *InlineFile {
 	return req
 }
 
+type InlineLinkPreview struct {
+	Title *string `json:"title,omitempty"` // 链接解析出的标题（仅展示写入文档时的标题快照，后续不会自动同步最新标题）
+
+	Url *string `json:"url,omitempty"` // 链接
+
+	UrlType *string `json:"url_type,omitempty"` // 链接类型
+
+	TextElementStyle *TextElementStyle `json:"text_element_style,omitempty"` // 文本局部样式
+}
+
+type InlineLinkPreviewBuilder struct {
+	title     string // 链接解析出的标题（仅展示写入文档时的标题快照，后续不会自动同步最新标题）
+	titleFlag bool
+
+	url     string // 链接
+	urlFlag bool
+
+	urlType     string // 链接类型
+	urlTypeFlag bool
+
+	textElementStyle     *TextElementStyle // 文本局部样式
+	textElementStyleFlag bool
+}
+
+func NewInlineLinkPreviewBuilder() *InlineLinkPreviewBuilder {
+	builder := &InlineLinkPreviewBuilder{}
+	return builder
+}
+
+// 链接解析出的标题（仅展示写入文档时的标题快照，后续不会自动同步最新标题）
+//
+// 示例值：link title
+func (builder *InlineLinkPreviewBuilder) Title(title string) *InlineLinkPreviewBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 链接
+//
+// 示例值：https://project.feishu.cn/home
+func (builder *InlineLinkPreviewBuilder) Url(url string) *InlineLinkPreviewBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+// 链接类型
+//
+// 示例值：Project
+func (builder *InlineLinkPreviewBuilder) UrlType(urlType string) *InlineLinkPreviewBuilder {
+	builder.urlType = urlType
+	builder.urlTypeFlag = true
+	return builder
+}
+
+// 文本局部样式
+//
+// 示例值：
+func (builder *InlineLinkPreviewBuilder) TextElementStyle(textElementStyle *TextElementStyle) *InlineLinkPreviewBuilder {
+	builder.textElementStyle = textElementStyle
+	builder.textElementStyleFlag = true
+	return builder
+}
+
+func (builder *InlineLinkPreviewBuilder) Build() *InlineLinkPreview {
+	req := &InlineLinkPreview{}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.urlTypeFlag {
+		req.UrlType = &builder.urlType
+
+	}
+	if builder.textElementStyleFlag {
+		req.TextElementStyle = builder.textElementStyle
+	}
+	return req
+}
+
 type InsertGridColumnRequest struct {
 	ColumnIndex *int `json:"column_index,omitempty"` // 插入列索引，从 1 开始，如 1 表示在第一列后插入，注意不允许传 0（-1表示在最后一列后插入）
 }
@@ -4187,6 +4283,92 @@ func (builder *OkrVisibleSettingBuilder) Build() *OkrVisibleSetting {
 	return req
 }
 
+type Project struct {
+	Title *string `json:"title,omitempty"` // 项目标题，仅记录插入那一刻的标题，不会自动同步最新标题
+
+	Url *string `json:"url,omitempty"` // 项目链接
+
+	SubType *string `json:"sub_type,omitempty"` // 子类型
+
+	ViewType *string `json:"view_type,omitempty"` // 视图类型，该字段仅在子类型为视图表格时返回
+}
+
+type ProjectBuilder struct {
+	title     string // 项目标题，仅记录插入那一刻的标题，不会自动同步最新标题
+	titleFlag bool
+
+	url     string // 项目链接
+	urlFlag bool
+
+	subType     string // 子类型
+	subTypeFlag bool
+
+	viewType     string // 视图类型，该字段仅在子类型为视图表格时返回
+	viewTypeFlag bool
+}
+
+func NewProjectBuilder() *ProjectBuilder {
+	builder := &ProjectBuilder{}
+	return builder
+}
+
+// 项目标题，仅记录插入那一刻的标题，不会自动同步最新标题
+//
+// 示例值：project title
+func (builder *ProjectBuilder) Title(title string) *ProjectBuilder {
+	builder.title = title
+	builder.titleFlag = true
+	return builder
+}
+
+// 项目链接
+//
+// 示例值：https://project.feishu.cn/home
+func (builder *ProjectBuilder) Url(url string) *ProjectBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+// 子类型
+//
+// 示例值：Table
+func (builder *ProjectBuilder) SubType(subType string) *ProjectBuilder {
+	builder.subType = subType
+	builder.subTypeFlag = true
+	return builder
+}
+
+// 视图类型，该字段仅在子类型为视图表格时返回
+//
+// 示例值：Normal
+func (builder *ProjectBuilder) ViewType(viewType string) *ProjectBuilder {
+	builder.viewType = viewType
+	builder.viewTypeFlag = true
+	return builder
+}
+
+func (builder *ProjectBuilder) Build() *Project {
+	req := &Project{}
+	if builder.titleFlag {
+		req.Title = &builder.title
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.subTypeFlag {
+		req.SubType = &builder.subType
+
+	}
+	if builder.viewTypeFlag {
+		req.ViewType = &builder.viewType
+
+	}
+	return req
+}
+
 type QuoteContainer struct {
 }
 
@@ -4200,6 +4382,74 @@ func NewQuoteContainerBuilder() *QuoteContainerBuilder {
 
 func (builder *QuoteContainerBuilder) Build() *QuoteContainer {
 	req := &QuoteContainer{}
+	return req
+}
+
+type ReferenceBase struct {
+	Token *string `json:"token,omitempty"` // 多维表格 Token，格式为 BaseToken_TableID，其中，BaseToken 是一篇多维表格唯一标识，TableID 是一张数据表的唯一标识。
+
+	ViewId *string `json:"view_id,omitempty"` // 视图 ID
+
+	LayoutMode *string `json:"layout_mode,omitempty"` // 布局模式
+}
+
+type ReferenceBaseBuilder struct {
+	token     string // 多维表格 Token，格式为 BaseToken_TableID，其中，BaseToken 是一篇多维表格唯一标识，TableID 是一张数据表的唯一标识。
+	tokenFlag bool
+
+	viewId     string // 视图 ID
+	viewIdFlag bool
+
+	layoutMode     string // 布局模式
+	layoutModeFlag bool
+}
+
+func NewReferenceBaseBuilder() *ReferenceBaseBuilder {
+	builder := &ReferenceBaseBuilder{}
+	return builder
+}
+
+// 多维表格 Token，格式为 BaseToken_TableID，其中，BaseToken 是一篇多维表格唯一标识，TableID 是一张数据表的唯一标识。
+//
+// 示例值：AtMtb4hmYaaUsTswbGJcamabcef_tblH9DgStf8abcef
+func (builder *ReferenceBaseBuilder) Token(token string) *ReferenceBaseBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+// 视图 ID
+//
+// 示例值：vewXxabcef
+func (builder *ReferenceBaseBuilder) ViewId(viewId string) *ReferenceBaseBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+
+// 布局模式
+//
+// 示例值：Normal
+func (builder *ReferenceBaseBuilder) LayoutMode(layoutMode string) *ReferenceBaseBuilder {
+	builder.layoutMode = layoutMode
+	builder.layoutModeFlag = true
+	return builder
+}
+
+func (builder *ReferenceBaseBuilder) Build() *ReferenceBase {
+	req := &ReferenceBase{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+
+	}
+	if builder.layoutModeFlag {
+		req.LayoutMode = &builder.layoutMode
+
+	}
 	return req
 }
 
@@ -6017,6 +6267,56 @@ func (builder *UpdateGridColumnWidthRatioRequestBuilder) Build() *UpdateGridColu
 	return req
 }
 
+type UpdateReferenceBaseRequest struct {
+	Token *string `json:"token,omitempty"` // 引用 base token 与子表 ID
+
+	ViewId *string `json:"view_id,omitempty"` // 引用 base 视图
+}
+
+type UpdateReferenceBaseRequestBuilder struct {
+	token     string // 引用 base token 与子表 ID
+	tokenFlag bool
+
+	viewId     string // 引用 base 视图
+	viewIdFlag bool
+}
+
+func NewUpdateReferenceBaseRequestBuilder() *UpdateReferenceBaseRequestBuilder {
+	builder := &UpdateReferenceBaseRequestBuilder{}
+	return builder
+}
+
+// 引用 base token 与子表 ID
+//
+// 示例值：bask46Yc9iwM1MJynhYV4Gf8VRh_tbl5TFCCHpvxhALE
+func (builder *UpdateReferenceBaseRequestBuilder) Token(token string) *UpdateReferenceBaseRequestBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+// 引用 base 视图
+//
+// 示例值：ruLRJoPe
+func (builder *UpdateReferenceBaseRequestBuilder) ViewId(viewId string) *UpdateReferenceBaseRequestBuilder {
+	builder.viewId = viewId
+	builder.viewIdFlag = true
+	return builder
+}
+
+func (builder *UpdateReferenceBaseRequestBuilder) Build() *UpdateReferenceBaseRequest {
+	req := &UpdateReferenceBaseRequest{}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	if builder.viewIdFlag {
+		req.ViewId = &builder.viewId
+
+	}
+	return req
+}
+
 type UpdateTablePropertyRequest struct {
 	ColumnWidth *int `json:"column_width,omitempty"` // 表格列宽
 
@@ -7180,6 +7480,154 @@ type GetChatAnnouncementBlockChildrenResp struct {
 }
 
 func (resp *GetChatAnnouncementBlockChildrenResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ConvertDocumentReqBodyBuilder struct {
+	contentType     string // 内容类型
+	contentTypeFlag bool
+
+	content     string // 文本内容
+	contentFlag bool
+}
+
+func NewConvertDocumentReqBodyBuilder() *ConvertDocumentReqBodyBuilder {
+	builder := &ConvertDocumentReqBodyBuilder{}
+	return builder
+}
+
+// 内容类型
+//
+//示例值：markdown
+func (builder *ConvertDocumentReqBodyBuilder) ContentType(contentType string) *ConvertDocumentReqBodyBuilder {
+	builder.contentType = contentType
+	builder.contentTypeFlag = true
+	return builder
+}
+
+// 文本内容
+//
+//示例值：**第一段为加粗文本**\n\n```\n第二段为代码块\n```
+func (builder *ConvertDocumentReqBodyBuilder) Content(content string) *ConvertDocumentReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *ConvertDocumentReqBodyBuilder) Build() *ConvertDocumentReqBody {
+	req := &ConvertDocumentReqBody{}
+	if builder.contentTypeFlag {
+		req.ContentType = &builder.contentType
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req
+}
+
+type ConvertDocumentPathReqBodyBuilder struct {
+	contentType     string
+	contentTypeFlag bool
+	content         string
+	contentFlag     bool
+}
+
+func NewConvertDocumentPathReqBodyBuilder() *ConvertDocumentPathReqBodyBuilder {
+	builder := &ConvertDocumentPathReqBodyBuilder{}
+	return builder
+}
+
+// 内容类型
+//
+// 示例值：markdown
+func (builder *ConvertDocumentPathReqBodyBuilder) ContentType(contentType string) *ConvertDocumentPathReqBodyBuilder {
+	builder.contentType = contentType
+	builder.contentTypeFlag = true
+	return builder
+}
+
+// 文本内容
+//
+// 示例值：**第一段为加粗文本**\n\n```\n第二段为代码块\n```
+func (builder *ConvertDocumentPathReqBodyBuilder) Content(content string) *ConvertDocumentPathReqBodyBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *ConvertDocumentPathReqBodyBuilder) Build() (*ConvertDocumentReqBody, error) {
+	req := &ConvertDocumentReqBody{}
+	if builder.contentTypeFlag {
+		req.ContentType = &builder.contentType
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+	}
+	return req, nil
+}
+
+type ConvertDocumentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ConvertDocumentReqBody
+}
+
+func NewConvertDocumentReqBuilder() *ConvertDocumentReqBuilder {
+	builder := &ConvertDocumentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的用户ID的类型
+//
+// 示例值：
+func (builder *ConvertDocumentReqBuilder) UserIdType(userIdType string) *ConvertDocumentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *ConvertDocumentReqBuilder) Body(body *ConvertDocumentReqBody) *ConvertDocumentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ConvertDocumentReqBuilder) Build() *ConvertDocumentReq {
+	req := &ConvertDocumentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ConvertDocumentReqBody struct {
+	ContentType *string `json:"content_type,omitempty"` // 内容类型
+
+	Content *string `json:"content,omitempty"` // 文本内容
+}
+
+type ConvertDocumentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ConvertDocumentReqBody `body:""`
+}
+
+type ConvertDocumentRespData struct {
+	FirstLevelBlockIds []string `json:"first_level_block_ids,omitempty"` // 第一级 Block 对应的临时 ID 列表， index 代表了 Block 的顺序
+
+	Blocks []*Block `json:"blocks,omitempty"` // 带有父子关系的 Block 列表
+
+	BlockIdToImageUrls []*BlockIdToImageUrl `json:"block_id_to_image_urls,omitempty"` // 如果要转换的内容中带有图片，这里记录了临时 Block ID 和 Image URL 的对应关系
+}
+
+type ConvertDocumentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ConvertDocumentRespData `json:"data"` // 业务数据
+}
+
+func (resp *ConvertDocumentResp) Success() bool {
 	return resp.Code == 0
 }
 

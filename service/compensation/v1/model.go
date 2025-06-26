@@ -993,11 +993,11 @@ func (builder *FormulaParamBuilder) Build() *FormulaParam {
 }
 
 type Grade struct {
-	Id *string `json:"id,omitempty"` // 标准明细ID
+	Id *string `json:"id,omitempty"` // 薪资标准明细ID
 
-	Tid *string `json:"tid,omitempty"` // 标准明细TID
+	Tid *string `json:"tid,omitempty"` // 薪资标准明细版本TID
 
-	Code *int `json:"code,omitempty"` // 编码
+	SerialNumber *string `json:"serial_number,omitempty"` // 编号
 
 	GradeStandardValues []*GradeStandardValue `json:"grade_standard_values,omitempty"` // 薪资标准值列表
 
@@ -1007,7 +1007,7 @@ type Grade struct {
 
 	Description *I18n `json:"description,omitempty"` // 备注
 
-	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间，毫秒时间戳
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效日期，格式"2025-05-01"
 
 	StandardGradeVersion *string `json:"standard_grade_version,omitempty"` // 版本
 
@@ -1021,14 +1021,14 @@ type Grade struct {
 }
 
 type GradeBuilder struct {
-	id     string // 标准明细ID
+	id     string // 薪资标准明细ID
 	idFlag bool
 
-	tid     string // 标准明细TID
+	tid     string // 薪资标准明细版本TID
 	tidFlag bool
 
-	code     int // 编码
-	codeFlag bool
+	serialNumber     string // 编号
+	serialNumberFlag bool
 
 	gradeStandardValues     []*GradeStandardValue // 薪资标准值列表
 	gradeStandardValuesFlag bool
@@ -1042,7 +1042,7 @@ type GradeBuilder struct {
 	description     *I18n // 备注
 	descriptionFlag bool
 
-	effectiveTime     string // 生效时间，毫秒时间戳
+	effectiveTime     string // 生效日期，格式"2025-05-01"
 	effectiveTimeFlag bool
 
 	standardGradeVersion     string // 版本
@@ -1066,7 +1066,7 @@ func NewGradeBuilder() *GradeBuilder {
 	return builder
 }
 
-// 标准明细ID
+// 薪资标准明细ID
 //
 // 示例值：7481615459021637164
 func (builder *GradeBuilder) Id(id string) *GradeBuilder {
@@ -1075,7 +1075,7 @@ func (builder *GradeBuilder) Id(id string) *GradeBuilder {
 	return builder
 }
 
-// 标准明细TID
+// 薪资标准明细版本TID
 //
 // 示例值：7481615459021669932
 func (builder *GradeBuilder) Tid(tid string) *GradeBuilder {
@@ -1084,12 +1084,12 @@ func (builder *GradeBuilder) Tid(tid string) *GradeBuilder {
 	return builder
 }
 
-// 编码
+// 编号
 //
 // 示例值：1
-func (builder *GradeBuilder) Code(code int) *GradeBuilder {
-	builder.code = code
-	builder.codeFlag = true
+func (builder *GradeBuilder) SerialNumber(serialNumber string) *GradeBuilder {
+	builder.serialNumber = serialNumber
+	builder.serialNumberFlag = true
 	return builder
 }
 
@@ -1129,9 +1129,9 @@ func (builder *GradeBuilder) Description(description *I18n) *GradeBuilder {
 	return builder
 }
 
-// 生效时间，毫秒时间戳
+// 生效日期，格式"2025-05-01"
 //
-// 示例值：1704038400000
+// 示例值：2025-05-01
 func (builder *GradeBuilder) EffectiveTime(effectiveTime string) *GradeBuilder {
 	builder.effectiveTime = effectiveTime
 	builder.effectiveTimeFlag = true
@@ -1193,8 +1193,8 @@ func (builder *GradeBuilder) Build() *Grade {
 		req.Tid = &builder.tid
 
 	}
-	if builder.codeFlag {
-		req.Code = &builder.code
+	if builder.serialNumberFlag {
+		req.SerialNumber = &builder.serialNumber
 
 	}
 	if builder.gradeStandardValuesFlag {
@@ -1241,7 +1241,7 @@ type GradeStandardDimension struct {
 
 	ContainSub *bool `json:"contain_sub,omitempty"` // 是否包含下级
 
-	Values []string `json:"values,omitempty"` // 维度明细值，具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)， [获取单个职务信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+	Values []string `json:"values,omitempty"` // 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 }
 
 type GradeStandardDimensionBuilder struct {
@@ -1251,7 +1251,7 @@ type GradeStandardDimensionBuilder struct {
 	containSub     bool // 是否包含下级
 	containSubFlag bool
 
-	values     []string // 维度明细值，具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)， [获取单个职务信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+	values     []string // 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 	valuesFlag bool
 }
 
@@ -1278,7 +1278,7 @@ func (builder *GradeStandardDimensionBuilder) ContainSub(containSub bool) *Grade
 	return builder
 }
 
-// 维度明细值，具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)， [获取单个职务信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/job_title/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/employee_type_enum/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)
+// 维度明细值，招聘类型维度枚举值为【日常实习："routine_intern"】【社招："experienced_professionals"】【校招: "recent_graduates"】，其他维度类型具体值信息可通过接口查询[查询单个公司](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/company/get)， [搜索部门信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/search)， [查询单个序列](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_family/get) ，[查询单个职级](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/job_level/get)， [查询职等](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job_grade/query)，[查询单个职务](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/job/get)， [查询单个地点](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/location/get)， [批量查询人员类型](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/corehr-v1/employee_type/list)， [批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list) ，[批量查询定调薪原因](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list)，[获取薪级薪等列表数据](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/salary_level_type/query)
 //
 // 示例值：
 func (builder *GradeStandardDimensionBuilder) Values(values []string) *GradeStandardDimensionBuilder {
@@ -4505,18 +4505,18 @@ func (builder *RecurringPaymentOperateResultBuilder) Build() *RecurringPaymentOp
 }
 
 type SalaryGrade struct {
-	Id *string `json:"id,omitempty"` // ID
+	Id *string `json:"id,omitempty"` // 薪等ID
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 薪等名称
 
 	Status *bool `json:"status,omitempty"` // 是否启用
 }
 
 type SalaryGradeBuilder struct {
-	id     string // ID
+	id     string // 薪等ID
 	idFlag bool
 
-	name     *I18n // 名称
+	name     *I18n // 薪等名称
 	nameFlag bool
 
 	status     bool // 是否启用
@@ -4528,7 +4528,7 @@ func NewSalaryGradeBuilder() *SalaryGradeBuilder {
 	return builder
 }
 
-// ID
+// 薪等ID
 //
 // 示例值：7491135696314353196
 func (builder *SalaryGradeBuilder) Id(id string) *SalaryGradeBuilder {
@@ -4537,7 +4537,7 @@ func (builder *SalaryGradeBuilder) Id(id string) *SalaryGradeBuilder {
 	return builder
 }
 
-// 名称
+// 薪等名称
 //
 // 示例值：
 func (builder *SalaryGradeBuilder) Name(name *I18n) *SalaryGradeBuilder {
@@ -4572,9 +4572,9 @@ func (builder *SalaryGradeBuilder) Build() *SalaryGrade {
 }
 
 type SalaryLevel struct {
-	Id *string `json:"id,omitempty"` // ID
+	Id *string `json:"id,omitempty"` // 薪级ID
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 薪级名称
 
 	Status *bool `json:"status,omitempty"` // 是否启用
 
@@ -4582,10 +4582,10 @@ type SalaryLevel struct {
 }
 
 type SalaryLevelBuilder struct {
-	id     string // ID
+	id     string // 薪级ID
 	idFlag bool
 
-	name     *I18n // 名称
+	name     *I18n // 薪级名称
 	nameFlag bool
 
 	status     bool // 是否启用
@@ -4600,7 +4600,7 @@ func NewSalaryLevelBuilder() *SalaryLevelBuilder {
 	return builder
 }
 
-// ID
+// 薪级ID
 //
 // 示例值：7491135696314353196
 func (builder *SalaryLevelBuilder) Id(id string) *SalaryLevelBuilder {
@@ -4609,7 +4609,7 @@ func (builder *SalaryLevelBuilder) Id(id string) *SalaryLevelBuilder {
 	return builder
 }
 
-// 名称
+// 薪级名称
 //
 // 示例值：
 func (builder *SalaryLevelBuilder) Name(name *I18n) *SalaryLevelBuilder {
@@ -4656,9 +4656,9 @@ func (builder *SalaryLevelBuilder) Build() *SalaryLevel {
 }
 
 type SalaryLevelType struct {
-	Id *string `json:"id,omitempty"` // ID
+	Id *string `json:"id,omitempty"` // 薪级类型ID
 
-	Name *I18n `json:"name,omitempty"` // 名称
+	Name *I18n `json:"name,omitempty"` // 薪级类型名称
 
 	Status *bool `json:"status,omitempty"` // 是否启用
 
@@ -4666,10 +4666,10 @@ type SalaryLevelType struct {
 }
 
 type SalaryLevelTypeBuilder struct {
-	id     string // ID
+	id     string // 薪级类型ID
 	idFlag bool
 
-	name     *I18n // 名称
+	name     *I18n // 薪级类型名称
 	nameFlag bool
 
 	status     bool // 是否启用
@@ -4684,7 +4684,7 @@ func NewSalaryLevelTypeBuilder() *SalaryLevelTypeBuilder {
 	return builder
 }
 
-// ID
+// 薪级类型ID
 //
 // 示例值：7491135696314353196
 func (builder *SalaryLevelTypeBuilder) Id(id string) *SalaryLevelTypeBuilder {
@@ -4693,7 +4693,7 @@ func (builder *SalaryLevelTypeBuilder) Id(id string) *SalaryLevelTypeBuilder {
 	return builder
 }
 
-// 名称
+// 薪级类型名称
 //
 // 示例值：
 func (builder *SalaryLevelTypeBuilder) Name(name *I18n) *SalaryLevelTypeBuilder {
@@ -5115,6 +5115,108 @@ func (builder *SocialArchiveDetailBuilder) Build() *SocialArchiveDetail {
 	if builder.effectiveDateFlag {
 		req.EffectiveDate = &builder.effectiveDate
 
+	}
+	return req
+}
+
+type SocialArchiveEventDetail struct {
+	InsuranceType *string `json:"insurance_type,omitempty"` // 社保档案类型。social_insurance社保、provident_fund公积金
+
+	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型。add新增、modify更正、delete删除
+
+	SourceType *string `json:"source_type,omitempty"` // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+
+	AfterSocialArchiveDetail *SocialArchiveDetail `json:"after_social_archive_detail,omitempty"` // 参保档案
+
+	BeforeSocialArchiveDetail *SocialArchiveDetail `json:"before_social_archive_detail,omitempty"` // 参保档案
+}
+
+type SocialArchiveEventDetailBuilder struct {
+	insuranceType     string // 社保档案类型。social_insurance社保、provident_fund公积金
+	insuranceTypeFlag bool
+
+	operateType     string // 档案变更类型。add新增、modify更正、delete删除
+	operateTypeFlag bool
+
+	sourceType     string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+	sourceTypeFlag bool
+
+	afterSocialArchiveDetail     *SocialArchiveDetail // 参保档案
+	afterSocialArchiveDetailFlag bool
+
+	beforeSocialArchiveDetail     *SocialArchiveDetail // 参保档案
+	beforeSocialArchiveDetailFlag bool
+}
+
+func NewSocialArchiveEventDetailBuilder() *SocialArchiveEventDetailBuilder {
+	builder := &SocialArchiveEventDetailBuilder{}
+	return builder
+}
+
+// 社保档案类型。social_insurance社保、provident_fund公积金
+//
+// 示例值：social_insurance
+func (builder *SocialArchiveEventDetailBuilder) InsuranceType(insuranceType string) *SocialArchiveEventDetailBuilder {
+	builder.insuranceType = insuranceType
+	builder.insuranceTypeFlag = true
+	return builder
+}
+
+// 档案变更类型。add新增、modify更正、delete删除
+//
+// 示例值：add
+func (builder *SocialArchiveEventDetailBuilder) OperateType(operateType string) *SocialArchiveEventDetailBuilder {
+	builder.operateType = operateType
+	builder.operateTypeFlag = true
+	return builder
+}
+
+// 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
+//
+// 示例值：new_join
+func (builder *SocialArchiveEventDetailBuilder) SourceType(sourceType string) *SocialArchiveEventDetailBuilder {
+	builder.sourceType = sourceType
+	builder.sourceTypeFlag = true
+	return builder
+}
+
+// 参保档案
+//
+// 示例值：
+func (builder *SocialArchiveEventDetailBuilder) AfterSocialArchiveDetail(afterSocialArchiveDetail *SocialArchiveDetail) *SocialArchiveEventDetailBuilder {
+	builder.afterSocialArchiveDetail = afterSocialArchiveDetail
+	builder.afterSocialArchiveDetailFlag = true
+	return builder
+}
+
+// 参保档案
+//
+// 示例值：
+func (builder *SocialArchiveEventDetailBuilder) BeforeSocialArchiveDetail(beforeSocialArchiveDetail *SocialArchiveDetail) *SocialArchiveEventDetailBuilder {
+	builder.beforeSocialArchiveDetail = beforeSocialArchiveDetail
+	builder.beforeSocialArchiveDetailFlag = true
+	return builder
+}
+
+func (builder *SocialArchiveEventDetailBuilder) Build() *SocialArchiveEventDetail {
+	req := &SocialArchiveEventDetail{}
+	if builder.insuranceTypeFlag {
+		req.InsuranceType = &builder.insuranceType
+
+	}
+	if builder.operateTypeFlag {
+		req.OperateType = &builder.operateType
+
+	}
+	if builder.sourceTypeFlag {
+		req.SourceType = &builder.sourceType
+
+	}
+	if builder.afterSocialArchiveDetailFlag {
+		req.AfterSocialArchiveDetail = builder.afterSocialArchiveDetail
+	}
+	if builder.beforeSocialArchiveDetailFlag {
+		req.BeforeSocialArchiveDetail = builder.beforeSocialArchiveDetail
 	}
 	return req
 }
@@ -5909,11 +6011,11 @@ type Standard struct {
 
 	Name *I18n `json:"name,omitempty"` // 薪资标准表名称
 
-	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
 
 	UpdatedAt *string `json:"updated_at,omitempty"` // 更新时间，毫秒时间戳格式
 
-	CreatedBy *string `json:"created_by,omitempty"` // 创建人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
 
 	CreatedAt *string `json:"created_at,omitempty"` // 创建时间，毫秒时间戳格式
 
@@ -5933,13 +6035,13 @@ type StandardBuilder struct {
 	name     *I18n // 薪资标准表名称
 	nameFlag bool
 
-	updatedBy     string // 更新人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	updatedBy     string // 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
 	updatedByFlag bool
 
 	updatedAt     string // 更新时间，毫秒时间戳格式
 	updatedAtFlag bool
 
-	createdBy     string // 创建人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+	createdBy     string // 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
 	createdByFlag bool
 
 	createdAt     string // 创建时间，毫秒时间戳格式
@@ -5981,7 +6083,7 @@ func (builder *StandardBuilder) Name(name *I18n) *StandardBuilder {
 	return builder
 }
 
-// 更新人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+// 更新人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
 //
 // 示例值：7433328946189796908
 func (builder *StandardBuilder) UpdatedBy(updatedBy string) *StandardBuilder {
@@ -5999,7 +6101,7 @@ func (builder *StandardBuilder) UpdatedAt(updatedAt string) *StandardBuilder {
 	return builder
 }
 
-// 创建人，id类型：people_corehr_id，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
+// 创建人，ID类型由入参user_id_type指定，详细信息可通过[获取单个用户信息](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/contact-v3/user/get)接口查询
 //
 // 示例值：7433328946189796908
 func (builder *StandardBuilder) CreatedBy(createdBy string) *StandardBuilder {
@@ -6144,13 +6246,13 @@ func (builder *StandardDimensionBuilder) Build() *StandardDimension {
 }
 
 type StandardReferenceObject struct {
-	Id *string `json:"id,omitempty"` // ID值，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+	Id *string `json:"id,omitempty"` // 薪资项目ID/薪资统计指标ID，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
 
 	ApiName *string `json:"api_name,omitempty"` // 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
 }
 
 type StandardReferenceObjectBuilder struct {
-	id     string // ID值，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+	id     string // 薪资项目ID/薪资统计指标ID，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
 	idFlag bool
 
 	apiName     string // 资源名，薪资项目："cpst_item"，薪资指标: "cpst_indicator"
@@ -6162,7 +6264,7 @@ func NewStandardReferenceObjectBuilder() *StandardReferenceObjectBuilder {
 	return builder
 }
 
-// ID值，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
+// 薪资项目ID/薪资统计指标ID，详细信息可以通过接口查询[批量查询薪资项](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/item/list)， [批量查询薪资统计指标](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/indicator/list)
 //
 // 示例值：7475986561660372524
 func (builder *StandardReferenceObjectBuilder) Id(id string) *StandardReferenceObjectBuilder {

@@ -5618,6 +5618,72 @@ func (builder *SemesterBuilder) Build() *Semester {
 	return req
 }
 
+type SemesterStage struct {
+	Id *string `json:"id,omitempty"` // 周期环节id
+
+	Name *I18n `json:"name,omitempty"` // 周期环节名称
+
+	Stages []*TemplateStage `json:"stages,omitempty"` // 模板环节列表
+}
+
+type SemesterStageBuilder struct {
+	id     string // 周期环节id
+	idFlag bool
+
+	name     *I18n // 周期环节名称
+	nameFlag bool
+
+	stages     []*TemplateStage // 模板环节列表
+	stagesFlag bool
+}
+
+func NewSemesterStageBuilder() *SemesterStageBuilder {
+	builder := &SemesterStageBuilder{}
+	return builder
+}
+
+// 周期环节id
+//
+// 示例值：7343513161666707459
+func (builder *SemesterStageBuilder) Id(id string) *SemesterStageBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 周期环节名称
+//
+// 示例值：
+func (builder *SemesterStageBuilder) Name(name *I18n) *SemesterStageBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 模板环节列表
+//
+// 示例值：
+func (builder *SemesterStageBuilder) Stages(stages []*TemplateStage) *SemesterStageBuilder {
+	builder.stages = stages
+	builder.stagesFlag = true
+	return builder
+}
+
+func (builder *SemesterStageBuilder) Build() *SemesterStage {
+	req := &SemesterStage{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.stagesFlag {
+		req.Stages = builder.stages
+	}
+	return req
+}
+
 type StageChange struct {
 	StageId *string `json:"stage_id,omitempty"` // 被更新的环节 ID
 
@@ -6005,6 +6071,127 @@ func (builder *TemplateBuilder) Build() *Template {
 	}
 	if builder.reviewStageRoleFlag {
 		req.ReviewStageRole = &builder.reviewStageRole
+
+	}
+	return req
+}
+
+type TemplateStage struct {
+	Id *string `json:"id,omitempty"` // 模板环节ID
+
+	Name *I18n `json:"name,omitempty"` // 环节名称
+
+	TemplateGroupId *string `json:"template_group_id,omitempty"` // 评估模板ID
+
+	StageType *string `json:"stage_type,omitempty"` // 环节类型
+
+	PerformRole *string `json:"perform_role,omitempty"` // 执行角色
+
+	AsFinalResult *bool `json:"as_final_result,omitempty"` // 是否作为终评
+}
+
+type TemplateStageBuilder struct {
+	id     string // 模板环节ID
+	idFlag bool
+
+	name     *I18n // 环节名称
+	nameFlag bool
+
+	templateGroupId     string // 评估模板ID
+	templateGroupIdFlag bool
+
+	stageType     string // 环节类型
+	stageTypeFlag bool
+
+	performRole     string // 执行角色
+	performRoleFlag bool
+
+	asFinalResult     bool // 是否作为终评
+	asFinalResultFlag bool
+}
+
+func NewTemplateStageBuilder() *TemplateStageBuilder {
+	builder := &TemplateStageBuilder{}
+	return builder
+}
+
+// 模板环节ID
+//
+// 示例值：7343513161666707459
+func (builder *TemplateStageBuilder) Id(id string) *TemplateStageBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 环节名称
+//
+// 示例值：
+func (builder *TemplateStageBuilder) Name(name *I18n) *TemplateStageBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 评估模板ID
+//
+// 示例值：7343513161666707459
+func (builder *TemplateStageBuilder) TemplateGroupId(templateGroupId string) *TemplateStageBuilder {
+	builder.templateGroupId = templateGroupId
+	builder.templateGroupIdFlag = true
+	return builder
+}
+
+// 环节类型
+//
+// 示例值：
+func (builder *TemplateStageBuilder) StageType(stageType string) *TemplateStageBuilder {
+	builder.stageType = stageType
+	builder.stageTypeFlag = true
+	return builder
+}
+
+// 执行角色
+//
+// 示例值：
+func (builder *TemplateStageBuilder) PerformRole(performRole string) *TemplateStageBuilder {
+	builder.performRole = performRole
+	builder.performRoleFlag = true
+	return builder
+}
+
+// 是否作为终评
+//
+// 示例值：
+func (builder *TemplateStageBuilder) AsFinalResult(asFinalResult bool) *TemplateStageBuilder {
+	builder.asFinalResult = asFinalResult
+	builder.asFinalResultFlag = true
+	return builder
+}
+
+func (builder *TemplateStageBuilder) Build() *TemplateStage {
+	req := &TemplateStage{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.templateGroupIdFlag {
+		req.TemplateGroupId = &builder.templateGroupId
+
+	}
+	if builder.stageTypeFlag {
+		req.StageType = &builder.stageType
+
+	}
+	if builder.performRoleFlag {
+		req.PerformRole = &builder.performRole
+
+	}
+	if builder.asFinalResultFlag {
+		req.AsFinalResult = &builder.asFinalResult
 
 	}
 	return req

@@ -30368,6 +30368,10 @@ type OfferInfo struct {
 	CostAllocation *CostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
 
 	TalentId *string `json:"talent_id,omitempty"` // 人才ID
+
+	ReuseFeishuAccount *string `json:"reuse_feishu_account,omitempty"` // 是否复用飞书账号
+
+	ReusedFeishuAccountId *string `json:"reused_feishu_account_id,omitempty"` // 复用的飞书账号
 }
 
 type OfferInfoBuilder struct {
@@ -30553,6 +30557,12 @@ type OfferInfoBuilder struct {
 
 	talentId     string // 人才ID
 	talentIdFlag bool
+
+	reuseFeishuAccount     string // 是否复用飞书账号
+	reuseFeishuAccountFlag bool
+
+	reusedFeishuAccountId     string // 复用的飞书账号
+	reusedFeishuAccountIdFlag bool
 }
 
 func NewOfferInfoBuilder() *OfferInfoBuilder {
@@ -31109,6 +31119,24 @@ func (builder *OfferInfoBuilder) TalentId(talentId string) *OfferInfoBuilder {
 	return builder
 }
 
+// 是否复用飞书账号
+//
+// 示例值：reuse
+func (builder *OfferInfoBuilder) ReuseFeishuAccount(reuseFeishuAccount string) *OfferInfoBuilder {
+	builder.reuseFeishuAccount = reuseFeishuAccount
+	builder.reuseFeishuAccountFlag = true
+	return builder
+}
+
+// 复用的飞书账号
+//
+// 示例值：7032210902531327521
+func (builder *OfferInfoBuilder) ReusedFeishuAccountId(reusedFeishuAccountId string) *OfferInfoBuilder {
+	builder.reusedFeishuAccountId = reusedFeishuAccountId
+	builder.reusedFeishuAccountIdFlag = true
+	return builder
+}
+
 func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	req := &OfferInfo{}
 	if builder.offerIdFlag {
@@ -31346,6 +31374,14 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 		req.TalentId = &builder.talentId
 
 	}
+	if builder.reuseFeishuAccountFlag {
+		req.ReuseFeishuAccount = &builder.reuseFeishuAccount
+
+	}
+	if builder.reusedFeishuAccountIdFlag {
+		req.ReusedFeishuAccountId = &builder.reusedFeishuAccountId
+
+	}
 	return req
 }
 
@@ -31465,6 +31501,10 @@ type OfferInfoUpdate struct {
 	DefaultCostCenter *PrehireDefaultCostCenterUpdate `json:"default_cost_center,omitempty"` // 默认成本中心
 
 	CostAllocation *CostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
+
+	ReuseFeishuAccount *string `json:"reuse_feishu_account,omitempty"` // 是否复用飞书账号
+
+	ReusedFeishuAccountId *string `json:"reused_feishu_account_id,omitempty"` // 复用的飞书账号
 }
 
 type OfferInfoUpdateBuilder struct {
@@ -31641,6 +31681,12 @@ type OfferInfoUpdateBuilder struct {
 
 	costAllocation     *CostAllocation // 成本分摊
 	costAllocationFlag bool
+
+	reuseFeishuAccount     string // 是否复用飞书账号
+	reuseFeishuAccountFlag bool
+
+	reusedFeishuAccountId     string // 复用的飞书账号
+	reusedFeishuAccountIdFlag bool
 }
 
 func NewOfferInfoUpdateBuilder() *OfferInfoUpdateBuilder {
@@ -32170,6 +32216,24 @@ func (builder *OfferInfoUpdateBuilder) CostAllocation(costAllocation *CostAlloca
 	return builder
 }
 
+// 是否复用飞书账号
+//
+// 示例值：reuse
+func (builder *OfferInfoUpdateBuilder) ReuseFeishuAccount(reuseFeishuAccount string) *OfferInfoUpdateBuilder {
+	builder.reuseFeishuAccount = reuseFeishuAccount
+	builder.reuseFeishuAccountFlag = true
+	return builder
+}
+
+// 复用的飞书账号
+//
+// 示例值：7032210902531327521
+func (builder *OfferInfoUpdateBuilder) ReusedFeishuAccountId(reusedFeishuAccountId string) *OfferInfoUpdateBuilder {
+	builder.reusedFeishuAccountId = reusedFeishuAccountId
+	builder.reusedFeishuAccountIdFlag = true
+	return builder
+}
+
 func (builder *OfferInfoUpdateBuilder) Build() *OfferInfoUpdate {
 	req := &OfferInfoUpdate{}
 	if builder.onboardingDateFlag {
@@ -32393,6 +32457,14 @@ func (builder *OfferInfoUpdateBuilder) Build() *OfferInfoUpdate {
 	}
 	if builder.costAllocationFlag {
 		req.CostAllocation = builder.costAllocation
+	}
+	if builder.reuseFeishuAccountFlag {
+		req.ReuseFeishuAccount = &builder.reuseFeishuAccount
+
+	}
+	if builder.reusedFeishuAccountIdFlag {
+		req.ReusedFeishuAccountId = &builder.reusedFeishuAccountId
+
 	}
 	return req
 }
@@ -39143,6 +39215,10 @@ type PreHireEmploymentInfo struct {
 	DefaultCostCenter *DefaultCostCenter `json:"default_cost_center,omitempty"` // 默认成本中心
 
 	CostAllocation *CostAllocation `json:"cost_allocation,omitempty"` // 成本分摊
+
+	ReuseFeishuAccount *string `json:"reuse_feishu_account,omitempty"` // 是否复用飞书账号
+
+	ReusedFeishuAccountId *string `json:"reused_feishu_account_id,omitempty"` // 复用的飞书账号
 }
 
 type PreHireEmploymentInfoBuilder struct {
@@ -39343,6 +39419,12 @@ type PreHireEmploymentInfoBuilder struct {
 
 	costAllocation     *CostAllocation // 成本分摊
 	costAllocationFlag bool
+
+	reuseFeishuAccount     string // 是否复用飞书账号
+	reuseFeishuAccountFlag bool
+
+	reusedFeishuAccountId     string // 复用的飞书账号
+	reusedFeishuAccountIdFlag bool
 }
 
 func NewPreHireEmploymentInfoBuilder() *PreHireEmploymentInfoBuilder {
@@ -39944,6 +40026,24 @@ func (builder *PreHireEmploymentInfoBuilder) CostAllocation(costAllocation *Cost
 	return builder
 }
 
+// 是否复用飞书账号
+//
+// 示例值：reuse
+func (builder *PreHireEmploymentInfoBuilder) ReuseFeishuAccount(reuseFeishuAccount string) *PreHireEmploymentInfoBuilder {
+	builder.reuseFeishuAccount = reuseFeishuAccount
+	builder.reuseFeishuAccountFlag = true
+	return builder
+}
+
+// 复用的飞书账号
+//
+// 示例值：6738317738688661772
+func (builder *PreHireEmploymentInfoBuilder) ReusedFeishuAccountId(reusedFeishuAccountId string) *PreHireEmploymentInfoBuilder {
+	builder.reusedFeishuAccountId = reusedFeishuAccountId
+	builder.reusedFeishuAccountIdFlag = true
+	return builder
+}
+
 func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 	req := &PreHireEmploymentInfo{}
 	if builder.departmentIdFlag {
@@ -40194,6 +40294,14 @@ func (builder *PreHireEmploymentInfoBuilder) Build() *PreHireEmploymentInfo {
 	}
 	if builder.costAllocationFlag {
 		req.CostAllocation = builder.costAllocation
+	}
+	if builder.reuseFeishuAccountFlag {
+		req.ReuseFeishuAccount = &builder.reuseFeishuAccount
+
+	}
+	if builder.reusedFeishuAccountIdFlag {
+		req.ReusedFeishuAccountId = &builder.reusedFeishuAccountId
+
 	}
 	return req
 }
@@ -69204,6 +69312,9 @@ func (resp *SearchJobChangeResp) Success() bool {
 type BatchGetJobFamilyReqBodyBuilder struct {
 	jobFamilyIds     []string // 序列 ID 列表
 	jobFamilyIdsFlag bool
+
+	jobFamilyCodes     []string // 序列 Code 列表
+	jobFamilyCodesFlag bool
 }
 
 func NewBatchGetJobFamilyReqBodyBuilder() *BatchGetJobFamilyReqBodyBuilder {
@@ -69220,17 +69331,31 @@ func (builder *BatchGetJobFamilyReqBodyBuilder) JobFamilyIds(jobFamilyIds []stri
 	return builder
 }
 
+// 序列 Code 列表
+//
+//示例值：
+func (builder *BatchGetJobFamilyReqBodyBuilder) JobFamilyCodes(jobFamilyCodes []string) *BatchGetJobFamilyReqBodyBuilder {
+	builder.jobFamilyCodes = jobFamilyCodes
+	builder.jobFamilyCodesFlag = true
+	return builder
+}
+
 func (builder *BatchGetJobFamilyReqBodyBuilder) Build() *BatchGetJobFamilyReqBody {
 	req := &BatchGetJobFamilyReqBody{}
 	if builder.jobFamilyIdsFlag {
 		req.JobFamilyIds = builder.jobFamilyIds
 	}
+	if builder.jobFamilyCodesFlag {
+		req.JobFamilyCodes = builder.jobFamilyCodes
+	}
 	return req
 }
 
 type BatchGetJobFamilyPathReqBodyBuilder struct {
-	jobFamilyIds     []string
-	jobFamilyIdsFlag bool
+	jobFamilyIds       []string
+	jobFamilyIdsFlag   bool
+	jobFamilyCodes     []string
+	jobFamilyCodesFlag bool
 }
 
 func NewBatchGetJobFamilyPathReqBodyBuilder() *BatchGetJobFamilyPathReqBodyBuilder {
@@ -69247,10 +69372,22 @@ func (builder *BatchGetJobFamilyPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []
 	return builder
 }
 
+// 序列 Code 列表
+//
+// 示例值：
+func (builder *BatchGetJobFamilyPathReqBodyBuilder) JobFamilyCodes(jobFamilyCodes []string) *BatchGetJobFamilyPathReqBodyBuilder {
+	builder.jobFamilyCodes = jobFamilyCodes
+	builder.jobFamilyCodesFlag = true
+	return builder
+}
+
 func (builder *BatchGetJobFamilyPathReqBodyBuilder) Build() (*BatchGetJobFamilyReqBody, error) {
 	req := &BatchGetJobFamilyReqBody{}
 	if builder.jobFamilyIdsFlag {
 		req.JobFamilyIds = builder.jobFamilyIds
+	}
+	if builder.jobFamilyCodesFlag {
+		req.JobFamilyCodes = builder.jobFamilyCodes
 	}
 	return req, nil
 }
@@ -69269,7 +69406,7 @@ func NewBatchGetJobFamilyReqBuilder() *BatchGetJobFamilyReqBuilder {
 	return builder
 }
 
-// 通过序列 ID 批量获取序列信息
+// 批量获取序列信息
 func (builder *BatchGetJobFamilyReqBuilder) Body(body *BatchGetJobFamilyReqBody) *BatchGetJobFamilyReqBuilder {
 	builder.body = body
 	return builder
@@ -69284,6 +69421,8 @@ func (builder *BatchGetJobFamilyReqBuilder) Build() *BatchGetJobFamilyReq {
 
 type BatchGetJobFamilyReqBody struct {
 	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列 ID 列表
+
+	JobFamilyCodes []string `json:"job_family_codes,omitempty"` // 序列 Code 列表
 }
 
 type BatchGetJobFamilyReq struct {
@@ -69802,6 +69941,9 @@ func (resp *QueryRecentChangeJobGradeResp) Success() bool {
 type BatchGetJobLevelReqBodyBuilder struct {
 	jobLevelIds     []string // 职级 ID 列表
 	jobLevelIdsFlag bool
+
+	jobLevelCodes     []string // 职级 Code 列表
+	jobLevelCodesFlag bool
 }
 
 func NewBatchGetJobLevelReqBodyBuilder() *BatchGetJobLevelReqBodyBuilder {
@@ -69818,17 +69960,31 @@ func (builder *BatchGetJobLevelReqBodyBuilder) JobLevelIds(jobLevelIds []string)
 	return builder
 }
 
+// 职级 Code 列表
+//
+//示例值：
+func (builder *BatchGetJobLevelReqBodyBuilder) JobLevelCodes(jobLevelCodes []string) *BatchGetJobLevelReqBodyBuilder {
+	builder.jobLevelCodes = jobLevelCodes
+	builder.jobLevelCodesFlag = true
+	return builder
+}
+
 func (builder *BatchGetJobLevelReqBodyBuilder) Build() *BatchGetJobLevelReqBody {
 	req := &BatchGetJobLevelReqBody{}
 	if builder.jobLevelIdsFlag {
 		req.JobLevelIds = builder.jobLevelIds
 	}
+	if builder.jobLevelCodesFlag {
+		req.JobLevelCodes = builder.jobLevelCodes
+	}
 	return req
 }
 
 type BatchGetJobLevelPathReqBodyBuilder struct {
-	jobLevelIds     []string
-	jobLevelIdsFlag bool
+	jobLevelIds       []string
+	jobLevelIdsFlag   bool
+	jobLevelCodes     []string
+	jobLevelCodesFlag bool
 }
 
 func NewBatchGetJobLevelPathReqBodyBuilder() *BatchGetJobLevelPathReqBodyBuilder {
@@ -69845,10 +70001,22 @@ func (builder *BatchGetJobLevelPathReqBodyBuilder) JobLevelIds(jobLevelIds []str
 	return builder
 }
 
+// 职级 Code 列表
+//
+// 示例值：
+func (builder *BatchGetJobLevelPathReqBodyBuilder) JobLevelCodes(jobLevelCodes []string) *BatchGetJobLevelPathReqBodyBuilder {
+	builder.jobLevelCodes = jobLevelCodes
+	builder.jobLevelCodesFlag = true
+	return builder
+}
+
 func (builder *BatchGetJobLevelPathReqBodyBuilder) Build() (*BatchGetJobLevelReqBody, error) {
 	req := &BatchGetJobLevelReqBody{}
 	if builder.jobLevelIdsFlag {
 		req.JobLevelIds = builder.jobLevelIds
+	}
+	if builder.jobLevelCodesFlag {
+		req.JobLevelCodes = builder.jobLevelCodes
 	}
 	return req, nil
 }
@@ -69867,7 +70035,7 @@ func NewBatchGetJobLevelReqBuilder() *BatchGetJobLevelReqBuilder {
 	return builder
 }
 
-// 通过职级 ID 批量获取职级信息
+// 批量获取职级信息
 func (builder *BatchGetJobLevelReqBuilder) Body(body *BatchGetJobLevelReqBody) *BatchGetJobLevelReqBuilder {
 	builder.body = body
 	return builder
@@ -69882,6 +70050,8 @@ func (builder *BatchGetJobLevelReqBuilder) Build() *BatchGetJobLevelReq {
 
 type BatchGetJobLevelReqBody struct {
 	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级 ID 列表
+
+	JobLevelCodes []string `json:"job_level_codes,omitempty"` // 职级 Code 列表
 }
 
 type BatchGetJobLevelReq struct {
