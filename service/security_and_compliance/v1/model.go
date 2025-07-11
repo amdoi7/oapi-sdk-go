@@ -7670,7 +7670,7 @@ type VaultTask struct {
 
 	Files []*VaultExportFile `json:"files,omitempty"` // 导出任务文件列表
 
-	Status *TaskStatus `json:"status,omitempty"` // 导出任务状态信息
+	Status *string `json:"status,omitempty"` // 导出任务状态信息
 }
 
 type VaultTaskBuilder struct {
@@ -7698,7 +7698,7 @@ type VaultTaskBuilder struct {
 	files     []*VaultExportFile // 导出任务文件列表
 	filesFlag bool
 
-	status     *TaskStatus // 导出任务状态信息
+	status     string // 导出任务状态信息
 	statusFlag bool
 }
 
@@ -7709,7 +7709,7 @@ func NewVaultTaskBuilder() *VaultTaskBuilder {
 
 // 任务id
 //
-// 示例值：
+// 示例值：123
 func (builder *VaultTaskBuilder) TaskId(taskId string) *VaultTaskBuilder {
 	builder.taskId = taskId
 	builder.taskIdFlag = true
@@ -7718,7 +7718,7 @@ func (builder *VaultTaskBuilder) TaskId(taskId string) *VaultTaskBuilder {
 
 // 任务名
 //
-// 示例值：
+// 示例值：任务名称
 func (builder *VaultTaskBuilder) Name(name string) *VaultTaskBuilder {
 	builder.name = name
 	builder.nameFlag = true
@@ -7727,7 +7727,7 @@ func (builder *VaultTaskBuilder) Name(name string) *VaultTaskBuilder {
 
 // 任务文件总大小
 //
-// 示例值：
+// 示例值：10
 func (builder *VaultTaskBuilder) Size(size string) *VaultTaskBuilder {
 	builder.size = size
 	builder.sizeFlag = true
@@ -7736,7 +7736,7 @@ func (builder *VaultTaskBuilder) Size(size string) *VaultTaskBuilder {
 
 // 任务有效天数
 //
-// 示例值：
+// 示例值：1
 func (builder *VaultTaskBuilder) ValidDays(validDays int) *VaultTaskBuilder {
 	builder.validDays = validDays
 	builder.validDaysFlag = true
@@ -7745,7 +7745,7 @@ func (builder *VaultTaskBuilder) ValidDays(validDays int) *VaultTaskBuilder {
 
 // 任务创建时间戳
 //
-// 示例值：
+// 示例值：2025
 func (builder *VaultTaskBuilder) CreateTime(createTime string) *VaultTaskBuilder {
 	builder.createTime = createTime
 	builder.createTimeFlag = true
@@ -7754,7 +7754,7 @@ func (builder *VaultTaskBuilder) CreateTime(createTime string) *VaultTaskBuilder
 
 // 文件包解压密码
 //
-// 示例值：
+// 示例值：123
 func (builder *VaultTaskBuilder) ExtractKey(extractKey string) *VaultTaskBuilder {
 	builder.extractKey = extractKey
 	builder.extractKeyFlag = true
@@ -7781,8 +7781,8 @@ func (builder *VaultTaskBuilder) Files(files []*VaultExportFile) *VaultTaskBuild
 
 // 导出任务状态信息
 //
-// 示例值：
-func (builder *VaultTaskBuilder) Status(status *TaskStatus) *VaultTaskBuilder {
+// 示例值：stop
+func (builder *VaultTaskBuilder) Status(status string) *VaultTaskBuilder {
 	builder.status = status
 	builder.statusFlag = true
 	return builder
@@ -7821,7 +7821,8 @@ func (builder *VaultTaskBuilder) Build() *VaultTask {
 		req.Files = builder.files
 	}
 	if builder.statusFlag {
-		req.Status = builder.status
+		req.Status = &builder.status
+
 	}
 	return req
 }

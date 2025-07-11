@@ -13349,6 +13349,91 @@ func (builder *EmergencyContactForUpdateBuilder) Build() *EmergencyContactForUpd
 	return req
 }
 
+type EmpCustomObjectInfo struct {
+	SystemInfo *string `json:"system_info,omitempty"` // 人员档案所在位置
+
+	IsTimeline *bool `json:"is_timeline,omitempty"` // 是否为时间轴对象
+
+	IsActivate *bool `json:"is_activate,omitempty"` // 是否启用 true 启用 false 停用
+
+	EmploymentCustomObjectRecords []*EmploymentCustomObjectRecord `json:"employment_custom_object_records,omitempty"` // 记录列表
+}
+
+type EmpCustomObjectInfoBuilder struct {
+	systemInfo     string // 人员档案所在位置
+	systemInfoFlag bool
+
+	isTimeline     bool // 是否为时间轴对象
+	isTimelineFlag bool
+
+	isActivate     bool // 是否启用 true 启用 false 停用
+	isActivateFlag bool
+
+	employmentCustomObjectRecords     []*EmploymentCustomObjectRecord // 记录列表
+	employmentCustomObjectRecordsFlag bool
+}
+
+func NewEmpCustomObjectInfoBuilder() *EmpCustomObjectInfoBuilder {
+	builder := &EmpCustomObjectInfoBuilder{}
+	return builder
+}
+
+// 人员档案所在位置
+//
+// 示例值：EmploymentInfo
+func (builder *EmpCustomObjectInfoBuilder) SystemInfo(systemInfo string) *EmpCustomObjectInfoBuilder {
+	builder.systemInfo = systemInfo
+	builder.systemInfoFlag = true
+	return builder
+}
+
+// 是否为时间轴对象
+//
+// 示例值：true
+func (builder *EmpCustomObjectInfoBuilder) IsTimeline(isTimeline bool) *EmpCustomObjectInfoBuilder {
+	builder.isTimeline = isTimeline
+	builder.isTimelineFlag = true
+	return builder
+}
+
+// 是否启用 true 启用 false 停用
+//
+// 示例值：true
+func (builder *EmpCustomObjectInfoBuilder) IsActivate(isActivate bool) *EmpCustomObjectInfoBuilder {
+	builder.isActivate = isActivate
+	builder.isActivateFlag = true
+	return builder
+}
+
+// 记录列表
+//
+// 示例值：
+func (builder *EmpCustomObjectInfoBuilder) EmploymentCustomObjectRecords(employmentCustomObjectRecords []*EmploymentCustomObjectRecord) *EmpCustomObjectInfoBuilder {
+	builder.employmentCustomObjectRecords = employmentCustomObjectRecords
+	builder.employmentCustomObjectRecordsFlag = true
+	return builder
+}
+
+func (builder *EmpCustomObjectInfoBuilder) Build() *EmpCustomObjectInfo {
+	req := &EmpCustomObjectInfo{}
+	if builder.systemInfoFlag {
+		req.SystemInfo = &builder.systemInfo
+
+	}
+	if builder.isTimelineFlag {
+		req.IsTimeline = &builder.isTimeline
+
+	}
+	if builder.isActivateFlag {
+		req.IsActivate = &builder.isActivate
+
+	}
+	if builder.employmentCustomObjectRecordsFlag {
+		req.EmploymentCustomObjectRecords = builder.employmentCustomObjectRecords
+	}
+	return req
+}
+
 type EmpCustomOrgList struct {
 	CustomOrgList []*CustomOrgList `json:"custom_org_list,omitempty"` // 自定义组织列表
 
@@ -20019,6 +20104,56 @@ func (builder *EmploymentCostAllocationBuilder) Build() *EmploymentCostAllocatio
 	return req
 }
 
+type EmploymentCustomObjectRecord struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 用户ID
+
+	RecordList *string `json:"record_list,omitempty"` // 记录列表
+}
+
+type EmploymentCustomObjectRecordBuilder struct {
+	employmentId     string // 用户ID
+	employmentIdFlag bool
+
+	recordList     string // 记录列表
+	recordListFlag bool
+}
+
+func NewEmploymentCustomObjectRecordBuilder() *EmploymentCustomObjectRecordBuilder {
+	builder := &EmploymentCustomObjectRecordBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：7185135991475144236
+func (builder *EmploymentCustomObjectRecordBuilder) EmploymentId(employmentId string) *EmploymentCustomObjectRecordBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 记录列表
+//
+// 示例值：json 序列化后的返回值
+func (builder *EmploymentCustomObjectRecordBuilder) RecordList(recordList string) *EmploymentCustomObjectRecordBuilder {
+	builder.recordList = recordList
+	builder.recordListFlag = true
+	return builder
+}
+
+func (builder *EmploymentCustomObjectRecordBuilder) Build() *EmploymentCustomObjectRecord {
+	req := &EmploymentCustomObjectRecord{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.recordListFlag {
+		req.RecordList = &builder.recordList
+
+	}
+	return req
+}
+
 type EmploymentDefaultCostCenter struct {
 	WkId *string `json:"wk_id,omitempty"` // id
 
@@ -23245,6 +23380,14 @@ type Job struct {
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 失效时间
 
 	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人
+
+	CreatedTime *string `json:"created_time,omitempty"` // 创建时间
+
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人
+
+	UpdatedTime *string `json:"updated_time,omitempty"` // 更新时间
 }
 
 type JobBuilder struct {
@@ -23286,6 +23429,18 @@ type JobBuilder struct {
 
 	customFields     []*ObjectFieldData // 自定义字段
 	customFieldsFlag bool
+
+	createdBy     string // 创建人
+	createdByFlag bool
+
+	createdTime     string // 创建时间
+	createdTimeFlag bool
+
+	updatedBy     string // 更新人
+	updatedByFlag bool
+
+	updatedTime     string // 更新时间
+	updatedTimeFlag bool
 }
 
 func NewJobBuilder() *JobBuilder {
@@ -23410,6 +23565,42 @@ func (builder *JobBuilder) CustomFields(customFields []*ObjectFieldData) *JobBui
 	return builder
 }
 
+// 创建人
+//
+// 示例值：4719519211875096301
+func (builder *JobBuilder) CreatedBy(createdBy string) *JobBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：2021-01-01 00:00:00
+func (builder *JobBuilder) CreatedTime(createdTime string) *JobBuilder {
+	builder.createdTime = createdTime
+	builder.createdTimeFlag = true
+	return builder
+}
+
+// 更新人
+//
+// 示例值：2415132452875096301
+func (builder *JobBuilder) UpdatedBy(updatedBy string) *JobBuilder {
+	builder.updatedBy = updatedBy
+	builder.updatedByFlag = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：2021-01-01 00:00:00
+func (builder *JobBuilder) UpdatedTime(updatedTime string) *JobBuilder {
+	builder.updatedTime = updatedTime
+	builder.updatedTimeFlag = true
+	return builder
+}
+
 func (builder *JobBuilder) Build() *Job {
 	req := &Job{}
 	if builder.idFlag {
@@ -23457,6 +23648,22 @@ func (builder *JobBuilder) Build() *Job {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.createdTimeFlag {
+		req.CreatedTime = &builder.createdTime
+
+	}
+	if builder.updatedByFlag {
+		req.UpdatedBy = &builder.updatedBy
+
+	}
+	if builder.updatedTimeFlag {
+		req.UpdatedTime = &builder.updatedTime
+
 	}
 	return req
 }
@@ -30249,6 +30456,8 @@ func (builder *ObjectFieldDataBuilder) Build() *ObjectFieldData {
 type OfferInfo struct {
 	OfferId *string `json:"offer_id,omitempty"` // Offer id
 
+	Offer *string `json:"offer,omitempty"` // Offer id查找类型ID
+
 	OfferHrId *string `json:"offer_hr_id,omitempty"` // Offer hr id
 
 	DepartmentId *string `json:"department_id,omitempty"` // 部门 id
@@ -30377,6 +30586,9 @@ type OfferInfo struct {
 type OfferInfoBuilder struct {
 	offerId     string // Offer id
 	offerIdFlag bool
+
+	offer     string // Offer id查找类型ID
+	offerFlag bool
 
 	offerHrId     string // Offer hr id
 	offerHrIdFlag bool
@@ -30576,6 +30788,15 @@ func NewOfferInfoBuilder() *OfferInfoBuilder {
 func (builder *OfferInfoBuilder) OfferId(offerId string) *OfferInfoBuilder {
 	builder.offerId = offerId
 	builder.offerIdFlag = true
+	return builder
+}
+
+// Offer id查找类型ID
+//
+// 示例值：7032210902531327521
+func (builder *OfferInfoBuilder) Offer(offer string) *OfferInfoBuilder {
+	builder.offer = offer
+	builder.offerFlag = true
 	return builder
 }
 
@@ -31141,6 +31362,10 @@ func (builder *OfferInfoBuilder) Build() *OfferInfo {
 	req := &OfferInfo{}
 	if builder.offerIdFlag {
 		req.OfferId = &builder.offerId
+
+	}
+	if builder.offerFlag {
+		req.Offer = &builder.offer
 
 	}
 	if builder.offerHrIdFlag {
@@ -40732,6 +40957,8 @@ type PrehireCreate struct {
 
 	AtsApplicationId *string `json:"ats_application_id,omitempty"` // 招聘应用ID
 
+	Application *string `json:"application,omitempty"` // 查找类型招聘应用ID
+
 	OutBizId *string `json:"out_biz_id,omitempty"` // 外部业务唯一编码
 }
 
@@ -40750,6 +40977,9 @@ type PrehireCreateBuilder struct {
 
 	atsApplicationId     string // 招聘应用ID
 	atsApplicationIdFlag bool
+
+	application     string // 查找类型招聘应用ID
+	applicationFlag bool
 
 	outBizId     string // 外部业务唯一编码
 	outBizIdFlag bool
@@ -40805,6 +41035,15 @@ func (builder *PrehireCreateBuilder) AtsApplicationId(atsApplicationId string) *
 	return builder
 }
 
+// 查找类型招聘应用ID
+//
+// 示例值：7140946969586010376
+func (builder *PrehireCreateBuilder) Application(application string) *PrehireCreateBuilder {
+	builder.application = application
+	builder.applicationFlag = true
+	return builder
+}
+
 // 外部业务唯一编码
 //
 // 示例值：7140946969586010376
@@ -40830,6 +41069,10 @@ func (builder *PrehireCreateBuilder) Build() *PrehireCreate {
 	}
 	if builder.atsApplicationIdFlag {
 		req.AtsApplicationId = &builder.atsApplicationId
+
+	}
+	if builder.applicationFlag {
+		req.Application = &builder.application
 
 	}
 	if builder.outBizIdFlag {
