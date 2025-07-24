@@ -31,6 +31,13 @@ const (
 
 )
 
+const (
+	ReportTypeListCostAllocationReportDefault = 0 // 默认
+	ReportTypeListCostAllocationReportAccrued = 1 // 计提
+	ReportTypeListCostAllocationReportPaid    = 2 // 实发
+
+)
+
 type AccountingItemValue struct {
 	OriginalValue *string `json:"original_value,omitempty"` // 算薪项数据原始值，当发薪明细的数据来源为「人工导入」时，如果当前算薪项类型为引用类型，那么算薪项原始值可能为空。
 
@@ -7152,6 +7159,92 @@ type ListAcctItemResp struct {
 }
 
 func (resp *ListAcctItemResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListCostAllocationDetailReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListCostAllocationDetailReqBuilder() *ListCostAllocationDetailReqBuilder {
+	builder := &ListCostAllocationDetailReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：50
+func (builder *ListCostAllocationDetailReqBuilder) PageSize(pageSize int) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记,第一次请求不填,表示从头开始遍 历;分页查询结果还有更多项时会同时返回新 的page_token,下次遍历可采用该 page_token获取查询结果
+//
+// 示例值：
+func (builder *ListCostAllocationDetailReqBuilder) PageToken(pageToken string) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 成本分摊方案ID
+//
+// 示例值：72131231231231231
+func (builder *ListCostAllocationDetailReqBuilder) CostAllocationPlanId(costAllocationPlanId string) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("cost_allocation_plan_id", fmt.Sprint(costAllocationPlanId))
+	return builder
+}
+
+// 期间
+//
+// 示例值：2024-06
+func (builder *ListCostAllocationDetailReqBuilder) PayPeriod(payPeriod string) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("pay_period", fmt.Sprint(payPeriod))
+	return builder
+}
+
+// 报表类型
+//
+// 示例值：0
+func (builder *ListCostAllocationDetailReqBuilder) ReportType(reportType int) *ListCostAllocationDetailReqBuilder {
+	builder.apiReq.QueryParams.Set("report_type", fmt.Sprint(reportType))
+	return builder
+}
+
+func (builder *ListCostAllocationDetailReqBuilder) Build() *ListCostAllocationDetailReq {
+	req := &ListCostAllocationDetailReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListCostAllocationDetailReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListCostAllocationDetailRespData struct {
+	CostAllocationReportDatas []*CostAllocationReportData `json:"cost_allocation_report_datas,omitempty"` // 报表明细数据
+
+	CostAllocationReportNames []*I18nContent `json:"cost_allocation_report_names,omitempty"` // 报表名称
+
+	PayPeriod *string `json:"pay_period,omitempty"` // 期间
+
+	PageToken *string `json:"page_token,omitempty"` //
+
+	HasMore *bool `json:"has_more,omitempty"` //
+}
+
+type ListCostAllocationDetailResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListCostAllocationDetailRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListCostAllocationDetailResp) Success() bool {
 	return resp.Code == 0
 }
 

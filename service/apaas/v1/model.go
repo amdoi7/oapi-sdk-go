@@ -9153,6 +9153,74 @@ func (builder *WorkflowInstanceLogBuilder) Build() *WorkflowInstanceLog {
 	return req
 }
 
+type ListAppReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListAppReqBuilder() *ListAppReqBuilder {
+	builder := &ListAppReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListAppReqBuilder) Limit(limit int) *ListAppReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小，必填，范围：【0，500】
+//
+// 示例值：10
+func (builder *ListAppReqBuilder) PageSize(pageSize string) *ListAppReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：eVQrYzJBNDNONlk4VFZBZVlSdzlKdFJ4bVVHVExENDNKVHoxaVdiVnViQT0
+func (builder *ListAppReqBuilder) PageToken(pageToken string) *ListAppReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListAppReqBuilder) Build() *ListAppReq {
+	req := &ListAppReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListAppReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListAppRespData struct {
+	Items []*App `json:"items,omitempty"` // 应用基本信息列表
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+}
+
+type ListAppResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListAppRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListAppResp) Success() bool {
+	return resp.Code == 0
+}
+
 type AuditLogListApplicationAuditLogReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -14422,6 +14490,60 @@ type RollbackPointsUserTaskResp struct {
 
 func (resp *RollbackPointsUserTaskResp) Success() bool {
 	return resp.Code == 0
+}
+
+type ListAppIterator struct {
+	nextPageToken *string
+	items         []*App
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListAppReq
+	listFunc      func(ctx context.Context, req *ListAppReq, options ...larkcore.RequestOptionFunc) (*ListAppResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListAppIterator) Next() (bool, *App, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListAppIterator) NextPageToken() *string {
+	return iterator.nextPageToken
 }
 
 type ListSeatActivityIterator struct {

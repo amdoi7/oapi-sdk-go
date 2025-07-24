@@ -23,6 +23,195 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
+type AuthInfo struct {
+	SessionKey *string `json:"session_key,omitempty"` // $ session key
+
+	UserId *string `json:"user_id,omitempty"` // $ feishu id for internal app.
+
+	OpenAppId *string `json:"open_app_id,omitempty"` // $ app id of open platform.
+
+	Region *string `json:"region,omitempty"` // $ user account region. cn for china; va for oversea
+
+	OpenBotId *string `json:"open_bot_id,omitempty"` // $ open bot id
+
+	BotId *string `json:"bot_id,omitempty"` // $ bot id
+
+	AuthType *string `json:"auth_type,omitempty"` // $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+
+	Extra map[string]string `json:"extra,omitempty"` //
+}
+
+type AuthInfoBuilder struct {
+	sessionKey     string // $ session key
+	sessionKeyFlag bool
+
+	userId     string // $ feishu id for internal app.
+	userIdFlag bool
+
+	openAppId     string // $ app id of open platform.
+	openAppIdFlag bool
+
+	region     string // $ user account region. cn for china; va for oversea
+	regionFlag bool
+
+	openBotId     string // $ open bot id
+	openBotIdFlag bool
+
+	botId     string // $ bot id
+	botIdFlag bool
+
+	authType     string // $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+	authTypeFlag bool
+
+	extra     map[string]string //
+	extraFlag bool
+}
+
+func NewAuthInfoBuilder() *AuthInfoBuilder {
+	builder := &AuthInfoBuilder{}
+	return builder
+}
+
+// $ session key
+//
+// 示例值：
+func (builder *AuthInfoBuilder) SessionKey(sessionKey string) *AuthInfoBuilder {
+	builder.sessionKey = sessionKey
+	builder.sessionKeyFlag = true
+	return builder
+}
+
+// $ feishu id for internal app.
+//
+// 示例值：
+func (builder *AuthInfoBuilder) UserId(userId string) *AuthInfoBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// $ app id of open platform.
+//
+// 示例值：
+func (builder *AuthInfoBuilder) OpenAppId(openAppId string) *AuthInfoBuilder {
+	builder.openAppId = openAppId
+	builder.openAppIdFlag = true
+	return builder
+}
+
+// $ user account region. cn for china; va for oversea
+//
+// 示例值：
+func (builder *AuthInfoBuilder) Region(region string) *AuthInfoBuilder {
+	builder.region = region
+	builder.regionFlag = true
+	return builder
+}
+
+// $ open bot id
+//
+// 示例值：
+func (builder *AuthInfoBuilder) OpenBotId(openBotId string) *AuthInfoBuilder {
+	builder.openBotId = openBotId
+	builder.openBotIdFlag = true
+	return builder
+}
+
+// $ bot id
+//
+// 示例值：
+func (builder *AuthInfoBuilder) BotId(botId string) *AuthInfoBuilder {
+	builder.botId = botId
+	builder.botIdFlag = true
+	return builder
+}
+
+// $ 鉴权类型: LarkSession, TenantAccessToken, UserAccessToken, OpenSession等
+//
+// 示例值：
+func (builder *AuthInfoBuilder) AuthType(authType string) *AuthInfoBuilder {
+	builder.authType = authType
+	builder.authTypeFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *AuthInfoBuilder) Extra(extra map[string]string) *AuthInfoBuilder {
+	builder.extra = extra
+	builder.extraFlag = true
+	return builder
+}
+
+func (builder *AuthInfoBuilder) Build() *AuthInfo {
+	req := &AuthInfo{}
+	if builder.sessionKeyFlag {
+		req.SessionKey = &builder.sessionKey
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.openAppIdFlag {
+		req.OpenAppId = &builder.openAppId
+
+	}
+	if builder.regionFlag {
+		req.Region = &builder.region
+
+	}
+	if builder.openBotIdFlag {
+		req.OpenBotId = &builder.openBotId
+
+	}
+	if builder.botIdFlag {
+		req.BotId = &builder.botId
+
+	}
+	if builder.authTypeFlag {
+		req.AuthType = &builder.authType
+
+	}
+	if builder.extraFlag {
+		req.Extra = builder.extra
+	}
+	return req
+}
+
+type ClientInfo struct {
+	ClientIp *string `json:"client_ip,omitempty"` // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+}
+
+type ClientInfoBuilder struct {
+	clientIp     string // 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+	clientIpFlag bool
+}
+
+func NewClientInfoBuilder() *ClientInfoBuilder {
+	builder := &ClientInfoBuilder{}
+	return builder
+}
+
+// 1: optional string Platform (gw.ctx="mw_platform"); //$ depracated 请求的平台\n2: optional string LarkVersion (gw.ctx="mw_lark_version"); //$ depracated 如果是来自Feisu, 这里是飞书的Version\n3: optional AppForm AppForm (gw.ctx="mw_app_form");   //$ depracated 应用形态 1-小程序\n4: optional string AppVersion (gw.ctx="mw_app_version"); //$ depracated 应用版本\n5: optional string OS (gw.ctx="mw_os"); //$ depracated 操作系统\n$ 客户端IP
+//
+// 示例值：
+func (builder *ClientInfoBuilder) ClientIp(clientIp string) *ClientInfoBuilder {
+	builder.clientIp = clientIp
+	builder.clientIpFlag = true
+	return builder
+}
+
+func (builder *ClientInfoBuilder) Build() *ClientInfo {
+	req := &ClientInfo{}
+	if builder.clientIpFlag {
+		req.ClientIp = &builder.clientIp
+
+	}
+	return req
+}
+
 type CompositeShape struct {
 	Type *string `json:"type,omitempty"` // 基础图形的具体类型
 }
@@ -229,6 +418,215 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	if builder.openDepartmentIdFlag {
 		req.OpenDepartmentId = &builder.openDepartmentId
 
+	}
+	return req
+}
+
+type Head struct {
+	Id *string `json:"id,omitempty"` // 请求方的id deprecated
+
+	TenantId *string `json:"tenant_id,omitempty"` // 请求方的组织，在多租户业务中使用
+
+	AppId *string `json:"app_id,omitempty"` // 请求方的appid
+
+	OpenId *string `json:"open_id,omitempty"` // 开放平台的OpenID
+
+	TenantKey *string `json:"tenant_key,omitempty"` // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+
+	Auth *AuthInfo `json:"auth,omitempty"` // thrift --gen go idl/common.thrift
+
+	Fields map[string]string `json:"fields,omitempty"` // $ plugin output
+
+	Env *string `json:"env,omitempty"` // Header的环境
+
+	Resource *string `json:"resource,omitempty"` // 资源
+
+	Locale *string `json:"locale,omitempty"` // 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+
+	Client *ClientInfo `json:"client,omitempty"` // $ 客户端信息
+}
+
+type HeadBuilder struct {
+	id     string // 请求方的id deprecated
+	idFlag bool
+
+	tenantId     string // 请求方的组织，在多租户业务中使用
+	tenantIdFlag bool
+
+	appId     string // 请求方的appid
+	appIdFlag bool
+
+	openId     string // 开放平台的OpenID
+	openIdFlag bool
+
+	tenantKey     string // 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+	tenantKeyFlag bool
+
+	auth     *AuthInfo // thrift --gen go idl/common.thrift
+	authFlag bool
+
+	fields     map[string]string // $ plugin output
+	fieldsFlag bool
+
+	env     string // Header的环境
+	envFlag bool
+
+	resource     string // 资源
+	resourceFlag bool
+
+	locale     string // 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+	localeFlag bool
+
+	client     *ClientInfo // $ 客户端信息
+	clientFlag bool
+}
+
+func NewHeadBuilder() *HeadBuilder {
+	builder := &HeadBuilder{}
+	return builder
+}
+
+// 请求方的id deprecated
+//
+// 示例值：
+func (builder *HeadBuilder) Id(id string) *HeadBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 请求方的组织，在多租户业务中使用
+//
+// 示例值：
+func (builder *HeadBuilder) TenantId(tenantId string) *HeadBuilder {
+	builder.tenantId = tenantId
+	builder.tenantIdFlag = true
+	return builder
+}
+
+// 请求方的appid
+//
+// 示例值：
+func (builder *HeadBuilder) AppId(appId string) *HeadBuilder {
+	builder.appId = appId
+	builder.appIdFlag = true
+	return builder
+}
+
+// 开放平台的OpenID
+//
+// 示例值：
+func (builder *HeadBuilder) OpenId(openId string) *HeadBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+
+// 如果小程序登录，这个是原始的信息，和OpenID是一个意思
+//
+// 示例值：
+func (builder *HeadBuilder) TenantKey(tenantKey string) *HeadBuilder {
+	builder.tenantKey = tenantKey
+	builder.tenantKeyFlag = true
+	return builder
+}
+
+// thrift --gen go idl/common.thrift
+//
+// 示例值：
+func (builder *HeadBuilder) Auth(auth *AuthInfo) *HeadBuilder {
+	builder.auth = auth
+	builder.authFlag = true
+	return builder
+}
+
+// $ plugin output
+//
+// 示例值：
+func (builder *HeadBuilder) Fields(fields map[string]string) *HeadBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+// Header的环境
+//
+// 示例值：
+func (builder *HeadBuilder) Env(env string) *HeadBuilder {
+	builder.env = env
+	builder.envFlag = true
+	return builder
+}
+
+// 资源
+//
+// 示例值：
+func (builder *HeadBuilder) Resource(resource string) *HeadBuilder {
+	builder.resource = resource
+	builder.resourceFlag = true
+	return builder
+}
+
+// 200: optional HttpHeader HttpHeader (api.json="HttpHeader"), //$ 从HttpHeader透传的HttpHeader\n$ 所在区域，参考:https://zh.wikipedia.org/wiki/%E5%8C%BA%E5%9F%9F%E8%AE%BE%E7%BD%AE的简称
+//
+// 示例值：
+func (builder *HeadBuilder) Locale(locale string) *HeadBuilder {
+	builder.locale = locale
+	builder.localeFlag = true
+	return builder
+}
+
+// $ 客户端信息
+//
+// 示例值：
+func (builder *HeadBuilder) Client(client *ClientInfo) *HeadBuilder {
+	builder.client = client
+	builder.clientFlag = true
+	return builder
+}
+
+func (builder *HeadBuilder) Build() *Head {
+	req := &Head{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.tenantIdFlag {
+		req.TenantId = &builder.tenantId
+
+	}
+	if builder.appIdFlag {
+		req.AppId = &builder.appId
+
+	}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.tenantKeyFlag {
+		req.TenantKey = &builder.tenantKey
+
+	}
+	if builder.authFlag {
+		req.Auth = builder.auth
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	if builder.envFlag {
+		req.Env = &builder.env
+
+	}
+	if builder.resourceFlag {
+		req.Resource = &builder.resource
+
+	}
+	if builder.localeFlag {
+		req.Locale = &builder.locale
+
+	}
+	if builder.clientFlag {
+		req.Client = builder.client
 	}
 	return req
 }

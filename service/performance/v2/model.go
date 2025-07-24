@@ -700,6 +700,37 @@ func (builder *CustomMetricConfigBuilder) Build() *CustomMetricConfig {
 	return req
 }
 
+type DefaultInvitation struct {
+	Invitations []*Invitation `json:"invitations,omitempty"` // 邀请关系列表
+}
+
+type DefaultInvitationBuilder struct {
+	invitations     []*Invitation // 邀请关系列表
+	invitationsFlag bool
+}
+
+func NewDefaultInvitationBuilder() *DefaultInvitationBuilder {
+	builder := &DefaultInvitationBuilder{}
+	return builder
+}
+
+// 邀请关系列表
+//
+// 示例值：
+func (builder *DefaultInvitationBuilder) Invitations(invitations []*Invitation) *DefaultInvitationBuilder {
+	builder.invitations = invitations
+	builder.invitationsFlag = true
+	return builder
+}
+
+func (builder *DefaultInvitationBuilder) Build() *DefaultInvitation {
+	req := &DefaultInvitation{}
+	if builder.invitationsFlag {
+		req.Invitations = builder.invitations
+	}
+	return req
+}
+
 type Department struct {
 	Id *string `json:"id,omitempty"` // 部门 ID，与入参中的department_id_type类型一致，详情请查看：获取单个部门信息
 
@@ -1484,6 +1515,154 @@ func (builder *IndicatorOptionBuilder) Build() *IndicatorOption {
 	}
 	if builder.lableFlag {
 		req.Lable = &builder.lable
+
+	}
+	return req
+}
+
+type Invitation struct {
+	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人ID
+
+	Reviewers []*InvitationReviewer `json:"reviewers,omitempty"` // 评估人列表
+}
+
+type InvitationBuilder struct {
+	revieweeUserId     string // 被评估人ID
+	revieweeUserIdFlag bool
+
+	reviewers     []*InvitationReviewer // 评估人列表
+	reviewersFlag bool
+}
+
+func NewInvitationBuilder() *InvitationBuilder {
+	builder := &InvitationBuilder{}
+	return builder
+}
+
+// 被评估人ID
+//
+// 示例值：ou_3245842393d09e9428ad4655da6e30b2
+func (builder *InvitationBuilder) RevieweeUserId(revieweeUserId string) *InvitationBuilder {
+	builder.revieweeUserId = revieweeUserId
+	builder.revieweeUserIdFlag = true
+	return builder
+}
+
+// 评估人列表
+//
+// 示例值：
+func (builder *InvitationBuilder) Reviewers(reviewers []*InvitationReviewer) *InvitationBuilder {
+	builder.reviewers = reviewers
+	builder.reviewersFlag = true
+	return builder
+}
+
+func (builder *InvitationBuilder) Build() *Invitation {
+	req := &Invitation{}
+	if builder.revieweeUserIdFlag {
+		req.RevieweeUserId = &builder.revieweeUserId
+
+	}
+	if builder.reviewersFlag {
+		req.Reviewers = builder.reviewers
+	}
+	return req
+}
+
+type InvitationRelation struct {
+	RevieweeUserId *string `json:"reviewee_user_id,omitempty"` // 被评估人ID
+
+	ReviewerUserIds []string `json:"reviewer_user_ids,omitempty"` // 评估人ID列表
+}
+
+type InvitationRelationBuilder struct {
+	revieweeUserId     string // 被评估人ID
+	revieweeUserIdFlag bool
+
+	reviewerUserIds     []string // 评估人ID列表
+	reviewerUserIdsFlag bool
+}
+
+func NewInvitationRelationBuilder() *InvitationRelationBuilder {
+	builder := &InvitationRelationBuilder{}
+	return builder
+}
+
+// 被评估人ID
+//
+// 示例值：ou_3245842393d09e9428ad4655da6e30b3
+func (builder *InvitationRelationBuilder) RevieweeUserId(revieweeUserId string) *InvitationRelationBuilder {
+	builder.revieweeUserId = revieweeUserId
+	builder.revieweeUserIdFlag = true
+	return builder
+}
+
+// 评估人ID列表
+//
+// 示例值：
+func (builder *InvitationRelationBuilder) ReviewerUserIds(reviewerUserIds []string) *InvitationRelationBuilder {
+	builder.reviewerUserIds = reviewerUserIds
+	builder.reviewerUserIdsFlag = true
+	return builder
+}
+
+func (builder *InvitationRelationBuilder) Build() *InvitationRelation {
+	req := &InvitationRelation{}
+	if builder.revieweeUserIdFlag {
+		req.RevieweeUserId = &builder.revieweeUserId
+
+	}
+	if builder.reviewerUserIdsFlag {
+		req.ReviewerUserIds = builder.reviewerUserIds
+	}
+	return req
+}
+
+type InvitationReviewer struct {
+	ReviewerUserId *string `json:"reviewer_user_id,omitempty"` // 评估人ID
+
+	Source *string `json:"source,omitempty"` // 来源
+}
+
+type InvitationReviewerBuilder struct {
+	reviewerUserId     string // 评估人ID
+	reviewerUserIdFlag bool
+
+	source     string // 来源
+	sourceFlag bool
+}
+
+func NewInvitationReviewerBuilder() *InvitationReviewerBuilder {
+	builder := &InvitationReviewerBuilder{}
+	return builder
+}
+
+// 评估人ID
+//
+// 示例值：ou_3245842393d09e9428ad4655da6e30b3
+func (builder *InvitationReviewerBuilder) ReviewerUserId(reviewerUserId string) *InvitationReviewerBuilder {
+	builder.reviewerUserId = reviewerUserId
+	builder.reviewerUserIdFlag = true
+	return builder
+}
+
+// 来源
+//
+// 示例值：openapi
+func (builder *InvitationReviewerBuilder) Source(source string) *InvitationReviewerBuilder {
+	builder.source = source
+	builder.sourceFlag = true
+	return builder
+}
+
+func (builder *InvitationReviewerBuilder) Build() *InvitationReviewer {
+	req := &InvitationReviewer{}
+	if builder.reviewerUserIdFlag {
+		req.ReviewerUserId = &builder.reviewerUserId
+
+	}
+	if builder.sourceFlag {
+		req.Source = &builder.source
 
 	}
 	return req

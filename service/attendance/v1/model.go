@@ -29,46 +29,46 @@ import (
 )
 
 const (
-	EmployeeTypeEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeEmployeeNo = "employee_no" // 员工工号
+	CreateGroupEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateGroupEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	DeptTypeOpenId = "open_id" // 开放openID
+	CreateGroupDeptTypeOpenId = "open_id" // 开放openID
 )
 
 const (
-	EmployeeTypeGetGroupEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeGetGroupEmployeeNo = "employee_no" // 员工工号
+	GetGroupEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetGroupEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	DeptTypeGetGroupOpenId = "open_id" // 开放openID
+	GetGroupDeptTypeOpenId = "open_id" // 开放openID
 )
 
 const (
-	UserIdTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
-	UserIdTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-	UserIdTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
-	UserIdTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	PatchLeaveAccrualRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 )
 
 const (
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的ID来识别用户
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
-	UserIdTypeGetLeaveEmployExpireRecordLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypeOpenID         = "open_id"          // 标识一个用户在某个应用中的身份。同一个用户在不同应用中的 Open ID 不同。
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypePeopleCorehrID = "people_corehr_id" // 以飞书人事的ID来识别用户
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUnionID        = "union_id"         // 标识一个用户在某个应用开发商下的身份。同一用户在同一开发商下的应用中的 Union ID 是相同的，在不同开发商下的应用中的 Union ID 是不同的。通过 Union ID，应用开发商可以把同个用户在多个应用中的身份关联起来。
+	GetLeaveEmployExpireRecordUserIDTypeLeaveBalancesLeaveUserIDTypeUserID         = "user_id"          // 标识一个用户在某个租户内的身份。同一个用户在租户 A 和租户 B 内的 User ID 是不同的。在同一个租户内，一个用户的 User ID 在所有应用（包括商店应用）中都保持一致。User ID 主要用于在不同的应用间打通用户数据。
 )
 
 const (
-	EmployeeTypeCreateShiftEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeCreateShiftEmployeeNo = "employee_no" // 员工工号
+	CreateShiftEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateShiftEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeCreateUserApprovalEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeCreateUserApprovalEmployeeNo = "employee_no" // 员工工号
-	EmployeeTypeCreateUserApprovalOpenId     = "open_id"     // 用户在某个应用中的身份
+	CreateApprovalEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateApprovalEmployeeTypeEmployeeNo = "employee_no" // 员工工号
+	CreateApprovalEmployeeTypeOpenId     = "open_id"     // 用户在某个应用中的身份
 )
 
 const (
@@ -87,112 +87,112 @@ const (
 )
 
 const (
-	EmployeeTypeQueryUserApprovalEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserApprovalEmployeeNo = "employee_no" // 员工工号
-	EmployeeTypeQueryUserApprovalOpenId     = "open_id"     // 用户在某个应用中的身份
+	GetApprovedInfoEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetApprovedInfoEmployeeTypeEmployeeNo = "employee_no" // 员工工号
+	GetApprovedInfoEmployeeTypeOpenId     = "open_id"     // 用户在某个应用中的身份
 )
 
 const (
-	EmployeeTypeBatchCreateUserDailyShiftEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeBatchCreateUserDailyShiftEmployeeNo = "employee_no" // 员工工号
+	SaveGroupScheduleShiftEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	SaveGroupScheduleShiftEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeBatchCreateTempUserDailyShiftEmployeeID = "employee_id" // employee_id
-	EmployeeTypeBatchCreateTempUserDailyShiftEmployeeNo = "employee_no" // employee_no
+	BatchCreateTempUserDailyShiftEmployeeTypeEmployeeID = "employee_id" // employee_id
+	BatchCreateTempUserDailyShiftEmployeeTypeEmployeeNo = "employee_no" // employee_no
 )
 
 const (
-	EmployeeTypeQueryUserDailyShiftEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserDailyShiftEmployeeNo = "employee_no" // 员工工号
+	QueryUserScheduleShiftsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserScheduleShiftsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeBatchCreateUserFlowEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeBatchCreateUserFlowEmployeeNo = "employee_no" // 员工工号
+	ImportUserClockInFlowsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	ImportUserClockInFlowsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeGetUserFlowEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeGetUserFlowEmployeeNo = "employee_no" // 员工工号
+	GetUserClockInFlowDetailEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserClockInFlowDetailEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserFlowEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserFlowEmployeeNo = "employee_no" // 员工工号
+	GetUserClockInFlowsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserClockInFlowsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeModifyUserSettingEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeModifyUserSettingEmployeeNo = "employee_no" // 员工工号
+	ModifyUserSettingEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	ModifyUserSettingEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserSettingEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserSettingEmployeeNo = "employee_no" // 员工工号
+	QueryUserSettingEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserSettingEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleEn = "en" // 英文
-	LocaleJa = "ja" // 日文
-	LocaleZh = "zh" // 中文
+	QueryStatisticsDataLocaleEn = "en" // 英文
+	QueryStatisticsDataLocaleJa = "ja" // 日文
+	QueryStatisticsDataLocaleZh = "zh" // 中文
 )
 
 const (
-	StatsTypeDaily = "daily" // 日度统计
-	StatsTypeMonth = "month" // 月度统计
+	QueryStatisticsDataStatsTypeDaily = "daily" // 日度统计
+	QueryStatisticsDataStatsTypeMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeQueryUserStatsDataEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserStatsDataEmployeeNo = "employee_no" // 员工工号
+	QueryStatisticsDataEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryStatisticsDataEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleQueryUserStatsFieldEn = "en" // 英文
-	LocaleQueryUserStatsFieldJa = "ja" // 日文
-	LocaleQueryUserStatsFieldZh = "zh" // 中文
+	QueryUserFieldLocaleEn = "en" // 英文
+	QueryUserFieldLocaleJa = "ja" // 日文
+	QueryUserFieldLocaleZh = "zh" // 中文
 )
 
 const (
-	StatsTypeQueryUserStatsFieldDaily = "daily" // 日度统计
-	StatsTypeQueryUserStatsFieldMonth = "month" // 月度统计
+	QueryUserFieldStatsTypeDaily = "daily" // 日度统计
+	QueryUserFieldStatsTypeMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeQueryUserStatsFieldEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserStatsFieldEmployeeNo = "employee_no" // 员工工号
+	QueryUserFieldEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserFieldEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	LocaleQueryUserStatsViewEn = "en" // 英文
-	LocaleQueryUserStatsViewJa = "ja" // 日文
-	LocaleQueryUserStatsViewZh = "zh" // 中文
+	QueryViewLocaleEn = "en" // 英文
+	QueryViewLocaleJa = "ja" // 日文
+	QueryViewLocaleZh = "zh" // 中文
 )
 
 const (
-	StatsTypeQueryUserStatsViewDaily = "daily" // 日度统计
-	StatsTypeQueryUserStatsViewMonth = "month" // 月度统计
+	QueryViewStatsTypeDaily = "daily" // 日度统计
+	QueryViewStatsTypeMonth = "month" // 月度统计
 )
 
 const (
-	EmployeeTypeQueryUserStatsViewEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserStatsViewEmployeeNo = "employee_no" // 员工工号
+	QueryViewEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryViewEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeUpdateUserStatsViewEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeUpdateUserStatsViewEmployeeNo = "employee_no" // 员工工号
+	UpdateViewEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	UpdateViewEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserTaskEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserTaskEmployeeNo = "employee_no" // 员工工号
+	GetUserTaskClockInFlowsEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserTaskClockInFlowsEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeCreateUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeCreateUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
+	CreateRemedyPunchEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	CreateRemedyPunchEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
@@ -211,13 +211,13 @@ const (
 )
 
 const (
-	EmployeeTypeQueryUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
+	GetUserRemedyListEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	GetUserRemedyListEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 const (
-	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeId = "employee_id" // 员工employeeId
-	EmployeeTypeQueryUserAllowedRemedysUserTaskRemedyEmployeeNo = "employee_no" // 员工工号
+	QueryUserAllowedRemedysEmployeeTypeEmployeeId = "employee_id" // 员工employeeId
+	QueryUserAllowedRemedysEmployeeTypeEmployeeNo = "employee_no" // 员工工号
 )
 
 type ClockInAbnormalSettings struct {
@@ -1989,6 +1989,56 @@ func (builder *FlexibleRuleBuilder) Build() *FlexibleRule {
 	return req
 }
 
+type FreeClockSetting struct {
+	ClockMode *int `json:"clock_mode,omitempty"` // 打卡模式
+
+	ClockInternalHhmm *int `json:"clock_internal_hhmm,omitempty"` // 最小打卡间隔
+}
+
+type FreeClockSettingBuilder struct {
+	clockMode     int // 打卡模式
+	clockModeFlag bool
+
+	clockInternalHhmm     int // 最小打卡间隔
+	clockInternalHhmmFlag bool
+}
+
+func NewFreeClockSettingBuilder() *FreeClockSettingBuilder {
+	builder := &FreeClockSettingBuilder{}
+	return builder
+}
+
+// 打卡模式
+//
+// 示例值：0
+func (builder *FreeClockSettingBuilder) ClockMode(clockMode int) *FreeClockSettingBuilder {
+	builder.clockMode = clockMode
+	builder.clockModeFlag = true
+	return builder
+}
+
+// 最小打卡间隔
+//
+// 示例值：100
+func (builder *FreeClockSettingBuilder) ClockInternalHhmm(clockInternalHhmm int) *FreeClockSettingBuilder {
+	builder.clockInternalHhmm = clockInternalHhmm
+	builder.clockInternalHhmmFlag = true
+	return builder
+}
+
+func (builder *FreeClockSettingBuilder) Build() *FreeClockSetting {
+	req := &FreeClockSetting{}
+	if builder.clockModeFlag {
+		req.ClockMode = &builder.clockMode
+
+	}
+	if builder.clockInternalHhmmFlag {
+		req.ClockInternalHhmm = &builder.clockInternalHhmm
+
+	}
+	return req
+}
+
 type FreePunchCfg struct {
 	FreeStartTime *string `json:"free_start_time,omitempty"` // 自由班制打卡开始时间
 
@@ -2001,6 +2051,8 @@ type FreePunchCfg struct {
 	WorkHoursDemand *bool `json:"work_hours_demand,omitempty"` // 工作日出勤是否需满足时长要求
 
 	WorkHours *int `json:"work_hours,omitempty"` // 每日工作时长（分钟),范围[0,1440]
+
+	FreeClockSetting *FreeClockSetting `json:"free_clock_setting,omitempty"` // 自由班制的打卡配置
 }
 
 type FreePunchCfgBuilder struct {
@@ -2021,6 +2073,9 @@ type FreePunchCfgBuilder struct {
 
 	workHours     int // 每日工作时长（分钟),范围[0,1440]
 	workHoursFlag bool
+
+	freeClockSetting     *FreeClockSetting // 自由班制的打卡配置
+	freeClockSettingFlag bool
 }
 
 func NewFreePunchCfgBuilder() *FreePunchCfgBuilder {
@@ -2082,6 +2137,15 @@ func (builder *FreePunchCfgBuilder) WorkHours(workHours int) *FreePunchCfgBuilde
 	return builder
 }
 
+// 自由班制的打卡配置
+//
+// 示例值：
+func (builder *FreePunchCfgBuilder) FreeClockSetting(freeClockSetting *FreeClockSetting) *FreePunchCfgBuilder {
+	builder.freeClockSetting = freeClockSetting
+	builder.freeClockSettingFlag = true
+	return builder
+}
+
 func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
 	req := &FreePunchCfg{}
 	if builder.freeStartTimeFlag {
@@ -2107,6 +2171,9 @@ func (builder *FreePunchCfgBuilder) Build() *FreePunchCfg {
 	if builder.workHoursFlag {
 		req.WorkHours = &builder.workHours
 
+	}
+	if builder.freeClockSettingFlag {
+		req.FreeClockSetting = builder.freeClockSetting
 	}
 	return req
 }

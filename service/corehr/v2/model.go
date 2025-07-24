@@ -16859,6 +16859,56 @@ func (builder *EmployeeJobDataBuilder) Build() *EmployeeJobData {
 	return req
 }
 
+type EmployeeUnionCityInfo struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID
+
+	IsInUnionCity *bool `json:"is_in_union_city,omitempty"` // 是否在工会城市
+}
+
+type EmployeeUnionCityInfoBuilder struct {
+	employmentId     string // 员工ID
+	employmentIdFlag bool
+
+	isInUnionCity     bool // 是否在工会城市
+	isInUnionCityFlag bool
+}
+
+func NewEmployeeUnionCityInfoBuilder() *EmployeeUnionCityInfoBuilder {
+	builder := &EmployeeUnionCityInfoBuilder{}
+	return builder
+}
+
+// 员工ID
+//
+// 示例值：7109475834939434
+func (builder *EmployeeUnionCityInfoBuilder) EmploymentId(employmentId string) *EmployeeUnionCityInfoBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 是否在工会城市
+//
+// 示例值：false
+func (builder *EmployeeUnionCityInfoBuilder) IsInUnionCity(isInUnionCity bool) *EmployeeUnionCityInfoBuilder {
+	builder.isInUnionCity = isInUnionCity
+	builder.isInUnionCityFlag = true
+	return builder
+}
+
+func (builder *EmployeeUnionCityInfoBuilder) Build() *EmployeeUnionCityInfo {
+	req := &EmployeeUnionCityInfo{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.isInUnionCityFlag {
+		req.IsInUnionCity = &builder.isInUnionCity
+
+	}
+	return req
+}
+
 type EmployeesAdditionalJob struct {
 	Id *string `json:"id,omitempty"` // 兼职记录ID
 

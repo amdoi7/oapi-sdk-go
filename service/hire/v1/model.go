@@ -63509,9 +63509,822 @@ func (resp *ListByIdJobRequirementResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateJobRequirementReqBodyBuilder struct {
+	name     string // 需求名称
+	nameFlag bool
+
+	displayProgress     int // 需求状态
+	displayProgressFlag bool
+
+	headCount     int // 需求人数
+	headCountFlag bool
+
+	recruitmentTypeId     string // 职位性质 ID
+	recruitmentTypeIdFlag bool
+
+	employeeTypeId     string // 人员类型
+	employeeTypeIdFlag bool
+
+	maxLevelId     string // 最高职级 ID
+	maxLevelIdFlag bool
+
+	minLevelId     string // 最低职级 ID
+	minLevelIdFlag bool
+
+	sequenceId     string // 职位序列 ID
+	sequenceIdFlag bool
+
+	category     int // 需求类型
+	categoryFlag bool
+
+	departmentId     string // 需求部门 ID
+	departmentIdFlag bool
+
+	recruiterIdList     []string // 需求负责人 ID 列表
+	recruiterIdListFlag bool
+
+	jrHiringManagerIdList     []string // 需求用人经理 ID 列表
+	jrHiringManagerIdListFlag bool
+
+	directLeaderIdList     []string // 直属上级 ID
+	directLeaderIdListFlag bool
+
+	startTime     string // 开始日期，毫秒级时间戳
+	startTimeFlag bool
+
+	deadline     string // 预计完成日期，毫秒级时间戳
+	deadlineFlag bool
+
+	priority     int // 招聘优先级
+	priorityFlag bool
+
+	requiredDegree     int // 学历要求
+	requiredDegreeFlag bool
+
+	maxSalary     string // 最高薪资
+	maxSalaryFlag bool
+
+	minSalary     string // 最低薪资
+	minSalaryFlag bool
+
+	addressId     string // 工作地点 ID
+	addressIdFlag bool
+
+	description     string // 需求描述
+	descriptionFlag bool
+
+	customizedDataList     []*JobRequirementCustomizedData // 自定义字段
+	customizedDataListFlag bool
+
+	processType     int // 支持的招聘类型列表
+	processTypeFlag bool
+
+	jobTypeId     string // 招聘需求中的职位类别
+	jobTypeIdFlag bool
+
+	jobIdList     []string // 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+	jobIdListFlag bool
+
+	employmentJobId     string // 职务 ID
+	employmentJobIdFlag bool
+
+	positionId     string // 岗位 ID
+	positionIdFlag bool
+
+	updateOption     *JobRequirementUpdateOption // 招聘需求修改确认控制
+	updateOptionFlag bool
+}
+
+func NewUpdateJobRequirementReqBodyBuilder() *UpdateJobRequirementReqBodyBuilder {
+	builder := &UpdateJobRequirementReqBodyBuilder{}
+	return builder
+}
+
+// 需求名称
+//
+//示例值：HR部门春季招聘需求
+func (builder *UpdateJobRequirementReqBodyBuilder) Name(name string) *UpdateJobRequirementReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 需求状态
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) DisplayProgress(displayProgress int) *UpdateJobRequirementReqBodyBuilder {
+	builder.displayProgress = displayProgress
+	builder.displayProgressFlag = true
+	return builder
+}
+
+// 需求人数
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) HeadCount(headCount int) *UpdateJobRequirementReqBodyBuilder {
+	builder.headCount = headCount
+	builder.headCountFlag = true
+	return builder
+}
+
+// 职位性质 ID
+//
+//示例值：1618209327096
+func (builder *UpdateJobRequirementReqBodyBuilder) RecruitmentTypeId(recruitmentTypeId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.recruitmentTypeId = recruitmentTypeId
+	builder.recruitmentTypeIdFlag = true
+	return builder
+}
+
+// 人员类型
+//
+//示例值：6807409776231254285
+func (builder *UpdateJobRequirementReqBodyBuilder) EmployeeTypeId(employeeTypeId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.employeeTypeId = employeeTypeId
+	builder.employeeTypeIdFlag = true
+	return builder
+}
+
+// 最高职级 ID
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) MaxLevelId(maxLevelId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.maxLevelId = maxLevelId
+	builder.maxLevelIdFlag = true
+	return builder
+}
+
+// 最低职级 ID
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) MinLevelId(minLevelId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.minLevelId = minLevelId
+	builder.minLevelIdFlag = true
+	return builder
+}
+
+// 职位序列 ID
+//
+//示例值：111
+func (builder *UpdateJobRequirementReqBodyBuilder) SequenceId(sequenceId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.sequenceId = sequenceId
+	builder.sequenceIdFlag = true
+	return builder
+}
+
+// 需求类型
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) Category(category int) *UpdateJobRequirementReqBodyBuilder {
+	builder.category = category
+	builder.categoryFlag = true
+	return builder
+}
+
+// 需求部门 ID
+//
+//示例值：1111
+func (builder *UpdateJobRequirementReqBodyBuilder) DepartmentId(departmentId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 需求负责人 ID 列表
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) RecruiterIdList(recruiterIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.recruiterIdList = recruiterIdList
+	builder.recruiterIdListFlag = true
+	return builder
+}
+
+// 需求用人经理 ID 列表
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) JrHiringManagerIdList(jrHiringManagerIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.jrHiringManagerIdList = jrHiringManagerIdList
+	builder.jrHiringManagerIdListFlag = true
+	return builder
+}
+
+// 直属上级 ID
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) DirectLeaderIdList(directLeaderIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.directLeaderIdList = directLeaderIdList
+	builder.directLeaderIdListFlag = true
+	return builder
+}
+
+// 开始日期，毫秒级时间戳
+//
+//示例值：1625729379000
+func (builder *UpdateJobRequirementReqBodyBuilder) StartTime(startTime string) *UpdateJobRequirementReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 预计完成日期，毫秒级时间戳
+//
+//示例值：1625729379000
+func (builder *UpdateJobRequirementReqBodyBuilder) Deadline(deadline string) *UpdateJobRequirementReqBodyBuilder {
+	builder.deadline = deadline
+	builder.deadlineFlag = true
+	return builder
+}
+
+// 招聘优先级
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) Priority(priority int) *UpdateJobRequirementReqBodyBuilder {
+	builder.priority = priority
+	builder.priorityFlag = true
+	return builder
+}
+
+// 学历要求
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) RequiredDegree(requiredDegree int) *UpdateJobRequirementReqBodyBuilder {
+	builder.requiredDegree = requiredDegree
+	builder.requiredDegreeFlag = true
+	return builder
+}
+
+// 最高薪资
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) MaxSalary(maxSalary string) *UpdateJobRequirementReqBodyBuilder {
+	builder.maxSalary = maxSalary
+	builder.maxSalaryFlag = true
+	return builder
+}
+
+// 最低薪资
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) MinSalary(minSalary string) *UpdateJobRequirementReqBodyBuilder {
+	builder.minSalary = minSalary
+	builder.minSalaryFlag = true
+	return builder
+}
+
+// 工作地点 ID
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) AddressId(addressId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.addressId = addressId
+	builder.addressIdFlag = true
+	return builder
+}
+
+// 需求描述
+//
+//示例值：11
+func (builder *UpdateJobRequirementReqBodyBuilder) Description(description string) *UpdateJobRequirementReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) CustomizedDataList(customizedDataList []*JobRequirementCustomizedData) *UpdateJobRequirementReqBodyBuilder {
+	builder.customizedDataList = customizedDataList
+	builder.customizedDataListFlag = true
+	return builder
+}
+
+// 支持的招聘类型列表
+//
+//示例值：1
+func (builder *UpdateJobRequirementReqBodyBuilder) ProcessType(processType int) *UpdateJobRequirementReqBodyBuilder {
+	builder.processType = processType
+	builder.processTypeFlag = true
+	return builder
+}
+
+// 招聘需求中的职位类别
+//
+//示例值：6930815272790114324
+func (builder *UpdateJobRequirementReqBodyBuilder) JobTypeId(jobTypeId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.jobTypeId = jobTypeId
+	builder.jobTypeIdFlag = true
+	return builder
+}
+
+// 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+//
+//示例值：
+func (builder *UpdateJobRequirementReqBodyBuilder) JobIdList(jobIdList []string) *UpdateJobRequirementReqBodyBuilder {
+	builder.jobIdList = jobIdList
+	builder.jobIdListFlag = true
+	return builder
+}
+
+// 职务 ID
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) EmploymentJobId(employmentJobId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.employmentJobId = employmentJobId
+	builder.employmentJobIdFlag = true
+	return builder
+}
+
+// 岗位 ID
+//
+//示例值：123
+func (builder *UpdateJobRequirementReqBodyBuilder) PositionId(positionId string) *UpdateJobRequirementReqBodyBuilder {
+	builder.positionId = positionId
+	builder.positionIdFlag = true
+	return builder
+}
+
+func (builder *UpdateJobRequirementReqBodyBuilder) Build() *UpdateJobRequirementReqBody {
+	req := &UpdateJobRequirementReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.displayProgressFlag {
+		req.DisplayProgress = &builder.displayProgress
+	}
+	if builder.headCountFlag {
+		req.HeadCount = &builder.headCount
+	}
+	if builder.recruitmentTypeIdFlag {
+		req.RecruitmentTypeId = &builder.recruitmentTypeId
+	}
+	if builder.employeeTypeIdFlag {
+		req.EmployeeTypeId = &builder.employeeTypeId
+	}
+	if builder.maxLevelIdFlag {
+		req.MaxLevelId = &builder.maxLevelId
+	}
+	if builder.minLevelIdFlag {
+		req.MinLevelId = &builder.minLevelId
+	}
+	if builder.sequenceIdFlag {
+		req.SequenceId = &builder.sequenceId
+	}
+	if builder.categoryFlag {
+		req.Category = &builder.category
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+	}
+	if builder.recruiterIdListFlag {
+		req.RecruiterIdList = builder.recruiterIdList
+	}
+	if builder.jrHiringManagerIdListFlag {
+		req.JrHiringManagerIdList = builder.jrHiringManagerIdList
+	}
+	if builder.directLeaderIdListFlag {
+		req.DirectLeaderIdList = builder.directLeaderIdList
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.deadlineFlag {
+		req.Deadline = &builder.deadline
+	}
+	if builder.priorityFlag {
+		req.Priority = &builder.priority
+	}
+	if builder.requiredDegreeFlag {
+		req.RequiredDegree = &builder.requiredDegree
+	}
+	if builder.maxSalaryFlag {
+		req.MaxSalary = &builder.maxSalary
+	}
+	if builder.minSalaryFlag {
+		req.MinSalary = &builder.minSalary
+	}
+	if builder.addressIdFlag {
+		req.AddressId = &builder.addressId
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.customizedDataListFlag {
+		req.CustomizedDataList = builder.customizedDataList
+	}
+	if builder.processTypeFlag {
+		req.ProcessType = &builder.processType
+	}
+	if builder.jobTypeIdFlag {
+		req.JobTypeId = &builder.jobTypeId
+	}
+	if builder.jobIdListFlag {
+		req.JobIdList = builder.jobIdList
+	}
+	if builder.employmentJobIdFlag {
+		req.EmploymentJobId = &builder.employmentJobId
+	}
+	if builder.positionIdFlag {
+		req.PositionId = &builder.positionId
+	}
+	return req
+}
+
+type UpdateJobRequirementPathReqBodyBuilder struct {
+	name                      string
+	nameFlag                  bool
+	displayProgress           int
+	displayProgressFlag       bool
+	headCount                 int
+	headCountFlag             bool
+	recruitmentTypeId         string
+	recruitmentTypeIdFlag     bool
+	employeeTypeId            string
+	employeeTypeIdFlag        bool
+	maxLevelId                string
+	maxLevelIdFlag            bool
+	minLevelId                string
+	minLevelIdFlag            bool
+	sequenceId                string
+	sequenceIdFlag            bool
+	category                  int
+	categoryFlag              bool
+	departmentId              string
+	departmentIdFlag          bool
+	recruiterIdList           []string
+	recruiterIdListFlag       bool
+	jrHiringManagerIdList     []string
+	jrHiringManagerIdListFlag bool
+	directLeaderIdList        []string
+	directLeaderIdListFlag    bool
+	startTime                 string
+	startTimeFlag             bool
+	deadline                  string
+	deadlineFlag              bool
+	priority                  int
+	priorityFlag              bool
+	requiredDegree            int
+	requiredDegreeFlag        bool
+	maxSalary                 string
+	maxSalaryFlag             bool
+	minSalary                 string
+	minSalaryFlag             bool
+	addressId                 string
+	addressIdFlag             bool
+	description               string
+	descriptionFlag           bool
+	customizedDataList        []*JobRequirementCustomizedData
+	customizedDataListFlag    bool
+	processType               int
+	processTypeFlag           bool
+	jobTypeId                 string
+	jobTypeIdFlag             bool
+	jobIdList                 []string
+	jobIdListFlag             bool
+	employmentJobId           string
+	employmentJobIdFlag       bool
+	positionId                string
+	positionIdFlag            bool
+	updateOption              *JobRequirementUpdateOption
+	updateOptionFlag          bool
+}
+
+func NewUpdateJobRequirementPathReqBodyBuilder() *UpdateJobRequirementPathReqBodyBuilder {
+	builder := &UpdateJobRequirementPathReqBodyBuilder{}
+	return builder
+}
+
+// 需求名称
+//
+// 示例值：HR部门春季招聘需求
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Name(name string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 需求状态
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) DisplayProgress(displayProgress int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.displayProgress = displayProgress
+	builder.displayProgressFlag = true
+	return builder
+}
+
+// 需求人数
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) HeadCount(headCount int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.headCount = headCount
+	builder.headCountFlag = true
+	return builder
+}
+
+// 职位性质 ID
+//
+// 示例值：1618209327096
+func (builder *UpdateJobRequirementPathReqBodyBuilder) RecruitmentTypeId(recruitmentTypeId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.recruitmentTypeId = recruitmentTypeId
+	builder.recruitmentTypeIdFlag = true
+	return builder
+}
+
+// 人员类型
+//
+// 示例值：6807409776231254285
+func (builder *UpdateJobRequirementPathReqBodyBuilder) EmployeeTypeId(employeeTypeId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.employeeTypeId = employeeTypeId
+	builder.employeeTypeIdFlag = true
+	return builder
+}
+
+// 最高职级 ID
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MaxLevelId(maxLevelId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.maxLevelId = maxLevelId
+	builder.maxLevelIdFlag = true
+	return builder
+}
+
+// 最低职级 ID
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MinLevelId(minLevelId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.minLevelId = minLevelId
+	builder.minLevelIdFlag = true
+	return builder
+}
+
+// 职位序列 ID
+//
+// 示例值：111
+func (builder *UpdateJobRequirementPathReqBodyBuilder) SequenceId(sequenceId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.sequenceId = sequenceId
+	builder.sequenceIdFlag = true
+	return builder
+}
+
+// 需求类型
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Category(category int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.category = category
+	builder.categoryFlag = true
+	return builder
+}
+
+// 需求部门 ID
+//
+// 示例值：1111
+func (builder *UpdateJobRequirementPathReqBodyBuilder) DepartmentId(departmentId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.departmentId = departmentId
+	builder.departmentIdFlag = true
+	return builder
+}
+
+// 需求负责人 ID 列表
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) RecruiterIdList(recruiterIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.recruiterIdList = recruiterIdList
+	builder.recruiterIdListFlag = true
+	return builder
+}
+
+// 需求用人经理 ID 列表
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) JrHiringManagerIdList(jrHiringManagerIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.jrHiringManagerIdList = jrHiringManagerIdList
+	builder.jrHiringManagerIdListFlag = true
+	return builder
+}
+
+// 直属上级 ID
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) DirectLeaderIdList(directLeaderIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.directLeaderIdList = directLeaderIdList
+	builder.directLeaderIdListFlag = true
+	return builder
+}
+
+// 开始日期，毫秒级时间戳
+//
+// 示例值：1625729379000
+func (builder *UpdateJobRequirementPathReqBodyBuilder) StartTime(startTime string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.startTime = startTime
+	builder.startTimeFlag = true
+	return builder
+}
+
+// 预计完成日期，毫秒级时间戳
+//
+// 示例值：1625729379000
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Deadline(deadline string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.deadline = deadline
+	builder.deadlineFlag = true
+	return builder
+}
+
+// 招聘优先级
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Priority(priority int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.priority = priority
+	builder.priorityFlag = true
+	return builder
+}
+
+// 学历要求
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) RequiredDegree(requiredDegree int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.requiredDegree = requiredDegree
+	builder.requiredDegreeFlag = true
+	return builder
+}
+
+// 最高薪资
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MaxSalary(maxSalary string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.maxSalary = maxSalary
+	builder.maxSalaryFlag = true
+	return builder
+}
+
+// 最低薪资
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) MinSalary(minSalary string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.minSalary = minSalary
+	builder.minSalaryFlag = true
+	return builder
+}
+
+// 工作地点 ID
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) AddressId(addressId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.addressId = addressId
+	builder.addressIdFlag = true
+	return builder
+}
+
+// 需求描述
+//
+// 示例值：11
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Description(description string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 自定义字段
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) CustomizedDataList(customizedDataList []*JobRequirementCustomizedData) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.customizedDataList = customizedDataList
+	builder.customizedDataListFlag = true
+	return builder
+}
+
+// 支持的招聘类型列表
+//
+// 示例值：1
+func (builder *UpdateJobRequirementPathReqBodyBuilder) ProcessType(processType int) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.processType = processType
+	builder.processTypeFlag = true
+	return builder
+}
+
+// 招聘需求中的职位类别
+//
+// 示例值：6930815272790114324
+func (builder *UpdateJobRequirementPathReqBodyBuilder) JobTypeId(jobTypeId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.jobTypeId = jobTypeId
+	builder.jobTypeIdFlag = true
+	return builder
+}
+
+// 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+//
+// 示例值：
+func (builder *UpdateJobRequirementPathReqBodyBuilder) JobIdList(jobIdList []string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.jobIdList = jobIdList
+	builder.jobIdListFlag = true
+	return builder
+}
+
+// 职务 ID
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) EmploymentJobId(employmentJobId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.employmentJobId = employmentJobId
+	builder.employmentJobIdFlag = true
+	return builder
+}
+
+// 岗位 ID
+//
+// 示例值：123
+func (builder *UpdateJobRequirementPathReqBodyBuilder) PositionId(positionId string) *UpdateJobRequirementPathReqBodyBuilder {
+	builder.positionId = positionId
+	builder.positionIdFlag = true
+	return builder
+}
+
+func (builder *UpdateJobRequirementPathReqBodyBuilder) Build() (*UpdateJobRequirementReqBody, error) {
+	req := &UpdateJobRequirementReqBody{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+	}
+	if builder.displayProgressFlag {
+		req.DisplayProgress = &builder.displayProgress
+	}
+	if builder.headCountFlag {
+		req.HeadCount = &builder.headCount
+	}
+	if builder.recruitmentTypeIdFlag {
+		req.RecruitmentTypeId = &builder.recruitmentTypeId
+	}
+	if builder.employeeTypeIdFlag {
+		req.EmployeeTypeId = &builder.employeeTypeId
+	}
+	if builder.maxLevelIdFlag {
+		req.MaxLevelId = &builder.maxLevelId
+	}
+	if builder.minLevelIdFlag {
+		req.MinLevelId = &builder.minLevelId
+	}
+	if builder.sequenceIdFlag {
+		req.SequenceId = &builder.sequenceId
+	}
+	if builder.categoryFlag {
+		req.Category = &builder.category
+	}
+	if builder.departmentIdFlag {
+		req.DepartmentId = &builder.departmentId
+	}
+	if builder.recruiterIdListFlag {
+		req.RecruiterIdList = builder.recruiterIdList
+	}
+	if builder.jrHiringManagerIdListFlag {
+		req.JrHiringManagerIdList = builder.jrHiringManagerIdList
+	}
+	if builder.directLeaderIdListFlag {
+		req.DirectLeaderIdList = builder.directLeaderIdList
+	}
+	if builder.startTimeFlag {
+		req.StartTime = &builder.startTime
+	}
+	if builder.deadlineFlag {
+		req.Deadline = &builder.deadline
+	}
+	if builder.priorityFlag {
+		req.Priority = &builder.priority
+	}
+	if builder.requiredDegreeFlag {
+		req.RequiredDegree = &builder.requiredDegree
+	}
+	if builder.maxSalaryFlag {
+		req.MaxSalary = &builder.maxSalary
+	}
+	if builder.minSalaryFlag {
+		req.MinSalary = &builder.minSalary
+	}
+	if builder.addressIdFlag {
+		req.AddressId = &builder.addressId
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.customizedDataListFlag {
+		req.CustomizedDataList = builder.customizedDataList
+	}
+	if builder.processTypeFlag {
+		req.ProcessType = &builder.processType
+	}
+	if builder.jobTypeIdFlag {
+		req.JobTypeId = &builder.jobTypeId
+	}
+	if builder.jobIdListFlag {
+		req.JobIdList = builder.jobIdList
+	}
+	if builder.employmentJobIdFlag {
+		req.EmploymentJobId = &builder.employmentJobId
+	}
+	if builder.positionIdFlag {
+		req.PositionId = &builder.positionId
+	}
+	return req, nil
+}
+
 type UpdateJobRequirementReqBuilder struct {
-	apiReq         *larkcore.ApiReq
-	jobRequirement *JobRequirement
+	apiReq *larkcore.ApiReq
+	body   *UpdateJobRequirementReqBody
 }
 
 func NewUpdateJobRequirementReqBuilder() *UpdateJobRequirementReqBuilder {
@@ -63572,8 +64385,8 @@ func (builder *UpdateJobRequirementReqBuilder) EmployeeTypeIdType(employeeTypeId
 }
 
 // 更新招聘需求
-func (builder *UpdateJobRequirementReqBuilder) JobRequirement(jobRequirement *JobRequirement) *UpdateJobRequirementReqBuilder {
-	builder.jobRequirement = jobRequirement
+func (builder *UpdateJobRequirementReqBuilder) Body(body *UpdateJobRequirementReqBody) *UpdateJobRequirementReqBuilder {
+	builder.body = body
 	return builder
 }
 
@@ -63582,13 +64395,71 @@ func (builder *UpdateJobRequirementReqBuilder) Build() *UpdateJobRequirementReq 
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
 	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	req.apiReq.Body = builder.jobRequirement
+	req.apiReq.Body = builder.body
 	return req
 }
 
+type UpdateJobRequirementReqBody struct {
+	Name *string `json:"name,omitempty"` // 需求名称
+
+	DisplayProgress *int `json:"display_progress,omitempty"` // 需求状态
+
+	HeadCount *int `json:"head_count,omitempty"` // 需求人数
+
+	RecruitmentTypeId *string `json:"recruitment_type_id,omitempty"` // 职位性质 ID
+
+	EmployeeTypeId *string `json:"employee_type_id,omitempty"` // 人员类型
+
+	MaxLevelId *string `json:"max_level_id,omitempty"` // 最高职级 ID
+
+	MinLevelId *string `json:"min_level_id,omitempty"` // 最低职级 ID
+
+	SequenceId *string `json:"sequence_id,omitempty"` // 职位序列 ID
+
+	Category *int `json:"category,omitempty"` // 需求类型
+
+	DepartmentId *string `json:"department_id,omitempty"` // 需求部门 ID
+
+	RecruiterIdList []string `json:"recruiter_id_list,omitempty"` // 需求负责人 ID 列表
+
+	JrHiringManagerIdList []string `json:"jr_hiring_manager_id_list,omitempty"` // 需求用人经理 ID 列表
+
+	DirectLeaderIdList []string `json:"direct_leader_id_list,omitempty"` // 直属上级 ID
+
+	StartTime *string `json:"start_time,omitempty"` // 开始日期，毫秒级时间戳
+
+	Deadline *string `json:"deadline,omitempty"` // 预计完成日期，毫秒级时间戳
+
+	Priority *int `json:"priority,omitempty"` // 招聘优先级
+
+	RequiredDegree *int `json:"required_degree,omitempty"` // 学历要求
+
+	MaxSalary *string `json:"max_salary,omitempty"` // 最高薪资
+
+	MinSalary *string `json:"min_salary,omitempty"` // 最低薪资
+
+	AddressId *string `json:"address_id,omitempty"` // 工作地点 ID
+
+	Description *string `json:"description,omitempty"` // 需求描述
+
+	CustomizedDataList []*JobRequirementCustomizedData `json:"customized_data_list,omitempty"` // 自定义字段
+
+	ProcessType *int `json:"process_type,omitempty"` // 支持的招聘类型列表
+
+	JobTypeId *string `json:"job_type_id,omitempty"` // 招聘需求中的职位类别
+
+	JobIdList []string `json:"job_id_list,omitempty"` // 关联的职位 ID 列表。;注：系统限制「需求基础信息修改」与「更新关联职位列表」需分开执行，因此传入此参数时请勿传入其他参数。
+
+	EmploymentJobId *string `json:"employment_job_id,omitempty"` // 职务 ID
+
+	PositionId *string `json:"position_id,omitempty"` // 岗位 ID
+
+	UpdateOption *JobRequirementUpdateOption `json:"update_option,omitempty"` // 招聘需求修改确认控制
+}
+
 type UpdateJobRequirementReq struct {
-	apiReq         *larkcore.ApiReq
-	JobRequirement *JobRequirement `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *UpdateJobRequirementReqBody `body:""`
 }
 
 type UpdateJobRequirementResp struct {

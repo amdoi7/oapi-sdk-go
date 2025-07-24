@@ -2542,7 +2542,7 @@ type MeetingInfo struct {
 
 	MeetingDuration *string `json:"meeting_duration,omitempty"` // 会议持续时间
 
-	NumberOfParticipants *string `json:"number_of_participants,omitempty"` // 参会人数
+	NumberOfParticipants *string `json:"number_of_participants,omitempty"` // 参会人数（网络研讨会时，为嘉宾人数）
 
 	NumberOfDevices *string `json:"number_of_devices,omitempty"` // 累计入会设备数
 
@@ -2559,6 +2559,16 @@ type MeetingInfo struct {
 	ReservedRooms []*ReservedRoom `json:"reserved_rooms,omitempty"` // 关联会议室列表
 
 	HasRelatedDocument *bool `json:"has_related_document,omitempty"` // 是否有关联文档和纪要
+
+	AiNote *bool `json:"ai_note,omitempty"` // 是否使用AI纪要
+
+	IsExternal *bool `json:"is_external,omitempty"` // 是否为外部会议
+
+	MeetingSubtype *int `json:"meeting_subtype,omitempty"` // 会议子类型
+
+	MeetingInstanceId *string `json:"meeting_instance_id,omitempty"` // 唯一会议ID
+
+	NumberOfWebinarViewers *string `json:"number_of_webinar_viewers,omitempty"` // 网络研讨会观众人数
 }
 
 type MeetingInfoBuilder struct {
@@ -2598,7 +2608,7 @@ type MeetingInfoBuilder struct {
 	meetingDuration     string // 会议持续时间
 	meetingDurationFlag bool
 
-	numberOfParticipants     string // 参会人数
+	numberOfParticipants     string // 参会人数（网络研讨会时，为嘉宾人数）
 	numberOfParticipantsFlag bool
 
 	numberOfDevices     string // 累计入会设备数
@@ -2624,6 +2634,21 @@ type MeetingInfoBuilder struct {
 
 	hasRelatedDocument     bool // 是否有关联文档和纪要
 	hasRelatedDocumentFlag bool
+
+	aiNote     bool // 是否使用AI纪要
+	aiNoteFlag bool
+
+	isExternal     bool // 是否为外部会议
+	isExternalFlag bool
+
+	meetingSubtype     int // 会议子类型
+	meetingSubtypeFlag bool
+
+	meetingInstanceId     string // 唯一会议ID
+	meetingInstanceIdFlag bool
+
+	numberOfWebinarViewers     string // 网络研讨会观众人数
+	numberOfWebinarViewersFlag bool
 }
 
 func NewMeetingInfoBuilder() *MeetingInfoBuilder {
@@ -2739,7 +2764,7 @@ func (builder *MeetingInfoBuilder) MeetingDuration(meetingDuration string) *Meet
 	return builder
 }
 
-// 参会人数
+// 参会人数（网络研讨会时，为嘉宾人数）
 //
 // 示例值：1
 func (builder *MeetingInfoBuilder) NumberOfParticipants(numberOfParticipants string) *MeetingInfoBuilder {
@@ -2817,6 +2842,51 @@ func (builder *MeetingInfoBuilder) ReservedRooms(reservedRooms []*ReservedRoom) 
 func (builder *MeetingInfoBuilder) HasRelatedDocument(hasRelatedDocument bool) *MeetingInfoBuilder {
 	builder.hasRelatedDocument = hasRelatedDocument
 	builder.hasRelatedDocumentFlag = true
+	return builder
+}
+
+// 是否使用AI纪要
+//
+// 示例值：false
+func (builder *MeetingInfoBuilder) AiNote(aiNote bool) *MeetingInfoBuilder {
+	builder.aiNote = aiNote
+	builder.aiNoteFlag = true
+	return builder
+}
+
+// 是否为外部会议
+//
+// 示例值：false
+func (builder *MeetingInfoBuilder) IsExternal(isExternal bool) *MeetingInfoBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+
+// 会议子类型
+//
+// 示例值：1
+func (builder *MeetingInfoBuilder) MeetingSubtype(meetingSubtype int) *MeetingInfoBuilder {
+	builder.meetingSubtype = meetingSubtype
+	builder.meetingSubtypeFlag = true
+	return builder
+}
+
+// 唯一会议ID
+//
+// 示例值：7529416531681214468
+func (builder *MeetingInfoBuilder) MeetingInstanceId(meetingInstanceId string) *MeetingInfoBuilder {
+	builder.meetingInstanceId = meetingInstanceId
+	builder.meetingInstanceIdFlag = true
+	return builder
+}
+
+// 网络研讨会观众人数
+//
+// 示例值：1
+func (builder *MeetingInfoBuilder) NumberOfWebinarViewers(numberOfWebinarViewers string) *MeetingInfoBuilder {
+	builder.numberOfWebinarViewers = numberOfWebinarViewers
+	builder.numberOfWebinarViewersFlag = true
 	return builder
 }
 
@@ -2903,6 +2973,26 @@ func (builder *MeetingInfoBuilder) Build() *MeetingInfo {
 	}
 	if builder.hasRelatedDocumentFlag {
 		req.HasRelatedDocument = &builder.hasRelatedDocument
+
+	}
+	if builder.aiNoteFlag {
+		req.AiNote = &builder.aiNote
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.meetingSubtypeFlag {
+		req.MeetingSubtype = &builder.meetingSubtype
+
+	}
+	if builder.meetingInstanceIdFlag {
+		req.MeetingInstanceId = &builder.meetingInstanceId
+
+	}
+	if builder.numberOfWebinarViewersFlag {
+		req.NumberOfWebinarViewers = &builder.numberOfWebinarViewers
 
 	}
 	return req
@@ -5609,6 +5699,10 @@ type Participant struct {
 	LeaveReason *string `json:"leave_reason,omitempty"` // 离会原因
 
 	AcceptStatus *int `json:"accept_status,omitempty"` // 日程响应状态
+
+	IsExternal *bool `json:"is_external,omitempty"` // 是否为外部参会人
+
+	WebinarUserRole *string `json:"webinar_user_role,omitempty"` // 网络研讨会中的角色
 }
 
 type ParticipantBuilder struct {
@@ -5689,6 +5783,12 @@ type ParticipantBuilder struct {
 
 	acceptStatus     int // 日程响应状态
 	acceptStatusFlag bool
+
+	isExternal     bool // 是否为外部参会人
+	isExternalFlag bool
+
+	webinarUserRole     string // 网络研讨会中的角色
+	webinarUserRoleFlag bool
 }
 
 func NewParticipantBuilder() *ParticipantBuilder {
@@ -5930,6 +6030,24 @@ func (builder *ParticipantBuilder) AcceptStatus(acceptStatus int) *ParticipantBu
 	return builder
 }
 
+// 是否为外部参会人
+//
+// 示例值：false
+func (builder *ParticipantBuilder) IsExternal(isExternal bool) *ParticipantBuilder {
+	builder.isExternal = isExternal
+	builder.isExternalFlag = true
+	return builder
+}
+
+// 网络研讨会中的角色
+//
+// 示例值：0
+func (builder *ParticipantBuilder) WebinarUserRole(webinarUserRole string) *ParticipantBuilder {
+	builder.webinarUserRole = webinarUserRole
+	builder.webinarUserRoleFlag = true
+	return builder
+}
+
 func (builder *ParticipantBuilder) Build() *Participant {
 	req := &Participant{}
 	if builder.participantNameFlag {
@@ -6034,6 +6152,14 @@ func (builder *ParticipantBuilder) Build() *Participant {
 	}
 	if builder.acceptStatusFlag {
 		req.AcceptStatus = &builder.acceptStatus
+
+	}
+	if builder.isExternalFlag {
+		req.IsExternal = &builder.isExternal
+
+	}
+	if builder.webinarUserRoleFlag {
+		req.WebinarUserRole = &builder.webinarUserRole
 
 	}
 	return req
@@ -12620,6 +12746,22 @@ func (builder *GetMeetingListReqBuilder) PageToken(pageToken string) *GetMeeting
 	return builder
 }
 
+// 是否查询外部会议（不传默认为不查询）
+//
+// 示例值：false
+func (builder *GetMeetingListReqBuilder) IncludeExternalMeetings(includeExternalMeetings bool) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("include_external_meetings", fmt.Sprint(includeExternalMeetings))
+	return builder
+}
+
+// 是否查询网络研讨会（不传默认为不查询）
+//
+// 示例值：false
+func (builder *GetMeetingListReqBuilder) IncludeWebinar(includeWebinar bool) *GetMeetingListReqBuilder {
+	builder.apiReq.QueryParams.Set("include_webinar", fmt.Sprint(includeWebinar))
+	return builder
+}
+
 // 此次调用中使用的用户ID的类型
 //
 // 示例值：
@@ -12741,6 +12883,14 @@ func (builder *GetParticipantListReqBuilder) PageSize(pageSize int) *GetParticip
 // 示例值：
 func (builder *GetParticipantListReqBuilder) PageToken(pageToken string) *GetParticipantListReqBuilder {
 	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 查询网络研讨会时的观众类型,"0"为嘉宾，"3"为观众
+//
+// 示例值：0
+func (builder *GetParticipantListReqBuilder) WebinarUserRole(webinarUserRole string) *GetParticipantListReqBuilder {
+	builder.apiReq.QueryParams.Set("webinar_user_role", fmt.Sprint(webinarUserRole))
 	return builder
 }
 

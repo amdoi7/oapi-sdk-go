@@ -23,14 +23,14 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
+	SearchAppUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	SearchAppUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	SearchAppUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	StateOnline  = 0 // 已上线
-	StateOffline = 1 // 未上线
+	DataSourceStateOnline  = 0 // 已上线
+	DataSourceStateOffline = 1 // 未上线
 
 )
 
@@ -41,37 +41,37 @@ const (
 )
 
 const (
-	ViewFULL  = 0 // 全量数据
-	ViewBASIC = 1 // 摘要数据
+	ListDataSourceViewFULL  = 0 // 全量数据
+	ListDataSourceViewBASIC = 1 // 摘要数据
 
 )
 
 const (
-	StatePatchDataSourceOnline  = 0 // 已上线
-	StatePatchDataSourceOffline = 1 // 未上线
+	PatchDataSourceStateOnline  = 0 // 已上线
+	PatchDataSourceStateOffline = 1 // 未上线
 
 )
 
 const (
-	MessageTypeFile  = "file"  // 文件
-	MessageTypeImage = "image" // 图片
-	MessageTypeMedia = "media" // 视频
+	SearchMessageMessageTypeFile  = "file"  // 文件
+	SearchMessageMessageTypeImage = "image" // 图片
+	SearchMessageMessageTypeMedia = "media" // 视频
 )
 
 const (
-	FromTypeBot  = "bot"  // 机器人
-	FromTypeUser = "user" // 用户
+	SearchMessageFromTypeBot  = "bot"  // 机器人
+	SearchMessageFromTypeUser = "user" // 用户
 )
 
 const (
-	ChatTypeGroupChat = "group_chat" // 群聊
-	ChatTypeP2pChat   = "p2p_chat"   // 单聊
+	SearchMessageChatTypeGroupChat = "group_chat" // 群聊
+	SearchMessageChatTypeP2pChat   = "p2p_chat"   // 单聊
 )
 
 const (
-	UserIdTypeCreateMessageUserId  = "user_id"  // 以 user_id 来识别用户
-	UserIdTypeCreateMessageUnionId = "union_id" // 以 union_id 来识别用户
-	UserIdTypeCreateMessageOpenId  = "open_id"  // 以 open_id 来识别用户
+	SearchMessageUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	SearchMessageUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	SearchMessageUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 type Acl struct {
