@@ -5682,6 +5682,8 @@ type ApplicationOfferBasicInfo struct {
 	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等 ID
 
 	CommonAttachmentIdList []string `json:"common_attachment_id_list,omitempty"` // Offer 附件 ID 列表
+
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
 }
 
 type ApplicationOfferBasicInfoBuilder struct {
@@ -5756,6 +5758,9 @@ type ApplicationOfferBasicInfoBuilder struct {
 
 	commonAttachmentIdList     []string // Offer 附件 ID 列表
 	commonAttachmentIdListFlag bool
+
+	pathwayId     string // 通道 ID
+	pathwayIdFlag bool
 }
 
 func NewApplicationOfferBasicInfoBuilder() *ApplicationOfferBasicInfoBuilder {
@@ -5979,6 +5984,15 @@ func (builder *ApplicationOfferBasicInfoBuilder) CommonAttachmentIdList(commonAt
 	return builder
 }
 
+// 通道 ID
+//
+// 示例值：123456
+func (builder *ApplicationOfferBasicInfoBuilder) PathwayId(pathwayId string) *ApplicationOfferBasicInfoBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicInfo {
 	req := &ApplicationOfferBasicInfo{}
 	if builder.offerTypeFlag {
@@ -6066,6 +6080,10 @@ func (builder *ApplicationOfferBasicInfoBuilder) Build() *ApplicationOfferBasicI
 	}
 	if builder.commonAttachmentIdListFlag {
 		req.CommonAttachmentIdList = builder.commonAttachmentIdList
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+
 	}
 	return req
 }
@@ -23327,6 +23345,8 @@ type InterviewFeedbackFormDimension struct {
 	DisplayNotEvident *bool `json:"display_not_evident,omitempty"` // 是否展示「无法判断」选项，仅针对「职级建议」的维度类型
 
 	AbilityList []*DimensionAbility `json:"ability_list,omitempty"` // 能力项列表
+
+	RelatedDimensionConfig *RelatedDimensionConfig `json:"related_dimension_config,omitempty"` // 维度间关联配置
 }
 
 type InterviewFeedbackFormDimensionBuilder struct {
@@ -23365,6 +23385,9 @@ type InterviewFeedbackFormDimensionBuilder struct {
 
 	abilityList     []*DimensionAbility // 能力项列表
 	abilityListFlag bool
+
+	relatedDimensionConfig     *RelatedDimensionConfig // 维度间关联配置
+	relatedDimensionConfigFlag bool
 }
 
 func NewInterviewFeedbackFormDimensionBuilder() *InterviewFeedbackFormDimensionBuilder {
@@ -23480,6 +23503,15 @@ func (builder *InterviewFeedbackFormDimensionBuilder) AbilityList(abilityList []
 	return builder
 }
 
+// 维度间关联配置
+//
+// 示例值：
+func (builder *InterviewFeedbackFormDimensionBuilder) RelatedDimensionConfig(relatedDimensionConfig *RelatedDimensionConfig) *InterviewFeedbackFormDimensionBuilder {
+	builder.relatedDimensionConfig = relatedDimensionConfig
+	builder.relatedDimensionConfigFlag = true
+	return builder
+}
+
 func (builder *InterviewFeedbackFormDimensionBuilder) Build() *InterviewFeedbackFormDimension {
 	req := &InterviewFeedbackFormDimension{}
 	if builder.idFlag {
@@ -23524,6 +23556,9 @@ func (builder *InterviewFeedbackFormDimensionBuilder) Build() *InterviewFeedback
 	}
 	if builder.abilityListFlag {
 		req.AbilityList = builder.abilityList
+	}
+	if builder.relatedDimensionConfigFlag {
+		req.RelatedDimensionConfig = builder.relatedDimensionConfig
 	}
 	return req
 }
@@ -34319,6 +34354,8 @@ type OfferBasicInfo struct {
 	JobOffered *string `json:"job_offered,omitempty"` // 入职职位
 
 	JobGradeId *string `json:"job_grade_id,omitempty"` // 职等 ID
+
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
 }
 
 type OfferBasicInfoBuilder struct {
@@ -34390,6 +34427,9 @@ type OfferBasicInfoBuilder struct {
 
 	jobGradeId     string // 职等 ID
 	jobGradeIdFlag bool
+
+	pathwayId     string // 通道 ID
+	pathwayIdFlag bool
 }
 
 func NewOfferBasicInfoBuilder() *OfferBasicInfoBuilder {
@@ -34604,6 +34644,15 @@ func (builder *OfferBasicInfoBuilder) JobGradeId(jobGradeId string) *OfferBasicI
 	return builder
 }
 
+// 通道 ID
+//
+// 示例值：6897079709306259719
+func (builder *OfferBasicInfoBuilder) PathwayId(pathwayId string) *OfferBasicInfoBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
 func (builder *OfferBasicInfoBuilder) Build() *OfferBasicInfo {
 	req := &OfferBasicInfo{}
 	if builder.departmentIdFlag {
@@ -34693,6 +34742,10 @@ func (builder *OfferBasicInfoBuilder) Build() *OfferBasicInfo {
 	}
 	if builder.jobGradeIdFlag {
 		req.JobGradeId = &builder.jobGradeId
+
+	}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
 
 	}
 	return req
@@ -39082,6 +39135,122 @@ func (builder *RegistrationSchemaInfoBuilder) Build() *RegistrationSchemaInfo {
 	if builder.nameFlag {
 		req.Name = &builder.name
 
+	}
+	return req
+}
+
+type RelatedDimensionConfig struct {
+	Type *int `json:"type,omitempty"` // 关联配置类型
+
+	RelatedDimensionSettings []*RelatedDimensionSetting `json:"related_dimension_settings,omitempty"` // 关联的维度设置列表
+}
+
+type RelatedDimensionConfigBuilder struct {
+	type_    int // 关联配置类型
+	typeFlag bool
+
+	relatedDimensionSettings     []*RelatedDimensionSetting // 关联的维度设置列表
+	relatedDimensionSettingsFlag bool
+}
+
+func NewRelatedDimensionConfigBuilder() *RelatedDimensionConfigBuilder {
+	builder := &RelatedDimensionConfigBuilder{}
+	return builder
+}
+
+// 关联配置类型
+//
+// 示例值：
+func (builder *RelatedDimensionConfigBuilder) Type(type_ int) *RelatedDimensionConfigBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 关联的维度设置列表
+//
+// 示例值：
+func (builder *RelatedDimensionConfigBuilder) RelatedDimensionSettings(relatedDimensionSettings []*RelatedDimensionSetting) *RelatedDimensionConfigBuilder {
+	builder.relatedDimensionSettings = relatedDimensionSettings
+	builder.relatedDimensionSettingsFlag = true
+	return builder
+}
+
+func (builder *RelatedDimensionConfigBuilder) Build() *RelatedDimensionConfig {
+	req := &RelatedDimensionConfig{}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.relatedDimensionSettingsFlag {
+		req.RelatedDimensionSettings = builder.relatedDimensionSettings
+	}
+	return req
+}
+
+type RelatedDimensionSetting struct {
+	DimensionId *string `json:"dimension_id,omitempty"` // 关联维度ID
+
+	RelatedOperatorType *int `json:"related_operator_type,omitempty"` // 关联计算类型
+
+	DimensionOptionIds []string `json:"dimension_option_ids,omitempty"` // 关联维度选项ID列表
+}
+
+type RelatedDimensionSettingBuilder struct {
+	dimensionId     string // 关联维度ID
+	dimensionIdFlag bool
+
+	relatedOperatorType     int // 关联计算类型
+	relatedOperatorTypeFlag bool
+
+	dimensionOptionIds     []string // 关联维度选项ID列表
+	dimensionOptionIdsFlag bool
+}
+
+func NewRelatedDimensionSettingBuilder() *RelatedDimensionSettingBuilder {
+	builder := &RelatedDimensionSettingBuilder{}
+	return builder
+}
+
+// 关联维度ID
+//
+// 示例值：6930815272790114324
+func (builder *RelatedDimensionSettingBuilder) DimensionId(dimensionId string) *RelatedDimensionSettingBuilder {
+	builder.dimensionId = dimensionId
+	builder.dimensionIdFlag = true
+	return builder
+}
+
+// 关联计算类型
+//
+// 示例值：
+func (builder *RelatedDimensionSettingBuilder) RelatedOperatorType(relatedOperatorType int) *RelatedDimensionSettingBuilder {
+	builder.relatedOperatorType = relatedOperatorType
+	builder.relatedOperatorTypeFlag = true
+	return builder
+}
+
+// 关联维度选项ID列表
+//
+// 示例值：
+func (builder *RelatedDimensionSettingBuilder) DimensionOptionIds(dimensionOptionIds []string) *RelatedDimensionSettingBuilder {
+	builder.dimensionOptionIds = dimensionOptionIds
+	builder.dimensionOptionIdsFlag = true
+	return builder
+}
+
+func (builder *RelatedDimensionSettingBuilder) Build() *RelatedDimensionSetting {
+	req := &RelatedDimensionSetting{}
+	if builder.dimensionIdFlag {
+		req.DimensionId = &builder.dimensionId
+
+	}
+	if builder.relatedOperatorTypeFlag {
+		req.RelatedOperatorType = &builder.relatedOperatorType
+
+	}
+	if builder.dimensionOptionIdsFlag {
+		req.DimensionOptionIds = builder.dimensionOptionIds
 	}
 	return req
 }

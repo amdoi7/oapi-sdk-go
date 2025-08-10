@@ -44,6 +44,7 @@ type V2 struct {
 	Location                          *location                          // location
 	LocationAddress                   *locationAddress                   // location.address
 	Offboarding                       *offboarding                       // offboarding
+	Pathway                           *pathway                           // pathway
 	Person                            *person                            // person
 	PreHire                           *preHire                           // 待入职
 	Probation                         *probation                         // probation
@@ -101,6 +102,7 @@ func New(config *larkcore.Config) *V2 {
 		Location:                          &location{config: config},
 		LocationAddress:                   &locationAddress{config: config},
 		Offboarding:                       &offboarding{config: config},
+		Pathway:                           &pathway{config: config},
 		Person:                            &person{config: config},
 		PreHire:                           &preHire{config: config},
 		Probation:                         &probation{config: config},
@@ -225,6 +227,9 @@ type locationAddress struct {
 	config *larkcore.Config
 }
 type offboarding struct {
+	config *larkcore.Config
+}
+type pathway struct {
 	config *larkcore.Config
 }
 type person struct {
@@ -2230,6 +2235,32 @@ func (j *job) List(ctx context.Context, req *ListJobReq, options ...larkcore.Req
 	return resp, err
 }
 
+// QueryMultiTimeline
+//
+// - 查询生效时间在指定时间范围的职务
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=job&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_job.go
+func (j *job) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineJobReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineJobResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/jobs/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineJobResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // QueryRecentChange
 //
 // -
@@ -2361,6 +2392,32 @@ func (j *jobFamily) BatchGet(ctx context.Context, req *BatchGetJobFamilyReq, opt
 	}
 	// 反序列响应结果
 	resp := &BatchGetJobFamilyResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// QueryMultiTimeline
+//
+// - 查询生效时间在指定时间范围的序列
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_multi_timeline&project=corehr&resource=job_family&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/queryMultiTimeline_jobFamily.go
+func (j *jobFamily) QueryMultiTimeline(ctx context.Context, req *QueryMultiTimelineJobFamilyReq, options ...larkcore.RequestOptionFunc) (*QueryMultiTimelineJobFamilyResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/job_families/query_multi_timeline"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryMultiTimelineJobFamilyResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, j.config)
 	if err != nil {
 		return nil, err
@@ -2830,6 +2887,136 @@ func (o *offboarding) SubmitV2(ctx context.Context, req *SubmitV2OffboardingReq,
 	// 反序列响应结果
 	resp := &SubmitV2OffboardingResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, o.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Active
+//
+// - 启/停用通道
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=active&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/active_pathway.go
+func (p *pathway) Active(ctx context.Context, req *ActivePathwayReq, options ...larkcore.RequestOptionFunc) (*ActivePathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/active"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ActivePathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchGet
+//
+// - 通过通道 ID 批量获取通道信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchGet_pathway.go
+func (p *pathway) BatchGet(ctx context.Context, req *BatchGetPathwayReq, options ...larkcore.RequestOptionFunc) (*BatchGetPathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/batch_get"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchGetPathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Create
+//
+// - 创建通道
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/create_pathway.go
+func (p *pathway) Create(ctx context.Context, req *CreatePathwayReq, options ...larkcore.RequestOptionFunc) (*CreatePathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreatePathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Delete
+//
+// - 删除通道
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=delete&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/delete_pathway.go
+func (p *pathway) Delete(ctx context.Context, req *DeletePathwayReq, options ...larkcore.RequestOptionFunc) (*DeletePathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/:pathway_id"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &DeletePathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Patch
+//
+// - 更新通道信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=patch&project=corehr&resource=pathway&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/patch_pathway.go
+func (p *pathway) Patch(ctx context.Context, req *PatchPathwayReq, options ...larkcore.RequestOptionFunc) (*PatchPathwayResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/pathways/:pathway_id"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &PatchPathwayResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
 	if err != nil {
 		return nil, err
 	}

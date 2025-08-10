@@ -81,6 +81,12 @@ const (
 )
 
 const (
+	GetMeetingByIdQueryModeGetOnlyMeeting          = 0 // 只查询会议信息（默认）
+	GetMeetingByIdQueryModeGetOnlyRelatedArtifacts = 1 // 只查询会议产物（纪要、逐字稿）
+
+)
+
+const (
 	UserIdTypeInviteMeetingUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeInviteMeetingUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeInviteMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
@@ -3373,6 +3379,56 @@ func (builder *MeetingParticipantResultBuilder) Build() *MeetingParticipantResul
 	}
 	if builder.resultFlag {
 		req.Result = &builder.result
+
+	}
+	return req
+}
+
+type MeetingRelatedArtifacts struct {
+	NoteDocToken *string `json:"note_doc_token,omitempty"` // 会议纪要Doc Token
+
+	VerbatimDocToken *string `json:"verbatim_doc_token,omitempty"` // 会议逐字稿Doc Token
+}
+
+type MeetingRelatedArtifactsBuilder struct {
+	noteDocToken     string // 会议纪要Doc Token
+	noteDocTokenFlag bool
+
+	verbatimDocToken     string // 会议逐字稿Doc Token
+	verbatimDocTokenFlag bool
+}
+
+func NewMeetingRelatedArtifactsBuilder() *MeetingRelatedArtifactsBuilder {
+	builder := &MeetingRelatedArtifactsBuilder{}
+	return builder
+}
+
+// 会议纪要Doc Token
+//
+// 示例值：J1X5wG7bFilbFDk42VNdhfS6n6g
+func (builder *MeetingRelatedArtifactsBuilder) NoteDocToken(noteDocToken string) *MeetingRelatedArtifactsBuilder {
+	builder.noteDocToken = noteDocToken
+	builder.noteDocTokenFlag = true
+	return builder
+}
+
+// 会议逐字稿Doc Token
+//
+// 示例值：J1X5wG7bFilbFDk42VNdhfS6n6g
+func (builder *MeetingRelatedArtifactsBuilder) VerbatimDocToken(verbatimDocToken string) *MeetingRelatedArtifactsBuilder {
+	builder.verbatimDocToken = verbatimDocToken
+	builder.verbatimDocTokenFlag = true
+	return builder
+}
+
+func (builder *MeetingRelatedArtifactsBuilder) Build() *MeetingRelatedArtifacts {
+	req := &MeetingRelatedArtifacts{}
+	if builder.noteDocTokenFlag {
+		req.NoteDocToken = &builder.noteDocToken
+
+	}
+	if builder.verbatimDocTokenFlag {
+		req.VerbatimDocToken = &builder.verbatimDocToken
 
 	}
 	return req
@@ -11796,6 +11852,14 @@ func (builder *GetMeetingReqBuilder) UserIdType(userIdType string) *GetMeetingRe
 	return builder
 }
 
+// 此次查询的查询模式，不传，或传0，只查询会议信息；传1，只查询会议产物
+//
+// 示例值：
+func (builder *GetMeetingReqBuilder) QueryMode(queryMode int) *GetMeetingReqBuilder {
+	builder.apiReq.QueryParams.Set("query_mode", fmt.Sprint(queryMode))
+	return builder
+}
+
 func (builder *GetMeetingReqBuilder) Build() *GetMeetingReq {
 	req := &GetMeetingReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -11810,6 +11874,8 @@ type GetMeetingReq struct {
 
 type GetMeetingRespData struct {
 	Meeting *Meeting `json:"meeting,omitempty"` // 会议数据
+
+	RelatedArtifacts *MeetingRelatedArtifacts `json:"related_artifacts,omitempty"` //
 }
 
 type GetMeetingResp struct {

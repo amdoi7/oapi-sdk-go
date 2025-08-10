@@ -13727,6 +13727,8 @@ type Employee struct {
 	ArchiveCpstPlanId *string `json:"archive_cpst_plan_id,omitempty"` // 当前所属薪资方案 ID;- 可结合[批量查询薪资方案](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list)接口使用
 
 	AttendanceGroupId *string `json:"attendance_group_id,omitempty"` // 当前所在考勤组 ID;- 可通过[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)获取详情
+
+	IndividualsWithHeadcountOrNot *Enum `json:"individuals_with_headcount_or_not,omitempty"` // 员工是否占用编制
 }
 
 type EmployeeBuilder struct {
@@ -13960,6 +13962,9 @@ type EmployeeBuilder struct {
 
 	attendanceGroupId     string // 当前所在考勤组 ID;- 可通过[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)获取详情
 	attendanceGroupIdFlag bool
+
+	individualsWithHeadcountOrNot     *Enum // 员工是否占用编制
+	individualsWithHeadcountOrNotFlag bool
 }
 
 func NewEmployeeBuilder() *EmployeeBuilder {
@@ -14660,6 +14665,15 @@ func (builder *EmployeeBuilder) AttendanceGroupId(attendanceGroupId string) *Emp
 	return builder
 }
 
+// 员工是否占用编制
+//
+// 示例值：with_headcount
+func (builder *EmployeeBuilder) IndividualsWithHeadcountOrNot(individualsWithHeadcountOrNot *Enum) *EmployeeBuilder {
+	builder.individualsWithHeadcountOrNot = individualsWithHeadcountOrNot
+	builder.individualsWithHeadcountOrNotFlag = true
+	return builder
+}
+
 func (builder *EmployeeBuilder) Build() *Employee {
 	req := &Employee{}
 	if builder.employmentIdFlag {
@@ -14943,6 +14957,9 @@ func (builder *EmployeeBuilder) Build() *Employee {
 	if builder.attendanceGroupIdFlag {
 		req.AttendanceGroupId = &builder.attendanceGroupId
 
+	}
+	if builder.individualsWithHeadcountOrNotFlag {
+		req.IndividualsWithHeadcountOrNot = builder.individualsWithHeadcountOrNot
 	}
 	return req
 }
@@ -15491,6 +15508,8 @@ type EmployeeBt struct {
 	AttendanceGroupId *string `json:"attendance_group_id,omitempty"` // 当前所在考勤组 ID;- 可通过[按 ID 查询考勤组](https://open.feishu.cn/document/uAjLw4CM/ukTMukTMukTM/reference/attendance-v1/group/get)获取详情
 
 	WhetherReturnee *bool `json:"whether_returnee,omitempty"` // 是否回流
+
+	IndividualsWithHeadcountOrNot *Enum `json:"individuals_with_headcount_or_not,omitempty"` // 员工是否占用编制
 }
 
 type EmployeeBtBuilder struct {
@@ -15691,6 +15710,9 @@ type EmployeeBtBuilder struct {
 
 	whetherReturnee     bool // 是否回流
 	whetherReturneeFlag bool
+
+	individualsWithHeadcountOrNot     *Enum // 员工是否占用编制
+	individualsWithHeadcountOrNotFlag bool
 }
 
 func NewEmployeeBtBuilder() *EmployeeBtBuilder {
@@ -16292,6 +16314,15 @@ func (builder *EmployeeBtBuilder) WhetherReturnee(whetherReturnee bool) *Employe
 	return builder
 }
 
+// 员工是否占用编制
+//
+// 示例值：with_headcount
+func (builder *EmployeeBtBuilder) IndividualsWithHeadcountOrNot(individualsWithHeadcountOrNot *Enum) *EmployeeBtBuilder {
+	builder.individualsWithHeadcountOrNot = individualsWithHeadcountOrNot
+	builder.individualsWithHeadcountOrNotFlag = true
+	return builder
+}
+
 func (builder *EmployeeBtBuilder) Build() *EmployeeBt {
 	req := &EmployeeBt{}
 	if builder.employmentIdFlag {
@@ -16538,6 +16569,9 @@ func (builder *EmployeeBtBuilder) Build() *EmployeeBt {
 	if builder.whetherReturneeFlag {
 		req.WhetherReturnee = &builder.whetherReturnee
 
+	}
+	if builder.individualsWithHeadcountOrNotFlag {
+		req.IndividualsWithHeadcountOrNot = builder.individualsWithHeadcountOrNot
 	}
 	return req
 }
@@ -26822,6 +26856,56 @@ func (builder *LeaveEmployExpireRecordBuilder) Build() *LeaveEmployExpireRecord 
 	return req
 }
 
+type LeaveExtendItem struct {
+	Key *string `json:"key,omitempty"` // 扩展字段键
+
+	Value *string `json:"value,omitempty"` // 扩展字段值
+}
+
+type LeaveExtendItemBuilder struct {
+	key     string // 扩展字段键
+	keyFlag bool
+
+	value     string // 扩展字段值
+	valueFlag bool
+}
+
+func NewLeaveExtendItemBuilder() *LeaveExtendItemBuilder {
+	builder := &LeaveExtendItemBuilder{}
+	return builder
+}
+
+// 扩展字段键
+//
+// 示例值：testKey
+func (builder *LeaveExtendItemBuilder) Key(key string) *LeaveExtendItemBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 扩展字段值
+//
+// 示例值：testValue
+func (builder *LeaveExtendItemBuilder) Value(value string) *LeaveExtendItemBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *LeaveExtendItemBuilder) Build() *LeaveExtendItem {
+	req := &LeaveExtendItem{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
+
+	}
+	return req
+}
+
 type LeaveGrantingRecord struct {
 	Id *string `json:"id,omitempty"` // 假期授予记录 ID
 
@@ -27213,6 +27297,8 @@ type LeaveRequest struct {
 	WdPaidType *int `json:"wd_paid_type,omitempty"` // workDay算薪类型
 
 	LeaveCorrectProcessInfo []*LeaveProcessInfo `json:"leave_correct_process_info,omitempty"` // 请假更正流程信息
+
+	WorkdayExtendInfos []*LeaveExtendItem `json:"workday_extend_infos,omitempty"` // workday扩展字段信息
 }
 
 type LeaveRequestBuilder struct {
@@ -27302,6 +27388,9 @@ type LeaveRequestBuilder struct {
 
 	leaveCorrectProcessInfo     []*LeaveProcessInfo // 请假更正流程信息
 	leaveCorrectProcessInfoFlag bool
+
+	workdayExtendInfos     []*LeaveExtendItem // workday扩展字段信息
+	workdayExtendInfosFlag bool
 }
 
 func NewLeaveRequestBuilder() *LeaveRequestBuilder {
@@ -27570,6 +27659,15 @@ func (builder *LeaveRequestBuilder) LeaveCorrectProcessInfo(leaveCorrectProcessI
 	return builder
 }
 
+// workday扩展字段信息
+//
+// 示例值：
+func (builder *LeaveRequestBuilder) WorkdayExtendInfos(workdayExtendInfos []*LeaveExtendItem) *LeaveRequestBuilder {
+	builder.workdayExtendInfos = workdayExtendInfos
+	builder.workdayExtendInfosFlag = true
+	return builder
+}
+
 func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	req := &LeaveRequest{}
 	if builder.leaveRequestIdFlag {
@@ -27679,6 +27777,9 @@ func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	}
 	if builder.leaveCorrectProcessInfoFlag {
 		req.LeaveCorrectProcessInfo = builder.leaveCorrectProcessInfo
+	}
+	if builder.workdayExtendInfosFlag {
+		req.WorkdayExtendInfos = builder.workdayExtendInfos
 	}
 	return req
 }
@@ -29505,6 +29606,241 @@ func (builder *MatchRulesBuilder) Build() *MatchRules {
 	req := &MatchRules{}
 	if builder.matchRulesFlag {
 		req.MatchRules = builder.matchRules
+	}
+	return req
+}
+
+type MatchingRuleDimensionItem struct {
+	DimensionApiName *string `json:"dimension_api_name,omitempty"` // 维度APIName
+
+	ValueBoolean *bool `json:"value_boolean,omitempty"` // 布尔类型的字段值
+
+	ValueEnumIds []string `json:"value_enum_ids,omitempty"` // 枚举类型的字段值列表
+
+	ValueLookupIds []string `json:"value_lookup_ids,omitempty"` // 查找类型的字段值列表
+}
+
+type MatchingRuleDimensionItemBuilder struct {
+	dimensionApiName     string // 维度APIName
+	dimensionApiNameFlag bool
+
+	valueBoolean     bool // 布尔类型的字段值
+	valueBooleanFlag bool
+
+	valueEnumIds     []string // 枚举类型的字段值列表
+	valueEnumIdsFlag bool
+
+	valueLookupIds     []string // 查找类型的字段值列表
+	valueLookupIdsFlag bool
+}
+
+func NewMatchingRuleDimensionItemBuilder() *MatchingRuleDimensionItemBuilder {
+	builder := &MatchingRuleDimensionItemBuilder{}
+	return builder
+}
+
+// 维度APIName
+//
+// 示例值：department
+func (builder *MatchingRuleDimensionItemBuilder) DimensionApiName(dimensionApiName string) *MatchingRuleDimensionItemBuilder {
+	builder.dimensionApiName = dimensionApiName
+	builder.dimensionApiNameFlag = true
+	return builder
+}
+
+// 布尔类型的字段值
+//
+// 示例值：false
+func (builder *MatchingRuleDimensionItemBuilder) ValueBoolean(valueBoolean bool) *MatchingRuleDimensionItemBuilder {
+	builder.valueBoolean = valueBoolean
+	builder.valueBooleanFlag = true
+	return builder
+}
+
+// 枚举类型的字段值列表
+//
+// 示例值：
+func (builder *MatchingRuleDimensionItemBuilder) ValueEnumIds(valueEnumIds []string) *MatchingRuleDimensionItemBuilder {
+	builder.valueEnumIds = valueEnumIds
+	builder.valueEnumIdsFlag = true
+	return builder
+}
+
+// 查找类型的字段值列表
+//
+// 示例值：
+func (builder *MatchingRuleDimensionItemBuilder) ValueLookupIds(valueLookupIds []string) *MatchingRuleDimensionItemBuilder {
+	builder.valueLookupIds = valueLookupIds
+	builder.valueLookupIdsFlag = true
+	return builder
+}
+
+func (builder *MatchingRuleDimensionItemBuilder) Build() *MatchingRuleDimensionItem {
+	req := &MatchingRuleDimensionItem{}
+	if builder.dimensionApiNameFlag {
+		req.DimensionApiName = &builder.dimensionApiName
+
+	}
+	if builder.valueBooleanFlag {
+		req.ValueBoolean = &builder.valueBoolean
+
+	}
+	if builder.valueEnumIdsFlag {
+		req.ValueEnumIds = builder.valueEnumIds
+	}
+	if builder.valueLookupIdsFlag {
+		req.ValueLookupIds = builder.valueLookupIds
+	}
+	return req
+}
+
+type MatchingRuleItem struct {
+	CompanyId *string `json:"company_id,omitempty"` // 匹配的公司 ID
+
+	Active *bool `json:"active,omitempty"` // 启停用状态
+
+	Priority *int `json:"priority,omitempty"` // 优先级
+
+	ScopeSetting *MatchingRuleScopeSetting `json:"scope_setting,omitempty"` // 维度设置
+
+	Descriptions []*I18n `json:"descriptions,omitempty"` // 描述
+}
+
+type MatchingRuleItemBuilder struct {
+	companyId     string // 匹配的公司 ID
+	companyIdFlag bool
+
+	active     bool // 启停用状态
+	activeFlag bool
+
+	priority     int // 优先级
+	priorityFlag bool
+
+	scopeSetting     *MatchingRuleScopeSetting // 维度设置
+	scopeSettingFlag bool
+
+	descriptions     []*I18n // 描述
+	descriptionsFlag bool
+}
+
+func NewMatchingRuleItemBuilder() *MatchingRuleItemBuilder {
+	builder := &MatchingRuleItemBuilder{}
+	return builder
+}
+
+// 匹配的公司 ID
+//
+// 示例值：77456435345
+func (builder *MatchingRuleItemBuilder) CompanyId(companyId string) *MatchingRuleItemBuilder {
+	builder.companyId = companyId
+	builder.companyIdFlag = true
+	return builder
+}
+
+// 启停用状态
+//
+// 示例值：false
+func (builder *MatchingRuleItemBuilder) Active(active bool) *MatchingRuleItemBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 优先级
+//
+// 示例值：10
+func (builder *MatchingRuleItemBuilder) Priority(priority int) *MatchingRuleItemBuilder {
+	builder.priority = priority
+	builder.priorityFlag = true
+	return builder
+}
+
+// 维度设置
+//
+// 示例值：
+func (builder *MatchingRuleItemBuilder) ScopeSetting(scopeSetting *MatchingRuleScopeSetting) *MatchingRuleItemBuilder {
+	builder.scopeSetting = scopeSetting
+	builder.scopeSettingFlag = true
+	return builder
+}
+
+// 描述
+//
+// 示例值：
+func (builder *MatchingRuleItemBuilder) Descriptions(descriptions []*I18n) *MatchingRuleItemBuilder {
+	builder.descriptions = descriptions
+	builder.descriptionsFlag = true
+	return builder
+}
+
+func (builder *MatchingRuleItemBuilder) Build() *MatchingRuleItem {
+	req := &MatchingRuleItem{}
+	if builder.companyIdFlag {
+		req.CompanyId = &builder.companyId
+
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+
+	}
+	if builder.priorityFlag {
+		req.Priority = &builder.priority
+
+	}
+	if builder.scopeSettingFlag {
+		req.ScopeSetting = builder.scopeSetting
+	}
+	if builder.descriptionsFlag {
+		req.Descriptions = builder.descriptions
+	}
+	return req
+}
+
+type MatchingRuleScopeSetting struct {
+	IsAllScope *bool `json:"is_all_scope,omitempty"` // 是否适用全部范围
+
+	MatchingRuleDimensions []*MatchingRuleDimensionItem `json:"matching_rule_dimensions,omitempty"` // 维度设置
+}
+
+type MatchingRuleScopeSettingBuilder struct {
+	isAllScope     bool // 是否适用全部范围
+	isAllScopeFlag bool
+
+	matchingRuleDimensions     []*MatchingRuleDimensionItem // 维度设置
+	matchingRuleDimensionsFlag bool
+}
+
+func NewMatchingRuleScopeSettingBuilder() *MatchingRuleScopeSettingBuilder {
+	builder := &MatchingRuleScopeSettingBuilder{}
+	return builder
+}
+
+// 是否适用全部范围
+//
+// 示例值：true
+func (builder *MatchingRuleScopeSettingBuilder) IsAllScope(isAllScope bool) *MatchingRuleScopeSettingBuilder {
+	builder.isAllScope = isAllScope
+	builder.isAllScopeFlag = true
+	return builder
+}
+
+// 维度设置
+//
+// 示例值：
+func (builder *MatchingRuleScopeSettingBuilder) MatchingRuleDimensions(matchingRuleDimensions []*MatchingRuleDimensionItem) *MatchingRuleScopeSettingBuilder {
+	builder.matchingRuleDimensions = matchingRuleDimensions
+	builder.matchingRuleDimensionsFlag = true
+	return builder
+}
+
+func (builder *MatchingRuleScopeSettingBuilder) Build() *MatchingRuleScopeSetting {
+	req := &MatchingRuleScopeSetting{}
+	if builder.isAllScopeFlag {
+		req.IsAllScope = &builder.isAllScope
+
+	}
+	if builder.matchingRuleDimensionsFlag {
+		req.MatchingRuleDimensions = builder.matchingRuleDimensions
 	}
 	return req
 }
@@ -48853,6 +49189,55 @@ func (builder *QrCodeValueBuilder) Build() *QrCodeValue {
 	if builder.boolValueFlag {
 		req.BoolValue = &builder.boolValue
 
+	}
+	return req
+}
+
+type QueryProcessFlowDataTemplateReq struct {
+	FlowDefinitionId *string `json:"flow_definition_id,omitempty"` // 流程定义ID
+
+	VariableApiNames []string `json:"variable_api_names,omitempty"` // 需要传入的变量的ApiName。如果是多级下钻变量用"."分割
+}
+
+type QueryProcessFlowDataTemplateReqBuilder struct {
+	flowDefinitionId     string // 流程定义ID
+	flowDefinitionIdFlag bool
+
+	variableApiNames     []string // 需要传入的变量的ApiName。如果是多级下钻变量用"."分割
+	variableApiNamesFlag bool
+}
+
+func NewQueryProcessFlowDataTemplateReqBuilder() *QueryProcessFlowDataTemplateReqBuilder {
+	builder := &QueryProcessFlowDataTemplateReqBuilder{}
+	return builder
+}
+
+// 流程定义ID
+//
+// 示例值：people_7023711013443944467_7437160904904494892
+func (builder *QueryProcessFlowDataTemplateReqBuilder) FlowDefinitionId(flowDefinitionId string) *QueryProcessFlowDataTemplateReqBuilder {
+	builder.flowDefinitionId = flowDefinitionId
+	builder.flowDefinitionIdFlag = true
+	return builder
+}
+
+// 需要传入的变量的ApiName。如果是多级下钻变量用"."分割
+//
+// 示例值：
+func (builder *QueryProcessFlowDataTemplateReqBuilder) VariableApiNames(variableApiNames []string) *QueryProcessFlowDataTemplateReqBuilder {
+	builder.variableApiNames = variableApiNames
+	builder.variableApiNamesFlag = true
+	return builder
+}
+
+func (builder *QueryProcessFlowDataTemplateReqBuilder) Build() *QueryProcessFlowDataTemplateReq {
+	req := &QueryProcessFlowDataTemplateReq{}
+	if builder.flowDefinitionIdFlag {
+		req.FlowDefinitionId = &builder.flowDefinitionId
+
+	}
+	if builder.variableApiNamesFlag {
+		req.VariableApiNames = builder.variableApiNames
 	}
 	return req
 }
@@ -68552,6 +68937,203 @@ func (resp *ListJobResp) Success() bool {
 	return resp.Code == 0
 }
 
+type QueryMultiTimelineJobReqBodyBuilder struct {
+	jobIds     []string // 职务 ID 列表
+	jobIdsFlag bool
+
+	startDate     string // 查询开始时间（包含）
+	startDateFlag bool
+
+	endDate     string // 查询结束时间(包含)
+	endDateFlag bool
+
+	fields     []string // 返回数据的字段列表，可选["job_name", "code", "active", "parent_job", "description", "effective_date", "expiration_date"]
+	fieldsFlag bool
+}
+
+func NewQueryMultiTimelineJobReqBodyBuilder() *QueryMultiTimelineJobReqBodyBuilder {
+	builder := &QueryMultiTimelineJobReqBodyBuilder{}
+	return builder
+}
+
+// 职务 ID 列表
+//
+//示例值：
+func (builder *QueryMultiTimelineJobReqBodyBuilder) JobIds(jobIds []string) *QueryMultiTimelineJobReqBodyBuilder {
+	builder.jobIds = jobIds
+	builder.jobIdsFlag = true
+	return builder
+}
+
+// 查询开始时间（包含）
+//
+//示例值：2024-01-01
+func (builder *QueryMultiTimelineJobReqBodyBuilder) StartDate(startDate string) *QueryMultiTimelineJobReqBodyBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 查询结束时间(包含)
+//
+//示例值：2024-12-31
+func (builder *QueryMultiTimelineJobReqBodyBuilder) EndDate(endDate string) *QueryMultiTimelineJobReqBodyBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 返回数据的字段列表，可选["job_name", "code", "active", "parent_job", "description", "effective_date", "expiration_date"]
+//
+//示例值：
+func (builder *QueryMultiTimelineJobReqBodyBuilder) Fields(fields []string) *QueryMultiTimelineJobReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *QueryMultiTimelineJobReqBodyBuilder) Build() *QueryMultiTimelineJobReqBody {
+	req := &QueryMultiTimelineJobReqBody{}
+	if builder.jobIdsFlag {
+		req.JobIds = builder.jobIds
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+type QueryMultiTimelineJobPathReqBodyBuilder struct {
+	jobIds        []string
+	jobIdsFlag    bool
+	startDate     string
+	startDateFlag bool
+	endDate       string
+	endDateFlag   bool
+	fields        []string
+	fieldsFlag    bool
+}
+
+func NewQueryMultiTimelineJobPathReqBodyBuilder() *QueryMultiTimelineJobPathReqBodyBuilder {
+	builder := &QueryMultiTimelineJobPathReqBodyBuilder{}
+	return builder
+}
+
+// 职务 ID 列表
+//
+// 示例值：
+func (builder *QueryMultiTimelineJobPathReqBodyBuilder) JobIds(jobIds []string) *QueryMultiTimelineJobPathReqBodyBuilder {
+	builder.jobIds = jobIds
+	builder.jobIdsFlag = true
+	return builder
+}
+
+// 查询开始时间（包含）
+//
+// 示例值：2024-01-01
+func (builder *QueryMultiTimelineJobPathReqBodyBuilder) StartDate(startDate string) *QueryMultiTimelineJobPathReqBodyBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 查询结束时间(包含)
+//
+// 示例值：2024-12-31
+func (builder *QueryMultiTimelineJobPathReqBodyBuilder) EndDate(endDate string) *QueryMultiTimelineJobPathReqBodyBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 返回数据的字段列表，可选["job_name", "code", "active", "parent_job", "description", "effective_date", "expiration_date"]
+//
+// 示例值：
+func (builder *QueryMultiTimelineJobPathReqBodyBuilder) Fields(fields []string) *QueryMultiTimelineJobPathReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *QueryMultiTimelineJobPathReqBodyBuilder) Build() (*QueryMultiTimelineJobReqBody, error) {
+	req := &QueryMultiTimelineJobReqBody{}
+	if builder.jobIdsFlag {
+		req.JobIds = builder.jobIds
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req, nil
+}
+
+type QueryMultiTimelineJobReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QueryMultiTimelineJobReqBody
+}
+
+func NewQueryMultiTimelineJobReqBuilder() *QueryMultiTimelineJobReqBuilder {
+	builder := &QueryMultiTimelineJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 查询生效时间在指定时间范围的职务
+func (builder *QueryMultiTimelineJobReqBuilder) Body(body *QueryMultiTimelineJobReqBody) *QueryMultiTimelineJobReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QueryMultiTimelineJobReqBuilder) Build() *QueryMultiTimelineJobReq {
+	req := &QueryMultiTimelineJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QueryMultiTimelineJobReqBody struct {
+	JobIds []string `json:"job_ids,omitempty"` // 职务 ID 列表
+
+	StartDate *string `json:"start_date,omitempty"` // 查询开始时间（包含）
+
+	EndDate *string `json:"end_date,omitempty"` // 查询结束时间(包含)
+
+	Fields []string `json:"fields,omitempty"` // 返回数据的字段列表，可选["job_name", "code", "active", "parent_job", "description", "effective_date", "expiration_date"]
+}
+
+type QueryMultiTimelineJobReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QueryMultiTimelineJobReqBody `body:""`
+}
+
+type QueryMultiTimelineJobRespData struct {
+	Items []*JobTimeline `json:"items,omitempty"` // 职务信息
+}
+
+type QueryMultiTimelineJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryMultiTimelineJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryMultiTimelineJobResp) Success() bool {
+	return resp.Code == 0
+}
+
 type QueryRecentChangeJobReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -69734,6 +70316,203 @@ type BatchGetJobFamilyResp struct {
 }
 
 func (resp *BatchGetJobFamilyResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryMultiTimelineJobFamilyReqBodyBuilder struct {
+	jobFamilyIds     []string // 序列 ID 列表
+	jobFamilyIdsFlag bool
+
+	startDate     string // 查询开始时间（包含）
+	startDateFlag bool
+
+	endDate     string // 查询结束时间(包含)
+	endDateFlag bool
+
+	fields     []string // 返回数据的字段列表，可选["job_family_name", "code", "active", "parent_job_family_id", "description", "effective_date"]
+	fieldsFlag bool
+}
+
+func NewQueryMultiTimelineJobFamilyReqBodyBuilder() *QueryMultiTimelineJobFamilyReqBodyBuilder {
+	builder := &QueryMultiTimelineJobFamilyReqBodyBuilder{}
+	return builder
+}
+
+// 序列 ID 列表
+//
+//示例值：
+func (builder *QueryMultiTimelineJobFamilyReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryMultiTimelineJobFamilyReqBodyBuilder {
+	builder.jobFamilyIds = jobFamilyIds
+	builder.jobFamilyIdsFlag = true
+	return builder
+}
+
+// 查询开始时间（包含）
+//
+//示例值：2024-01-01
+func (builder *QueryMultiTimelineJobFamilyReqBodyBuilder) StartDate(startDate string) *QueryMultiTimelineJobFamilyReqBodyBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 查询结束时间(包含)
+//
+//示例值：2024-12-31
+func (builder *QueryMultiTimelineJobFamilyReqBodyBuilder) EndDate(endDate string) *QueryMultiTimelineJobFamilyReqBodyBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 返回数据的字段列表，可选["job_family_name", "code", "active", "parent_job_family_id", "description", "effective_date"]
+//
+//示例值：
+func (builder *QueryMultiTimelineJobFamilyReqBodyBuilder) Fields(fields []string) *QueryMultiTimelineJobFamilyReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *QueryMultiTimelineJobFamilyReqBodyBuilder) Build() *QueryMultiTimelineJobFamilyReqBody {
+	req := &QueryMultiTimelineJobFamilyReqBody{}
+	if builder.jobFamilyIdsFlag {
+		req.JobFamilyIds = builder.jobFamilyIds
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+type QueryMultiTimelineJobFamilyPathReqBodyBuilder struct {
+	jobFamilyIds     []string
+	jobFamilyIdsFlag bool
+	startDate        string
+	startDateFlag    bool
+	endDate          string
+	endDateFlag      bool
+	fields           []string
+	fieldsFlag       bool
+}
+
+func NewQueryMultiTimelineJobFamilyPathReqBodyBuilder() *QueryMultiTimelineJobFamilyPathReqBodyBuilder {
+	builder := &QueryMultiTimelineJobFamilyPathReqBodyBuilder{}
+	return builder
+}
+
+// 序列 ID 列表
+//
+// 示例值：
+func (builder *QueryMultiTimelineJobFamilyPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryMultiTimelineJobFamilyPathReqBodyBuilder {
+	builder.jobFamilyIds = jobFamilyIds
+	builder.jobFamilyIdsFlag = true
+	return builder
+}
+
+// 查询开始时间（包含）
+//
+// 示例值：2024-01-01
+func (builder *QueryMultiTimelineJobFamilyPathReqBodyBuilder) StartDate(startDate string) *QueryMultiTimelineJobFamilyPathReqBodyBuilder {
+	builder.startDate = startDate
+	builder.startDateFlag = true
+	return builder
+}
+
+// 查询结束时间(包含)
+//
+// 示例值：2024-12-31
+func (builder *QueryMultiTimelineJobFamilyPathReqBodyBuilder) EndDate(endDate string) *QueryMultiTimelineJobFamilyPathReqBodyBuilder {
+	builder.endDate = endDate
+	builder.endDateFlag = true
+	return builder
+}
+
+// 返回数据的字段列表，可选["job_family_name", "code", "active", "parent_job_family_id", "description", "effective_date"]
+//
+// 示例值：
+func (builder *QueryMultiTimelineJobFamilyPathReqBodyBuilder) Fields(fields []string) *QueryMultiTimelineJobFamilyPathReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *QueryMultiTimelineJobFamilyPathReqBodyBuilder) Build() (*QueryMultiTimelineJobFamilyReqBody, error) {
+	req := &QueryMultiTimelineJobFamilyReqBody{}
+	if builder.jobFamilyIdsFlag {
+		req.JobFamilyIds = builder.jobFamilyIds
+	}
+	if builder.startDateFlag {
+		req.StartDate = &builder.startDate
+	}
+	if builder.endDateFlag {
+		req.EndDate = &builder.endDate
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req, nil
+}
+
+type QueryMultiTimelineJobFamilyReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QueryMultiTimelineJobFamilyReqBody
+}
+
+func NewQueryMultiTimelineJobFamilyReqBuilder() *QueryMultiTimelineJobFamilyReqBuilder {
+	builder := &QueryMultiTimelineJobFamilyReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 查询生效时间在指定时间范围的序列
+func (builder *QueryMultiTimelineJobFamilyReqBuilder) Body(body *QueryMultiTimelineJobFamilyReqBody) *QueryMultiTimelineJobFamilyReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QueryMultiTimelineJobFamilyReqBuilder) Build() *QueryMultiTimelineJobFamilyReq {
+	req := &QueryMultiTimelineJobFamilyReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QueryMultiTimelineJobFamilyReqBody struct {
+	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列 ID 列表
+
+	StartDate *string `json:"start_date,omitempty"` // 查询开始时间（包含）
+
+	EndDate *string `json:"end_date,omitempty"` // 查询结束时间(包含)
+
+	Fields []string `json:"fields,omitempty"` // 返回数据的字段列表，可选["job_family_name", "code", "active", "parent_job_family_id", "description", "effective_date"]
+}
+
+type QueryMultiTimelineJobFamilyReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QueryMultiTimelineJobFamilyReqBody `body:""`
+}
+
+type QueryMultiTimelineJobFamilyRespData struct {
+	Items []*JobFamilyTimeline `json:"items,omitempty"` // 序列信息
+}
+
+type QueryMultiTimelineJobFamilyResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryMultiTimelineJobFamilyRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryMultiTimelineJobFamilyResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -71838,6 +72617,395 @@ type SubmitV2OffboardingResp struct {
 }
 
 func (resp *SubmitV2OffboardingResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ActivePathwayReqBodyBuilder struct {
+	pathwayId     string // 通道ID
+	pathwayIdFlag bool
+
+	active     bool // 启用停用状态
+	activeFlag bool
+}
+
+func NewActivePathwayReqBodyBuilder() *ActivePathwayReqBodyBuilder {
+	builder := &ActivePathwayReqBodyBuilder{}
+	return builder
+}
+
+// 通道ID
+//
+//示例值：6862995757234914823
+func (builder *ActivePathwayReqBodyBuilder) PathwayId(pathwayId string) *ActivePathwayReqBodyBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
+// 启用停用状态
+//
+//示例值：true
+func (builder *ActivePathwayReqBodyBuilder) Active(active bool) *ActivePathwayReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+func (builder *ActivePathwayReqBodyBuilder) Build() *ActivePathwayReqBody {
+	req := &ActivePathwayReqBody{}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	return req
+}
+
+type ActivePathwayPathReqBodyBuilder struct {
+	pathwayId     string
+	pathwayIdFlag bool
+	active        bool
+	activeFlag    bool
+}
+
+func NewActivePathwayPathReqBodyBuilder() *ActivePathwayPathReqBodyBuilder {
+	builder := &ActivePathwayPathReqBodyBuilder{}
+	return builder
+}
+
+// 通道ID
+//
+// 示例值：6862995757234914823
+func (builder *ActivePathwayPathReqBodyBuilder) PathwayId(pathwayId string) *ActivePathwayPathReqBodyBuilder {
+	builder.pathwayId = pathwayId
+	builder.pathwayIdFlag = true
+	return builder
+}
+
+// 启用停用状态
+//
+// 示例值：true
+func (builder *ActivePathwayPathReqBodyBuilder) Active(active bool) *ActivePathwayPathReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+func (builder *ActivePathwayPathReqBodyBuilder) Build() (*ActivePathwayReqBody, error) {
+	req := &ActivePathwayReqBody{}
+	if builder.pathwayIdFlag {
+		req.PathwayId = &builder.pathwayId
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	return req, nil
+}
+
+type ActivePathwayReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *ActivePathwayReqBody
+}
+
+func NewActivePathwayReqBuilder() *ActivePathwayReqBuilder {
+	builder := &ActivePathwayReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 启/停用通道
+func (builder *ActivePathwayReqBuilder) Body(body *ActivePathwayReqBody) *ActivePathwayReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *ActivePathwayReqBuilder) Build() *ActivePathwayReq {
+	req := &ActivePathwayReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type ActivePathwayReqBody struct {
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+
+	Active *bool `json:"active,omitempty"` // 启用停用状态
+}
+
+type ActivePathwayReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *ActivePathwayReqBody `body:""`
+}
+
+type ActivePathwayResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *ActivePathwayResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchGetPathwayReqBodyBuilder struct {
+	pathwayIds     []string // 通道 ID 列表
+	pathwayIdsFlag bool
+}
+
+func NewBatchGetPathwayReqBodyBuilder() *BatchGetPathwayReqBodyBuilder {
+	builder := &BatchGetPathwayReqBodyBuilder{}
+	return builder
+}
+
+// 通道 ID 列表
+//
+//示例值：
+func (builder *BatchGetPathwayReqBodyBuilder) PathwayIds(pathwayIds []string) *BatchGetPathwayReqBodyBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
+	return builder
+}
+
+func (builder *BatchGetPathwayReqBodyBuilder) Build() *BatchGetPathwayReqBody {
+	req := &BatchGetPathwayReqBody{}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
+	}
+	return req
+}
+
+type BatchGetPathwayPathReqBodyBuilder struct {
+	pathwayIds     []string
+	pathwayIdsFlag bool
+}
+
+func NewBatchGetPathwayPathReqBodyBuilder() *BatchGetPathwayPathReqBodyBuilder {
+	builder := &BatchGetPathwayPathReqBodyBuilder{}
+	return builder
+}
+
+// 通道 ID 列表
+//
+// 示例值：
+func (builder *BatchGetPathwayPathReqBodyBuilder) PathwayIds(pathwayIds []string) *BatchGetPathwayPathReqBodyBuilder {
+	builder.pathwayIds = pathwayIds
+	builder.pathwayIdsFlag = true
+	return builder
+}
+
+func (builder *BatchGetPathwayPathReqBodyBuilder) Build() (*BatchGetPathwayReqBody, error) {
+	req := &BatchGetPathwayReqBody{}
+	if builder.pathwayIdsFlag {
+		req.PathwayIds = builder.pathwayIds
+	}
+	return req, nil
+}
+
+type BatchGetPathwayReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchGetPathwayReqBody
+}
+
+func NewBatchGetPathwayReqBuilder() *BatchGetPathwayReqBuilder {
+	builder := &BatchGetPathwayReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 通过通道 ID 批量获取通道信息
+func (builder *BatchGetPathwayReqBuilder) Body(body *BatchGetPathwayReqBody) *BatchGetPathwayReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchGetPathwayReqBuilder) Build() *BatchGetPathwayReq {
+	req := &BatchGetPathwayReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchGetPathwayReqBody struct {
+	PathwayIds []string `json:"pathway_ids,omitempty"` // 通道 ID 列表
+}
+
+type BatchGetPathwayReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchGetPathwayReqBody `body:""`
+}
+
+type BatchGetPathwayRespData struct {
+	Items []*Pathway `json:"items,omitempty"` // 查询的通道信息
+}
+
+type BatchGetPathwayResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchGetPathwayRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchGetPathwayResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreatePathwayReqBuilder struct {
+	apiReq        *larkcore.ApiReq
+	pathwayCreate *PathwayCreate
+}
+
+func NewCreatePathwayReqBuilder() *CreatePathwayReqBuilder {
+	builder := &CreatePathwayReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 根据client_token是否一致来判断是否为同一请求
+//
+// 示例值：12454646
+func (builder *CreatePathwayReqBuilder) ClientToken(clientToken string) *CreatePathwayReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 创建通道
+func (builder *CreatePathwayReqBuilder) PathwayCreate(pathwayCreate *PathwayCreate) *CreatePathwayReqBuilder {
+	builder.pathwayCreate = pathwayCreate
+	return builder
+}
+
+func (builder *CreatePathwayReqBuilder) Build() *CreatePathwayReq {
+	req := &CreatePathwayReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.pathwayCreate
+	return req
+}
+
+type CreatePathwayReq struct {
+	apiReq        *larkcore.ApiReq
+	PathwayCreate *PathwayCreate `body:""`
+}
+
+type CreatePathwayRespData struct {
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+}
+
+type CreatePathwayResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreatePathwayRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreatePathwayResp) Success() bool {
+	return resp.Code == 0
+}
+
+type DeletePathwayReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewDeletePathwayReqBuilder() *DeletePathwayReqBuilder {
+	builder := &DeletePathwayReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 通道ID
+//
+// 示例值：6862995757234914824
+func (builder *DeletePathwayReqBuilder) PathwayId(pathwayId string) *DeletePathwayReqBuilder {
+	builder.apiReq.PathParams.Set("pathway_id", fmt.Sprint(pathwayId))
+	return builder
+}
+
+func (builder *DeletePathwayReqBuilder) Build() *DeletePathwayReq {
+	req := &DeletePathwayReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type DeletePathwayReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type DeletePathwayResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *DeletePathwayResp) Success() bool {
+	return resp.Code == 0
+}
+
+type PatchPathwayReqBuilder struct {
+	apiReq        *larkcore.ApiReq
+	pathwayUpdate *PathwayUpdate
+}
+
+func NewPatchPathwayReqBuilder() *PatchPathwayReqBuilder {
+	builder := &PatchPathwayReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 通道ID
+//
+// 示例值：6862995757234914824
+func (builder *PatchPathwayReqBuilder) PathwayId(pathwayId string) *PatchPathwayReqBuilder {
+	builder.apiReq.PathParams.Set("pathway_id", fmt.Sprint(pathwayId))
+	return builder
+}
+
+// 根据client_token是否一致来判断是否为同一请求
+//
+// 示例值：1245464678
+func (builder *PatchPathwayReqBuilder) ClientToken(clientToken string) *PatchPathwayReqBuilder {
+	builder.apiReq.QueryParams.Set("client_token", fmt.Sprint(clientToken))
+	return builder
+}
+
+// 更新通道信息
+func (builder *PatchPathwayReqBuilder) PathwayUpdate(pathwayUpdate *PathwayUpdate) *PatchPathwayReqBuilder {
+	builder.pathwayUpdate = pathwayUpdate
+	return builder
+}
+
+func (builder *PatchPathwayReqBuilder) Build() *PatchPathwayReq {
+	req := &PatchPathwayReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.pathwayUpdate
+	return req
+}
+
+type PatchPathwayReq struct {
+	apiReq        *larkcore.ApiReq
+	PathwayUpdate *PathwayUpdate `body:""`
+}
+
+type PatchPathwayResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *PatchPathwayResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -76879,6 +78047,50 @@ func (m *P2OffboardingUpdatedV2) RawReq(req *larkevent.EventReq) {
 	m.EventReq = req
 }
 
+type P2PathwayCreatedV2Data struct {
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+}
+
+type P2PathwayCreatedV2 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2PathwayCreatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2PathwayCreatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2PathwayDeletedV2Data struct {
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道ID
+}
+
+type P2PathwayDeletedV2 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2PathwayDeletedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2PathwayDeletedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
+type P2PathwayUpdatedV2Data struct {
+	PathwayId *string `json:"pathway_id,omitempty"` // 通道 ID
+
+	FieldChanges []string `json:"field_changes,omitempty"` // 发生变更的字段
+}
+
+type P2PathwayUpdatedV2 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2PathwayUpdatedV2Data `json:"event"` // 事件内容
+}
+
+func (m *P2PathwayUpdatedV2) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
 type P2PreHireOnboardingTaskChangedV2Data struct {
 	TenantId *string `json:"tenant_id,omitempty"` // 飞书人事租户ID
 
@@ -76958,7 +78170,9 @@ type P2ProcessApproverUpdatedV2Data struct {
 
 	NodeDefinitionId *string `json:"node_definition_id,omitempty"` // 节点定义id
 
-	NodeId *string `json:"node_id,omitempty"` // 节点id
+	NodeId *string `json:"node_id,omitempty"` // 节点id（废弃，请使用node_id_str）
+
+	NodeIdStr *string `json:"node_id_str,omitempty"` // 节点id
 }
 
 type P2ProcessApproverUpdatedV2 struct {

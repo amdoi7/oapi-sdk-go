@@ -5017,7 +5017,7 @@ func (builder *SocialArchiveDetailBuilder) CompanyId(companyId string) *SocialAr
 
 // 社保账户类型
 //
-// 示例值：123456
+// 示例值：supplier
 func (builder *SocialArchiveDetailBuilder) AccountType(accountType string) *SocialArchiveDetailBuilder {
 	builder.accountType = accountType
 	builder.accountTypeFlag = true
@@ -5122,7 +5122,7 @@ func (builder *SocialArchiveDetailBuilder) Build() *SocialArchiveDetail {
 type SocialArchiveEventDetail struct {
 	InsuranceType *string `json:"insurance_type,omitempty"` // 社保档案类型。social_insurance社保、provident_fund公积金
 
-	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型。add新增、modify调整、delete删除
+	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型。increase新增、adjust调整、delete删除
 
 	SourceType *string `json:"source_type,omitempty"` // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
 
@@ -5135,7 +5135,7 @@ type SocialArchiveEventDetailBuilder struct {
 	insuranceType     string // 社保档案类型。social_insurance社保、provident_fund公积金
 	insuranceTypeFlag bool
 
-	operateType     string // 档案变更类型。add新增、modify调整、delete删除
+	operateType     string // 档案变更类型。increase新增、adjust调整、delete删除
 	operateTypeFlag bool
 
 	sourceType     string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、import_increase增员导入、import_adjust调整导入、manual_edit手动编辑、manual_adjust手动调整、manual_delete手动删除、to_attrition_import待减员导入新增、plan_sync_arc方案同步档案
@@ -5162,7 +5162,7 @@ func (builder *SocialArchiveEventDetailBuilder) InsuranceType(insuranceType stri
 	return builder
 }
 
-// 档案变更类型。add新增、modify调整、delete删除
+// 档案变更类型。increase新增、adjust调整、delete删除
 //
 // 示例值：add
 func (builder *SocialArchiveEventDetailBuilder) OperateType(operateType string) *SocialArchiveEventDetailBuilder {

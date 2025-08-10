@@ -4322,6 +4322,56 @@ func (builder *FreebusyBuilder) Build() *Freebusy {
 	return req
 }
 
+type I18nMeetingDescription struct {
+	Lang *string `json:"lang,omitempty"` // 语言
+
+	Description *string `json:"description,omitempty"` // 会议描述
+}
+
+type I18nMeetingDescriptionBuilder struct {
+	lang     string // 语言
+	langFlag bool
+
+	description     string // 会议描述
+	descriptionFlag bool
+}
+
+func NewI18nMeetingDescriptionBuilder() *I18nMeetingDescriptionBuilder {
+	builder := &I18nMeetingDescriptionBuilder{}
+	return builder
+}
+
+// 语言
+//
+// 示例值：zh-cn
+func (builder *I18nMeetingDescriptionBuilder) Lang(lang string) *I18nMeetingDescriptionBuilder {
+	builder.lang = lang
+	builder.langFlag = true
+	return builder
+}
+
+// 会议描述
+//
+// 示例值：www.example.com
+func (builder *I18nMeetingDescriptionBuilder) Description(description string) *I18nMeetingDescriptionBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *I18nMeetingDescriptionBuilder) Build() *I18nMeetingDescription {
+	req := &I18nMeetingDescription{}
+	if builder.langFlag {
+		req.Lang = &builder.lang
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	return req
+}
+
 type Instance struct {
 	EventId *string `json:"event_id,omitempty"` // 日程实例ID
 
@@ -6046,6 +6096,109 @@ func (builder *SystemInfoBuilder) Build() *SystemInfo {
 	return req
 }
 
+type ThirdPartyMeetingSettings struct {
+	MeetingType *string `json:"meeting_type,omitempty"` // 三方会议类型
+
+	MeetingId *string `json:"meeting_id,omitempty"` // 会议ID
+
+	MeetingNo *string `json:"meeting_no,omitempty"` // 会议号
+
+	Password *string `json:"password,omitempty"` // 密码
+
+	MeetingDescriptions []*I18nMeetingDescription `json:"meeting_descriptions,omitempty"` // 多语言会议描述
+}
+
+type ThirdPartyMeetingSettingsBuilder struct {
+	meetingType     string // 三方会议类型
+	meetingTypeFlag bool
+
+	meetingId     string // 会议ID
+	meetingIdFlag bool
+
+	meetingNo     string // 会议号
+	meetingNoFlag bool
+
+	password     string // 密码
+	passwordFlag bool
+
+	meetingDescriptions     []*I18nMeetingDescription // 多语言会议描述
+	meetingDescriptionsFlag bool
+}
+
+func NewThirdPartyMeetingSettingsBuilder() *ThirdPartyMeetingSettingsBuilder {
+	builder := &ThirdPartyMeetingSettingsBuilder{}
+	return builder
+}
+
+// 三方会议类型
+//
+// 示例值：julinker
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingType(meetingType string) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingType = meetingType
+	builder.meetingTypeFlag = true
+	return builder
+}
+
+// 会议ID
+//
+// 示例值：123
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingId(meetingId string) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingId = meetingId
+	builder.meetingIdFlag = true
+	return builder
+}
+
+// 会议号
+//
+// 示例值：123
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingNo(meetingNo string) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingNo = meetingNo
+	builder.meetingNoFlag = true
+	return builder
+}
+
+// 密码
+//
+// 示例值：123
+func (builder *ThirdPartyMeetingSettingsBuilder) Password(password string) *ThirdPartyMeetingSettingsBuilder {
+	builder.password = password
+	builder.passwordFlag = true
+	return builder
+}
+
+// 多语言会议描述
+//
+// 示例值：
+func (builder *ThirdPartyMeetingSettingsBuilder) MeetingDescriptions(meetingDescriptions []*I18nMeetingDescription) *ThirdPartyMeetingSettingsBuilder {
+	builder.meetingDescriptions = meetingDescriptions
+	builder.meetingDescriptionsFlag = true
+	return builder
+}
+
+func (builder *ThirdPartyMeetingSettingsBuilder) Build() *ThirdPartyMeetingSettings {
+	req := &ThirdPartyMeetingSettings{}
+	if builder.meetingTypeFlag {
+		req.MeetingType = &builder.meetingType
+
+	}
+	if builder.meetingIdFlag {
+		req.MeetingId = &builder.meetingId
+
+	}
+	if builder.meetingNoFlag {
+		req.MeetingNo = &builder.meetingNo
+
+	}
+	if builder.passwordFlag {
+		req.Password = &builder.password
+
+	}
+	if builder.meetingDescriptionsFlag {
+		req.MeetingDescriptions = builder.meetingDescriptions
+	}
+	return req
+}
+
 type TimeInfo struct {
 	Date *string `json:"date,omitempty"` // 仅全天日程使用该字段，如2018-09-01。需满足 RFC3339 格式。不能与 timestamp 同时指定
 
@@ -6584,6 +6737,8 @@ type Vchat struct {
 	VcInfo *VcInfo `json:"vc_info,omitempty"` // VC视频会议原生信息。
 
 	MeetingSettings *MeetingSettings `json:"meeting_settings,omitempty"` // VC视频会议的会前设置
+
+	ThirdPartyMeetingSettings *ThirdPartyMeetingSettings `json:"third_party_meeting_settings,omitempty"` // 三方会议设置
 }
 
 type VchatBuilder struct {
@@ -6607,6 +6762,9 @@ type VchatBuilder struct {
 
 	meetingSettings     *MeetingSettings // VC视频会议的会前设置
 	meetingSettingsFlag bool
+
+	thirdPartyMeetingSettings     *ThirdPartyMeetingSettings // 三方会议设置
+	thirdPartyMeetingSettingsFlag bool
 }
 
 func NewVchatBuilder() *VchatBuilder {
@@ -6677,6 +6835,15 @@ func (builder *VchatBuilder) MeetingSettings(meetingSettings *MeetingSettings) *
 	return builder
 }
 
+// 三方会议设置
+//
+// 示例值：
+func (builder *VchatBuilder) ThirdPartyMeetingSettings(thirdPartyMeetingSettings *ThirdPartyMeetingSettings) *VchatBuilder {
+	builder.thirdPartyMeetingSettings = thirdPartyMeetingSettings
+	builder.thirdPartyMeetingSettingsFlag = true
+	return builder
+}
+
 func (builder *VchatBuilder) Build() *Vchat {
 	req := &Vchat{}
 	if builder.vcTypeFlag {
@@ -6704,6 +6871,9 @@ func (builder *VchatBuilder) Build() *Vchat {
 	}
 	if builder.meetingSettingsFlag {
 		req.MeetingSettings = builder.meetingSettings
+	}
+	if builder.thirdPartyMeetingSettingsFlag {
+		req.ThirdPartyMeetingSettings = builder.thirdPartyMeetingSettings
 	}
 	return req
 }
