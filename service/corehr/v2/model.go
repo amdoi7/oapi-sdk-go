@@ -21243,7 +21243,7 @@ type FieldVariableValueToFile struct {
 
 	FileName *string `json:"file_name,omitempty"` // 文件名称
 
-	Length *string `json:"length,omitempty"` // 文件大小，单位：Byte
+	Length *int `json:"length,omitempty"` // 文件大小，单位：Byte
 
 	MimeType *string `json:"mime_type,omitempty"` // 文件类型，如`application/pdf`
 }
@@ -21255,7 +21255,7 @@ type FieldVariableValueToFileBuilder struct {
 	fileName     string // 文件名称
 	fileNameFlag bool
 
-	length     string // 文件大小，单位：Byte
+	length     int // 文件大小，单位：Byte
 	lengthFlag bool
 
 	mimeType     string // 文件类型，如`application/pdf`
@@ -21288,7 +21288,7 @@ func (builder *FieldVariableValueToFileBuilder) FileName(fileName string) *Field
 // 文件大小，单位：Byte
 //
 // 示例值：65535
-func (builder *FieldVariableValueToFileBuilder) Length(length string) *FieldVariableValueToFileBuilder {
+func (builder *FieldVariableValueToFileBuilder) Length(length int) *FieldVariableValueToFileBuilder {
 	builder.length = length
 	builder.lengthFlag = true
 	return builder
@@ -29695,6 +29695,8 @@ func (builder *MatchingRuleDimensionItemBuilder) Build() *MatchingRuleDimensionI
 }
 
 type MatchingRuleItem struct {
+	MatchingRuleId *string `json:"matching_rule_id,omitempty"` // 匹配规则 ID
+
 	CompanyId *string `json:"company_id,omitempty"` // 匹配的公司 ID
 
 	Active *bool `json:"active,omitempty"` // 启停用状态
@@ -29707,6 +29709,9 @@ type MatchingRuleItem struct {
 }
 
 type MatchingRuleItemBuilder struct {
+	matchingRuleId     string // 匹配规则 ID
+	matchingRuleIdFlag bool
+
 	companyId     string // 匹配的公司 ID
 	companyIdFlag bool
 
@@ -29725,6 +29730,15 @@ type MatchingRuleItemBuilder struct {
 
 func NewMatchingRuleItemBuilder() *MatchingRuleItemBuilder {
 	builder := &MatchingRuleItemBuilder{}
+	return builder
+}
+
+// 匹配规则 ID
+//
+// 示例值：77456335345
+func (builder *MatchingRuleItemBuilder) MatchingRuleId(matchingRuleId string) *MatchingRuleItemBuilder {
+	builder.matchingRuleId = matchingRuleId
+	builder.matchingRuleIdFlag = true
 	return builder
 }
 
@@ -29775,6 +29789,10 @@ func (builder *MatchingRuleItemBuilder) Descriptions(descriptions []*I18n) *Matc
 
 func (builder *MatchingRuleItemBuilder) Build() *MatchingRuleItem {
 	req := &MatchingRuleItem{}
+	if builder.matchingRuleIdFlag {
+		req.MatchingRuleId = &builder.matchingRuleId
+
+	}
 	if builder.companyIdFlag {
 		req.CompanyId = &builder.companyId
 
@@ -33544,6 +33562,8 @@ type OperationLogEntityField struct {
 	Before *string `json:"before,omitempty"` // 旧值
 
 	After *string `json:"after,omitempty"` // 新值
+
+	Ext *OperationLogEntityFieldExt `json:"ext,omitempty"` // 额外字段信息
 }
 
 type OperationLogEntityFieldBuilder struct {
@@ -33555,6 +33575,9 @@ type OperationLogEntityFieldBuilder struct {
 
 	after     string // 新值
 	afterFlag bool
+
+	ext     *OperationLogEntityFieldExt // 额外字段信息
+	extFlag bool
 }
 
 func NewOperationLogEntityFieldBuilder() *OperationLogEntityFieldBuilder {
@@ -33589,6 +33612,15 @@ func (builder *OperationLogEntityFieldBuilder) After(after string) *OperationLog
 	return builder
 }
 
+// 额外字段信息
+//
+// 示例值：
+func (builder *OperationLogEntityFieldBuilder) Ext(ext *OperationLogEntityFieldExt) *OperationLogEntityFieldBuilder {
+	builder.ext = ext
+	builder.extFlag = true
+	return builder
+}
+
 func (builder *OperationLogEntityFieldBuilder) Build() *OperationLogEntityField {
 	req := &OperationLogEntityField{}
 	if builder.fieldFlag {
@@ -33601,6 +33633,59 @@ func (builder *OperationLogEntityFieldBuilder) Build() *OperationLogEntityField 
 	}
 	if builder.afterFlag {
 		req.After = &builder.after
+
+	}
+	if builder.extFlag {
+		req.Ext = builder.ext
+	}
+	return req
+}
+
+type OperationLogEntityFieldExt struct {
+	Id *string `json:"id,omitempty"` // id
+
+	Usage *string `json:"usage,omitempty"` // 用途
+}
+
+type OperationLogEntityFieldExtBuilder struct {
+	id     string // id
+	idFlag bool
+
+	usage     string // 用途
+	usageFlag bool
+}
+
+func NewOperationLogEntityFieldExtBuilder() *OperationLogEntityFieldExtBuilder {
+	builder := &OperationLogEntityFieldExtBuilder{}
+	return builder
+}
+
+// id
+//
+// 示例值：7525039829561198124_add_name_0
+func (builder *OperationLogEntityFieldExtBuilder) Id(id string) *OperationLogEntityFieldExtBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 用途
+//
+// 示例值：preferred_name
+func (builder *OperationLogEntityFieldExtBuilder) Usage(usage string) *OperationLogEntityFieldExtBuilder {
+	builder.usage = usage
+	builder.usageFlag = true
+	return builder
+}
+
+func (builder *OperationLogEntityFieldExtBuilder) Build() *OperationLogEntityFieldExt {
+	req := &OperationLogEntityFieldExt{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.usageFlag {
+		req.Usage = &builder.usage
 
 	}
 	return req
@@ -53380,6 +53465,316 @@ func (builder *StartProcessParamBuilder) Build() *StartProcessParam {
 	}
 	if builder.flowDataFlag {
 		req.FlowData = builder.flowData
+	}
+	return req
+}
+
+type TalentPoolMemberOpReqItem struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID
+
+	Date *string `json:"date,omitempty"` // 出入池日期
+
+	Reason *string `json:"reason,omitempty"` // 出入池原因
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段列表
+}
+
+type TalentPoolMemberOpReqItemBuilder struct {
+	employmentId     string // 员工ID
+	employmentIdFlag bool
+
+	date     string // 出入池日期
+	dateFlag bool
+
+	reason     string // 出入池原因
+	reasonFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段列表
+	customFieldsFlag bool
+}
+
+func NewTalentPoolMemberOpReqItemBuilder() *TalentPoolMemberOpReqItemBuilder {
+	builder := &TalentPoolMemberOpReqItemBuilder{}
+	return builder
+}
+
+// 员工ID
+//
+// 示例值：1230000001
+func (builder *TalentPoolMemberOpReqItemBuilder) EmploymentId(employmentId string) *TalentPoolMemberOpReqItemBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 出入池日期
+//
+// 示例值：2025-01-15
+func (builder *TalentPoolMemberOpReqItemBuilder) Date(date string) *TalentPoolMemberOpReqItemBuilder {
+	builder.date = date
+	builder.dateFlag = true
+	return builder
+}
+
+// 出入池原因
+//
+// 示例值：示例原因
+func (builder *TalentPoolMemberOpReqItemBuilder) Reason(reason string) *TalentPoolMemberOpReqItemBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+// 自定义字段列表
+//
+// 示例值：
+func (builder *TalentPoolMemberOpReqItemBuilder) CustomFields(customFields []*ObjectFieldData) *TalentPoolMemberOpReqItemBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *TalentPoolMemberOpReqItemBuilder) Build() *TalentPoolMemberOpReqItem {
+	req := &TalentPoolMemberOpReqItem{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.dateFlag {
+		req.Date = &builder.date
+
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type TalentPoolMemberOpRespItem struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工id
+
+	TalentPoolRef *string `json:"talent_pool_ref,omitempty"` // 人才池ref id
+
+	Success *bool `json:"success,omitempty"` // 操作是否成功
+
+	ErrMsg *string `json:"err_msg,omitempty"` // 错误信息
+
+	ErrCode *int `json:"err_code,omitempty"` // 错误码
+}
+
+type TalentPoolMemberOpRespItemBuilder struct {
+	employmentId     string // 员工id
+	employmentIdFlag bool
+
+	talentPoolRef     string // 人才池ref id
+	talentPoolRefFlag bool
+
+	success     bool // 操作是否成功
+	successFlag bool
+
+	errMsg     string // 错误信息
+	errMsgFlag bool
+
+	errCode     int // 错误码
+	errCodeFlag bool
+}
+
+func NewTalentPoolMemberOpRespItemBuilder() *TalentPoolMemberOpRespItemBuilder {
+	builder := &TalentPoolMemberOpRespItemBuilder{}
+	return builder
+}
+
+// 员工id
+//
+// 示例值：7345313696725173804
+func (builder *TalentPoolMemberOpRespItemBuilder) EmploymentId(employmentId string) *TalentPoolMemberOpRespItemBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 人才池ref id
+//
+// 示例值：7345313696725173804
+func (builder *TalentPoolMemberOpRespItemBuilder) TalentPoolRef(talentPoolRef string) *TalentPoolMemberOpRespItemBuilder {
+	builder.talentPoolRef = talentPoolRef
+	builder.talentPoolRefFlag = true
+	return builder
+}
+
+// 操作是否成功
+//
+// 示例值：true
+func (builder *TalentPoolMemberOpRespItemBuilder) Success(success bool) *TalentPoolMemberOpRespItemBuilder {
+	builder.success = success
+	builder.successFlag = true
+	return builder
+}
+
+// 错误信息
+//
+// 示例值：入池时间晚于出池时间
+func (builder *TalentPoolMemberOpRespItemBuilder) ErrMsg(errMsg string) *TalentPoolMemberOpRespItemBuilder {
+	builder.errMsg = errMsg
+	builder.errMsgFlag = true
+	return builder
+}
+
+// 错误码
+//
+// 示例值：3000001
+func (builder *TalentPoolMemberOpRespItemBuilder) ErrCode(errCode int) *TalentPoolMemberOpRespItemBuilder {
+	builder.errCode = errCode
+	builder.errCodeFlag = true
+	return builder
+}
+
+func (builder *TalentPoolMemberOpRespItemBuilder) Build() *TalentPoolMemberOpRespItem {
+	req := &TalentPoolMemberOpRespItem{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.talentPoolRefFlag {
+		req.TalentPoolRef = &builder.talentPoolRef
+
+	}
+	if builder.successFlag {
+		req.Success = &builder.success
+
+	}
+	if builder.errMsgFlag {
+		req.ErrMsg = &builder.errMsg
+
+	}
+	if builder.errCodeFlag {
+		req.ErrCode = &builder.errCode
+
+	}
+	return req
+}
+
+type TalentPoolMemberRefReqItem struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID
+
+	TaggedAtDate *string `json:"tagged_at_date,omitempty"` // 入池日期
+
+	InReason *string `json:"in_reason,omitempty"` // 入池原因
+
+	RemovedAtDate *string `json:"removed_at_date,omitempty"` // 出池日期
+
+	OutReason *string `json:"out_reason,omitempty"` // 出池原因
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段列表
+}
+
+type TalentPoolMemberRefReqItemBuilder struct {
+	employmentId     string // 员工ID
+	employmentIdFlag bool
+
+	taggedAtDate     string // 入池日期
+	taggedAtDateFlag bool
+
+	inReason     string // 入池原因
+	inReasonFlag bool
+
+	removedAtDate     string // 出池日期
+	removedAtDateFlag bool
+
+	outReason     string // 出池原因
+	outReasonFlag bool
+
+	customFields     []*ObjectFieldData // 自定义字段列表
+	customFieldsFlag bool
+}
+
+func NewTalentPoolMemberRefReqItemBuilder() *TalentPoolMemberRefReqItemBuilder {
+	builder := &TalentPoolMemberRefReqItemBuilder{}
+	return builder
+}
+
+// 员工ID
+//
+// 示例值：1230000001
+func (builder *TalentPoolMemberRefReqItemBuilder) EmploymentId(employmentId string) *TalentPoolMemberRefReqItemBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 入池日期
+//
+// 示例值：2025-01-15
+func (builder *TalentPoolMemberRefReqItemBuilder) TaggedAtDate(taggedAtDate string) *TalentPoolMemberRefReqItemBuilder {
+	builder.taggedAtDate = taggedAtDate
+	builder.taggedAtDateFlag = true
+	return builder
+}
+
+// 入池原因
+//
+// 示例值：示例入池原因
+func (builder *TalentPoolMemberRefReqItemBuilder) InReason(inReason string) *TalentPoolMemberRefReqItemBuilder {
+	builder.inReason = inReason
+	builder.inReasonFlag = true
+	return builder
+}
+
+// 出池日期
+//
+// 示例值：2025-01-16
+func (builder *TalentPoolMemberRefReqItemBuilder) RemovedAtDate(removedAtDate string) *TalentPoolMemberRefReqItemBuilder {
+	builder.removedAtDate = removedAtDate
+	builder.removedAtDateFlag = true
+	return builder
+}
+
+// 出池原因
+//
+// 示例值：示例出池原因
+func (builder *TalentPoolMemberRefReqItemBuilder) OutReason(outReason string) *TalentPoolMemberRefReqItemBuilder {
+	builder.outReason = outReason
+	builder.outReasonFlag = true
+	return builder
+}
+
+// 自定义字段列表
+//
+// 示例值：
+func (builder *TalentPoolMemberRefReqItemBuilder) CustomFields(customFields []*ObjectFieldData) *TalentPoolMemberRefReqItemBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+func (builder *TalentPoolMemberRefReqItemBuilder) Build() *TalentPoolMemberRefReqItem {
+	req := &TalentPoolMemberRefReqItem{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.taggedAtDateFlag {
+		req.TaggedAtDate = &builder.taggedAtDate
+
+	}
+	if builder.inReasonFlag {
+		req.InReason = &builder.inReason
+
+	}
+	if builder.removedAtDateFlag {
+		req.RemovedAtDate = &builder.removedAtDate
+
+	}
+	if builder.outReasonFlag {
+		req.OutReason = &builder.outReason
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
 	}
 	return req
 }
