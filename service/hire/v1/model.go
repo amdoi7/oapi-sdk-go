@@ -1145,6 +1145,12 @@ const (
 )
 
 const (
+	ListOfferApprovalTemplateDepartmentIDTypeOpenDepartmentId        = "open_department_id"         // 以 open_department_id 来标识部门
+	ListOfferApprovalTemplateDepartmentIDTypeDepartmentId            = "department_id"              // 以 department_id 来标识部门
+	ListOfferApprovalTemplateDepartmentIDTypePeopleAdminDepartmentId = "people_admin_department_id" // 以 people_admin_department_id 来标识部门
+)
+
+const (
 	GetByApplicationReferralUserIDTypeUserId        = "user_id"         // 以user_id来识别用户
 	GetByApplicationReferralUserIDTypeUnionId       = "union_id"        // 以union_id来识别用户
 	GetByApplicationReferralUserIDTypeOpenId        = "open_id"         // 以open_id来识别用户
@@ -30228,6 +30234,8 @@ type JobRequirementDto struct {
 	CompletionTime *string `json:"completion_time,omitempty"` // 完成时间，毫秒级时间戳
 
 	ApprovalStatus *int `json:"approval_status,omitempty"` // 审批状态
+
+	CountData *JrCountDataInfo `json:"count_data,omitempty"` // 招聘需求招聘进展统计数值
 }
 
 type JobRequirementDtoBuilder struct {
@@ -30332,6 +30340,9 @@ type JobRequirementDtoBuilder struct {
 
 	approvalStatus     int // 审批状态
 	approvalStatusFlag bool
+
+	countData     *JrCountDataInfo // 招聘需求招聘进展统计数值
+	countDataFlag bool
 }
 
 func NewJobRequirementDtoBuilder() *JobRequirementDtoBuilder {
@@ -30645,6 +30656,15 @@ func (builder *JobRequirementDtoBuilder) ApprovalStatus(approvalStatus int) *Job
 	return builder
 }
 
+// 招聘需求招聘进展统计数值
+//
+// 示例值：
+func (builder *JobRequirementDtoBuilder) CountData(countData *JrCountDataInfo) *JobRequirementDtoBuilder {
+	builder.countData = countData
+	builder.countDataFlag = true
+	return builder
+}
+
 func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	req := &JobRequirementDto{}
 	if builder.idFlag {
@@ -30769,6 +30789,9 @@ func (builder *JobRequirementDtoBuilder) Build() *JobRequirementDto {
 	if builder.approvalStatusFlag {
 		req.ApprovalStatus = &builder.approvalStatus
 
+	}
+	if builder.countDataFlag {
+		req.CountData = builder.countData
 	}
 	return req
 }
@@ -31374,6 +31397,74 @@ func (builder *JobUserInfoBuilder) Build() *JobUserInfo {
 	}
 	if builder.nameFlag {
 		req.Name = builder.name
+	}
+	return req
+}
+
+type JrCountDataInfo struct {
+	OfferCount *int `json:"offer_count,omitempty"` // 为 Offer 沟通中的数量
+
+	PreHireCount *int `json:"pre_hire_count,omitempty"` // 待入职中的数量
+
+	CompleteCount *int `json:"complete_count,omitempty"` // 已完成的数量
+}
+
+type JrCountDataInfoBuilder struct {
+	offerCount     int // 为 Offer 沟通中的数量
+	offerCountFlag bool
+
+	preHireCount     int // 待入职中的数量
+	preHireCountFlag bool
+
+	completeCount     int // 已完成的数量
+	completeCountFlag bool
+}
+
+func NewJrCountDataInfoBuilder() *JrCountDataInfoBuilder {
+	builder := &JrCountDataInfoBuilder{}
+	return builder
+}
+
+// 为 Offer 沟通中的数量
+//
+// 示例值：1
+func (builder *JrCountDataInfoBuilder) OfferCount(offerCount int) *JrCountDataInfoBuilder {
+	builder.offerCount = offerCount
+	builder.offerCountFlag = true
+	return builder
+}
+
+// 待入职中的数量
+//
+// 示例值：2
+func (builder *JrCountDataInfoBuilder) PreHireCount(preHireCount int) *JrCountDataInfoBuilder {
+	builder.preHireCount = preHireCount
+	builder.preHireCountFlag = true
+	return builder
+}
+
+// 已完成的数量
+//
+// 示例值：3
+func (builder *JrCountDataInfoBuilder) CompleteCount(completeCount int) *JrCountDataInfoBuilder {
+	builder.completeCount = completeCount
+	builder.completeCountFlag = true
+	return builder
+}
+
+func (builder *JrCountDataInfoBuilder) Build() *JrCountDataInfo {
+	req := &JrCountDataInfo{}
+	if builder.offerCountFlag {
+		req.OfferCount = &builder.offerCount
+
+	}
+	if builder.preHireCountFlag {
+		req.PreHireCount = &builder.preHireCount
+
+	}
+	if builder.completeCountFlag {
+		req.CompleteCount = &builder.completeCount
+
 	}
 	return req
 }
@@ -66339,6 +66430,72 @@ func (resp *ListOfferApplicationFormResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListOfferApprovalTemplateReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListOfferApprovalTemplateReqBuilder() *ListOfferApprovalTemplateReqBuilder {
+	builder := &ListOfferApprovalTemplateReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：1231231987
+func (builder *ListOfferApprovalTemplateReqBuilder) PageToken(pageToken string) *ListOfferApprovalTemplateReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量，最大100
+//
+// 示例值：100
+func (builder *ListOfferApprovalTemplateReqBuilder) PageSize(pageSize int) *ListOfferApprovalTemplateReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 此次调用中使用的部门 ID 的类型
+//
+// 示例值：
+func (builder *ListOfferApprovalTemplateReqBuilder) DepartmentIdType(departmentIdType string) *ListOfferApprovalTemplateReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+func (builder *ListOfferApprovalTemplateReqBuilder) Build() *ListOfferApprovalTemplateReq {
+	req := &ListOfferApprovalTemplateReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListOfferApprovalTemplateReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListOfferApprovalTemplateRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+
+	Items []*OfferApprovalTemplate `json:"items,omitempty"` // Offer 审批流配置列表
+}
+
+type ListOfferApprovalTemplateResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListOfferApprovalTemplateRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListOfferApprovalTemplateResp) Success() bool {
+	return resp.Code == 0
+}
+
 type UpdateOfferCustomFieldReqBuilder struct {
 	apiReq           *larkcore.ApiReq
 	offerCustomField *OfferCustomField
@@ -66438,6 +66595,74 @@ type GetOfferSchemaResp struct {
 }
 
 func (resp *GetOfferSchemaResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListPortalApplySchemaReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListPortalApplySchemaReqBuilder() *ListPortalApplySchemaReqBuilder {
+	builder := &ListPortalApplySchemaReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListPortalApplySchemaReqBuilder) Limit(limit int) *ListPortalApplySchemaReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：20
+func (builder *ListPortalApplySchemaReqBuilder) PageSize(pageSize int) *ListPortalApplySchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6930815272790114324
+func (builder *ListPortalApplySchemaReqBuilder) PageToken(pageToken string) *ListPortalApplySchemaReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListPortalApplySchemaReqBuilder) Build() *ListPortalApplySchemaReq {
+	req := &ListPortalApplySchemaReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListPortalApplySchemaReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListPortalApplySchemaRespData struct {
+	Items []*RegistrationSchema `json:"items,omitempty"` // 官网申请表列表
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否仍有数据
+}
+
+type ListPortalApplySchemaResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListPortalApplySchemaRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListPortalApplySchemaResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -74319,6 +74544,60 @@ func (iterator *ListLocationIterator) Next() (bool, *Location, error) {
 }
 
 func (iterator *ListLocationIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListPortalApplySchemaIterator struct {
+	nextPageToken *string
+	items         []*RegistrationSchema
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListPortalApplySchemaReq
+	listFunc      func(ctx context.Context, req *ListPortalApplySchemaReq, options ...larkcore.RequestOptionFunc) (*ListPortalApplySchemaResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListPortalApplySchemaIterator) Next() (bool, *RegistrationSchema, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Items) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Items
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListPortalApplySchemaIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

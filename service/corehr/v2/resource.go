@@ -46,6 +46,7 @@ type V2 struct {
 	Offboarding                       *offboarding                       // offboarding
 	Pathway                           *pathway                           // pathway
 	Person                            *person                            // person
+	Position                          *position                          // position
 	PreHire                           *preHire                           // 待入职
 	Probation                         *probation                         // probation
 	ProbationAssessment               *probationAssessment               // probation.assessment
@@ -104,6 +105,7 @@ func New(config *larkcore.Config) *V2 {
 		Offboarding:                       &offboarding{config: config},
 		Pathway:                           &pathway{config: config},
 		Person:                            &person{config: config},
+		Position:                          &position{config: config},
 		PreHire:                           &preHire{config: config},
 		Probation:                         &probation{config: config},
 		ProbationAssessment:               &probationAssessment{config: config},
@@ -233,6 +235,9 @@ type pathway struct {
 	config *larkcore.Config
 }
 type person struct {
+	config *larkcore.Config
+}
+type position struct {
 	config *larkcore.Config
 }
 type preHire struct {
@@ -2183,6 +2188,32 @@ func (e *enum) Search(ctx context.Context, req *SearchEnumReq, options ...larkco
 	return resp, err
 }
 
+// BatchGet
+//
+// - 批量获取职务信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_get&project=corehr&resource=job&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/batchGet_job.go
+func (j *job) BatchGet(ctx context.Context, req *BatchGetJobReq, options ...larkcore.RequestOptionFunc) (*BatchGetJobResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/jobs/batch_get"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, j.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchGetJobResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, j.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Get
 //
 // - 根据 ID 查询单个职务。
@@ -3068,6 +3099,32 @@ func (p *person) Patch(ctx context.Context, req *PatchPersonReq, options ...lark
 	}
 	// 反序列响应结果
 	resp := &PatchPersonResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, p.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Query
+//
+// - 查询岗位信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=corehr&resource=position&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/corehrv2/query_position.go
+func (p *position) Query(ctx context.Context, req *QueryPositionReq, options ...larkcore.RequestOptionFunc) (*QueryPositionResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/corehr/v2/positions/query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, p.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryPositionResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, p.config)
 	if err != nil {
 		return nil, err

@@ -463,6 +463,13 @@ const (
 )
 
 const (
+	UserIdTypeBatchGetJobUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeBatchGetJobUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeBatchGetJobOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeBatchGetJobPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
 	TransferModeType1 = 1 // 直接异动
 	TransferModeType2 = 2 // 发起异动
 
@@ -528,6 +535,19 @@ const (
 	UserIdTypeSubmitV2OffboardingUnionId        = "union_id"         // 以 union_id 来识别用户
 	UserIdTypeSubmitV2OffboardingOpenId         = "open_id"          // 以 open_id 来识别用户
 	UserIdTypeSubmitV2OffboardingPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	DepartmentIdTypeQueryPositionOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	DepartmentIdTypeQueryPositionDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	DepartmentIdTypeQueryPositionPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	UserIdTypeQueryPositionUserId         = "user_id"          // 以 user_id 来识别用户
+	UserIdTypeQueryPositionUnionId        = "union_id"         // 以 union_id 来识别用户
+	UserIdTypeQueryPositionOpenId         = "open_id"          // 以 open_id 来识别用户
+	UserIdTypeQueryPositionPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
@@ -69212,6 +69232,181 @@ func (resp *SearchEnumResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchGetJobReqBodyBuilder struct {
+	jobIds     []string // 职务 ID 列表
+	jobIdsFlag bool
+
+	jobCodes     []string // 职务 Code 列表
+	jobCodesFlag bool
+
+	fields     []string // 返回数据的字段列表
+	fieldsFlag bool
+}
+
+func NewBatchGetJobReqBodyBuilder() *BatchGetJobReqBodyBuilder {
+	builder := &BatchGetJobReqBodyBuilder{}
+	return builder
+}
+
+// 职务 ID 列表
+//
+//示例值：
+func (builder *BatchGetJobReqBodyBuilder) JobIds(jobIds []string) *BatchGetJobReqBodyBuilder {
+	builder.jobIds = jobIds
+	builder.jobIdsFlag = true
+	return builder
+}
+
+// 职务 Code 列表
+//
+//示例值：
+func (builder *BatchGetJobReqBodyBuilder) JobCodes(jobCodes []string) *BatchGetJobReqBodyBuilder {
+	builder.jobCodes = jobCodes
+	builder.jobCodesFlag = true
+	return builder
+}
+
+// 返回数据的字段列表
+//
+//示例值：
+func (builder *BatchGetJobReqBodyBuilder) Fields(fields []string) *BatchGetJobReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *BatchGetJobReqBodyBuilder) Build() *BatchGetJobReqBody {
+	req := &BatchGetJobReqBody{}
+	if builder.jobIdsFlag {
+		req.JobIds = builder.jobIds
+	}
+	if builder.jobCodesFlag {
+		req.JobCodes = builder.jobCodes
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
+type BatchGetJobPathReqBodyBuilder struct {
+	jobIds       []string
+	jobIdsFlag   bool
+	jobCodes     []string
+	jobCodesFlag bool
+	fields       []string
+	fieldsFlag   bool
+}
+
+func NewBatchGetJobPathReqBodyBuilder() *BatchGetJobPathReqBodyBuilder {
+	builder := &BatchGetJobPathReqBodyBuilder{}
+	return builder
+}
+
+// 职务 ID 列表
+//
+// 示例值：
+func (builder *BatchGetJobPathReqBodyBuilder) JobIds(jobIds []string) *BatchGetJobPathReqBodyBuilder {
+	builder.jobIds = jobIds
+	builder.jobIdsFlag = true
+	return builder
+}
+
+// 职务 Code 列表
+//
+// 示例值：
+func (builder *BatchGetJobPathReqBodyBuilder) JobCodes(jobCodes []string) *BatchGetJobPathReqBodyBuilder {
+	builder.jobCodes = jobCodes
+	builder.jobCodesFlag = true
+	return builder
+}
+
+// 返回数据的字段列表
+//
+// 示例值：
+func (builder *BatchGetJobPathReqBodyBuilder) Fields(fields []string) *BatchGetJobPathReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *BatchGetJobPathReqBodyBuilder) Build() (*BatchGetJobReqBody, error) {
+	req := &BatchGetJobReqBody{}
+	if builder.jobIdsFlag {
+		req.JobIds = builder.jobIds
+	}
+	if builder.jobCodesFlag {
+		req.JobCodes = builder.jobCodes
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req, nil
+}
+
+type BatchGetJobReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchGetJobReqBody
+}
+
+func NewBatchGetJobReqBuilder() *BatchGetJobReqBuilder {
+	builder := &BatchGetJobReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *BatchGetJobReqBuilder) UserIdType(userIdType string) *BatchGetJobReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 批量获取职务信息
+func (builder *BatchGetJobReqBuilder) Body(body *BatchGetJobReqBody) *BatchGetJobReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchGetJobReqBuilder) Build() *BatchGetJobReq {
+	req := &BatchGetJobReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchGetJobReqBody struct {
+	JobIds []string `json:"job_ids,omitempty"` // 职务 ID 列表
+
+	JobCodes []string `json:"job_codes,omitempty"` // 职务 Code 列表
+
+	Fields []string `json:"fields,omitempty"` // 返回数据的字段列表
+}
+
+type BatchGetJobReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchGetJobReqBody `body:""`
+}
+
+type BatchGetJobRespData struct {
+	Items []*Job `json:"items,omitempty"` // 查询的职务信息
+}
+
+type BatchGetJobResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchGetJobRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchGetJobResp) Success() bool {
+	return resp.Code == 0
+}
+
 type GetJobReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -73528,6 +73723,302 @@ type PatchPersonResp struct {
 }
 
 func (resp *PatchPersonResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryPositionReqBodyBuilder struct {
+	departmentIds     []string // 部门 ID 列表
+	departmentIdsFlag bool
+
+	effectiveTime     string // 生效日期
+	effectiveTimeFlag bool
+
+	active     bool // 启停用状态
+	activeFlag bool
+
+	fields     []string // 返回数据的字段列表
+	fieldsFlag bool
+
+	positionIds     []string // 岗位 ID 列表
+	positionIdsFlag bool
+
+	positionCodes     []string // 岗位 Code 列表
+	positionCodesFlag bool
+}
+
+func NewQueryPositionReqBodyBuilder() *QueryPositionReqBodyBuilder {
+	builder := &QueryPositionReqBodyBuilder{}
+	return builder
+}
+
+// 部门 ID 列表
+//
+//示例值：
+func (builder *QueryPositionReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryPositionReqBodyBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 生效日期
+//
+//示例值：2020-01-01
+func (builder *QueryPositionReqBodyBuilder) EffectiveTime(effectiveTime string) *QueryPositionReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 启停用状态
+//
+//示例值：true
+func (builder *QueryPositionReqBodyBuilder) Active(active bool) *QueryPositionReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 返回数据的字段列表
+//
+//示例值：
+func (builder *QueryPositionReqBodyBuilder) Fields(fields []string) *QueryPositionReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+// 岗位 ID 列表
+//
+//示例值：
+func (builder *QueryPositionReqBodyBuilder) PositionIds(positionIds []string) *QueryPositionReqBodyBuilder {
+	builder.positionIds = positionIds
+	builder.positionIdsFlag = true
+	return builder
+}
+
+// 岗位 Code 列表
+//
+//示例值：
+func (builder *QueryPositionReqBodyBuilder) PositionCodes(positionCodes []string) *QueryPositionReqBodyBuilder {
+	builder.positionCodes = positionCodes
+	builder.positionCodesFlag = true
+	return builder
+}
+
+func (builder *QueryPositionReqBodyBuilder) Build() *QueryPositionReqBody {
+	req := &QueryPositionReqBody{}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	if builder.positionIdsFlag {
+		req.PositionIds = builder.positionIds
+	}
+	if builder.positionCodesFlag {
+		req.PositionCodes = builder.positionCodes
+	}
+	return req
+}
+
+type QueryPositionPathReqBodyBuilder struct {
+	departmentIds     []string
+	departmentIdsFlag bool
+	effectiveTime     string
+	effectiveTimeFlag bool
+	active            bool
+	activeFlag        bool
+	fields            []string
+	fieldsFlag        bool
+	positionIds       []string
+	positionIdsFlag   bool
+	positionCodes     []string
+	positionCodesFlag bool
+}
+
+func NewQueryPositionPathReqBodyBuilder() *QueryPositionPathReqBodyBuilder {
+	builder := &QueryPositionPathReqBodyBuilder{}
+	return builder
+}
+
+// 部门 ID 列表
+//
+// 示例值：
+func (builder *QueryPositionPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryPositionPathReqBodyBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 生效日期
+//
+// 示例值：2020-01-01
+func (builder *QueryPositionPathReqBodyBuilder) EffectiveTime(effectiveTime string) *QueryPositionPathReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 启停用状态
+//
+// 示例值：true
+func (builder *QueryPositionPathReqBodyBuilder) Active(active bool) *QueryPositionPathReqBodyBuilder {
+	builder.active = active
+	builder.activeFlag = true
+	return builder
+}
+
+// 返回数据的字段列表
+//
+// 示例值：
+func (builder *QueryPositionPathReqBodyBuilder) Fields(fields []string) *QueryPositionPathReqBodyBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+// 岗位 ID 列表
+//
+// 示例值：
+func (builder *QueryPositionPathReqBodyBuilder) PositionIds(positionIds []string) *QueryPositionPathReqBodyBuilder {
+	builder.positionIds = positionIds
+	builder.positionIdsFlag = true
+	return builder
+}
+
+// 岗位 Code 列表
+//
+// 示例值：
+func (builder *QueryPositionPathReqBodyBuilder) PositionCodes(positionCodes []string) *QueryPositionPathReqBodyBuilder {
+	builder.positionCodes = positionCodes
+	builder.positionCodesFlag = true
+	return builder
+}
+
+func (builder *QueryPositionPathReqBodyBuilder) Build() (*QueryPositionReqBody, error) {
+	req := &QueryPositionReqBody{}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.activeFlag {
+		req.Active = &builder.active
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	if builder.positionIdsFlag {
+		req.PositionIds = builder.positionIds
+	}
+	if builder.positionCodesFlag {
+		req.PositionCodes = builder.positionCodes
+	}
+	return req, nil
+}
+
+type QueryPositionReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QueryPositionReqBody
+}
+
+func NewQueryPositionReqBuilder() *QueryPositionReqBuilder {
+	builder := &QueryPositionReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 此次调用中使用的部门 ID 类型
+//
+// 示例值：people_corehr_department_id
+func (builder *QueryPositionReqBuilder) DepartmentIdType(departmentIdType string) *QueryPositionReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：people_corehr_id
+func (builder *QueryPositionReqBuilder) UserIdType(userIdType string) *QueryPositionReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 分页大小，最大 100
+//
+// 示例值：100
+func (builder *QueryPositionReqBuilder) PageSize(pageSize int) *QueryPositionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：6891251722631890445
+func (builder *QueryPositionReqBuilder) PageToken(pageToken string) *QueryPositionReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 查询岗位信息
+func (builder *QueryPositionReqBuilder) Body(body *QueryPositionReqBody) *QueryPositionReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QueryPositionReqBuilder) Build() *QueryPositionReq {
+	req := &QueryPositionReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QueryPositionReqBody struct {
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门 ID 列表
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效日期
+
+	Active *bool `json:"active,omitempty"` // 启停用状态
+
+	Fields []string `json:"fields,omitempty"` // 返回数据的字段列表
+
+	PositionIds []string `json:"position_ids,omitempty"` // 岗位 ID 列表
+
+	PositionCodes []string `json:"position_codes,omitempty"` // 岗位 Code 列表
+}
+
+type QueryPositionReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QueryPositionReqBody `body:""`
+}
+
+type QueryPositionRespData struct {
+	Items []*Position `json:"items,omitempty"` // 岗位信息列表
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+}
+
+type QueryPositionResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryPositionRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryPositionResp) Success() bool {
 	return resp.Code == 0
 }
 

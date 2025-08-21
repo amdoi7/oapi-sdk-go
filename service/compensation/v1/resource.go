@@ -9,22 +9,24 @@ import (
 )
 
 type V1 struct {
-	Archive      *archive      // archive
-	ChangeReason *changeReason // change_reason
-	Indicator    *indicator    // indicator
-	Item         *item         // item
-	ItemCategory *itemCategory // item_category
-	Plan         *plan         // plan
+	Archive        *archive        // archive
+	ChangeReason   *changeReason   // change_reason
+	Indicator      *indicator      // indicator
+	Item           *item           // item
+	ItemCategory   *itemCategory   // item_category
+	LumpSumPayment *lumpSumPayment // lump_sum_payment
+	Plan           *plan           // plan
 }
 
 func New(config *larkcore.Config) *V1 {
 	return &V1{
-		Archive:      &archive{config: config},
-		ChangeReason: &changeReason{config: config},
-		Indicator:    &indicator{config: config},
-		Item:         &item{config: config},
-		ItemCategory: &itemCategory{config: config},
-		Plan:         &plan{config: config},
+		Archive:        &archive{config: config},
+		ChangeReason:   &changeReason{config: config},
+		Indicator:      &indicator{config: config},
+		Item:           &item{config: config},
+		ItemCategory:   &itemCategory{config: config},
+		LumpSumPayment: &lumpSumPayment{config: config},
+		Plan:           &plan{config: config},
 	}
 }
 
@@ -41,6 +43,9 @@ type item struct {
 	config *larkcore.Config
 }
 type itemCategory struct {
+	config *larkcore.Config
+}
+type lumpSumPayment struct {
 	config *larkcore.Config
 }
 type plan struct {
@@ -205,6 +210,152 @@ func (i *itemCategory) ListByIterator(ctx context.Context, req *ListItemCategory
 		ctx:      ctx,
 		req:      req,
 		listFunc: i.List,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// BatchCreate
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_create&project=compensation&resource=lump_sum_payment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/compensationv1/batchCreate_lumpSumPayment.go
+func (l *lumpSumPayment) BatchCreate(ctx context.Context, req *BatchCreateLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*BatchCreateLumpSumPaymentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/compensation/v1/lump_sum_payment/batch_create"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, l.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchCreateLumpSumPaymentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, l.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchRemove
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_remove&project=compensation&resource=lump_sum_payment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/compensationv1/batchRemove_lumpSumPayment.go
+func (l *lumpSumPayment) BatchRemove(ctx context.Context, req *BatchRemoveLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*BatchRemoveLumpSumPaymentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/compensation/v1/lump_sum_payment/batch_remove"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, l.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchRemoveLumpSumPaymentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, l.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchUpdate
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_update&project=compensation&resource=lump_sum_payment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/compensationv1/batchUpdate_lumpSumPayment.go
+func (l *lumpSumPayment) BatchUpdate(ctx context.Context, req *BatchUpdateLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*BatchUpdateLumpSumPaymentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/compensation/v1/lump_sum_payment/batch_update"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, l.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchUpdateLumpSumPaymentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, l.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Query
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=compensation&resource=lump_sum_payment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/compensationv1/query_lumpSumPayment.go
+func (l *lumpSumPayment) Query(ctx context.Context, req *QueryLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*QueryLumpSumPaymentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/compensation/v1/lump_sum_payment/query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, l.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryLumpSumPaymentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, l.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (l *lumpSumPayment) QueryByIterator(ctx context.Context, req *QueryLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*QueryLumpSumPaymentIterator, error) {
+	return &QueryLumpSumPaymentIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: l.Query,
+		options:  options,
+		limit:    req.Limit}, nil
+}
+
+// QueryDetail
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query_detail&project=compensation&resource=lump_sum_payment&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/compensationv1/queryDetail_lumpSumPayment.go
+func (l *lumpSumPayment) QueryDetail(ctx context.Context, req *QueryDetailLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*QueryDetailLumpSumPaymentResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/compensation/v1/lump_sum_payment/query_detail"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, l.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryDetailLumpSumPaymentResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, l.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (l *lumpSumPayment) QueryDetailByIterator(ctx context.Context, req *QueryDetailLumpSumPaymentReq, options ...larkcore.RequestOptionFunc) (*QueryDetailLumpSumPaymentIterator, error) {
+	return &QueryDetailLumpSumPaymentIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: l.QueryDetail,
 		options:  options,
 		limit:    req.Limit}, nil
 }
