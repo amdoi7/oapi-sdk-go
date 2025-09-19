@@ -3932,6 +3932,125 @@ func (builder *CriterionBuilder) Build() *Criterion {
 	return req
 }
 
+type DataModelPermissionAccess struct {
+	ApiId *string `json:"api_id,omitempty"` // 对象的api_id
+
+	ApiName *string `json:"api_name,omitempty"` // 对象的api_name
+
+	AllowedAccess []int `json:"allowed_access,omitempty"` // 权限列表
+
+	Fields []*FieldPermissionAccess `json:"fields,omitempty"` // 字段信息
+
+	DataModelType *string `json:"data_model_type,omitempty"` // 对象模型类型
+
+	DisplayName map[string]string `json:"display_name,omitempty"` // 对象的展示名称
+}
+
+type DataModelPermissionAccessBuilder struct {
+	apiId     string // 对象的api_id
+	apiIdFlag bool
+
+	apiName     string // 对象的api_name
+	apiNameFlag bool
+
+	allowedAccess     []int // 权限列表
+	allowedAccessFlag bool
+
+	fields     []*FieldPermissionAccess // 字段信息
+	fieldsFlag bool
+
+	dataModelType     string // 对象模型类型
+	dataModelTypeFlag bool
+
+	displayName     map[string]string // 对象的展示名称
+	displayNameFlag bool
+}
+
+func NewDataModelPermissionAccessBuilder() *DataModelPermissionAccessBuilder {
+	builder := &DataModelPermissionAccessBuilder{}
+	return builder
+}
+
+// 对象的api_id
+//
+// 示例值：api_id
+func (builder *DataModelPermissionAccessBuilder) ApiId(apiId string) *DataModelPermissionAccessBuilder {
+	builder.apiId = apiId
+	builder.apiIdFlag = true
+	return builder
+}
+
+// 对象的api_name
+//
+// 示例值：api_name
+func (builder *DataModelPermissionAccessBuilder) ApiName(apiName string) *DataModelPermissionAccessBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 权限列表
+//
+// 示例值：
+func (builder *DataModelPermissionAccessBuilder) AllowedAccess(allowedAccess []int) *DataModelPermissionAccessBuilder {
+	builder.allowedAccess = allowedAccess
+	builder.allowedAccessFlag = true
+	return builder
+}
+
+// 字段信息
+//
+// 示例值：
+func (builder *DataModelPermissionAccessBuilder) Fields(fields []*FieldPermissionAccess) *DataModelPermissionAccessBuilder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+// 对象模型类型
+//
+// 示例值：data
+func (builder *DataModelPermissionAccessBuilder) DataModelType(dataModelType string) *DataModelPermissionAccessBuilder {
+	builder.dataModelType = dataModelType
+	builder.dataModelTypeFlag = true
+	return builder
+}
+
+// 对象的展示名称
+//
+// 示例值：
+func (builder *DataModelPermissionAccessBuilder) DisplayName(displayName map[string]string) *DataModelPermissionAccessBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+
+func (builder *DataModelPermissionAccessBuilder) Build() *DataModelPermissionAccess {
+	req := &DataModelPermissionAccess{}
+	if builder.apiIdFlag {
+		req.ApiId = &builder.apiId
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.allowedAccessFlag {
+		req.AllowedAccess = builder.allowedAccess
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	if builder.dataModelTypeFlag {
+		req.DataModelType = &builder.dataModelType
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = builder.displayName
+	}
+	return req
+}
+
 type Dataset struct {
 	Namespace *string `json:"namespace,omitempty"` // 应用的命名空间
 
@@ -5320,6 +5439,90 @@ func (builder *ExternalUserBuilder) Build() *ExternalUser {
 	if builder.userIdFlag {
 		req.UserId = &builder.userId
 
+	}
+	return req
+}
+
+type FieldPermissionAccess struct {
+	ApiId *string `json:"api_id,omitempty"` // 页面的api_id
+
+	ApiName *string `json:"api_name,omitempty"` // 页面的api_name
+
+	AllowedAccess []int `json:"allowed_access,omitempty"` // 允许的权限列
+
+	DisplayName map[string]string `json:"display_name,omitempty"` // 页面的展示名称
+}
+
+type FieldPermissionAccessBuilder struct {
+	apiId     string // 页面的api_id
+	apiIdFlag bool
+
+	apiName     string // 页面的api_name
+	apiNameFlag bool
+
+	allowedAccess     []int // 允许的权限列
+	allowedAccessFlag bool
+
+	displayName     map[string]string // 页面的展示名称
+	displayNameFlag bool
+}
+
+func NewFieldPermissionAccessBuilder() *FieldPermissionAccessBuilder {
+	builder := &FieldPermissionAccessBuilder{}
+	return builder
+}
+
+// 页面的api_id
+//
+// 示例值：api_id
+func (builder *FieldPermissionAccessBuilder) ApiId(apiId string) *FieldPermissionAccessBuilder {
+	builder.apiId = apiId
+	builder.apiIdFlag = true
+	return builder
+}
+
+// 页面的api_name
+//
+// 示例值：api_name
+func (builder *FieldPermissionAccessBuilder) ApiName(apiName string) *FieldPermissionAccessBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 允许的权限列
+//
+// 示例值：
+func (builder *FieldPermissionAccessBuilder) AllowedAccess(allowedAccess []int) *FieldPermissionAccessBuilder {
+	builder.allowedAccess = allowedAccess
+	builder.allowedAccessFlag = true
+	return builder
+}
+
+// 页面的展示名称
+//
+// 示例值：
+func (builder *FieldPermissionAccessBuilder) DisplayName(displayName map[string]string) *FieldPermissionAccessBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+
+func (builder *FieldPermissionAccessBuilder) Build() *FieldPermissionAccess {
+	req := &FieldPermissionAccess{}
+	if builder.apiIdFlag {
+		req.ApiId = &builder.apiId
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.allowedAccessFlag {
+		req.AllowedAccess = builder.allowedAccess
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = builder.displayName
 	}
 	return req
 }
@@ -7224,6 +7427,91 @@ func (builder *ObjectSettingsForQueryBuilder) Build() *ObjectSettingsForQuery {
 	return req
 }
 
+type OperationPermissionAccess struct {
+	ApiId *string `json:"api_id,omitempty"` // 运算的api_id
+
+	ApiName *string `json:"api_name,omitempty"` // 运算的api_name
+
+	OperationType *string `json:"operation_type,omitempty"` // 运算类型
+
+	DisplayName map[string]string `json:"display_name,omitempty"` // 展示名称
+}
+
+type OperationPermissionAccessBuilder struct {
+	apiId     string // 运算的api_id
+	apiIdFlag bool
+
+	apiName     string // 运算的api_name
+	apiNameFlag bool
+
+	operationType     string // 运算类型
+	operationTypeFlag bool
+
+	displayName     map[string]string // 展示名称
+	displayNameFlag bool
+}
+
+func NewOperationPermissionAccessBuilder() *OperationPermissionAccessBuilder {
+	builder := &OperationPermissionAccessBuilder{}
+	return builder
+}
+
+// 运算的api_id
+//
+// 示例值：api_id
+func (builder *OperationPermissionAccessBuilder) ApiId(apiId string) *OperationPermissionAccessBuilder {
+	builder.apiId = apiId
+	builder.apiIdFlag = true
+	return builder
+}
+
+// 运算的api_name
+//
+// 示例值：api_name
+func (builder *OperationPermissionAccessBuilder) ApiName(apiName string) *OperationPermissionAccessBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 运算类型
+//
+// 示例值：automation
+func (builder *OperationPermissionAccessBuilder) OperationType(operationType string) *OperationPermissionAccessBuilder {
+	builder.operationType = operationType
+	builder.operationTypeFlag = true
+	return builder
+}
+
+// 展示名称
+//
+// 示例值：
+func (builder *OperationPermissionAccessBuilder) DisplayName(displayName map[string]string) *OperationPermissionAccessBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+
+func (builder *OperationPermissionAccessBuilder) Build() *OperationPermissionAccess {
+	req := &OperationPermissionAccess{}
+	if builder.apiIdFlag {
+		req.ApiId = &builder.apiId
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.operationTypeFlag {
+		req.OperationType = &builder.operationType
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = builder.displayName
+	}
+	return req
+}
+
 type OrderCondition struct {
 	Field *string `json:"field,omitempty"` // 字段名
 
@@ -7270,6 +7558,191 @@ func (builder *OrderConditionBuilder) Build() *OrderCondition {
 	if builder.orderTypeFlag {
 		req.OrderType = &builder.orderType
 
+	}
+	return req
+}
+
+type PagePermissionAccess struct {
+	ApiId *string `json:"api_id,omitempty"` // 页面的api_id
+
+	ApiName *string `json:"api_name,omitempty"` // 页面的api_name
+
+	SubPages []*SubPageSimpleInfo `json:"sub_pages,omitempty"` // 子页面信息
+
+	DisplayName map[string]string `json:"display_name,omitempty"` // 页面的展示名称
+}
+
+type PagePermissionAccessBuilder struct {
+	apiId     string // 页面的api_id
+	apiIdFlag bool
+
+	apiName     string // 页面的api_name
+	apiNameFlag bool
+
+	subPages     []*SubPageSimpleInfo // 子页面信息
+	subPagesFlag bool
+
+	displayName     map[string]string // 页面的展示名称
+	displayNameFlag bool
+}
+
+func NewPagePermissionAccessBuilder() *PagePermissionAccessBuilder {
+	builder := &PagePermissionAccessBuilder{}
+	return builder
+}
+
+// 页面的api_id
+//
+// 示例值：api_id
+func (builder *PagePermissionAccessBuilder) ApiId(apiId string) *PagePermissionAccessBuilder {
+	builder.apiId = apiId
+	builder.apiIdFlag = true
+	return builder
+}
+
+// 页面的api_name
+//
+// 示例值：api_name
+func (builder *PagePermissionAccessBuilder) ApiName(apiName string) *PagePermissionAccessBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 子页面信息
+//
+// 示例值：
+func (builder *PagePermissionAccessBuilder) SubPages(subPages []*SubPageSimpleInfo) *PagePermissionAccessBuilder {
+	builder.subPages = subPages
+	builder.subPagesFlag = true
+	return builder
+}
+
+// 页面的展示名称
+//
+// 示例值：
+func (builder *PagePermissionAccessBuilder) DisplayName(displayName map[string]string) *PagePermissionAccessBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+
+func (builder *PagePermissionAccessBuilder) Build() *PagePermissionAccess {
+	req := &PagePermissionAccess{}
+	if builder.apiIdFlag {
+		req.ApiId = &builder.apiId
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.subPagesFlag {
+		req.SubPages = builder.subPages
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = builder.displayName
+	}
+	return req
+}
+
+type PagePermissionV2 struct {
+	RoleApiName *string `json:"role_api_name,omitempty"` // 所属角色的apiname
+
+	PageApiName *string `json:"page_api_name,omitempty"` // 关联页面 apiName
+
+	SubTabPages []string `json:"sub_tab_pages,omitempty"` // 有权限的子页面标签页
+
+	PageName map[string]string `json:"page_name,omitempty"` // 页面名称
+
+	SubTabPageDisplayInfos []*SubPageSimpleInfoV2 `json:"sub_tab_page_display_infos,omitempty"` // 子页面的信息
+}
+
+type PagePermissionV2Builder struct {
+	roleApiName     string // 所属角色的apiname
+	roleApiNameFlag bool
+
+	pageApiName     string // 关联页面 apiName
+	pageApiNameFlag bool
+
+	subTabPages     []string // 有权限的子页面标签页
+	subTabPagesFlag bool
+
+	pageName     map[string]string // 页面名称
+	pageNameFlag bool
+
+	subTabPageDisplayInfos     []*SubPageSimpleInfoV2 // 子页面的信息
+	subTabPageDisplayInfosFlag bool
+}
+
+func NewPagePermissionV2Builder() *PagePermissionV2Builder {
+	builder := &PagePermissionV2Builder{}
+	return builder
+}
+
+// 所属角色的apiname
+//
+// 示例值：role_api_name
+func (builder *PagePermissionV2Builder) RoleApiName(roleApiName string) *PagePermissionV2Builder {
+	builder.roleApiName = roleApiName
+	builder.roleApiNameFlag = true
+	return builder
+}
+
+// 关联页面 apiName
+//
+// 示例值：page_api_name
+func (builder *PagePermissionV2Builder) PageApiName(pageApiName string) *PagePermissionV2Builder {
+	builder.pageApiName = pageApiName
+	builder.pageApiNameFlag = true
+	return builder
+}
+
+// 有权限的子页面标签页
+//
+// 示例值：
+func (builder *PagePermissionV2Builder) SubTabPages(subTabPages []string) *PagePermissionV2Builder {
+	builder.subTabPages = subTabPages
+	builder.subTabPagesFlag = true
+	return builder
+}
+
+// 页面名称
+//
+// 示例值：
+func (builder *PagePermissionV2Builder) PageName(pageName map[string]string) *PagePermissionV2Builder {
+	builder.pageName = pageName
+	builder.pageNameFlag = true
+	return builder
+}
+
+// 子页面的信息
+//
+// 示例值：
+func (builder *PagePermissionV2Builder) SubTabPageDisplayInfos(subTabPageDisplayInfos []*SubPageSimpleInfoV2) *PagePermissionV2Builder {
+	builder.subTabPageDisplayInfos = subTabPageDisplayInfos
+	builder.subTabPageDisplayInfosFlag = true
+	return builder
+}
+
+func (builder *PagePermissionV2Builder) Build() *PagePermissionV2 {
+	req := &PagePermissionV2{}
+	if builder.roleApiNameFlag {
+		req.RoleApiName = &builder.roleApiName
+
+	}
+	if builder.pageApiNameFlag {
+		req.PageApiName = &builder.pageApiName
+
+	}
+	if builder.subTabPagesFlag {
+		req.SubTabPages = builder.subTabPages
+	}
+	if builder.pageNameFlag {
+		req.PageName = builder.pageName
+	}
+	if builder.subTabPageDisplayInfosFlag {
+		req.SubTabPageDisplayInfos = builder.subTabPageDisplayInfos
 	}
 	return req
 }
@@ -7636,6 +8109,282 @@ func (builder *RoleBuilder) Build() *Role {
 	if builder.apiNameFlag {
 		req.ApiName = &builder.apiName
 
+	}
+	return req
+}
+
+type RoleBasic struct {
+	ApiId *string `json:"api_id,omitempty"` // 角色的apiId
+
+	ApiName *string `json:"api_name,omitempty"` // 角色的API名称
+
+	Name map[string]string `json:"name,omitempty"` // 角色名称
+
+	Description map[string]string `json:"description,omitempty"` // 角色描述
+
+	Enabled *bool `json:"enabled,omitempty"` // 是否启用
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人
+
+	CreatedAt *int `json:"created_at,omitempty"` // 创建时间
+
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人
+
+	UpdatedAt *int `json:"updated_at,omitempty"` // 更新时间
+
+	CreatedEnv *string `json:"created_env,omitempty"` // 创建环境
+
+	CreatedWay *string `json:"created_way,omitempty"` // 创建方式
+}
+
+type RoleBasicBuilder struct {
+	apiId     string // 角色的apiId
+	apiIdFlag bool
+
+	apiName     string // 角色的API名称
+	apiNameFlag bool
+
+	name     map[string]string // 角色名称
+	nameFlag bool
+
+	description     map[string]string // 角色描述
+	descriptionFlag bool
+
+	enabled     bool // 是否启用
+	enabledFlag bool
+
+	createdBy     string // 创建人
+	createdByFlag bool
+
+	createdAt     int // 创建时间
+	createdAtFlag bool
+
+	updatedBy     string // 更新人
+	updatedByFlag bool
+
+	updatedAt     int // 更新时间
+	updatedAtFlag bool
+
+	createdEnv     string // 创建环境
+	createdEnvFlag bool
+
+	createdWay     string // 创建方式
+	createdWayFlag bool
+}
+
+func NewRoleBasicBuilder() *RoleBasicBuilder {
+	builder := &RoleBasicBuilder{}
+	return builder
+}
+
+// 角色的apiId
+//
+// 示例值：package_99d11a__c__rolePermission_aadismvk2cocs
+func (builder *RoleBasicBuilder) ApiId(apiId string) *RoleBasicBuilder {
+	builder.apiId = apiId
+	builder.apiIdFlag = true
+	return builder
+}
+
+// 角色的API名称
+//
+// 示例值：role_7f60dacb16e
+func (builder *RoleBasicBuilder) ApiName(apiName string) *RoleBasicBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 角色名称
+//
+// 示例值：
+func (builder *RoleBasicBuilder) Name(name map[string]string) *RoleBasicBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 角色描述
+//
+// 示例值：
+func (builder *RoleBasicBuilder) Description(description map[string]string) *RoleBasicBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 是否启用
+//
+// 示例值：
+func (builder *RoleBasicBuilder) Enabled(enabled bool) *RoleBasicBuilder {
+	builder.enabled = enabled
+	builder.enabledFlag = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：1290381290389
+func (builder *RoleBasicBuilder) CreatedBy(createdBy string) *RoleBasicBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1682503024586
+func (builder *RoleBasicBuilder) CreatedAt(createdAt int) *RoleBasicBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// 更新人
+//
+// 示例值：17728391812
+func (builder *RoleBasicBuilder) UpdatedBy(updatedBy string) *RoleBasicBuilder {
+	builder.updatedBy = updatedBy
+	builder.updatedByFlag = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：1682503024586
+func (builder *RoleBasicBuilder) UpdatedAt(updatedAt int) *RoleBasicBuilder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// 创建环境
+//
+// 示例值：sandbox
+func (builder *RoleBasicBuilder) CreatedEnv(createdEnv string) *RoleBasicBuilder {
+	builder.createdEnv = createdEnv
+	builder.createdEnvFlag = true
+	return builder
+}
+
+// 创建方式
+//
+// 示例值：page
+func (builder *RoleBasicBuilder) CreatedWay(createdWay string) *RoleBasicBuilder {
+	builder.createdWay = createdWay
+	builder.createdWayFlag = true
+	return builder
+}
+
+func (builder *RoleBasicBuilder) Build() *RoleBasic {
+	req := &RoleBasic{}
+	if builder.apiIdFlag {
+		req.ApiId = &builder.apiId
+
+	}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
+	}
+	if builder.enabledFlag {
+		req.Enabled = &builder.enabled
+
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedByFlag {
+		req.UpdatedBy = &builder.updatedBy
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.createdEnvFlag {
+		req.CreatedEnv = &builder.createdEnv
+
+	}
+	if builder.createdWayFlag {
+		req.CreatedWay = &builder.createdWay
+
+	}
+	return req
+}
+
+type RoleBasicMask struct {
+	ApiName *string `json:"api_name,omitempty"` // 角色的API名称
+
+	Name map[string]string `json:"name,omitempty"` // 角色名称
+
+	Description map[string]string `json:"description,omitempty"` // 角色描述
+}
+
+type RoleBasicMaskBuilder struct {
+	apiName     string // 角色的API名称
+	apiNameFlag bool
+
+	name     map[string]string // 角色名称
+	nameFlag bool
+
+	description     map[string]string // 角色描述
+	descriptionFlag bool
+}
+
+func NewRoleBasicMaskBuilder() *RoleBasicMaskBuilder {
+	builder := &RoleBasicMaskBuilder{}
+	return builder
+}
+
+// 角色的API名称
+//
+// 示例值：role_7f60dacb16e
+func (builder *RoleBasicMaskBuilder) ApiName(apiName string) *RoleBasicMaskBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 角色名称
+//
+// 示例值：
+func (builder *RoleBasicMaskBuilder) Name(name map[string]string) *RoleBasicMaskBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 角色描述
+//
+// 示例值：
+func (builder *RoleBasicMaskBuilder) Description(description map[string]string) *RoleBasicMaskBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+func (builder *RoleBasicMaskBuilder) Build() *RoleBasicMask {
+	req := &RoleBasicMask{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.descriptionFlag {
+		req.Description = builder.description
 	}
 	return req
 }
@@ -8492,6 +9241,122 @@ func (builder *SortBuilder) Build() *Sort {
 	if builder.directionFlag {
 		req.Direction = &builder.direction
 
+	}
+	return req
+}
+
+type SubPageSimpleInfo struct {
+	SubPageKey *string `json:"sub_page_key,omitempty"` // 子页面的key
+
+	DisplayName map[string]string `json:"display_name,omitempty"` // 子页面的描述
+
+	SubPageApiName *string `json:"sub_page_api_name,omitempty"` // 子页面的apiName
+}
+
+type SubPageSimpleInfoBuilder struct {
+	subPageKey     string // 子页面的key
+	subPageKeyFlag bool
+
+	displayName     map[string]string // 子页面的描述
+	displayNameFlag bool
+
+	subPageApiName     string // 子页面的apiName
+	subPageApiNameFlag bool
+}
+
+func NewSubPageSimpleInfoBuilder() *SubPageSimpleInfoBuilder {
+	builder := &SubPageSimpleInfoBuilder{}
+	return builder
+}
+
+// 子页面的key
+//
+// 示例值：sub_page_test01
+func (builder *SubPageSimpleInfoBuilder) SubPageKey(subPageKey string) *SubPageSimpleInfoBuilder {
+	builder.subPageKey = subPageKey
+	builder.subPageKeyFlag = true
+	return builder
+}
+
+// 子页面的描述
+//
+// 示例值：
+func (builder *SubPageSimpleInfoBuilder) DisplayName(displayName map[string]string) *SubPageSimpleInfoBuilder {
+	builder.displayName = displayName
+	builder.displayNameFlag = true
+	return builder
+}
+
+// 子页面的apiName
+//
+// 示例值：aadikuwdc7mju
+func (builder *SubPageSimpleInfoBuilder) SubPageApiName(subPageApiName string) *SubPageSimpleInfoBuilder {
+	builder.subPageApiName = subPageApiName
+	builder.subPageApiNameFlag = true
+	return builder
+}
+
+func (builder *SubPageSimpleInfoBuilder) Build() *SubPageSimpleInfo {
+	req := &SubPageSimpleInfo{}
+	if builder.subPageKeyFlag {
+		req.SubPageKey = &builder.subPageKey
+
+	}
+	if builder.displayNameFlag {
+		req.DisplayName = builder.displayName
+	}
+	if builder.subPageApiNameFlag {
+		req.SubPageApiName = &builder.subPageApiName
+
+	}
+	return req
+}
+
+type SubPageSimpleInfoV2 struct {
+	SubPageKey *string `json:"sub_page_key,omitempty"` // 子页面的key
+
+	Name map[string]string `json:"name,omitempty"` // 子页面的名称
+}
+
+type SubPageSimpleInfoV2Builder struct {
+	subPageKey     string // 子页面的key
+	subPageKeyFlag bool
+
+	name     map[string]string // 子页面的名称
+	nameFlag bool
+}
+
+func NewSubPageSimpleInfoV2Builder() *SubPageSimpleInfoV2Builder {
+	builder := &SubPageSimpleInfoV2Builder{}
+	return builder
+}
+
+// 子页面的key
+//
+// 示例值：sub_page_key
+func (builder *SubPageSimpleInfoV2Builder) SubPageKey(subPageKey string) *SubPageSimpleInfoV2Builder {
+	builder.subPageKey = subPageKey
+	builder.subPageKeyFlag = true
+	return builder
+}
+
+// 子页面的名称
+//
+// 示例值：
+func (builder *SubPageSimpleInfoV2Builder) Name(name map[string]string) *SubPageSimpleInfoV2Builder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *SubPageSimpleInfoV2Builder) Build() *SubPageSimpleInfoV2 {
+	req := &SubPageSimpleInfoV2{}
+	if builder.subPageKeyFlag {
+		req.SubPageKey = &builder.subPageKey
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
 	}
 	return req
 }

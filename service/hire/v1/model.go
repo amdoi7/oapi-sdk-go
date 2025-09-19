@@ -219,6 +219,22 @@ const (
 )
 
 const (
+	BatchQueryBackgroundCheckOrderOrderStatusHasArrange    = "2" // 已安排
+	BatchQueryBackgroundCheckOrderOrderStatusHasFinish     = "3" // 已完成
+	BatchQueryBackgroundCheckOrderOrderStatusHasTerminated = "4" // 已终止
+	BatchQueryBackgroundCheckOrderOrderStatusApproving     = "5" // 审批中
+	BatchQueryBackgroundCheckOrderOrderStatusWithdrawn     = "6" // 审批已撤回
+	BatchQueryBackgroundCheckOrderOrderStatusApproved      = "8" // 审批通过
+	BatchQueryBackgroundCheckOrderOrderStatusRejected      = "9" // 审批未通过
+)
+
+const (
+	BatchQueryBackgroundCheckOrderUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	BatchQueryBackgroundCheckOrderUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	BatchQueryBackgroundCheckOrderUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
+)
+
+const (
 	ListBackgroundCheckOrderUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
 	ListBackgroundCheckOrderUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
 	ListBackgroundCheckOrderUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
@@ -17605,6 +17621,8 @@ type Employee struct {
 	EmployeeType *string `json:"employee_type,omitempty"` // 员工类型
 
 	JobRequirementId *string `json:"job_requirement_id,omitempty"` // 招聘需求ID
+
+	ExternalEmploymentId *string `json:"external_employment_id,omitempty"` // 飞书人事的雇佣ID
 }
 
 type EmployeeBuilder struct {
@@ -17655,6 +17673,9 @@ type EmployeeBuilder struct {
 
 	jobRequirementId     string // 招聘需求ID
 	jobRequirementIdFlag bool
+
+	externalEmploymentId     string // 飞书人事的雇佣ID
+	externalEmploymentIdFlag bool
 }
 
 func NewEmployeeBuilder() *EmployeeBuilder {
@@ -17806,6 +17827,15 @@ func (builder *EmployeeBuilder) JobRequirementId(jobRequirementId string) *Emplo
 	return builder
 }
 
+// 飞书人事的雇佣ID
+//
+// 示例值：6969595949493939291
+func (builder *EmployeeBuilder) ExternalEmploymentId(externalEmploymentId string) *EmployeeBuilder {
+	builder.externalEmploymentId = externalEmploymentId
+	builder.externalEmploymentIdFlag = true
+	return builder
+}
+
 func (builder *EmployeeBuilder) Build() *Employee {
 	req := &Employee{}
 	if builder.idFlag {
@@ -17870,6 +17900,10 @@ func (builder *EmployeeBuilder) Build() *Employee {
 	}
 	if builder.jobRequirementIdFlag {
 		req.JobRequirementId = &builder.jobRequirementId
+
+	}
+	if builder.externalEmploymentIdFlag {
+		req.ExternalEmploymentId = &builder.externalEmploymentId
 
 	}
 	return req
@@ -56970,6 +57004,325 @@ func (resp *PreviewAttachmentResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchQueryBackgroundCheckOrderReqBodyBuilder struct {
+	backgroundCheckOrderIdList     []string // 背调订单 ID 列表
+	backgroundCheckOrderIdListFlag bool
+
+	updateStartTime     string // 最早更新时间,毫秒级时间戳
+	updateStartTimeFlag bool
+
+	updateEndTime     string // 最晚更新时间,毫秒级时间戳
+	updateEndTimeFlag bool
+
+	beginStartTime     string // 最早创建时间,毫秒级时间戳
+	beginStartTimeFlag bool
+
+	beginEndTime     string // 最晚创建时间,毫秒级时间戳
+	beginEndTimeFlag bool
+
+	applicationId     string // 投递 ID
+	applicationIdFlag bool
+
+	orderStatus     string // 订单状态
+	orderStatusFlag bool
+}
+
+func NewBatchQueryBackgroundCheckOrderReqBodyBuilder() *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder := &BatchQueryBackgroundCheckOrderReqBodyBuilder{}
+	return builder
+}
+
+// 背调订单 ID 列表
+//
+//示例值：
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) BackgroundCheckOrderIdList(backgroundCheckOrderIdList []string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.backgroundCheckOrderIdList = backgroundCheckOrderIdList
+	builder.backgroundCheckOrderIdListFlag = true
+	return builder
+}
+
+// 最早更新时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) UpdateStartTime(updateStartTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.updateStartTime = updateStartTime
+	builder.updateStartTimeFlag = true
+	return builder
+}
+
+// 最晚更新时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) UpdateEndTime(updateEndTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.updateEndTime = updateEndTime
+	builder.updateEndTimeFlag = true
+	return builder
+}
+
+// 最早创建时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) BeginStartTime(beginStartTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.beginStartTime = beginStartTime
+	builder.beginStartTimeFlag = true
+	return builder
+}
+
+// 最晚创建时间,毫秒级时间戳
+//
+//示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) BeginEndTime(beginEndTime string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.beginEndTime = beginEndTime
+	builder.beginEndTimeFlag = true
+	return builder
+}
+
+// 投递 ID
+//
+//示例值：7398493486516799788
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) ApplicationId(applicationId string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.applicationId = applicationId
+	builder.applicationIdFlag = true
+	return builder
+}
+
+// 订单状态
+//
+//示例值：2
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) OrderStatus(orderStatus string) *BatchQueryBackgroundCheckOrderReqBodyBuilder {
+	builder.orderStatus = orderStatus
+	builder.orderStatusFlag = true
+	return builder
+}
+
+func (builder *BatchQueryBackgroundCheckOrderReqBodyBuilder) Build() *BatchQueryBackgroundCheckOrderReqBody {
+	req := &BatchQueryBackgroundCheckOrderReqBody{}
+	if builder.backgroundCheckOrderIdListFlag {
+		req.BackgroundCheckOrderIdList = builder.backgroundCheckOrderIdList
+	}
+	if builder.updateStartTimeFlag {
+		req.UpdateStartTime = &builder.updateStartTime
+	}
+	if builder.updateEndTimeFlag {
+		req.UpdateEndTime = &builder.updateEndTime
+	}
+	if builder.beginStartTimeFlag {
+		req.BeginStartTime = &builder.beginStartTime
+	}
+	if builder.beginEndTimeFlag {
+		req.BeginEndTime = &builder.beginEndTime
+	}
+	if builder.applicationIdFlag {
+		req.ApplicationId = &builder.applicationId
+	}
+	if builder.orderStatusFlag {
+		req.OrderStatus = &builder.orderStatus
+	}
+	return req
+}
+
+type BatchQueryBackgroundCheckOrderPathReqBodyBuilder struct {
+	backgroundCheckOrderIdList     []string
+	backgroundCheckOrderIdListFlag bool
+	updateStartTime                string
+	updateStartTimeFlag            bool
+	updateEndTime                  string
+	updateEndTimeFlag              bool
+	beginStartTime                 string
+	beginStartTimeFlag             bool
+	beginEndTime                   string
+	beginEndTimeFlag               bool
+	applicationId                  string
+	applicationIdFlag              bool
+	orderStatus                    string
+	orderStatusFlag                bool
+}
+
+func NewBatchQueryBackgroundCheckOrderPathReqBodyBuilder() *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder := &BatchQueryBackgroundCheckOrderPathReqBodyBuilder{}
+	return builder
+}
+
+// 背调订单 ID 列表
+//
+// 示例值：
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) BackgroundCheckOrderIdList(backgroundCheckOrderIdList []string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.backgroundCheckOrderIdList = backgroundCheckOrderIdList
+	builder.backgroundCheckOrderIdListFlag = true
+	return builder
+}
+
+// 最早更新时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) UpdateStartTime(updateStartTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.updateStartTime = updateStartTime
+	builder.updateStartTimeFlag = true
+	return builder
+}
+
+// 最晚更新时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) UpdateEndTime(updateEndTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.updateEndTime = updateEndTime
+	builder.updateEndTimeFlag = true
+	return builder
+}
+
+// 最早创建时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) BeginStartTime(beginStartTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.beginStartTime = beginStartTime
+	builder.beginStartTimeFlag = true
+	return builder
+}
+
+// 最晚创建时间,毫秒级时间戳
+//
+// 示例值：1618500278663
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) BeginEndTime(beginEndTime string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.beginEndTime = beginEndTime
+	builder.beginEndTimeFlag = true
+	return builder
+}
+
+// 投递 ID
+//
+// 示例值：7398493486516799788
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) ApplicationId(applicationId string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.applicationId = applicationId
+	builder.applicationIdFlag = true
+	return builder
+}
+
+// 订单状态
+//
+// 示例值：2
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) OrderStatus(orderStatus string) *BatchQueryBackgroundCheckOrderPathReqBodyBuilder {
+	builder.orderStatus = orderStatus
+	builder.orderStatusFlag = true
+	return builder
+}
+
+func (builder *BatchQueryBackgroundCheckOrderPathReqBodyBuilder) Build() (*BatchQueryBackgroundCheckOrderReqBody, error) {
+	req := &BatchQueryBackgroundCheckOrderReqBody{}
+	if builder.backgroundCheckOrderIdListFlag {
+		req.BackgroundCheckOrderIdList = builder.backgroundCheckOrderIdList
+	}
+	if builder.updateStartTimeFlag {
+		req.UpdateStartTime = &builder.updateStartTime
+	}
+	if builder.updateEndTimeFlag {
+		req.UpdateEndTime = &builder.updateEndTime
+	}
+	if builder.beginStartTimeFlag {
+		req.BeginStartTime = &builder.beginStartTime
+	}
+	if builder.beginEndTimeFlag {
+		req.BeginEndTime = &builder.beginEndTime
+	}
+	if builder.applicationIdFlag {
+		req.ApplicationId = &builder.applicationId
+	}
+	if builder.orderStatusFlag {
+		req.OrderStatus = &builder.orderStatus
+	}
+	return req, nil
+}
+
+type BatchQueryBackgroundCheckOrderReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchQueryBackgroundCheckOrderReqBody
+}
+
+func NewBatchQueryBackgroundCheckOrderReqBuilder() *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder := &BatchQueryBackgroundCheckOrderReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：open_id
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) UserIdType(userIdType string) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 页码标识，获取第一页传空，每次查询会返回下一页的page_token
+//
+// 示例值：eyJvZmZzZXQiOjEsInRpbWVzdGFtcCI6MTY0MDc2NTYzMjA4OCwiaWQiOm51bGx9
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) PageToken(pageToken string) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 每页获取记录数量
+//
+// 示例值：10
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) PageSize(pageSize int) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+//
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) Body(body *BatchQueryBackgroundCheckOrderReqBody) *BatchQueryBackgroundCheckOrderReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchQueryBackgroundCheckOrderReqBuilder) Build() *BatchQueryBackgroundCheckOrderReq {
+	req := &BatchQueryBackgroundCheckOrderReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchQueryBackgroundCheckOrderReqBody struct {
+	BackgroundCheckOrderIdList []string `json:"background_check_order_id_list,omitempty"` // 背调订单 ID 列表
+
+	UpdateStartTime *string `json:"update_start_time,omitempty"` // 最早更新时间,毫秒级时间戳
+
+	UpdateEndTime *string `json:"update_end_time,omitempty"` // 最晚更新时间,毫秒级时间戳
+
+	BeginStartTime *string `json:"begin_start_time,omitempty"` // 最早创建时间,毫秒级时间戳
+
+	BeginEndTime *string `json:"begin_end_time,omitempty"` // 最晚创建时间,毫秒级时间戳
+
+	ApplicationId *string `json:"application_id,omitempty"` // 投递 ID
+
+	OrderStatus *string `json:"order_status,omitempty"` // 订单状态
+}
+
+type BatchQueryBackgroundCheckOrderReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchQueryBackgroundCheckOrderReqBody `body:""`
+}
+
+type BatchQueryBackgroundCheckOrderRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否有下一页
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页页码
+
+	Items []*BackgroundCheckOrder `json:"items,omitempty"` // 背调信息列表
+}
+
+type BatchQueryBackgroundCheckOrderResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchQueryBackgroundCheckOrderRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchQueryBackgroundCheckOrderResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ListBackgroundCheckOrderReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -73512,7 +73865,7 @@ type P2ApplicationStageChangedV1Data struct {
 
 	TargetStageId *string `json:"target_stage_id,omitempty"` //
 
-	UpdateTime *int `json:"update_time,omitempty"` //
+	UpdateTime *int64 `json:"update_time,omitempty"` //
 }
 
 type P2ApplicationStageChangedV1 struct {

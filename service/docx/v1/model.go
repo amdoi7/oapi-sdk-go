@@ -615,6 +615,10 @@ type Block struct {
 	SubPageList *SubPageList `json:"sub_page_list,omitempty"` // 新版 Wiki 子目录 Block
 
 	AiTemplate *AiTemplate `json:"ai_template,omitempty"` // AI 模板 Block
+
+	ReferenceBase *ReferenceBase `json:"reference_base,omitempty"` // 引用的多维表格
+
+	Project *Project `json:"project,omitempty"` // 飞书项目
 }
 
 type BlockBuilder struct {
@@ -791,6 +795,12 @@ type BlockBuilder struct {
 
 	aiTemplate     *AiTemplate // AI 模板 Block
 	aiTemplateFlag bool
+
+	referenceBase     *ReferenceBase // 引用的多维表格
+	referenceBaseFlag bool
+
+	project     *Project // 飞书项目
+	projectFlag bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -1320,6 +1330,24 @@ func (builder *BlockBuilder) AiTemplate(aiTemplate *AiTemplate) *BlockBuilder {
 	return builder
 }
 
+// 引用的多维表格
+//
+// 示例值：
+func (builder *BlockBuilder) ReferenceBase(referenceBase *ReferenceBase) *BlockBuilder {
+	builder.referenceBase = referenceBase
+	builder.referenceBaseFlag = true
+	return builder
+}
+
+// 飞书项目
+//
+// 示例值：
+func (builder *BlockBuilder) Project(project *Project) *BlockBuilder {
+	builder.project = project
+	builder.projectFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -1498,6 +1526,12 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.aiTemplateFlag {
 		req.AiTemplate = builder.aiTemplate
+	}
+	if builder.referenceBaseFlag {
+		req.ReferenceBase = builder.referenceBase
+	}
+	if builder.projectFlag {
+		req.Project = builder.project
 	}
 	return req
 }
@@ -5256,6 +5290,8 @@ type TextElement struct {
 	InlineBlock *InlineBlock `json:"inline_block,omitempty"` // 内联 block
 
 	Equation *Equation `json:"equation,omitempty"` // 公式
+
+	LinkPreview *InlineLinkPreview `json:"link_preview,omitempty"` // 链接预览
 }
 
 type TextElementBuilder struct {
@@ -5282,6 +5318,9 @@ type TextElementBuilder struct {
 
 	equation     *Equation // 公式
 	equationFlag bool
+
+	linkPreview     *InlineLinkPreview // 链接预览
+	linkPreviewFlag bool
 }
 
 func NewTextElementBuilder() *TextElementBuilder {
@@ -5361,6 +5400,15 @@ func (builder *TextElementBuilder) Equation(equation *Equation) *TextElementBuil
 	return builder
 }
 
+// 链接预览
+//
+// 示例值：
+func (builder *TextElementBuilder) LinkPreview(linkPreview *InlineLinkPreview) *TextElementBuilder {
+	builder.linkPreview = linkPreview
+	builder.linkPreviewFlag = true
+	return builder
+}
+
 func (builder *TextElementBuilder) Build() *TextElement {
 	req := &TextElement{}
 	if builder.textRunFlag {
@@ -5386,6 +5434,9 @@ func (builder *TextElementBuilder) Build() *TextElement {
 	}
 	if builder.equationFlag {
 		req.Equation = builder.equation
+	}
+	if builder.linkPreviewFlag {
+		req.LinkPreview = builder.linkPreview
 	}
 	return req
 }

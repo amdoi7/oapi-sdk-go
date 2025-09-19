@@ -11,7 +11,7 @@ import (
 type V1 struct {
 	Advertisement                   *advertisement                   // advertisement
 	Agency                          *agency                          // 猎头（灰度租户可见）
-	Application                     *application                     // 入职
+	Application                     *application                     // 投递
 	ApplicationInterview            *applicationInterview            // application.interview
 	Attachment                      *attachment                      // 附件
 	BackgroundCheckOrder            *backgroundCheckOrder            // 背调 （灰度租户可见）
@@ -987,6 +987,32 @@ func (a *attachment) Preview(ctx context.Context, req *PreviewAttachmentReq, opt
 	// 反序列响应结果
 	resp := &PreviewAttachmentResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, a.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// BatchQuery
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=batch_query&project=hire&resource=background_check_order&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/hirev1/batchQuery_backgroundCheckOrder.go
+func (b *backgroundCheckOrder) BatchQuery(ctx context.Context, req *BatchQueryBackgroundCheckOrderReq, options ...larkcore.RequestOptionFunc) (*BatchQueryBackgroundCheckOrderResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/hire/v1/background_check_orders/batch_query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, b.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &BatchQueryBackgroundCheckOrderResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, b.config)
 	if err != nil {
 		return nil, err
 	}

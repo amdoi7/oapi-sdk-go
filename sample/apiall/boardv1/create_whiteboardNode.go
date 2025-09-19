@@ -21,17 +21,21 @@ import (
 	"github.com/larksuite/oapi-sdk-go/v3/service/board/v1"
 )
 
-// GET /open-apis/board/v1/whiteboards/:whiteboard_id/nodes
+// POST /open-apis/board/v1/whiteboards/:whiteboard_id/nodes
 func main() {
 	// 创建 Client
 	client := lark.NewClient("appID", "appSecret")
 	// 创建请求对象
-	req := larkboard.NewListWhiteboardNodeReqBuilder().
+	req := larkboard.NewCreateWhiteboardNodeReqBuilder().
 		WhiteboardId("Ru8nwrWFOhEmaFbEU2VbPRsHcxb").
+		ClientToken("fe599b60-450f-46ff-b2ef-9f6675625b9").
 		UserIdType("user_id").
+		Body(larkboard.NewCreateWhiteboardNodeReqBodyBuilder().
+			Nodes([]*larkboard.WhiteboardNode{larkboard.NewWhiteboardNodeBuilder().Build()}).
+			Build()).
 		Build()
 	// 发起请求
-	resp, err := client.Board.V1.WhiteboardNode.List(context.Background(), req)
+	resp, err := client.Board.V1.WhiteboardNode.Create(context.Background(), req)
 
 	// 处理错误
 	if err != nil {

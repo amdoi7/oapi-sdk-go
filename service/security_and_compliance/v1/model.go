@@ -4300,6 +4300,10 @@ type DlpExecuteLog struct {
 	TriggerEventType *string `json:"trigger_event_type,omitempty"` // 触发事件类型
 
 	ChatType *string `json:"chat_type,omitempty"` // 会话类型
+
+	GroupOwnerName *string `json:"group_owner_name,omitempty"` // 群主名称
+
+	GroupOwnerId *string `json:"group_owner_id,omitempty"` // 群主ID
 }
 
 type DlpExecuteLogBuilder struct {
@@ -4389,6 +4393,12 @@ type DlpExecuteLogBuilder struct {
 
 	chatType     string // 会话类型
 	chatTypeFlag bool
+
+	groupOwnerName     string // 群主名称
+	groupOwnerNameFlag bool
+
+	groupOwnerId     string // 群主ID
+	groupOwnerIdFlag bool
 }
 
 func NewDlpExecuteLogBuilder() *DlpExecuteLogBuilder {
@@ -4657,6 +4667,24 @@ func (builder *DlpExecuteLogBuilder) ChatType(chatType string) *DlpExecuteLogBui
 	return builder
 }
 
+// 群主名称
+//
+// 示例值：李四
+func (builder *DlpExecuteLogBuilder) GroupOwnerName(groupOwnerName string) *DlpExecuteLogBuilder {
+	builder.groupOwnerName = groupOwnerName
+	builder.groupOwnerNameFlag = true
+	return builder
+}
+
+// 群主ID
+//
+// 示例值：983749203223
+func (builder *DlpExecuteLogBuilder) GroupOwnerId(groupOwnerId string) *DlpExecuteLogBuilder {
+	builder.groupOwnerId = groupOwnerId
+	builder.groupOwnerIdFlag = true
+	return builder
+}
+
 func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	req := &DlpExecuteLog{}
 	if builder.applicableServiceFlag {
@@ -4771,6 +4799,14 @@ func (builder *DlpExecuteLogBuilder) Build() *DlpExecuteLog {
 	}
 	if builder.chatTypeFlag {
 		req.ChatType = &builder.chatType
+
+	}
+	if builder.groupOwnerNameFlag {
+		req.GroupOwnerName = &builder.groupOwnerName
+
+	}
+	if builder.groupOwnerIdFlag {
+		req.GroupOwnerId = &builder.groupOwnerId
 
 	}
 	return req

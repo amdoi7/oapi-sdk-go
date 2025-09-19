@@ -19,6 +19,8 @@ import (
 	"context"
 	"errors"
 
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -27,6 +29,13 @@ const (
 	UserIDTypeUnionId        = "union_id"         // 以union_id来识别用户
 	UserIDTypeOpenId         = "open_id"          // 以open_id来识别用户
 	UserIDTypePeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	UserIDTypeQueryArchiveUserId         = "user_id"          // 以user_id来识别用户
+	UserIDTypeQueryArchiveUnionId        = "union_id"         // 以union_id来识别用户
+	UserIDTypeQueryArchiveOpenId         = "open_id"          // 以open_id来识别用户
+	UserIDTypeQueryArchivePeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
 )
 
 const (
@@ -54,6 +63,51 @@ const (
 	UserIDTypeQueryDetailLumpSumPaymentUnionId        = "union_id"         // 以union_id来识别用户
 	UserIDTypeQueryDetailLumpSumPaymentOpenId         = "open_id"          // 以open_id来识别用户
 	UserIDTypeQueryDetailLumpSumPaymentPeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	UserIdTypeUserId         = "user_id"          // 以user_id来识别用户
+	UserIdTypeUnionId        = "union_id"         // 以union_id来识别用户
+	UserIdTypeOpenId         = "open_id"          // 以open_id来识别用户
+	UserIdTypePeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	UserIdTypeBatchUpdateRecurringPaymentUserId         = "user_id"          // 以user_id来识别用户
+	UserIdTypeBatchUpdateRecurringPaymentUnionId        = "union_id"         // 以union_id来识别用户
+	UserIdTypeBatchUpdateRecurringPaymentOpenId         = "open_id"          // 以open_id来识别用户
+	UserIdTypeBatchUpdateRecurringPaymentPeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	UserIDTypeQueryRecurringPaymentUserId         = "user_id"          // 以user_id来识别用户
+	UserIDTypeQueryRecurringPaymentUnionId        = "union_id"         // 以union_id来识别用户
+	UserIDTypeQueryRecurringPaymentOpenId         = "open_id"          // 以open_id来识别用户
+	UserIDTypeQueryRecurringPaymentPeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	UserIDTypeQuerySocialArchiveUserId         = "user_id"          // 以user_id来识别用户
+	UserIDTypeQuerySocialArchiveUnionId        = "union_id"         // 以union_id来识别用户
+	UserIDTypeQuerySocialArchiveOpenId         = "open_id"          // 以open_id来识别用户
+	UserIDTypeQuerySocialArchivePeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	RecordTypeIncrease  = "increase"  // 增员
+	RecordTypeAttrition = "attrition" // 减员
+)
+
+const (
+	UserIDTypeQuerySocialArchiveAdjustRecordUserId         = "user_id"          // 以user_id来识别用户
+	UserIDTypeQuerySocialArchiveAdjustRecordUnionId        = "union_id"         // 以union_id来识别用户
+	UserIDTypeQuerySocialArchiveAdjustRecordOpenId         = "open_id"          // 以open_id来识别用户
+	UserIDTypeQuerySocialArchiveAdjustRecordPeopleCorehrId = "people_corehr_id" // 以people_corehr_id来识别用户
+)
+
+const (
+	InsuranceTypeSocialInsurance = "social_insurance" // 社保
+	InsuranceTypeProvidentFund   = "provident_fund"   // 公积金
 )
 
 type AdjustmentLogic struct {
@@ -6485,6 +6539,431 @@ func (builder *StandardScopeExpressionBuilder) Build() *StandardScopeExpression 
 	return req
 }
 
+type CreateArchiveReqBodyBuilder struct {
+	uniqueId     string // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+	uniqueIdFlag bool
+
+	operatorId     string // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
+	operatorIdFlag bool
+
+	userId     string // 员工id，具体类型由入参中的 user_id_type 指定
+	userIdFlag bool
+
+	effectiveTime     string // 生效时间，日期格式
+	effectiveTimeFlag bool
+
+	currencyId     string // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+	currencyIdFlag bool
+
+	planId     string // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	planIdFlag bool
+
+	planTid     string // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+	planTidFlag bool
+
+	changeReasonId     string // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+	changeReasonIdFlag bool
+
+	itemValueLists     []*ArchiveItemValue // 薪资项值集合
+	itemValueListsFlag bool
+
+	description     string // 调薪说明
+	descriptionFlag bool
+
+	editRemark     string // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+	editRemarkFlag bool
+}
+
+func NewCreateArchiveReqBodyBuilder() *CreateArchiveReqBodyBuilder {
+	builder := &CreateArchiveReqBodyBuilder{}
+	return builder
+}
+
+// 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+//
+//示例值：123e4567-e89b-42d3-a456-426614174000
+func (builder *CreateArchiveReqBodyBuilder) UniqueId(uniqueId string) *CreateArchiveReqBodyBuilder {
+	builder.uniqueId = uniqueId
+	builder.uniqueIdFlag = true
+	return builder
+}
+
+// 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
+//
+//示例值：7337149697626801708
+func (builder *CreateArchiveReqBodyBuilder) OperatorId(operatorId string) *CreateArchiveReqBodyBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
+
+// 员工id，具体类型由入参中的 user_id_type 指定
+//
+//示例值：7337149697626801708
+func (builder *CreateArchiveReqBodyBuilder) UserId(userId string) *CreateArchiveReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 生效时间，日期格式
+//
+//示例值：2024-11-12
+func (builder *CreateArchiveReqBodyBuilder) EffectiveTime(effectiveTime string) *CreateArchiveReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+//
+//示例值：6863329932261459464
+func (builder *CreateArchiveReqBodyBuilder) CurrencyId(currencyId string) *CreateArchiveReqBodyBuilder {
+	builder.currencyId = currencyId
+	builder.currencyIdFlag = true
+	return builder
+}
+
+// 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+//
+//示例值：7431430313074247212
+func (builder *CreateArchiveReqBodyBuilder) PlanId(planId string) *CreateArchiveReqBodyBuilder {
+	builder.planId = planId
+	builder.planIdFlag = true
+	return builder
+}
+
+// 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+//
+//示例值：7431430313074279980
+func (builder *CreateArchiveReqBodyBuilder) PlanTid(planTid string) *CreateArchiveReqBodyBuilder {
+	builder.planTid = planTid
+	builder.planTidFlag = true
+	return builder
+}
+
+// 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+//
+//示例值：7125907336899888684
+func (builder *CreateArchiveReqBodyBuilder) ChangeReasonId(changeReasonId string) *CreateArchiveReqBodyBuilder {
+	builder.changeReasonId = changeReasonId
+	builder.changeReasonIdFlag = true
+	return builder
+}
+
+// 薪资项值集合
+//
+//示例值：
+func (builder *CreateArchiveReqBodyBuilder) ItemValueLists(itemValueLists []*ArchiveItemValue) *CreateArchiveReqBodyBuilder {
+	builder.itemValueLists = itemValueLists
+	builder.itemValueListsFlag = true
+	return builder
+}
+
+// 调薪说明
+//
+//示例值：调薪说明
+func (builder *CreateArchiveReqBodyBuilder) Description(description string) *CreateArchiveReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+//
+//示例值：更正调薪说明
+func (builder *CreateArchiveReqBodyBuilder) EditRemark(editRemark string) *CreateArchiveReqBodyBuilder {
+	builder.editRemark = editRemark
+	builder.editRemarkFlag = true
+	return builder
+}
+
+func (builder *CreateArchiveReqBodyBuilder) Build() *CreateArchiveReqBody {
+	req := &CreateArchiveReqBody{}
+	if builder.uniqueIdFlag {
+		req.UniqueId = &builder.uniqueId
+	}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.currencyIdFlag {
+		req.CurrencyId = &builder.currencyId
+	}
+	if builder.planIdFlag {
+		req.PlanId = &builder.planId
+	}
+	if builder.planTidFlag {
+		req.PlanTid = &builder.planTid
+	}
+	if builder.changeReasonIdFlag {
+		req.ChangeReasonId = &builder.changeReasonId
+	}
+	if builder.itemValueListsFlag {
+		req.ItemValueLists = builder.itemValueLists
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.editRemarkFlag {
+		req.EditRemark = &builder.editRemark
+	}
+	return req
+}
+
+type CreateArchivePathReqBodyBuilder struct {
+	uniqueId           string
+	uniqueIdFlag       bool
+	operatorId         string
+	operatorIdFlag     bool
+	userId             string
+	userIdFlag         bool
+	effectiveTime      string
+	effectiveTimeFlag  bool
+	currencyId         string
+	currencyIdFlag     bool
+	planId             string
+	planIdFlag         bool
+	planTid            string
+	planTidFlag        bool
+	changeReasonId     string
+	changeReasonIdFlag bool
+	itemValueLists     []*ArchiveItemValue
+	itemValueListsFlag bool
+	description        string
+	descriptionFlag    bool
+	editRemark         string
+	editRemarkFlag     bool
+}
+
+func NewCreateArchivePathReqBodyBuilder() *CreateArchivePathReqBodyBuilder {
+	builder := &CreateArchivePathReqBodyBuilder{}
+	return builder
+}
+
+// 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+//
+// 示例值：123e4567-e89b-42d3-a456-426614174000
+func (builder *CreateArchivePathReqBodyBuilder) UniqueId(uniqueId string) *CreateArchivePathReqBodyBuilder {
+	builder.uniqueId = uniqueId
+	builder.uniqueIdFlag = true
+	return builder
+}
+
+// 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
+//
+// 示例值：7337149697626801708
+func (builder *CreateArchivePathReqBodyBuilder) OperatorId(operatorId string) *CreateArchivePathReqBodyBuilder {
+	builder.operatorId = operatorId
+	builder.operatorIdFlag = true
+	return builder
+}
+
+// 员工id，具体类型由入参中的 user_id_type 指定
+//
+// 示例值：7337149697626801708
+func (builder *CreateArchivePathReqBodyBuilder) UserId(userId string) *CreateArchivePathReqBodyBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 生效时间，日期格式
+//
+// 示例值：2024-11-12
+func (builder *CreateArchivePathReqBodyBuilder) EffectiveTime(effectiveTime string) *CreateArchivePathReqBodyBuilder {
+	builder.effectiveTime = effectiveTime
+	builder.effectiveTimeFlag = true
+	return builder
+}
+
+// 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+//
+// 示例值：6863329932261459464
+func (builder *CreateArchivePathReqBodyBuilder) CurrencyId(currencyId string) *CreateArchivePathReqBodyBuilder {
+	builder.currencyId = currencyId
+	builder.currencyIdFlag = true
+	return builder
+}
+
+// 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+//
+// 示例值：7431430313074247212
+func (builder *CreateArchivePathReqBodyBuilder) PlanId(planId string) *CreateArchivePathReqBodyBuilder {
+	builder.planId = planId
+	builder.planIdFlag = true
+	return builder
+}
+
+// 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+//
+// 示例值：7431430313074279980
+func (builder *CreateArchivePathReqBodyBuilder) PlanTid(planTid string) *CreateArchivePathReqBodyBuilder {
+	builder.planTid = planTid
+	builder.planTidFlag = true
+	return builder
+}
+
+// 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+//
+// 示例值：7125907336899888684
+func (builder *CreateArchivePathReqBodyBuilder) ChangeReasonId(changeReasonId string) *CreateArchivePathReqBodyBuilder {
+	builder.changeReasonId = changeReasonId
+	builder.changeReasonIdFlag = true
+	return builder
+}
+
+// 薪资项值集合
+//
+// 示例值：
+func (builder *CreateArchivePathReqBodyBuilder) ItemValueLists(itemValueLists []*ArchiveItemValue) *CreateArchivePathReqBodyBuilder {
+	builder.itemValueLists = itemValueLists
+	builder.itemValueListsFlag = true
+	return builder
+}
+
+// 调薪说明
+//
+// 示例值：调薪说明
+func (builder *CreateArchivePathReqBodyBuilder) Description(description string) *CreateArchivePathReqBodyBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+//
+// 示例值：更正调薪说明
+func (builder *CreateArchivePathReqBodyBuilder) EditRemark(editRemark string) *CreateArchivePathReqBodyBuilder {
+	builder.editRemark = editRemark
+	builder.editRemarkFlag = true
+	return builder
+}
+
+func (builder *CreateArchivePathReqBodyBuilder) Build() (*CreateArchiveReqBody, error) {
+	req := &CreateArchiveReqBody{}
+	if builder.uniqueIdFlag {
+		req.UniqueId = &builder.uniqueId
+	}
+	if builder.operatorIdFlag {
+		req.OperatorId = &builder.operatorId
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+	}
+	if builder.effectiveTimeFlag {
+		req.EffectiveTime = &builder.effectiveTime
+	}
+	if builder.currencyIdFlag {
+		req.CurrencyId = &builder.currencyId
+	}
+	if builder.planIdFlag {
+		req.PlanId = &builder.planId
+	}
+	if builder.planTidFlag {
+		req.PlanTid = &builder.planTid
+	}
+	if builder.changeReasonIdFlag {
+		req.ChangeReasonId = &builder.changeReasonId
+	}
+	if builder.itemValueListsFlag {
+		req.ItemValueLists = builder.itemValueLists
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+	}
+	if builder.editRemarkFlag {
+		req.EditRemark = &builder.editRemark
+	}
+	return req, nil
+}
+
+type CreateArchiveReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreateArchiveReqBody
+}
+
+func NewCreateArchiveReqBuilder() *CreateArchiveReqBuilder {
+	builder := &CreateArchiveReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+//
+// 示例值：open_id
+func (builder *CreateArchiveReqBuilder) UserIdType(userIdType string) *CreateArchiveReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+//
+func (builder *CreateArchiveReqBuilder) Body(body *CreateArchiveReqBody) *CreateArchiveReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreateArchiveReqBuilder) Build() *CreateArchiveReq {
+	req := &CreateArchiveReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreateArchiveReqBody struct {
+	UniqueId *string `json:"unique_id,omitempty"` // 外部幂等id，表示操作的唯一标识，避免重复发起，格式为标准的UUIDV4,
+
+	OperatorId *string `json:"operator_id,omitempty"` // 操作人ID，具体类型由入参中的 user_id_type 指定，选择应用身份鉴权时，该参数不能为空
+
+	UserId *string `json:"user_id,omitempty"` // 员工id，具体类型由入参中的 user_id_type 指定
+
+	EffectiveTime *string `json:"effective_time,omitempty"` // 生效时间，日期格式
+
+	CurrencyId *string `json:"currency_id,omitempty"` // 币种ID，获取来源https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/basic_info-currency/search?appId=cli_a63f5fc01866100c
+
+	PlanId *string `json:"plan_id,omitempty"` // 薪资方案ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+
+	PlanTid *string `json:"plan_tid,omitempty"` // 薪资方案TID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/plan/list
+
+	ChangeReasonId *string `json:"change_reason_id,omitempty"` // 调薪原因ID，获取来源：https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/compensation-v1/change_reason/list
+
+	ItemValueLists []*ArchiveItemValue `json:"item_value_lists,omitempty"` // 薪资项值集合
+
+	Description *string `json:"description,omitempty"` // 调薪说明
+
+	EditRemark *string `json:"edit_remark,omitempty"` // 更正说明，当员工在当天存在调薪记录时，该字段即为更正调薪的说明
+}
+
+type CreateArchiveReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreateArchiveReqBody `body:""`
+}
+
+type CreateArchiveRespData struct {
+	UniqueId *string `json:"unique_id,omitempty"` // 定调薪任务创建的唯一ID
+
+	ArchiveTid *string `json:"archive_tid,omitempty"` // 薪档案的TID
+}
+
+type CreateArchiveResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreateArchiveRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreateArchiveResp) Success() bool {
+	return resp.Code == 0
+}
+
 type QueryArchiveReqBodyBuilder struct {
 	userIdList     []string // 用户ID列表
 	userIdListFlag bool
@@ -8968,6 +9447,1735 @@ func (resp *ListPlanResp) Success() bool {
 	return resp.Code == 0
 }
 
+type BatchCreateRecurringPaymentReqBodyBuilder struct {
+	records     []*RecurringPaymentForCreate // 要创建的经常性支付记录
+	recordsFlag bool
+}
+
+func NewBatchCreateRecurringPaymentReqBodyBuilder() *BatchCreateRecurringPaymentReqBodyBuilder {
+	builder := &BatchCreateRecurringPaymentReqBodyBuilder{}
+	return builder
+}
+
+// 要创建的经常性支付记录
+//
+//示例值：
+func (builder *BatchCreateRecurringPaymentReqBodyBuilder) Records(records []*RecurringPaymentForCreate) *BatchCreateRecurringPaymentReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *BatchCreateRecurringPaymentReqBodyBuilder) Build() *BatchCreateRecurringPaymentReqBody {
+	req := &BatchCreateRecurringPaymentReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req
+}
+
+type BatchCreateRecurringPaymentPathReqBodyBuilder struct {
+	records     []*RecurringPaymentForCreate
+	recordsFlag bool
+}
+
+func NewBatchCreateRecurringPaymentPathReqBodyBuilder() *BatchCreateRecurringPaymentPathReqBodyBuilder {
+	builder := &BatchCreateRecurringPaymentPathReqBodyBuilder{}
+	return builder
+}
+
+// 要创建的经常性支付记录
+//
+// 示例值：
+func (builder *BatchCreateRecurringPaymentPathReqBodyBuilder) Records(records []*RecurringPaymentForCreate) *BatchCreateRecurringPaymentPathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *BatchCreateRecurringPaymentPathReqBodyBuilder) Build() (*BatchCreateRecurringPaymentReqBody, error) {
+	req := &BatchCreateRecurringPaymentReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req, nil
+}
+
+type BatchCreateRecurringPaymentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchCreateRecurringPaymentReqBody
+}
+
+func NewBatchCreateRecurringPaymentReqBuilder() *BatchCreateRecurringPaymentReqBuilder {
+	builder := &BatchCreateRecurringPaymentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：
+func (builder *BatchCreateRecurringPaymentReqBuilder) UserIdType(userIdType string) *BatchCreateRecurringPaymentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 创建经常性支付记录
+func (builder *BatchCreateRecurringPaymentReqBuilder) Body(body *BatchCreateRecurringPaymentReqBody) *BatchCreateRecurringPaymentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchCreateRecurringPaymentReqBuilder) Build() *BatchCreateRecurringPaymentReq {
+	req := &BatchCreateRecurringPaymentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchCreateRecurringPaymentReqBody struct {
+	Records []*RecurringPaymentForCreate `json:"records,omitempty"` // 要创建的经常性支付记录
+}
+
+type BatchCreateRecurringPaymentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchCreateRecurringPaymentReqBody `body:""`
+}
+
+type BatchCreateRecurringPaymentRespData struct {
+	OperateResults []*RecurringPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果。对于创建成功的记录，会返回创建后的经常性支付记录id
+}
+
+type BatchCreateRecurringPaymentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchCreateRecurringPaymentRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchCreateRecurringPaymentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchRemoveRecurringPaymentReqBodyBuilder struct {
+	recordIds     []string // 需要删除的记录ID
+	recordIdsFlag bool
+
+	reason     string // 原因
+	reasonFlag bool
+}
+
+func NewBatchRemoveRecurringPaymentReqBodyBuilder() *BatchRemoveRecurringPaymentReqBodyBuilder {
+	builder := &BatchRemoveRecurringPaymentReqBodyBuilder{}
+	return builder
+}
+
+// 需要删除的记录ID
+//
+//示例值：
+func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveRecurringPaymentReqBodyBuilder {
+	builder.recordIds = recordIds
+	builder.recordIdsFlag = true
+	return builder
+}
+
+// 原因
+//
+//示例值：这是个删除原因
+func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) Reason(reason string) *BatchRemoveRecurringPaymentReqBodyBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *BatchRemoveRecurringPaymentReqBodyBuilder) Build() *BatchRemoveRecurringPaymentReqBody {
+	req := &BatchRemoveRecurringPaymentReqBody{}
+	if builder.recordIdsFlag {
+		req.RecordIds = builder.recordIds
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+	}
+	return req
+}
+
+type BatchRemoveRecurringPaymentPathReqBodyBuilder struct {
+	recordIds     []string
+	recordIdsFlag bool
+	reason        string
+	reasonFlag    bool
+}
+
+func NewBatchRemoveRecurringPaymentPathReqBodyBuilder() *BatchRemoveRecurringPaymentPathReqBodyBuilder {
+	builder := &BatchRemoveRecurringPaymentPathReqBodyBuilder{}
+	return builder
+}
+
+// 需要删除的记录ID
+//
+// 示例值：
+func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) RecordIds(recordIds []string) *BatchRemoveRecurringPaymentPathReqBodyBuilder {
+	builder.recordIds = recordIds
+	builder.recordIdsFlag = true
+	return builder
+}
+
+// 原因
+//
+// 示例值：这是个删除原因
+func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) Reason(reason string) *BatchRemoveRecurringPaymentPathReqBodyBuilder {
+	builder.reason = reason
+	builder.reasonFlag = true
+	return builder
+}
+
+func (builder *BatchRemoveRecurringPaymentPathReqBodyBuilder) Build() (*BatchRemoveRecurringPaymentReqBody, error) {
+	req := &BatchRemoveRecurringPaymentReqBody{}
+	if builder.recordIdsFlag {
+		req.RecordIds = builder.recordIds
+	}
+	if builder.reasonFlag {
+		req.Reason = &builder.reason
+	}
+	return req, nil
+}
+
+type BatchRemoveRecurringPaymentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchRemoveRecurringPaymentReqBody
+}
+
+func NewBatchRemoveRecurringPaymentReqBuilder() *BatchRemoveRecurringPaymentReqBuilder {
+	builder := &BatchRemoveRecurringPaymentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 删除经常性支付记录
+func (builder *BatchRemoveRecurringPaymentReqBuilder) Body(body *BatchRemoveRecurringPaymentReqBody) *BatchRemoveRecurringPaymentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchRemoveRecurringPaymentReqBuilder) Build() *BatchRemoveRecurringPaymentReq {
+	req := &BatchRemoveRecurringPaymentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchRemoveRecurringPaymentReqBody struct {
+	RecordIds []string `json:"record_ids,omitempty"` // 需要删除的记录ID
+
+	Reason *string `json:"reason,omitempty"` // 原因
+}
+
+type BatchRemoveRecurringPaymentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchRemoveRecurringPaymentReqBody `body:""`
+}
+
+type BatchRemoveRecurringPaymentRespData struct {
+	OperateResults []*RecurringPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果
+}
+
+type BatchRemoveRecurringPaymentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchRemoveRecurringPaymentRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchRemoveRecurringPaymentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type BatchUpdateRecurringPaymentReqBodyBuilder struct {
+	records     []*RecurringPaymentForUpdate // 需更正的经常性支付记录
+	recordsFlag bool
+}
+
+func NewBatchUpdateRecurringPaymentReqBodyBuilder() *BatchUpdateRecurringPaymentReqBodyBuilder {
+	builder := &BatchUpdateRecurringPaymentReqBodyBuilder{}
+	return builder
+}
+
+// 需更正的经常性支付记录
+//
+//示例值：
+func (builder *BatchUpdateRecurringPaymentReqBodyBuilder) Records(records []*RecurringPaymentForUpdate) *BatchUpdateRecurringPaymentReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *BatchUpdateRecurringPaymentReqBodyBuilder) Build() *BatchUpdateRecurringPaymentReqBody {
+	req := &BatchUpdateRecurringPaymentReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req
+}
+
+type BatchUpdateRecurringPaymentPathReqBodyBuilder struct {
+	records     []*RecurringPaymentForUpdate
+	recordsFlag bool
+}
+
+func NewBatchUpdateRecurringPaymentPathReqBodyBuilder() *BatchUpdateRecurringPaymentPathReqBodyBuilder {
+	builder := &BatchUpdateRecurringPaymentPathReqBodyBuilder{}
+	return builder
+}
+
+// 需更正的经常性支付记录
+//
+// 示例值：
+func (builder *BatchUpdateRecurringPaymentPathReqBodyBuilder) Records(records []*RecurringPaymentForUpdate) *BatchUpdateRecurringPaymentPathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *BatchUpdateRecurringPaymentPathReqBodyBuilder) Build() (*BatchUpdateRecurringPaymentReqBody, error) {
+	req := &BatchUpdateRecurringPaymentReqBody{}
+	if builder.recordsFlag {
+		req.Records = builder.records
+	}
+	return req, nil
+}
+
+type BatchUpdateRecurringPaymentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *BatchUpdateRecurringPaymentReqBody
+}
+
+func NewBatchUpdateRecurringPaymentReqBuilder() *BatchUpdateRecurringPaymentReqBuilder {
+	builder := &BatchUpdateRecurringPaymentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：
+func (builder *BatchUpdateRecurringPaymentReqBuilder) UserIdType(userIdType string) *BatchUpdateRecurringPaymentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 更新经常性支付记录
+func (builder *BatchUpdateRecurringPaymentReqBuilder) Body(body *BatchUpdateRecurringPaymentReqBody) *BatchUpdateRecurringPaymentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *BatchUpdateRecurringPaymentReqBuilder) Build() *BatchUpdateRecurringPaymentReq {
+	req := &BatchUpdateRecurringPaymentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type BatchUpdateRecurringPaymentReqBody struct {
+	Records []*RecurringPaymentForUpdate `json:"records,omitempty"` // 需更正的经常性支付记录
+}
+
+type BatchUpdateRecurringPaymentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *BatchUpdateRecurringPaymentReqBody `body:""`
+}
+
+type BatchUpdateRecurringPaymentRespData struct {
+	OperateResults []*RecurringPaymentOperateResult `json:"operate_results,omitempty"` // 每条记录的操作结果
+}
+
+type BatchUpdateRecurringPaymentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *BatchUpdateRecurringPaymentRespData `json:"data"` // 业务数据
+}
+
+func (resp *BatchUpdateRecurringPaymentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryRecurringPaymentReqBodyBuilder struct {
+	ids     []string // id属于
+	idsFlag bool
+
+	uniqueIds     []string // unique_id属于
+	uniqueIdsFlag bool
+
+	userIds     []string // 员工id属于
+	userIdsFlag bool
+
+	itemIds     []string // 薪酬项id属于
+	itemIdsFlag bool
+
+	startDateGte     string // 发放开始日期大于等于
+	startDateGteFlag bool
+
+	startDateLte     string // 发放开始日期小于等于
+	startDateLteFlag bool
+
+	endDateGte     string // 发放结束日期大于等于
+	endDateGteFlag bool
+
+	endDateLte     string // 发放结束日期小于等于
+	endDateLteFlag bool
+
+	createTimeGte     string // 创建时间大于等于（东八区）
+	createTimeGteFlag bool
+
+	createTimeLte     string // 创建时间小于等于（东八区）
+	createTimeLteFlag bool
+
+	modifyTimeGte     string // 更新时间大于等于（东八区）
+	modifyTimeGteFlag bool
+
+	modifyTimeLte     string // 更新时间小于等于（东八区）
+	modifyTimeLteFlag bool
+
+	companyIds     []string // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	companyIdsFlag bool
+
+	serviceCompanyIds     []string // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+	serviceCompanyIdsFlag bool
+
+	departmentIds     []string // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+	departmentIdsFlag bool
+
+	jobFamilyIds     []string // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+	jobFamilyIdsFlag bool
+
+	jobLevelIds     []string // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+	jobLevelIdsFlag bool
+
+	workLocationIds     []string // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+	workLocationIdsFlag bool
+
+	employeeTypeIds     []string // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+	employeeTypeIdsFlag bool
+
+	onboardDateGte     string // 入职日期大于等于
+	onboardDateGteFlag bool
+
+	onboardDateLte     string // 入职日期小于等于
+	onboardDateLteFlag bool
+
+	offboardDateGte     string // 离职日期大于等于
+	offboardDateGteFlag bool
+
+	offboardDateLte     string // 离职日期小于等于
+	offboardDateLteFlag bool
+}
+
+func NewQueryRecurringPaymentReqBodyBuilder() *QueryRecurringPaymentReqBodyBuilder {
+	builder := &QueryRecurringPaymentReqBodyBuilder{}
+	return builder
+}
+
+// id属于
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) Ids(ids []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.ids = ids
+	builder.idsFlag = true
+	return builder
+}
+
+// unique_id属于
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.uniqueIds = uniqueIds
+	builder.uniqueIdsFlag = true
+	return builder
+}
+
+// 员工id属于
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) UserIds(userIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 薪酬项id属于
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) ItemIds(itemIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.itemIds = itemIds
+	builder.itemIdsFlag = true
+	return builder
+}
+
+// 发放开始日期大于等于
+//
+//示例值：2023-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateGte(startDateGte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.startDateGte = startDateGte
+	builder.startDateGteFlag = true
+	return builder
+}
+
+// 发放开始日期小于等于
+//
+//示例值：2023-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) StartDateLte(startDateLte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.startDateLte = startDateLte
+	builder.startDateLteFlag = true
+	return builder
+}
+
+// 发放结束日期大于等于
+//
+//示例值：2025-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateGte(endDateGte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.endDateGte = endDateGte
+	builder.endDateGteFlag = true
+	return builder
+}
+
+// 发放结束日期小于等于
+//
+//示例值：2025-08-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) EndDateLte(endDateLte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.endDateLte = endDateLte
+	builder.endDateLteFlag = true
+	return builder
+}
+
+// 创建时间大于等于（东八区）
+//
+//示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.createTimeGte = createTimeGte
+	builder.createTimeGteFlag = true
+	return builder
+}
+
+// 创建时间小于等于（东八区）
+//
+//示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.createTimeLte = createTimeLte
+	builder.createTimeLteFlag = true
+	return builder
+}
+
+// 更新时间大于等于（东八区）
+//
+//示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.modifyTimeGte = modifyTimeGte
+	builder.modifyTimeGteFlag = true
+	return builder
+}
+
+// 更新时间小于等于（东八区）
+//
+//示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.modifyTimeLte = modifyTimeLte
+	builder.modifyTimeLteFlag = true
+	return builder
+}
+
+// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) CompanyIds(companyIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.companyIds = companyIds
+	builder.companyIdsFlag = true
+	return builder
+}
+
+// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.serviceCompanyIds = serviceCompanyIds
+	builder.serviceCompanyIdsFlag = true
+	return builder
+}
+
+// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.jobFamilyIds = jobFamilyIds
+	builder.jobFamilyIdsFlag = true
+	return builder
+}
+
+// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.jobLevelIds = jobLevelIds
+	builder.jobLevelIdsFlag = true
+	return builder
+}
+
+// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.workLocationIds = workLocationIds
+	builder.workLocationIdsFlag = true
+	return builder
+}
+
+// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+//
+//示例值：
+func (builder *QueryRecurringPaymentReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.employeeTypeIds = employeeTypeIds
+	builder.employeeTypeIdsFlag = true
+	return builder
+}
+
+// 入职日期大于等于
+//
+//示例值：2023-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.onboardDateGte = onboardDateGte
+	builder.onboardDateGteFlag = true
+	return builder
+}
+
+// 入职日期小于等于
+//
+//示例值：2023-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.onboardDateLte = onboardDateLte
+	builder.onboardDateLteFlag = true
+	return builder
+}
+
+// 离职日期大于等于
+//
+//示例值：2023-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.offboardDateGte = offboardDateGte
+	builder.offboardDateGteFlag = true
+	return builder
+}
+
+// 离职日期小于等于
+//
+//示例值：2023-04-01
+func (builder *QueryRecurringPaymentReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryRecurringPaymentReqBodyBuilder {
+	builder.offboardDateLte = offboardDateLte
+	builder.offboardDateLteFlag = true
+	return builder
+}
+
+func (builder *QueryRecurringPaymentReqBodyBuilder) Build() *QueryRecurringPaymentReqBody {
+	req := &QueryRecurringPaymentReqBody{}
+	if builder.idsFlag {
+		req.Ids = builder.ids
+	}
+	if builder.uniqueIdsFlag {
+		req.UniqueIds = builder.uniqueIds
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.itemIdsFlag {
+		req.ItemIds = builder.itemIds
+	}
+	if builder.startDateGteFlag {
+		req.StartDateGte = &builder.startDateGte
+	}
+	if builder.startDateLteFlag {
+		req.StartDateLte = &builder.startDateLte
+	}
+	if builder.endDateGteFlag {
+		req.EndDateGte = &builder.endDateGte
+	}
+	if builder.endDateLteFlag {
+		req.EndDateLte = &builder.endDateLte
+	}
+	if builder.createTimeGteFlag {
+		req.CreateTimeGte = &builder.createTimeGte
+	}
+	if builder.createTimeLteFlag {
+		req.CreateTimeLte = &builder.createTimeLte
+	}
+	if builder.modifyTimeGteFlag {
+		req.ModifyTimeGte = &builder.modifyTimeGte
+	}
+	if builder.modifyTimeLteFlag {
+		req.ModifyTimeLte = &builder.modifyTimeLte
+	}
+	if builder.companyIdsFlag {
+		req.CompanyIds = builder.companyIds
+	}
+	if builder.serviceCompanyIdsFlag {
+		req.ServiceCompanyIds = builder.serviceCompanyIds
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.jobFamilyIdsFlag {
+		req.JobFamilyIds = builder.jobFamilyIds
+	}
+	if builder.jobLevelIdsFlag {
+		req.JobLevelIds = builder.jobLevelIds
+	}
+	if builder.workLocationIdsFlag {
+		req.WorkLocationIds = builder.workLocationIds
+	}
+	if builder.employeeTypeIdsFlag {
+		req.EmployeeTypeIds = builder.employeeTypeIds
+	}
+	if builder.onboardDateGteFlag {
+		req.OnboardDateGte = &builder.onboardDateGte
+	}
+	if builder.onboardDateLteFlag {
+		req.OnboardDateLte = &builder.onboardDateLte
+	}
+	if builder.offboardDateGteFlag {
+		req.OffboardDateGte = &builder.offboardDateGte
+	}
+	if builder.offboardDateLteFlag {
+		req.OffboardDateLte = &builder.offboardDateLte
+	}
+	return req
+}
+
+type QueryRecurringPaymentPathReqBodyBuilder struct {
+	ids                   []string
+	idsFlag               bool
+	uniqueIds             []string
+	uniqueIdsFlag         bool
+	userIds               []string
+	userIdsFlag           bool
+	itemIds               []string
+	itemIdsFlag           bool
+	startDateGte          string
+	startDateGteFlag      bool
+	startDateLte          string
+	startDateLteFlag      bool
+	endDateGte            string
+	endDateGteFlag        bool
+	endDateLte            string
+	endDateLteFlag        bool
+	createTimeGte         string
+	createTimeGteFlag     bool
+	createTimeLte         string
+	createTimeLteFlag     bool
+	modifyTimeGte         string
+	modifyTimeGteFlag     bool
+	modifyTimeLte         string
+	modifyTimeLteFlag     bool
+	companyIds            []string
+	companyIdsFlag        bool
+	serviceCompanyIds     []string
+	serviceCompanyIdsFlag bool
+	departmentIds         []string
+	departmentIdsFlag     bool
+	jobFamilyIds          []string
+	jobFamilyIdsFlag      bool
+	jobLevelIds           []string
+	jobLevelIdsFlag       bool
+	workLocationIds       []string
+	workLocationIdsFlag   bool
+	employeeTypeIds       []string
+	employeeTypeIdsFlag   bool
+	onboardDateGte        string
+	onboardDateGteFlag    bool
+	onboardDateLte        string
+	onboardDateLteFlag    bool
+	offboardDateGte       string
+	offboardDateGteFlag   bool
+	offboardDateLte       string
+	offboardDateLteFlag   bool
+}
+
+func NewQueryRecurringPaymentPathReqBodyBuilder() *QueryRecurringPaymentPathReqBodyBuilder {
+	builder := &QueryRecurringPaymentPathReqBodyBuilder{}
+	return builder
+}
+
+// id属于
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) Ids(ids []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.ids = ids
+	builder.idsFlag = true
+	return builder
+}
+
+// unique_id属于
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) UniqueIds(uniqueIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.uniqueIds = uniqueIds
+	builder.uniqueIdsFlag = true
+	return builder
+}
+
+// 员工id属于
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) UserIds(userIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+// 薪酬项id属于
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) ItemIds(itemIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.itemIds = itemIds
+	builder.itemIdsFlag = true
+	return builder
+}
+
+// 发放开始日期大于等于
+//
+// 示例值：2023-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) StartDateGte(startDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.startDateGte = startDateGte
+	builder.startDateGteFlag = true
+	return builder
+}
+
+// 发放开始日期小于等于
+//
+// 示例值：2023-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) StartDateLte(startDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.startDateLte = startDateLte
+	builder.startDateLteFlag = true
+	return builder
+}
+
+// 发放结束日期大于等于
+//
+// 示例值：2025-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) EndDateGte(endDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.endDateGte = endDateGte
+	builder.endDateGteFlag = true
+	return builder
+}
+
+// 发放结束日期小于等于
+//
+// 示例值：2025-08-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) EndDateLte(endDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.endDateLte = endDateLte
+	builder.endDateLteFlag = true
+	return builder
+}
+
+// 创建时间大于等于（东八区）
+//
+// 示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) CreateTimeGte(createTimeGte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.createTimeGte = createTimeGte
+	builder.createTimeGteFlag = true
+	return builder
+}
+
+// 创建时间小于等于（东八区）
+//
+// 示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) CreateTimeLte(createTimeLte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.createTimeLte = createTimeLte
+	builder.createTimeLteFlag = true
+	return builder
+}
+
+// 更新时间大于等于（东八区）
+//
+// 示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeGte(modifyTimeGte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.modifyTimeGte = modifyTimeGte
+	builder.modifyTimeGteFlag = true
+	return builder
+}
+
+// 更新时间小于等于（东八区）
+//
+// 示例值：2023-04-01 12:34:56
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) ModifyTimeLte(modifyTimeLte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.modifyTimeLte = modifyTimeLte
+	builder.modifyTimeLteFlag = true
+	return builder
+}
+
+// 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) CompanyIds(companyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.companyIds = companyIds
+	builder.companyIdsFlag = true
+	return builder
+}
+
+// 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) ServiceCompanyIds(serviceCompanyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.serviceCompanyIds = serviceCompanyIds
+	builder.serviceCompanyIdsFlag = true
+	return builder
+}
+
+// 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) DepartmentIds(departmentIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.departmentIds = departmentIds
+	builder.departmentIdsFlag = true
+	return builder
+}
+
+// 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobFamilyIds(jobFamilyIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.jobFamilyIds = jobFamilyIds
+	builder.jobFamilyIdsFlag = true
+	return builder
+}
+
+// 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) JobLevelIds(jobLevelIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.jobLevelIds = jobLevelIds
+	builder.jobLevelIdsFlag = true
+	return builder
+}
+
+// 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) WorkLocationIds(workLocationIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.workLocationIds = workLocationIds
+	builder.workLocationIdsFlag = true
+	return builder
+}
+
+// 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+//
+// 示例值：
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) EmployeeTypeIds(employeeTypeIds []string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.employeeTypeIds = employeeTypeIds
+	builder.employeeTypeIdsFlag = true
+	return builder
+}
+
+// 入职日期大于等于
+//
+// 示例值：2023-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) OnboardDateGte(onboardDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.onboardDateGte = onboardDateGte
+	builder.onboardDateGteFlag = true
+	return builder
+}
+
+// 入职日期小于等于
+//
+// 示例值：2023-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) OnboardDateLte(onboardDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.onboardDateLte = onboardDateLte
+	builder.onboardDateLteFlag = true
+	return builder
+}
+
+// 离职日期大于等于
+//
+// 示例值：2023-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) OffboardDateGte(offboardDateGte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.offboardDateGte = offboardDateGte
+	builder.offboardDateGteFlag = true
+	return builder
+}
+
+// 离职日期小于等于
+//
+// 示例值：2023-04-01
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) OffboardDateLte(offboardDateLte string) *QueryRecurringPaymentPathReqBodyBuilder {
+	builder.offboardDateLte = offboardDateLte
+	builder.offboardDateLteFlag = true
+	return builder
+}
+
+func (builder *QueryRecurringPaymentPathReqBodyBuilder) Build() (*QueryRecurringPaymentReqBody, error) {
+	req := &QueryRecurringPaymentReqBody{}
+	if builder.idsFlag {
+		req.Ids = builder.ids
+	}
+	if builder.uniqueIdsFlag {
+		req.UniqueIds = builder.uniqueIds
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	if builder.itemIdsFlag {
+		req.ItemIds = builder.itemIds
+	}
+	if builder.startDateGteFlag {
+		req.StartDateGte = &builder.startDateGte
+	}
+	if builder.startDateLteFlag {
+		req.StartDateLte = &builder.startDateLte
+	}
+	if builder.endDateGteFlag {
+		req.EndDateGte = &builder.endDateGte
+	}
+	if builder.endDateLteFlag {
+		req.EndDateLte = &builder.endDateLte
+	}
+	if builder.createTimeGteFlag {
+		req.CreateTimeGte = &builder.createTimeGte
+	}
+	if builder.createTimeLteFlag {
+		req.CreateTimeLte = &builder.createTimeLte
+	}
+	if builder.modifyTimeGteFlag {
+		req.ModifyTimeGte = &builder.modifyTimeGte
+	}
+	if builder.modifyTimeLteFlag {
+		req.ModifyTimeLte = &builder.modifyTimeLte
+	}
+	if builder.companyIdsFlag {
+		req.CompanyIds = builder.companyIds
+	}
+	if builder.serviceCompanyIdsFlag {
+		req.ServiceCompanyIds = builder.serviceCompanyIds
+	}
+	if builder.departmentIdsFlag {
+		req.DepartmentIds = builder.departmentIds
+	}
+	if builder.jobFamilyIdsFlag {
+		req.JobFamilyIds = builder.jobFamilyIds
+	}
+	if builder.jobLevelIdsFlag {
+		req.JobLevelIds = builder.jobLevelIds
+	}
+	if builder.workLocationIdsFlag {
+		req.WorkLocationIds = builder.workLocationIds
+	}
+	if builder.employeeTypeIdsFlag {
+		req.EmployeeTypeIds = builder.employeeTypeIds
+	}
+	if builder.onboardDateGteFlag {
+		req.OnboardDateGte = &builder.onboardDateGte
+	}
+	if builder.onboardDateLteFlag {
+		req.OnboardDateLte = &builder.onboardDateLte
+	}
+	if builder.offboardDateGteFlag {
+		req.OffboardDateGte = &builder.offboardDateGte
+	}
+	if builder.offboardDateLteFlag {
+		req.OffboardDateLte = &builder.offboardDateLte
+	}
+	return req, nil
+}
+
+type QueryRecurringPaymentReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QueryRecurringPaymentReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewQueryRecurringPaymentReqBuilder() *QueryRecurringPaymentReqBuilder {
+	builder := &QueryRecurringPaymentReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *QueryRecurringPaymentReqBuilder) Limit(limit int) *QueryRecurringPaymentReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *QueryRecurringPaymentReqBuilder) PageSize(pageSize int) *QueryRecurringPaymentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *QueryRecurringPaymentReqBuilder) PageToken(pageToken string) *QueryRecurringPaymentReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：open_id
+func (builder *QueryRecurringPaymentReqBuilder) UserIdType(userIdType string) *QueryRecurringPaymentReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 查询经常性支付记录
+func (builder *QueryRecurringPaymentReqBuilder) Body(body *QueryRecurringPaymentReqBody) *QueryRecurringPaymentReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QueryRecurringPaymentReqBuilder) Build() *QueryRecurringPaymentReq {
+	req := &QueryRecurringPaymentReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QueryRecurringPaymentReqBody struct {
+	Ids []string `json:"ids,omitempty"` // id属于
+
+	UniqueIds []string `json:"unique_ids,omitempty"` // unique_id属于
+
+	UserIds []string `json:"user_ids,omitempty"` // 员工id属于
+
+	ItemIds []string `json:"item_ids,omitempty"` // 薪酬项id属于
+
+	StartDateGte *string `json:"start_date_gte,omitempty"` // 发放开始日期大于等于
+
+	StartDateLte *string `json:"start_date_lte,omitempty"` // 发放开始日期小于等于
+
+	EndDateGte *string `json:"end_date_gte,omitempty"` // 发放结束日期大于等于
+
+	EndDateLte *string `json:"end_date_lte,omitempty"` // 发放结束日期小于等于
+
+	CreateTimeGte *string `json:"create_time_gte,omitempty"` // 创建时间大于等于（东八区）
+
+	CreateTimeLte *string `json:"create_time_lte,omitempty"` // 创建时间小于等于（东八区）
+
+	ModifyTimeGte *string `json:"modify_time_gte,omitempty"` // 更新时间大于等于（东八区）
+
+	ModifyTimeLte *string `json:"modify_time_lte,omitempty"` // 更新时间小于等于（东八区）
+
+	CompanyIds []string `json:"company_ids,omitempty"` // 合同主体id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+
+	ServiceCompanyIds []string `json:"service_company_ids,omitempty"` // 任职公司id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/company/list 接口进行查询）
+
+	DepartmentIds []string `json:"department_ids,omitempty"` // 部门id属于（可通过 https://open.larkoffice.com/document/uAjLw4CM/ukTMukTMukTM/corehr-v2/department/batch_get 接口进行查询）
+
+	JobFamilyIds []string `json:"job_family_ids,omitempty"` // 序列id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_family/list 接口进行查询）
+
+	JobLevelIds []string `json:"job_level_ids,omitempty"` // 职级id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/job-management/job_level/list 接口进行查询）
+
+	WorkLocationIds []string `json:"work_location_ids,omitempty"` // 工作地点id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/organization-management/location/list 接口进行查询）
+
+	EmployeeTypeIds []string `json:"employee_type_ids,omitempty"` // 员工类型id属于（可通过 https://open.larkoffice.com/document/server-docs/corehr-v1/basic-infomation/employee_type/list 接口进行查询）
+
+	OnboardDateGte *string `json:"onboard_date_gte,omitempty"` // 入职日期大于等于
+
+	OnboardDateLte *string `json:"onboard_date_lte,omitempty"` // 入职日期小于等于
+
+	OffboardDateGte *string `json:"offboard_date_gte,omitempty"` // 离职日期大于等于
+
+	OffboardDateLte *string `json:"offboard_date_lte,omitempty"` // 离职日期小于等于
+}
+
+type QueryRecurringPaymentReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QueryRecurringPaymentReqBody `body:""`
+	Limit  int                           // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type QueryRecurringPaymentRespData struct {
+	PageToken *string `json:"page_token,omitempty"` // 搜索下一批时提供的page token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有更多的数据
+
+	Records []*RecurringPayment `json:"records,omitempty"` // 经常性支付授予记录
+}
+
+type QueryRecurringPaymentResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryRecurringPaymentRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryRecurringPaymentResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QuerySocialArchiveReqBodyBuilder struct {
+	userIdList     []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	userIdListFlag bool
+
+	effectiveDate     string // 生效日志，查询在该日期生效的社保档案
+	effectiveDateFlag bool
+}
+
+func NewQuerySocialArchiveReqBodyBuilder() *QuerySocialArchiveReqBodyBuilder {
+	builder := &QuerySocialArchiveReqBodyBuilder{}
+	return builder
+}
+
+// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+//
+//示例值：
+func (builder *QuerySocialArchiveReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveReqBodyBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+// 生效日志，查询在该日期生效的社保档案
+//
+//示例值：2024-01-01
+func (builder *QuerySocialArchiveReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialArchiveReqBodyBuilder {
+	builder.effectiveDate = effectiveDate
+	builder.effectiveDateFlag = true
+	return builder
+}
+
+func (builder *QuerySocialArchiveReqBodyBuilder) Build() *QuerySocialArchiveReqBody {
+	req := &QuerySocialArchiveReqBody{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	if builder.effectiveDateFlag {
+		req.EffectiveDate = &builder.effectiveDate
+	}
+	return req
+}
+
+type QuerySocialArchivePathReqBodyBuilder struct {
+	userIdList        []string
+	userIdListFlag    bool
+	effectiveDate     string
+	effectiveDateFlag bool
+}
+
+func NewQuerySocialArchivePathReqBodyBuilder() *QuerySocialArchivePathReqBodyBuilder {
+	builder := &QuerySocialArchivePathReqBodyBuilder{}
+	return builder
+}
+
+// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+//
+// 示例值：
+func (builder *QuerySocialArchivePathReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchivePathReqBodyBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+// 生效日志，查询在该日期生效的社保档案
+//
+// 示例值：2024-01-01
+func (builder *QuerySocialArchivePathReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialArchivePathReqBodyBuilder {
+	builder.effectiveDate = effectiveDate
+	builder.effectiveDateFlag = true
+	return builder
+}
+
+func (builder *QuerySocialArchivePathReqBodyBuilder) Build() (*QuerySocialArchiveReqBody, error) {
+	req := &QuerySocialArchiveReqBody{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	if builder.effectiveDateFlag {
+		req.EffectiveDate = &builder.effectiveDate
+	}
+	return req, nil
+}
+
+type QuerySocialArchiveReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QuerySocialArchiveReqBody
+}
+
+func NewQuerySocialArchiveReqBuilder() *QuerySocialArchiveReqBuilder {
+	builder := &QuerySocialArchiveReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：open_id
+func (builder *QuerySocialArchiveReqBuilder) UserIdType(userIdType string) *QuerySocialArchiveReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 通过员工ID和生效时间查询参保档案
+func (builder *QuerySocialArchiveReqBuilder) Body(body *QuerySocialArchiveReqBody) *QuerySocialArchiveReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QuerySocialArchiveReqBuilder) Build() *QuerySocialArchiveReq {
+	req := &QuerySocialArchiveReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QuerySocialArchiveReqBody struct {
+	UserIdList []string `json:"user_id_list,omitempty"` // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日志，查询在该日期生效的社保档案
+}
+
+type QuerySocialArchiveReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QuerySocialArchiveReqBody `body:""`
+}
+
+type QuerySocialArchiveRespData struct {
+	Archives []*SocialArchive `json:"archives,omitempty"` // 参保档案列表
+}
+
+type QuerySocialArchiveResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QuerySocialArchiveRespData `json:"data"` // 业务数据
+}
+
+func (resp *QuerySocialArchiveResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QuerySocialArchiveAdjustRecordReqBodyBuilder struct {
+	userIdList     []string // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+	userIdListFlag bool
+
+	recordType     string // 增减员类型, increase: 增员; attrtion: 减员
+	recordTypeFlag bool
+}
+
+func NewQuerySocialArchiveAdjustRecordReqBodyBuilder() *QuerySocialArchiveAdjustRecordReqBodyBuilder {
+	builder := &QuerySocialArchiveAdjustRecordReqBodyBuilder{}
+	return builder
+}
+
+// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+//
+//示例值：
+func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveAdjustRecordReqBodyBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+// 增减员类型, increase: 增员; attrtion: 减员
+//
+//示例值：increase
+func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) RecordType(recordType string) *QuerySocialArchiveAdjustRecordReqBodyBuilder {
+	builder.recordType = recordType
+	builder.recordTypeFlag = true
+	return builder
+}
+
+func (builder *QuerySocialArchiveAdjustRecordReqBodyBuilder) Build() *QuerySocialArchiveAdjustRecordReqBody {
+	req := &QuerySocialArchiveAdjustRecordReqBody{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	if builder.recordTypeFlag {
+		req.RecordType = &builder.recordType
+	}
+	return req
+}
+
+type QuerySocialArchiveAdjustRecordPathReqBodyBuilder struct {
+	userIdList     []string
+	userIdListFlag bool
+	recordType     string
+	recordTypeFlag bool
+}
+
+func NewQuerySocialArchiveAdjustRecordPathReqBodyBuilder() *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
+	builder := &QuerySocialArchiveAdjustRecordPathReqBodyBuilder{}
+	return builder
+}
+
+// lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+//
+// 示例值：
+func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) UserIdList(userIdList []string) *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
+	builder.userIdList = userIdList
+	builder.userIdListFlag = true
+	return builder
+}
+
+// 增减员类型, increase: 增员; attrtion: 减员
+//
+// 示例值：increase
+func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) RecordType(recordType string) *QuerySocialArchiveAdjustRecordPathReqBodyBuilder {
+	builder.recordType = recordType
+	builder.recordTypeFlag = true
+	return builder
+}
+
+func (builder *QuerySocialArchiveAdjustRecordPathReqBodyBuilder) Build() (*QuerySocialArchiveAdjustRecordReqBody, error) {
+	req := &QuerySocialArchiveAdjustRecordReqBody{}
+	if builder.userIdListFlag {
+		req.UserIdList = builder.userIdList
+	}
+	if builder.recordTypeFlag {
+		req.RecordType = &builder.recordType
+	}
+	return req, nil
+}
+
+type QuerySocialArchiveAdjustRecordReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QuerySocialArchiveAdjustRecordReqBody
+}
+
+func NewQuerySocialArchiveAdjustRecordReqBuilder() *QuerySocialArchiveAdjustRecordReqBuilder {
+	builder := &QuerySocialArchiveAdjustRecordReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 用户ID类型
+//
+// 示例值：open_id
+func (builder *QuerySocialArchiveAdjustRecordReqBuilder) UserIdType(userIdType string) *QuerySocialArchiveAdjustRecordReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 根据员工ID查询待增员、待减员记录
+func (builder *QuerySocialArchiveAdjustRecordReqBuilder) Body(body *QuerySocialArchiveAdjustRecordReqBody) *QuerySocialArchiveAdjustRecordReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QuerySocialArchiveAdjustRecordReqBuilder) Build() *QuerySocialArchiveAdjustRecordReq {
+	req := &QuerySocialArchiveAdjustRecordReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QuerySocialArchiveAdjustRecordReqBody struct {
+	UserIdList []string `json:"user_id_list,omitempty"` // lark_user_id列表，用户ID列表，获取方式可参考查询参数中的「user_id_type」字段。最大200个。
+
+	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrtion: 减员
+}
+
+type QuerySocialArchiveAdjustRecordReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QuerySocialArchiveAdjustRecordReqBody `body:""`
+}
+
+type QuerySocialArchiveAdjustRecordRespData struct {
+	Records []*SocialArchiveAdjustRecord `json:"records,omitempty"` // 待增/减员记录
+}
+
+type QuerySocialArchiveAdjustRecordResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QuerySocialArchiveAdjustRecordRespData `json:"data"` // 业务数据
+}
+
+func (resp *QuerySocialArchiveAdjustRecordResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListSocialInsuranceRespData struct {
+	Items []*SocialInsurance `json:"items,omitempty"` // 险种列表
+}
+
+type ListSocialInsuranceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListSocialInsuranceRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListSocialInsuranceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListSocialPlanReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListSocialPlanReqBuilder() *ListSocialPlanReqBuilder {
+	builder := &ListSocialPlanReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListSocialPlanReqBuilder) Limit(limit int) *ListSocialPlanReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 生效日期，查询在该日期生效的参保方案数据
+//
+// 示例值：2024-01-01
+func (builder *ListSocialPlanReqBuilder) EffectiveDate(effectiveDate string) *ListSocialPlanReqBuilder {
+	builder.apiReq.QueryParams.Set("effective_date", fmt.Sprint(effectiveDate))
+	return builder
+}
+
+// 分页大小，默认100，最大200
+//
+// 示例值：
+func (builder *ListSocialPlanReqBuilder) PageSize(pageSize int) *ListSocialPlanReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 为空从头开始遍历，将上一次请求返回的token作为新请求的token，进行翻页
+//
+// 示例值：
+func (builder *ListSocialPlanReqBuilder) PageToken(pageToken string) *ListSocialPlanReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 社保方案/公积金方案
+//
+// 示例值：social_insuracne
+func (builder *ListSocialPlanReqBuilder) InsuranceType(insuranceType string) *ListSocialPlanReqBuilder {
+	builder.apiReq.QueryParams.Set("insurance_type", fmt.Sprint(insuranceType))
+	return builder
+}
+
+func (builder *ListSocialPlanReqBuilder) Build() *ListSocialPlanReq {
+	req := &ListSocialPlanReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListSocialPlanReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListSocialPlanRespData struct {
+	Plans []*SocialPlan `json:"plans,omitempty"` // 方案列表
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有后续分页数据
+
+	PageToken *string `json:"page_token,omitempty"` // has_more为true时返回，作为一下次查询的token使用
+}
+
+type ListSocialPlanResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListSocialPlanRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListSocialPlanResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QuerySocialPlanReqBodyBuilder struct {
+	planIds     []string // 参保方案ID列表，最大200
+	planIdsFlag bool
+
+	effectiveDate     string // 生效日期，查询在该日期生效的参保方案数据
+	effectiveDateFlag bool
+}
+
+func NewQuerySocialPlanReqBodyBuilder() *QuerySocialPlanReqBodyBuilder {
+	builder := &QuerySocialPlanReqBodyBuilder{}
+	return builder
+}
+
+// 参保方案ID列表，最大200
+//
+//示例值：
+func (builder *QuerySocialPlanReqBodyBuilder) PlanIds(planIds []string) *QuerySocialPlanReqBodyBuilder {
+	builder.planIds = planIds
+	builder.planIdsFlag = true
+	return builder
+}
+
+// 生效日期，查询在该日期生效的参保方案数据
+//
+//示例值：2024-01-01
+func (builder *QuerySocialPlanReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialPlanReqBodyBuilder {
+	builder.effectiveDate = effectiveDate
+	builder.effectiveDateFlag = true
+	return builder
+}
+
+func (builder *QuerySocialPlanReqBodyBuilder) Build() *QuerySocialPlanReqBody {
+	req := &QuerySocialPlanReqBody{}
+	if builder.planIdsFlag {
+		req.PlanIds = builder.planIds
+	}
+	if builder.effectiveDateFlag {
+		req.EffectiveDate = &builder.effectiveDate
+	}
+	return req
+}
+
+type QuerySocialPlanPathReqBodyBuilder struct {
+	planIds           []string
+	planIdsFlag       bool
+	effectiveDate     string
+	effectiveDateFlag bool
+}
+
+func NewQuerySocialPlanPathReqBodyBuilder() *QuerySocialPlanPathReqBodyBuilder {
+	builder := &QuerySocialPlanPathReqBodyBuilder{}
+	return builder
+}
+
+// 参保方案ID列表，最大200
+//
+// 示例值：
+func (builder *QuerySocialPlanPathReqBodyBuilder) PlanIds(planIds []string) *QuerySocialPlanPathReqBodyBuilder {
+	builder.planIds = planIds
+	builder.planIdsFlag = true
+	return builder
+}
+
+// 生效日期，查询在该日期生效的参保方案数据
+//
+// 示例值：2024-01-01
+func (builder *QuerySocialPlanPathReqBodyBuilder) EffectiveDate(effectiveDate string) *QuerySocialPlanPathReqBodyBuilder {
+	builder.effectiveDate = effectiveDate
+	builder.effectiveDateFlag = true
+	return builder
+}
+
+func (builder *QuerySocialPlanPathReqBodyBuilder) Build() (*QuerySocialPlanReqBody, error) {
+	req := &QuerySocialPlanReqBody{}
+	if builder.planIdsFlag {
+		req.PlanIds = builder.planIds
+	}
+	if builder.effectiveDateFlag {
+		req.EffectiveDate = &builder.effectiveDate
+	}
+	return req, nil
+}
+
+type QuerySocialPlanReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QuerySocialPlanReqBody
+}
+
+func NewQuerySocialPlanReqBuilder() *QuerySocialPlanReqBuilder {
+	builder := &QuerySocialPlanReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 批量查询参保方案
+func (builder *QuerySocialPlanReqBuilder) Body(body *QuerySocialPlanReqBody) *QuerySocialPlanReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QuerySocialPlanReqBuilder) Build() *QuerySocialPlanReq {
+	req := &QuerySocialPlanReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QuerySocialPlanReqBody struct {
+	PlanIds []string `json:"plan_ids,omitempty"` // 参保方案ID列表，最大200
+
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效日期，查询在该日期生效的参保方案数据
+}
+
+type QuerySocialPlanReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QuerySocialPlanReqBody `body:""`
+}
+
+type QuerySocialPlanRespData struct {
+	Plans []*SocialPlan `json:"plans,omitempty"` // 方案列表
+}
+
+type QuerySocialPlanResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QuerySocialPlanRespData `json:"data"` // 业务数据
+}
+
+func (resp *QuerySocialPlanResp) Success() bool {
+	return resp.Code == 0
+}
+
+type P2ArchiveChangedV1Data struct {
+	OperateType *string `json:"operate_type,omitempty"` // 档案变更类型。add新增、modify更正、delete删除
+
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工 ID。查询员工薪资档案时指定user_id_type为people_corehr_id来识别用户
+
+	EffectiveDate *string `json:"effective_date,omitempty"` // 生效时间
+
+	BeforeTid *string `json:"before_tid,omitempty"` // 调前档案时间轴版本TID。更正、删除场景下有值
+
+	AfterTid *string `json:"after_tid,omitempty"` // 调后档案时间轴版本TID。新增、更正场景下有值
+}
+
+type P2ArchiveChangedV1 struct {
+	*larkevent.EventV2Base                         // 事件基础数据
+	*larkevent.EventReq                            // 请求原生数据
+	Event                  *P2ArchiveChangedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2ArchiveChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
+}
+
 type ListChangeReasonIterator struct {
 	nextPageToken *string
 	items         []*ChangeReason
@@ -9343,5 +11551,113 @@ func (iterator *ListPlanIterator) Next() (bool, *PlanDetail, error) {
 }
 
 func (iterator *ListPlanIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type QueryRecurringPaymentIterator struct {
+	nextPageToken *string
+	items         []*RecurringPayment
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *QueryRecurringPaymentReq
+	listFunc      func(ctx context.Context, req *QueryRecurringPaymentReq, options ...larkcore.RequestOptionFunc) (*QueryRecurringPaymentResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *QueryRecurringPaymentIterator) Next() (bool, *RecurringPayment, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Records) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Records
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *QueryRecurringPaymentIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListSocialPlanIterator struct {
+	nextPageToken *string
+	items         []*SocialPlan
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListSocialPlanReq
+	listFunc      func(ctx context.Context, req *ListSocialPlanReq, options ...larkcore.RequestOptionFunc) (*ListSocialPlanResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListSocialPlanIterator) Next() (bool, *SocialPlan, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.Plans) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.Plans
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListSocialPlanIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
