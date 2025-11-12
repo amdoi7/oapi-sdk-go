@@ -4051,6 +4051,125 @@ func (builder *DataModelPermissionAccessBuilder) Build() *DataModelPermissionAcc
 	return req
 }
 
+type DataModelPermissionV2 struct {
+	RoleApiName *string `json:"role_api_name,omitempty"` // 所属角色 apiName
+
+	DataModelApiName *string `json:"data_model_api_name,omitempty"` // 关联数据模型 apiName
+
+	DataModelType *string `json:"data_model_type,omitempty"` // 关联数据模型 类型对象/数据集
+
+	AccessPermissions []int `json:"access_permissions,omitempty"` // 对象的权限列表
+
+	FieldPermissionConfig *FieldPermissionConfigV2 `json:"field_permission_config,omitempty"` // 字段权限
+
+	DataModelName map[string]string `json:"data_model_name,omitempty"` // 数据模型名称
+}
+
+type DataModelPermissionV2Builder struct {
+	roleApiName     string // 所属角色 apiName
+	roleApiNameFlag bool
+
+	dataModelApiName     string // 关联数据模型 apiName
+	dataModelApiNameFlag bool
+
+	dataModelType     string // 关联数据模型 类型对象/数据集
+	dataModelTypeFlag bool
+
+	accessPermissions     []int // 对象的权限列表
+	accessPermissionsFlag bool
+
+	fieldPermissionConfig     *FieldPermissionConfigV2 // 字段权限
+	fieldPermissionConfigFlag bool
+
+	dataModelName     map[string]string // 数据模型名称
+	dataModelNameFlag bool
+}
+
+func NewDataModelPermissionV2Builder() *DataModelPermissionV2Builder {
+	builder := &DataModelPermissionV2Builder{}
+	return builder
+}
+
+// 所属角色 apiName
+//
+// 示例值：role_65445dff6ed
+func (builder *DataModelPermissionV2Builder) RoleApiName(roleApiName string) *DataModelPermissionV2Builder {
+	builder.roleApiName = roleApiName
+	builder.roleApiNameFlag = true
+	return builder
+}
+
+// 关联数据模型 apiName
+//
+// 示例值：data_model_65445dff6ed
+func (builder *DataModelPermissionV2Builder) DataModelApiName(dataModelApiName string) *DataModelPermissionV2Builder {
+	builder.dataModelApiName = dataModelApiName
+	builder.dataModelApiNameFlag = true
+	return builder
+}
+
+// 关联数据模型 类型对象/数据集
+//
+// 示例值：object
+func (builder *DataModelPermissionV2Builder) DataModelType(dataModelType string) *DataModelPermissionV2Builder {
+	builder.dataModelType = dataModelType
+	builder.dataModelTypeFlag = true
+	return builder
+}
+
+// 对象的权限列表
+//
+// 示例值：
+func (builder *DataModelPermissionV2Builder) AccessPermissions(accessPermissions []int) *DataModelPermissionV2Builder {
+	builder.accessPermissions = accessPermissions
+	builder.accessPermissionsFlag = true
+	return builder
+}
+
+// 字段权限
+//
+// 示例值：
+func (builder *DataModelPermissionV2Builder) FieldPermissionConfig(fieldPermissionConfig *FieldPermissionConfigV2) *DataModelPermissionV2Builder {
+	builder.fieldPermissionConfig = fieldPermissionConfig
+	builder.fieldPermissionConfigFlag = true
+	return builder
+}
+
+// 数据模型名称
+//
+// 示例值：
+func (builder *DataModelPermissionV2Builder) DataModelName(dataModelName map[string]string) *DataModelPermissionV2Builder {
+	builder.dataModelName = dataModelName
+	builder.dataModelNameFlag = true
+	return builder
+}
+
+func (builder *DataModelPermissionV2Builder) Build() *DataModelPermissionV2 {
+	req := &DataModelPermissionV2{}
+	if builder.roleApiNameFlag {
+		req.RoleApiName = &builder.roleApiName
+
+	}
+	if builder.dataModelApiNameFlag {
+		req.DataModelApiName = &builder.dataModelApiName
+
+	}
+	if builder.dataModelTypeFlag {
+		req.DataModelType = &builder.dataModelType
+
+	}
+	if builder.accessPermissionsFlag {
+		req.AccessPermissions = builder.accessPermissions
+	}
+	if builder.fieldPermissionConfigFlag {
+		req.FieldPermissionConfig = builder.fieldPermissionConfig
+	}
+	if builder.dataModelNameFlag {
+		req.DataModelName = builder.dataModelName
+	}
+	return req
+}
+
 type Dataset struct {
 	Namespace *string `json:"namespace,omitempty"` // 应用的命名空间
 
@@ -5443,6 +5562,55 @@ func (builder *ExternalUserBuilder) Build() *ExternalUser {
 	return req
 }
 
+type FieldApiNameSimpleInfo struct {
+	ApiName *string `json:"api_name,omitempty"` // 字段的api_name
+
+	Name map[string]string `json:"name,omitempty"` // 字段的名称
+}
+
+type FieldApiNameSimpleInfoBuilder struct {
+	apiName     string // 字段的api_name
+	apiNameFlag bool
+
+	name     map[string]string // 字段的名称
+	nameFlag bool
+}
+
+func NewFieldApiNameSimpleInfoBuilder() *FieldApiNameSimpleInfoBuilder {
+	builder := &FieldApiNameSimpleInfoBuilder{}
+	return builder
+}
+
+// 字段的api_name
+//
+// 示例值：field_api_name
+func (builder *FieldApiNameSimpleInfoBuilder) ApiName(apiName string) *FieldApiNameSimpleInfoBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 字段的名称
+//
+// 示例值：
+func (builder *FieldApiNameSimpleInfoBuilder) Name(name map[string]string) *FieldApiNameSimpleInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *FieldApiNameSimpleInfoBuilder) Build() *FieldApiNameSimpleInfo {
+	req := &FieldApiNameSimpleInfo{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	return req
+}
+
 type FieldPermissionAccess struct {
 	ApiId *string `json:"api_id,omitempty"` // 页面的api_id
 
@@ -5523,6 +5691,174 @@ func (builder *FieldPermissionAccessBuilder) Build() *FieldPermissionAccess {
 	}
 	if builder.displayNameFlag {
 		req.DisplayName = builder.displayName
+	}
+	return req
+}
+
+type FieldPermissionConfigV2 struct {
+	FieldConfigMode *string `json:"field_config_mode,omitempty"` // 字段权限配置模式
+
+	CustomFieldPermissions []*FieldPermissionV2 `json:"custom_field_permissions,omitempty"` // 自定义字段配置
+}
+
+type FieldPermissionConfigV2Builder struct {
+	fieldConfigMode     string // 字段权限配置模式
+	fieldConfigModeFlag bool
+
+	customFieldPermissions     []*FieldPermissionV2 // 自定义字段配置
+	customFieldPermissionsFlag bool
+}
+
+func NewFieldPermissionConfigV2Builder() *FieldPermissionConfigV2Builder {
+	builder := &FieldPermissionConfigV2Builder{}
+	return builder
+}
+
+// 字段权限配置模式
+//
+// 示例值：all
+func (builder *FieldPermissionConfigV2Builder) FieldConfigMode(fieldConfigMode string) *FieldPermissionConfigV2Builder {
+	builder.fieldConfigMode = fieldConfigMode
+	builder.fieldConfigModeFlag = true
+	return builder
+}
+
+// 自定义字段配置
+//
+// 示例值：
+func (builder *FieldPermissionConfigV2Builder) CustomFieldPermissions(customFieldPermissions []*FieldPermissionV2) *FieldPermissionConfigV2Builder {
+	builder.customFieldPermissions = customFieldPermissions
+	builder.customFieldPermissionsFlag = true
+	return builder
+}
+
+func (builder *FieldPermissionConfigV2Builder) Build() *FieldPermissionConfigV2 {
+	req := &FieldPermissionConfigV2{}
+	if builder.fieldConfigModeFlag {
+		req.FieldConfigMode = &builder.fieldConfigMode
+
+	}
+	if builder.customFieldPermissionsFlag {
+		req.CustomFieldPermissions = builder.customFieldPermissions
+	}
+	return req
+}
+
+type FieldPermissionV2 struct {
+	FieldApiName *string `json:"field_api_name,omitempty"` // 字段的APIName
+
+	FieldPermissions []int `json:"field_permissions,omitempty"` // 字段的权限列表
+
+	IsSubObjectField *bool `json:"is_sub_object_field,omitempty"` // 是否是子对象的字段
+
+	SubObjectApiName *string `json:"sub_object_api_name,omitempty"` // 子对象 APIName
+
+	SubObjectName map[string]string `json:"sub_object_name,omitempty"` // 子对象的名称
+
+	FieldName map[string]string `json:"field_name,omitempty"` // 字段的名称
+}
+
+type FieldPermissionV2Builder struct {
+	fieldApiName     string // 字段的APIName
+	fieldApiNameFlag bool
+
+	fieldPermissions     []int // 字段的权限列表
+	fieldPermissionsFlag bool
+
+	isSubObjectField     bool // 是否是子对象的字段
+	isSubObjectFieldFlag bool
+
+	subObjectApiName     string // 子对象 APIName
+	subObjectApiNameFlag bool
+
+	subObjectName     map[string]string // 子对象的名称
+	subObjectNameFlag bool
+
+	fieldName     map[string]string // 字段的名称
+	fieldNameFlag bool
+}
+
+func NewFieldPermissionV2Builder() *FieldPermissionV2Builder {
+	builder := &FieldPermissionV2Builder{}
+	return builder
+}
+
+// 字段的APIName
+//
+// 示例值：field_asdfjio
+func (builder *FieldPermissionV2Builder) FieldApiName(fieldApiName string) *FieldPermissionV2Builder {
+	builder.fieldApiName = fieldApiName
+	builder.fieldApiNameFlag = true
+	return builder
+}
+
+// 字段的权限列表
+//
+// 示例值：
+func (builder *FieldPermissionV2Builder) FieldPermissions(fieldPermissions []int) *FieldPermissionV2Builder {
+	builder.fieldPermissions = fieldPermissions
+	builder.fieldPermissionsFlag = true
+	return builder
+}
+
+// 是否是子对象的字段
+//
+// 示例值：
+func (builder *FieldPermissionV2Builder) IsSubObjectField(isSubObjectField bool) *FieldPermissionV2Builder {
+	builder.isSubObjectField = isSubObjectField
+	builder.isSubObjectFieldFlag = true
+	return builder
+}
+
+// 子对象 APIName
+//
+// 示例值：sub_obj_123nanwk
+func (builder *FieldPermissionV2Builder) SubObjectApiName(subObjectApiName string) *FieldPermissionV2Builder {
+	builder.subObjectApiName = subObjectApiName
+	builder.subObjectApiNameFlag = true
+	return builder
+}
+
+// 子对象的名称
+//
+// 示例值：
+func (builder *FieldPermissionV2Builder) SubObjectName(subObjectName map[string]string) *FieldPermissionV2Builder {
+	builder.subObjectName = subObjectName
+	builder.subObjectNameFlag = true
+	return builder
+}
+
+// 字段的名称
+//
+// 示例值：
+func (builder *FieldPermissionV2Builder) FieldName(fieldName map[string]string) *FieldPermissionV2Builder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+func (builder *FieldPermissionV2Builder) Build() *FieldPermissionV2 {
+	req := &FieldPermissionV2{}
+	if builder.fieldApiNameFlag {
+		req.FieldApiName = &builder.fieldApiName
+
+	}
+	if builder.fieldPermissionsFlag {
+		req.FieldPermissions = builder.fieldPermissions
+	}
+	if builder.isSubObjectFieldFlag {
+		req.IsSubObjectField = &builder.isSubObjectField
+
+	}
+	if builder.subObjectApiNameFlag {
+		req.SubObjectApiName = &builder.subObjectApiName
+
+	}
+	if builder.subObjectNameFlag {
+		req.SubObjectName = builder.subObjectName
+	}
+	if builder.fieldNameFlag {
+		req.FieldName = builder.fieldName
 	}
 	return req
 }
@@ -7512,6 +7848,91 @@ func (builder *OperationPermissionAccessBuilder) Build() *OperationPermissionAcc
 	return req
 }
 
+type OperationPermissionV2 struct {
+	RoleApiName *string `json:"role_api_name,omitempty"` // 角色的apiName
+
+	OperationApiName *string `json:"operation_api_name,omitempty"` // 关联对象或数据集的apiName
+
+	OperationType *string `json:"operation_type,omitempty"` // 关联对象或数据集的类型
+
+	OperationName map[string]string `json:"operation_name,omitempty"` // 关联对象或数据集的名称
+}
+
+type OperationPermissionV2Builder struct {
+	roleApiName     string // 角色的apiName
+	roleApiNameFlag bool
+
+	operationApiName     string // 关联对象或数据集的apiName
+	operationApiNameFlag bool
+
+	operationType     string // 关联对象或数据集的类型
+	operationTypeFlag bool
+
+	operationName     map[string]string // 关联对象或数据集的名称
+	operationNameFlag bool
+}
+
+func NewOperationPermissionV2Builder() *OperationPermissionV2Builder {
+	builder := &OperationPermissionV2Builder{}
+	return builder
+}
+
+// 角色的apiName
+//
+// 示例值：role_65445dff6ed
+func (builder *OperationPermissionV2Builder) RoleApiName(roleApiName string) *OperationPermissionV2Builder {
+	builder.roleApiName = roleApiName
+	builder.roleApiNameFlag = true
+	return builder
+}
+
+// 关联对象或数据集的apiName
+//
+// 示例值：automation_adfjion
+func (builder *OperationPermissionV2Builder) OperationApiName(operationApiName string) *OperationPermissionV2Builder {
+	builder.operationApiName = operationApiName
+	builder.operationApiNameFlag = true
+	return builder
+}
+
+// 关联对象或数据集的类型
+//
+// 示例值：automation
+func (builder *OperationPermissionV2Builder) OperationType(operationType string) *OperationPermissionV2Builder {
+	builder.operationType = operationType
+	builder.operationTypeFlag = true
+	return builder
+}
+
+// 关联对象或数据集的名称
+//
+// 示例值：
+func (builder *OperationPermissionV2Builder) OperationName(operationName map[string]string) *OperationPermissionV2Builder {
+	builder.operationName = operationName
+	builder.operationNameFlag = true
+	return builder
+}
+
+func (builder *OperationPermissionV2Builder) Build() *OperationPermissionV2 {
+	req := &OperationPermissionV2{}
+	if builder.roleApiNameFlag {
+		req.RoleApiName = &builder.roleApiName
+
+	}
+	if builder.operationApiNameFlag {
+		req.OperationApiName = &builder.operationApiName
+
+	}
+	if builder.operationTypeFlag {
+		req.OperationType = &builder.operationType
+
+	}
+	if builder.operationNameFlag {
+		req.OperationName = builder.operationName
+	}
+	return req
+}
+
 type OrderCondition struct {
 	Field *string `json:"field,omitempty"` // 字段名
 
@@ -7911,6 +8332,232 @@ func (builder *RecordPermissionBuilder) Build() *RecordPermission {
 	return req
 }
 
+type RecordPermissionV2 struct {
+	ApiName *string `json:"api_name,omitempty"` // 记录权限的apiName
+
+	Name map[string]string `json:"name,omitempty"` // 记录权限的名称
+
+	AccessPermissions []int `json:"access_permissions,omitempty"` // 具体所拥有的权限列表
+
+	RecordScope *RecordScopeV2 `json:"record_scope,omitempty"` // 记录权限的范围
+
+	UserScope *UserScopeV2 `json:"user_scope,omitempty"` // 用户或角色范围
+
+	DataModelApiName *string `json:"data_model_api_name,omitempty"` // 数据对象的api_name
+
+	DataModelType *string `json:"data_model_type,omitempty"` // 数据对象的类型，object 或 dataset
+
+	CreatedBy *string `json:"created_by,omitempty"` // 创建人
+
+	CreatedAt *int `json:"created_at,omitempty"` // 创建时间
+
+	UpdatedBy *string `json:"updated_by,omitempty"` // 更新人
+
+	UpdatedAt *int `json:"updated_at,omitempty"` // 更新时间
+
+	Disabled *bool `json:"disabled,omitempty"` // 是否停用
+}
+
+type RecordPermissionV2Builder struct {
+	apiName     string // 记录权限的apiName
+	apiNameFlag bool
+
+	name     map[string]string // 记录权限的名称
+	nameFlag bool
+
+	accessPermissions     []int // 具体所拥有的权限列表
+	accessPermissionsFlag bool
+
+	recordScope     *RecordScopeV2 // 记录权限的范围
+	recordScopeFlag bool
+
+	userScope     *UserScopeV2 // 用户或角色范围
+	userScopeFlag bool
+
+	dataModelApiName     string // 数据对象的api_name
+	dataModelApiNameFlag bool
+
+	dataModelType     string // 数据对象的类型，object 或 dataset
+	dataModelTypeFlag bool
+
+	createdBy     string // 创建人
+	createdByFlag bool
+
+	createdAt     int // 创建时间
+	createdAtFlag bool
+
+	updatedBy     string // 更新人
+	updatedByFlag bool
+
+	updatedAt     int // 更新时间
+	updatedAtFlag bool
+
+	disabled     bool // 是否停用
+	disabledFlag bool
+}
+
+func NewRecordPermissionV2Builder() *RecordPermissionV2Builder {
+	builder := &RecordPermissionV2Builder{}
+	return builder
+}
+
+// 记录权限的apiName
+//
+// 示例值：record_api_name
+func (builder *RecordPermissionV2Builder) ApiName(apiName string) *RecordPermissionV2Builder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 记录权限的名称
+//
+// 示例值：
+func (builder *RecordPermissionV2Builder) Name(name map[string]string) *RecordPermissionV2Builder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 具体所拥有的权限列表
+//
+// 示例值：
+func (builder *RecordPermissionV2Builder) AccessPermissions(accessPermissions []int) *RecordPermissionV2Builder {
+	builder.accessPermissions = accessPermissions
+	builder.accessPermissionsFlag = true
+	return builder
+}
+
+// 记录权限的范围
+//
+// 示例值：
+func (builder *RecordPermissionV2Builder) RecordScope(recordScope *RecordScopeV2) *RecordPermissionV2Builder {
+	builder.recordScope = recordScope
+	builder.recordScopeFlag = true
+	return builder
+}
+
+// 用户或角色范围
+//
+// 示例值：
+func (builder *RecordPermissionV2Builder) UserScope(userScope *UserScopeV2) *RecordPermissionV2Builder {
+	builder.userScope = userScope
+	builder.userScopeFlag = true
+	return builder
+}
+
+// 数据对象的api_name
+//
+// 示例值：data_api_name
+func (builder *RecordPermissionV2Builder) DataModelApiName(dataModelApiName string) *RecordPermissionV2Builder {
+	builder.dataModelApiName = dataModelApiName
+	builder.dataModelApiNameFlag = true
+	return builder
+}
+
+// 数据对象的类型，object 或 dataset
+//
+// 示例值：object
+func (builder *RecordPermissionV2Builder) DataModelType(dataModelType string) *RecordPermissionV2Builder {
+	builder.dataModelType = dataModelType
+	builder.dataModelTypeFlag = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：123890741274
+func (builder *RecordPermissionV2Builder) CreatedBy(createdBy string) *RecordPermissionV2Builder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
+// 创建时间
+//
+// 示例值：1757845063
+func (builder *RecordPermissionV2Builder) CreatedAt(createdAt int) *RecordPermissionV2Builder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// 更新人
+//
+// 示例值：182961296491
+func (builder *RecordPermissionV2Builder) UpdatedBy(updatedBy string) *RecordPermissionV2Builder {
+	builder.updatedBy = updatedBy
+	builder.updatedByFlag = true
+	return builder
+}
+
+// 更新时间
+//
+// 示例值：1757845063
+func (builder *RecordPermissionV2Builder) UpdatedAt(updatedAt int) *RecordPermissionV2Builder {
+	builder.updatedAt = updatedAt
+	builder.updatedAtFlag = true
+	return builder
+}
+
+// 是否停用
+//
+// 示例值：
+func (builder *RecordPermissionV2Builder) Disabled(disabled bool) *RecordPermissionV2Builder {
+	builder.disabled = disabled
+	builder.disabledFlag = true
+	return builder
+}
+
+func (builder *RecordPermissionV2Builder) Build() *RecordPermissionV2 {
+	req := &RecordPermissionV2{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
+	}
+	if builder.accessPermissionsFlag {
+		req.AccessPermissions = builder.accessPermissions
+	}
+	if builder.recordScopeFlag {
+		req.RecordScope = builder.recordScope
+	}
+	if builder.userScopeFlag {
+		req.UserScope = builder.userScope
+	}
+	if builder.dataModelApiNameFlag {
+		req.DataModelApiName = &builder.dataModelApiName
+
+	}
+	if builder.dataModelTypeFlag {
+		req.DataModelType = &builder.dataModelType
+
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = &builder.createdBy
+
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.updatedByFlag {
+		req.UpdatedBy = &builder.updatedBy
+
+	}
+	if builder.updatedAtFlag {
+		req.UpdatedAt = &builder.updatedAt
+
+	}
+	if builder.disabledFlag {
+		req.Disabled = &builder.disabled
+
+	}
+	return req
+}
+
 type RecordResult struct {
 	Success *bool `json:"success,omitempty"` // 是否成功
 
@@ -8063,6 +8710,55 @@ func (builder *RecordResultErrorBuilder) Build() *RecordResultError {
 	return req
 }
 
+type RecordScopeV2 struct {
+	RecordScopeMode *string `json:"record_scope_mode,omitempty"` // 记录权限的模式
+
+	Fields []*FieldApiNameSimpleInfo `json:"fields,omitempty"` // 字段信息，如果选择的record_scope_mode是"currentAndSubordinates"或"currentUser"，需要给出是根据"创建人"还是"更新人"字段判断
+}
+
+type RecordScopeV2Builder struct {
+	recordScopeMode     string // 记录权限的模式
+	recordScopeModeFlag bool
+
+	fields     []*FieldApiNameSimpleInfo // 字段信息，如果选择的record_scope_mode是"currentAndSubordinates"或"currentUser"，需要给出是根据"创建人"还是"更新人"字段判断
+	fieldsFlag bool
+}
+
+func NewRecordScopeV2Builder() *RecordScopeV2Builder {
+	builder := &RecordScopeV2Builder{}
+	return builder
+}
+
+// 记录权限的模式
+//
+// 示例值：
+func (builder *RecordScopeV2Builder) RecordScopeMode(recordScopeMode string) *RecordScopeV2Builder {
+	builder.recordScopeMode = recordScopeMode
+	builder.recordScopeModeFlag = true
+	return builder
+}
+
+// 字段信息，如果选择的record_scope_mode是"currentAndSubordinates"或"currentUser"，需要给出是根据"创建人"还是"更新人"字段判断
+//
+// 示例值：
+func (builder *RecordScopeV2Builder) Fields(fields []*FieldApiNameSimpleInfo) *RecordScopeV2Builder {
+	builder.fields = fields
+	builder.fieldsFlag = true
+	return builder
+}
+
+func (builder *RecordScopeV2Builder) Build() *RecordScopeV2 {
+	req := &RecordScopeV2{}
+	if builder.recordScopeModeFlag {
+		req.RecordScopeMode = &builder.recordScopeMode
+
+	}
+	if builder.fieldsFlag {
+		req.Fields = builder.fields
+	}
+	return req
+}
+
 type Role struct {
 	ApiId *string `json:"api_id,omitempty"` // 唯一 ID，系统自动生成
 
@@ -8109,6 +8805,55 @@ func (builder *RoleBuilder) Build() *Role {
 	if builder.apiNameFlag {
 		req.ApiName = &builder.apiName
 
+	}
+	return req
+}
+
+type RoleApiNameSimpleInfo struct {
+	ApiName *string `json:"api_name,omitempty"` // 角色的apiName
+
+	Name map[string]string `json:"name,omitempty"` // 角色的名称
+}
+
+type RoleApiNameSimpleInfoBuilder struct {
+	apiName     string // 角色的apiName
+	apiNameFlag bool
+
+	name     map[string]string // 角色的名称
+	nameFlag bool
+}
+
+func NewRoleApiNameSimpleInfoBuilder() *RoleApiNameSimpleInfoBuilder {
+	builder := &RoleApiNameSimpleInfoBuilder{}
+	return builder
+}
+
+// 角色的apiName
+//
+// 示例值：role_api_name
+func (builder *RoleApiNameSimpleInfoBuilder) ApiName(apiName string) *RoleApiNameSimpleInfoBuilder {
+	builder.apiName = apiName
+	builder.apiNameFlag = true
+	return builder
+}
+
+// 角色的名称
+//
+// 示例值：
+func (builder *RoleApiNameSimpleInfoBuilder) Name(name map[string]string) *RoleApiNameSimpleInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *RoleApiNameSimpleInfoBuilder) Build() *RoleApiNameSimpleInfo {
+	req := &RoleApiNameSimpleInfo{}
+	if builder.apiNameFlag {
+		req.ApiName = &builder.apiName
+
+	}
+	if builder.nameFlag {
+		req.Name = builder.name
 	}
 	return req
 }
@@ -9556,6 +10301,122 @@ func (builder *UserBuilder) Build() *User {
 	req := &User{}
 	if builder.userIdFlag {
 		req.UserId = &builder.userId
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	return req
+}
+
+type UserScopeV2 struct {
+	UserScopeMode *string `json:"user_scope_mode,omitempty"` // 生效范围模式
+
+	UserList []*UserSimpleInfo `json:"user_list,omitempty"` // 如果模式选的是user，则需要提供用户信息
+
+	RoleList []*RoleApiNameSimpleInfo `json:"role_list,omitempty"` // 如果模式选的是role，则需要提供角色信息，角色目前只支持一个角色
+}
+
+type UserScopeV2Builder struct {
+	userScopeMode     string // 生效范围模式
+	userScopeModeFlag bool
+
+	userList     []*UserSimpleInfo // 如果模式选的是user，则需要提供用户信息
+	userListFlag bool
+
+	roleList     []*RoleApiNameSimpleInfo // 如果模式选的是role，则需要提供角色信息，角色目前只支持一个角色
+	roleListFlag bool
+}
+
+func NewUserScopeV2Builder() *UserScopeV2Builder {
+	builder := &UserScopeV2Builder{}
+	return builder
+}
+
+// 生效范围模式
+//
+// 示例值：
+func (builder *UserScopeV2Builder) UserScopeMode(userScopeMode string) *UserScopeV2Builder {
+	builder.userScopeMode = userScopeMode
+	builder.userScopeModeFlag = true
+	return builder
+}
+
+// 如果模式选的是user，则需要提供用户信息
+//
+// 示例值：
+func (builder *UserScopeV2Builder) UserList(userList []*UserSimpleInfo) *UserScopeV2Builder {
+	builder.userList = userList
+	builder.userListFlag = true
+	return builder
+}
+
+// 如果模式选的是role，则需要提供角色信息，角色目前只支持一个角色
+//
+// 示例值：
+func (builder *UserScopeV2Builder) RoleList(roleList []*RoleApiNameSimpleInfo) *UserScopeV2Builder {
+	builder.roleList = roleList
+	builder.roleListFlag = true
+	return builder
+}
+
+func (builder *UserScopeV2Builder) Build() *UserScopeV2 {
+	req := &UserScopeV2{}
+	if builder.userScopeModeFlag {
+		req.UserScopeMode = &builder.userScopeMode
+
+	}
+	if builder.userListFlag {
+		req.UserList = builder.userList
+	}
+	if builder.roleListFlag {
+		req.RoleList = builder.roleList
+	}
+	return req
+}
+
+type UserSimpleInfo struct {
+	Id *int `json:"id,omitempty"` // 用户的id
+
+	Name *string `json:"name,omitempty"` // 用户的名称
+}
+
+type UserSimpleInfoBuilder struct {
+	id     int // 用户的id
+	idFlag bool
+
+	name     string // 用户的名称
+	nameFlag bool
+}
+
+func NewUserSimpleInfoBuilder() *UserSimpleInfoBuilder {
+	builder := &UserSimpleInfoBuilder{}
+	return builder
+}
+
+// 用户的id
+//
+// 示例值：184625381123
+func (builder *UserSimpleInfoBuilder) Id(id int) *UserSimpleInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 用户的名称
+//
+// 示例值：user_name
+func (builder *UserSimpleInfoBuilder) Name(name string) *UserSimpleInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+func (builder *UserSimpleInfoBuilder) Build() *UserSimpleInfo {
+	req := &UserSimpleInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
 
 	}
 	if builder.nameFlag {

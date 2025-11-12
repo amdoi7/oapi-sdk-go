@@ -58992,9 +58992,179 @@ func (resp *LoginInfoEcoExamResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateResultEcoExamReqBodyBuilder struct {
+	result     string // 笔试结果
+	resultFlag bool
+
+	resultTime     string // 笔试结果时间
+	resultTimeFlag bool
+
+	reportList     []*EcoExamResultReport // 报告列表
+	reportListFlag bool
+
+	detailList     []*EcoExamResultDetail // 详细评价结果
+	detailListFlag bool
+
+	status     int // 笔试状态
+	statusFlag bool
+}
+
+func NewUpdateResultEcoExamReqBodyBuilder() *UpdateResultEcoExamReqBodyBuilder {
+	builder := &UpdateResultEcoExamReqBodyBuilder{}
+	return builder
+}
+
+// 笔试结果
+//
+//示例值：60.5
+func (builder *UpdateResultEcoExamReqBodyBuilder) Result(result string) *UpdateResultEcoExamReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 笔试结果时间
+//
+//示例值：1658676234053
+func (builder *UpdateResultEcoExamReqBodyBuilder) ResultTime(resultTime string) *UpdateResultEcoExamReqBodyBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+//示例值：
+func (builder *UpdateResultEcoExamReqBodyBuilder) ReportList(reportList []*EcoExamResultReport) *UpdateResultEcoExamReqBodyBuilder {
+	builder.reportList = reportList
+	builder.reportListFlag = true
+	return builder
+}
+
+// 详细评价结果
+//
+//示例值：
+func (builder *UpdateResultEcoExamReqBodyBuilder) DetailList(detailList []*EcoExamResultDetail) *UpdateResultEcoExamReqBodyBuilder {
+	builder.detailList = detailList
+	builder.detailListFlag = true
+	return builder
+}
+
+// 笔试状态
+//
+//示例值：1
+func (builder *UpdateResultEcoExamReqBodyBuilder) Status(status int) *UpdateResultEcoExamReqBodyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *UpdateResultEcoExamReqBodyBuilder) Build() *UpdateResultEcoExamReqBody {
+	req := &UpdateResultEcoExamReqBody{}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+	}
+	if builder.reportListFlag {
+		req.ReportList = builder.reportList
+	}
+	if builder.detailListFlag {
+		req.DetailList = builder.detailList
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+	}
+	return req
+}
+
+type UpdateResultEcoExamPathReqBodyBuilder struct {
+	result         string
+	resultFlag     bool
+	resultTime     string
+	resultTimeFlag bool
+	reportList     []*EcoExamResultReport
+	reportListFlag bool
+	detailList     []*EcoExamResultDetail
+	detailListFlag bool
+	status         int
+	statusFlag     bool
+}
+
+func NewUpdateResultEcoExamPathReqBodyBuilder() *UpdateResultEcoExamPathReqBodyBuilder {
+	builder := &UpdateResultEcoExamPathReqBodyBuilder{}
+	return builder
+}
+
+// 笔试结果
+//
+// 示例值：60.5
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) Result(result string) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.result = result
+	builder.resultFlag = true
+	return builder
+}
+
+// 笔试结果时间
+//
+// 示例值：1658676234053
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) ResultTime(resultTime string) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.resultTime = resultTime
+	builder.resultTimeFlag = true
+	return builder
+}
+
+// 报告列表
+//
+// 示例值：
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) ReportList(reportList []*EcoExamResultReport) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.reportList = reportList
+	builder.reportListFlag = true
+	return builder
+}
+
+// 详细评价结果
+//
+// 示例值：
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) DetailList(detailList []*EcoExamResultDetail) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.detailList = detailList
+	builder.detailListFlag = true
+	return builder
+}
+
+// 笔试状态
+//
+// 示例值：1
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) Status(status int) *UpdateResultEcoExamPathReqBodyBuilder {
+	builder.status = status
+	builder.statusFlag = true
+	return builder
+}
+
+func (builder *UpdateResultEcoExamPathReqBodyBuilder) Build() (*UpdateResultEcoExamReqBody, error) {
+	req := &UpdateResultEcoExamReqBody{}
+	if builder.resultFlag {
+		req.Result = &builder.result
+	}
+	if builder.resultTimeFlag {
+		req.ResultTime = &builder.resultTime
+	}
+	if builder.reportListFlag {
+		req.ReportList = builder.reportList
+	}
+	if builder.detailListFlag {
+		req.DetailList = builder.detailList
+	}
+	if builder.statusFlag {
+		req.Status = &builder.status
+	}
+	return req, nil
+}
+
 type UpdateResultEcoExamReqBuilder struct {
-	apiReq        *larkcore.ApiReq
-	ecoExamResult *EcoExamResult
+	apiReq *larkcore.ApiReq
+	body   *UpdateResultEcoExamReqBody
 }
 
 func NewUpdateResultEcoExamReqBuilder() *UpdateResultEcoExamReqBuilder {
@@ -59015,8 +59185,8 @@ func (builder *UpdateResultEcoExamReqBuilder) ExamId(examId string) *UpdateResul
 }
 
 //
-func (builder *UpdateResultEcoExamReqBuilder) EcoExamResult(ecoExamResult *EcoExamResult) *UpdateResultEcoExamReqBuilder {
-	builder.ecoExamResult = ecoExamResult
+func (builder *UpdateResultEcoExamReqBuilder) Body(body *UpdateResultEcoExamReqBody) *UpdateResultEcoExamReqBuilder {
+	builder.body = body
 	return builder
 }
 
@@ -59024,13 +59194,25 @@ func (builder *UpdateResultEcoExamReqBuilder) Build() *UpdateResultEcoExamReq {
 	req := &UpdateResultEcoExamReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
-	req.apiReq.Body = builder.ecoExamResult
+	req.apiReq.Body = builder.body
 	return req
 }
 
+type UpdateResultEcoExamReqBody struct {
+	Result *string `json:"result,omitempty"` // 笔试结果
+
+	ResultTime *string `json:"result_time,omitempty"` // 笔试结果时间
+
+	ReportList []*EcoExamResultReport `json:"report_list,omitempty"` // 报告列表
+
+	DetailList []*EcoExamResultDetail `json:"detail_list,omitempty"` // 详细评价结果
+
+	Status *int `json:"status,omitempty"` // 笔试状态
+}
+
 type UpdateResultEcoExamReq struct {
-	apiReq        *larkcore.ApiReq
-	EcoExamResult *EcoExamResult `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *UpdateResultEcoExamReqBody `body:""`
 }
 
 type UpdateResultEcoExamResp struct {

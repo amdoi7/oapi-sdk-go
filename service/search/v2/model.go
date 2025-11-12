@@ -1885,6 +1885,56 @@ func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
 	return req
 }
 
+type EnterpriseKnowledgeSourceCommentParam struct {
+	WikiSearchable *bool `json:"wiki_searchable,omitempty"` // 是否搜索知识库文档的评论。默认为 `false`。
+
+	SpaceSearchable *bool `json:"space_searchable,omitempty"` // 是否搜索云空间文档的评论。默认为 `false`。
+}
+
+type EnterpriseKnowledgeSourceCommentParamBuilder struct {
+	wikiSearchable     bool // 是否搜索知识库文档的评论。默认为 `false`。
+	wikiSearchableFlag bool
+
+	spaceSearchable     bool // 是否搜索云空间文档的评论。默认为 `false`。
+	spaceSearchableFlag bool
+}
+
+func NewEnterpriseKnowledgeSourceCommentParamBuilder() *EnterpriseKnowledgeSourceCommentParamBuilder {
+	builder := &EnterpriseKnowledgeSourceCommentParamBuilder{}
+	return builder
+}
+
+// 是否搜索知识库文档的评论。默认为 `false`。
+//
+// 示例值：true
+func (builder *EnterpriseKnowledgeSourceCommentParamBuilder) WikiSearchable(wikiSearchable bool) *EnterpriseKnowledgeSourceCommentParamBuilder {
+	builder.wikiSearchable = wikiSearchable
+	builder.wikiSearchableFlag = true
+	return builder
+}
+
+// 是否搜索云空间文档的评论。默认为 `false`。
+//
+// 示例值：true
+func (builder *EnterpriseKnowledgeSourceCommentParamBuilder) SpaceSearchable(spaceSearchable bool) *EnterpriseKnowledgeSourceCommentParamBuilder {
+	builder.spaceSearchable = spaceSearchable
+	builder.spaceSearchableFlag = true
+	return builder
+}
+
+func (builder *EnterpriseKnowledgeSourceCommentParamBuilder) Build() *EnterpriseKnowledgeSourceCommentParam {
+	req := &EnterpriseKnowledgeSourceCommentParam{}
+	if builder.wikiSearchableFlag {
+		req.WikiSearchable = &builder.wikiSearchable
+
+	}
+	if builder.spaceSearchableFlag {
+		req.SpaceSearchable = &builder.spaceSearchable
+
+	}
+	return req
+}
+
 type EnterpriseKnowledgeSourceHelpdeskParam struct {
 	Searchable *bool `json:"searchable,omitempty"` // searchable
 
@@ -1966,6 +2016,38 @@ func (builder *EnterpriseKnowledgeSourceLingoParamBuilder) Build() *EnterpriseKn
 	return req
 }
 
+type EnterpriseKnowledgeSourceMailParam struct {
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索邮件。默认为 `false`。
+}
+
+type EnterpriseKnowledgeSourceMailParamBuilder struct {
+	searchable     bool // 是否搜索邮件。默认为 `false`。
+	searchableFlag bool
+}
+
+func NewEnterpriseKnowledgeSourceMailParamBuilder() *EnterpriseKnowledgeSourceMailParamBuilder {
+	builder := &EnterpriseKnowledgeSourceMailParamBuilder{}
+	return builder
+}
+
+// 是否搜索邮件。默认为 `false`。
+//
+// 示例值：true
+func (builder *EnterpriseKnowledgeSourceMailParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceMailParamBuilder {
+	builder.searchable = searchable
+	builder.searchableFlag = true
+	return builder
+}
+
+func (builder *EnterpriseKnowledgeSourceMailParamBuilder) Build() *EnterpriseKnowledgeSourceMailParam {
+	req := &EnterpriseKnowledgeSourceMailParam{}
+	if builder.searchableFlag {
+		req.Searchable = &builder.searchable
+
+	}
+	return req
+}
+
 type EnterpriseKnowledgeSourceMessageParam struct {
 	Searchable *bool `json:"searchable,omitempty"` // searchable
 
@@ -2032,6 +2114,38 @@ func (builder *EnterpriseKnowledgeSourceMessageParamBuilder) Build() *Enterprise
 	return req
 }
 
+type EnterpriseKnowledgeSourceMinutesParam struct {
+	Searchable *bool `json:"searchable,omitempty"` // 是否搜索飞书妙记。默认为 `false`。
+}
+
+type EnterpriseKnowledgeSourceMinutesParamBuilder struct {
+	searchable     bool // 是否搜索飞书妙记。默认为 `false`。
+	searchableFlag bool
+}
+
+func NewEnterpriseKnowledgeSourceMinutesParamBuilder() *EnterpriseKnowledgeSourceMinutesParamBuilder {
+	builder := &EnterpriseKnowledgeSourceMinutesParamBuilder{}
+	return builder
+}
+
+// 是否搜索飞书妙记。默认为 `false`。
+//
+// 示例值：true
+func (builder *EnterpriseKnowledgeSourceMinutesParamBuilder) Searchable(searchable bool) *EnterpriseKnowledgeSourceMinutesParamBuilder {
+	builder.searchable = searchable
+	builder.searchableFlag = true
+	return builder
+}
+
+func (builder *EnterpriseKnowledgeSourceMinutesParamBuilder) Build() *EnterpriseKnowledgeSourceMinutesParam {
+	req := &EnterpriseKnowledgeSourceMinutesParam{}
+	if builder.searchableFlag {
+		req.Searchable = &builder.searchable
+
+	}
+	return req
+}
+
 type EnterpriseKnowledgeSourceParam struct {
 	Space *EnterpriseKnowledgeSourceSpaceParam `json:"space,omitempty"` // 云空间文档
 
@@ -2042,6 +2156,12 @@ type EnterpriseKnowledgeSourceParam struct {
 	HelpdeskFaq *EnterpriseKnowledgeSourceHelpdeskParam `json:"helpdesk_faq,omitempty"` // 服务台 FAQ
 
 	Lingo *EnterpriseKnowledgeSourceLingoParam `json:"lingo,omitempty"` // Lingo企业词典
+
+	Comment *EnterpriseKnowledgeSourceCommentParam `json:"comment,omitempty"` // 文档评论
+
+	Minutes *EnterpriseKnowledgeSourceMinutesParam `json:"minutes,omitempty"` // 飞书妙记
+
+	Mail *EnterpriseKnowledgeSourceMailParam `json:"mail,omitempty"` // 邮件
 }
 
 type EnterpriseKnowledgeSourceParamBuilder struct {
@@ -2059,6 +2179,15 @@ type EnterpriseKnowledgeSourceParamBuilder struct {
 
 	lingo     *EnterpriseKnowledgeSourceLingoParam // Lingo企业词典
 	lingoFlag bool
+
+	comment     *EnterpriseKnowledgeSourceCommentParam // 文档评论
+	commentFlag bool
+
+	minutes     *EnterpriseKnowledgeSourceMinutesParam // 飞书妙记
+	minutesFlag bool
+
+	mail     *EnterpriseKnowledgeSourceMailParam // 邮件
+	mailFlag bool
 }
 
 func NewEnterpriseKnowledgeSourceParamBuilder() *EnterpriseKnowledgeSourceParamBuilder {
@@ -2111,6 +2240,33 @@ func (builder *EnterpriseKnowledgeSourceParamBuilder) Lingo(lingo *EnterpriseKno
 	return builder
 }
 
+// 文档评论
+//
+// 示例值：
+func (builder *EnterpriseKnowledgeSourceParamBuilder) Comment(comment *EnterpriseKnowledgeSourceCommentParam) *EnterpriseKnowledgeSourceParamBuilder {
+	builder.comment = comment
+	builder.commentFlag = true
+	return builder
+}
+
+// 飞书妙记
+//
+// 示例值：
+func (builder *EnterpriseKnowledgeSourceParamBuilder) Minutes(minutes *EnterpriseKnowledgeSourceMinutesParam) *EnterpriseKnowledgeSourceParamBuilder {
+	builder.minutes = minutes
+	builder.minutesFlag = true
+	return builder
+}
+
+// 邮件
+//
+// 示例值：
+func (builder *EnterpriseKnowledgeSourceParamBuilder) Mail(mail *EnterpriseKnowledgeSourceMailParam) *EnterpriseKnowledgeSourceParamBuilder {
+	builder.mail = mail
+	builder.mailFlag = true
+	return builder
+}
+
 func (builder *EnterpriseKnowledgeSourceParamBuilder) Build() *EnterpriseKnowledgeSourceParam {
 	req := &EnterpriseKnowledgeSourceParam{}
 	if builder.spaceFlag {
@@ -2127,6 +2283,15 @@ func (builder *EnterpriseKnowledgeSourceParamBuilder) Build() *EnterpriseKnowled
 	}
 	if builder.lingoFlag {
 		req.Lingo = builder.lingo
+	}
+	if builder.commentFlag {
+		req.Comment = builder.comment
+	}
+	if builder.minutesFlag {
+		req.Minutes = builder.minutes
+	}
+	if builder.mailFlag {
+		req.Mail = builder.mail
 	}
 	return req
 }

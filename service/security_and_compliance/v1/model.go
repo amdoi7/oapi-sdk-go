@@ -6873,6 +6873,280 @@ func (builder *ParamBuilder) Build() *Param {
 	return req
 }
 
+type PolicyEntity struct {
+	PolicyId *string `json:"policy_id,omitempty"` // 策略快照ID
+
+	PolicyName *string `json:"policy_name,omitempty"` // 策略名称
+}
+
+type PolicyEntityBuilder struct {
+	policyId     string // 策略快照ID
+	policyIdFlag bool
+
+	policyName     string // 策略名称
+	policyNameFlag bool
+}
+
+func NewPolicyEntityBuilder() *PolicyEntityBuilder {
+	builder := &PolicyEntityBuilder{}
+	return builder
+}
+
+// 策略快照ID
+//
+// 示例值：123456
+func (builder *PolicyEntityBuilder) PolicyId(policyId string) *PolicyEntityBuilder {
+	builder.policyId = policyId
+	builder.policyIdFlag = true
+	return builder
+}
+
+// 策略名称
+//
+// 示例值：策略名称Demo
+func (builder *PolicyEntityBuilder) PolicyName(policyName string) *PolicyEntityBuilder {
+	builder.policyName = policyName
+	builder.policyNameFlag = true
+	return builder
+}
+
+func (builder *PolicyEntityBuilder) Build() *PolicyEntity {
+	req := &PolicyEntity{}
+	if builder.policyIdFlag {
+		req.PolicyId = &builder.policyId
+
+	}
+	if builder.policyNameFlag {
+		req.PolicyName = &builder.policyName
+
+	}
+	return req
+}
+
+type PolicyLog struct {
+	HasMore *bool `json:"has_more,omitempty"` //
+
+	PageToken *string `json:"page_token,omitempty"` //
+
+	Items []*PolicyLogItem `json:"items,omitempty"` // 策略日志列表
+}
+
+type PolicyLogBuilder struct {
+	hasMore     bool //
+	hasMoreFlag bool
+
+	pageToken     string //
+	pageTokenFlag bool
+
+	items     []*PolicyLogItem // 策略日志列表
+	itemsFlag bool
+}
+
+func NewPolicyLogBuilder() *PolicyLogBuilder {
+	builder := &PolicyLogBuilder{}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *PolicyLogBuilder) HasMore(hasMore bool) *PolicyLogBuilder {
+	builder.hasMore = hasMore
+	builder.hasMoreFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *PolicyLogBuilder) PageToken(pageToken string) *PolicyLogBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+// 策略日志列表
+//
+// 示例值：
+func (builder *PolicyLogBuilder) Items(items []*PolicyLogItem) *PolicyLogBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+func (builder *PolicyLogBuilder) Build() *PolicyLog {
+	req := &PolicyLog{}
+	if builder.hasMoreFlag {
+		req.HasMore = &builder.hasMore
+
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	return req
+}
+
+type PolicyLogItem struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	UserName *string `json:"user_name,omitempty"` // 用户名
+
+	Action *string `json:"action,omitempty"` // 操作
+
+	Resource *string `json:"resource,omitempty"` // 场景
+
+	EventTime *string `json:"event_time,omitempty"` // 命中时间
+
+	Condition *string `json:"condition,omitempty"` // 条件
+
+	PolicyInfos []*PolicyEntity `json:"policy_infos,omitempty"` // 策略信息
+
+	SystemAction *string `json:"system_action,omitempty"` // 系统执行动作
+}
+
+type PolicyLogItemBuilder struct {
+	userId     string // 用户ID
+	userIdFlag bool
+
+	userName     string // 用户名
+	userNameFlag bool
+
+	action     string // 操作
+	actionFlag bool
+
+	resource     string // 场景
+	resourceFlag bool
+
+	eventTime     string // 命中时间
+	eventTimeFlag bool
+
+	condition     string // 条件
+	conditionFlag bool
+
+	policyInfos     []*PolicyEntity // 策略信息
+	policyInfosFlag bool
+
+	systemAction     string // 系统执行动作
+	systemActionFlag bool
+}
+
+func NewPolicyLogItemBuilder() *PolicyLogItemBuilder {
+	builder := &PolicyLogItemBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) UserId(userId string) *PolicyLogItemBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 用户名
+//
+// 示例值：张三
+func (builder *PolicyLogItemBuilder) UserName(userName string) *PolicyLogItemBuilder {
+	builder.userName = userName
+	builder.userNameFlag = true
+	return builder
+}
+
+// 操作
+//
+// 示例值：Access
+func (builder *PolicyLogItemBuilder) Action(action string) *PolicyLogItemBuilder {
+	builder.action = action
+	builder.actionFlag = true
+	return builder
+}
+
+// 场景
+//
+// 示例值：飞书
+func (builder *PolicyLogItemBuilder) Resource(resource string) *PolicyLogItemBuilder {
+	builder.resource = resource
+	builder.resourceFlag = true
+	return builder
+}
+
+// 命中时间
+//
+// 示例值：1668700799000
+func (builder *PolicyLogItemBuilder) EventTime(eventTime string) *PolicyLogItemBuilder {
+	builder.eventTime = eventTime
+	builder.eventTimeFlag = true
+	return builder
+}
+
+// 条件
+//
+// 示例值：{\"DEVICE_OWNERSHIP\":\"Unknown\",\"DEVICE_TERMINAL\":\"Web\",\"LSA_CLIENT_BIND_STATUS\":\"Unknown\",\"USER_ID\":7564320266201861655,\"DEVICE_CREDIBILITY\":\"Unknown\",\"DEVICE_OS\":\"macOS\"}
+func (builder *PolicyLogItemBuilder) Condition(condition string) *PolicyLogItemBuilder {
+	builder.condition = condition
+	builder.conditionFlag = true
+	return builder
+}
+
+// 策略信息
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) PolicyInfos(policyInfos []*PolicyEntity) *PolicyLogItemBuilder {
+	builder.policyInfos = policyInfos
+	builder.policyInfosFlag = true
+	return builder
+}
+
+// 系统执行动作
+//
+// 示例值：DENY_WITHOUT_APPROVAL
+func (builder *PolicyLogItemBuilder) SystemAction(systemAction string) *PolicyLogItemBuilder {
+	builder.systemAction = systemAction
+	builder.systemActionFlag = true
+	return builder
+}
+
+func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
+	req := &PolicyLogItem{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.userNameFlag {
+		req.UserName = &builder.userName
+
+	}
+	if builder.actionFlag {
+		req.Action = &builder.action
+
+	}
+	if builder.resourceFlag {
+		req.Resource = &builder.resource
+
+	}
+	if builder.eventTimeFlag {
+		req.EventTime = &builder.eventTime
+
+	}
+	if builder.conditionFlag {
+		req.Condition = &builder.condition
+
+	}
+	if builder.policyInfosFlag {
+		req.PolicyInfos = builder.policyInfos
+	}
+	if builder.systemActionFlag {
+		req.SystemAction = &builder.systemAction
+
+	}
+	return req
+}
+
 type SecurityLogError struct {
 	Request *GwRequest `json:"request,omitempty"` // 请求体
 

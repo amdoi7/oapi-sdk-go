@@ -1981,6 +1981,8 @@ type LumpSumPayment struct {
 	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
 
 	Details []*LumpSumPaymentDetail `json:"details,omitempty"` // 发放明细列表
+
+	BindingPeriodDecimal *string `json:"binding_period_decimal,omitempty"` // 绑定期带小数
 }
 
 type LumpSumPaymentBuilder struct {
@@ -2040,6 +2042,9 @@ type LumpSumPaymentBuilder struct {
 
 	details     []*LumpSumPaymentDetail // 发放明细列表
 	detailsFlag bool
+
+	bindingPeriodDecimal     string // 绑定期带小数
+	bindingPeriodDecimalFlag bool
 }
 
 func NewLumpSumPaymentBuilder() *LumpSumPaymentBuilder {
@@ -2218,6 +2223,15 @@ func (builder *LumpSumPaymentBuilder) Details(details []*LumpSumPaymentDetail) *
 	return builder
 }
 
+// 绑定期带小数
+//
+// 示例值：12
+func (builder *LumpSumPaymentBuilder) BindingPeriodDecimal(bindingPeriodDecimal string) *LumpSumPaymentBuilder {
+	builder.bindingPeriodDecimal = bindingPeriodDecimal
+	builder.bindingPeriodDecimalFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentBuilder) Build() *LumpSumPayment {
 	req := &LumpSumPayment{}
 	if builder.idFlag {
@@ -2293,6 +2307,10 @@ func (builder *LumpSumPaymentBuilder) Build() *LumpSumPayment {
 	}
 	if builder.detailsFlag {
 		req.Details = builder.details
+	}
+	if builder.bindingPeriodDecimalFlag {
+		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
+
 	}
 	return req
 }
@@ -2865,6 +2883,8 @@ type LumpSumPaymentForCreate struct {
 	Details []*LumpSumPaymentDetailForCreate `json:"details,omitempty"` // 发放明细列表
 
 	Remark *string `json:"remark,omitempty"` // 备注
+
+	BindingPeriodDecimal *string `json:"binding_period_decimal,omitempty"` // 绑定期带小数
 }
 
 type LumpSumPaymentForCreateBuilder struct {
@@ -2900,6 +2920,9 @@ type LumpSumPaymentForCreateBuilder struct {
 
 	remark     string // 备注
 	remarkFlag bool
+
+	bindingPeriodDecimal     string // 绑定期带小数
+	bindingPeriodDecimalFlag bool
 }
 
 func NewLumpSumPaymentForCreateBuilder() *LumpSumPaymentForCreateBuilder {
@@ -3006,6 +3029,15 @@ func (builder *LumpSumPaymentForCreateBuilder) Remark(remark string) *LumpSumPay
 	return builder
 }
 
+// 绑定期带小数
+//
+// 示例值：12.56
+func (builder *LumpSumPaymentForCreateBuilder) BindingPeriodDecimal(bindingPeriodDecimal string) *LumpSumPaymentForCreateBuilder {
+	builder.bindingPeriodDecimal = bindingPeriodDecimal
+	builder.bindingPeriodDecimalFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentForCreateBuilder) Build() *LumpSumPaymentForCreate {
 	req := &LumpSumPaymentForCreate{}
 	if builder.uniqueIdFlag {
@@ -3051,6 +3083,10 @@ func (builder *LumpSumPaymentForCreateBuilder) Build() *LumpSumPaymentForCreate 
 		req.Remark = &builder.remark
 
 	}
+	if builder.bindingPeriodDecimalFlag {
+		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
+
+	}
 	return req
 }
 
@@ -3072,6 +3108,8 @@ type LumpSumPaymentForUpdate struct {
 	ReferencePeriodEndDate *string `json:"reference_period_end_date,omitempty"` // 所属期结束日期
 
 	Details []*LumpSumPaymentDetailForUpdate `json:"details,omitempty"` // 发放明细列表
+
+	BindingPeriodDecimal *string `json:"binding_period_decimal,omitempty"` // 绑定期带小数
 }
 
 type LumpSumPaymentForUpdateBuilder struct {
@@ -3101,6 +3139,9 @@ type LumpSumPaymentForUpdateBuilder struct {
 
 	details     []*LumpSumPaymentDetailForUpdate // 发放明细列表
 	detailsFlag bool
+
+	bindingPeriodDecimal     string // 绑定期带小数
+	bindingPeriodDecimalFlag bool
 }
 
 func NewLumpSumPaymentForUpdateBuilder() *LumpSumPaymentForUpdateBuilder {
@@ -3189,6 +3230,15 @@ func (builder *LumpSumPaymentForUpdateBuilder) Details(details []*LumpSumPayment
 	return builder
 }
 
+// 绑定期带小数
+//
+// 示例值：12
+func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriodDecimal(bindingPeriodDecimal string) *LumpSumPaymentForUpdateBuilder {
+	builder.bindingPeriodDecimal = bindingPeriodDecimal
+	builder.bindingPeriodDecimalFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentForUpdateBuilder) Build() *LumpSumPaymentForUpdate {
 	req := &LumpSumPaymentForUpdate{}
 	if builder.idFlag {
@@ -3225,6 +3275,10 @@ func (builder *LumpSumPaymentForUpdateBuilder) Build() *LumpSumPaymentForUpdate 
 	}
 	if builder.detailsFlag {
 		req.Details = builder.details
+	}
+	if builder.bindingPeriodDecimalFlag {
+		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
+
 	}
 	return req
 }
@@ -4869,6 +4923,8 @@ type SocialArchiveAdjustRecord struct {
 	RecordType *string `json:"record_type,omitempty"` // 类型，increase: 增员; attrition: 减员
 
 	Details []*SocialArchiveDetail `json:"details,omitempty"` // 员工增减员记录，包括社保、公积金记录
+
+	RecordId *string `json:"record_id,omitempty"` // 增减员记录ID
 }
 
 type SocialArchiveAdjustRecordBuilder struct {
@@ -4880,6 +4936,9 @@ type SocialArchiveAdjustRecordBuilder struct {
 
 	details     []*SocialArchiveDetail // 员工增减员记录，包括社保、公积金记录
 	detailsFlag bool
+
+	recordId     string // 增减员记录ID
+	recordIdFlag bool
 }
 
 func NewSocialArchiveAdjustRecordBuilder() *SocialArchiveAdjustRecordBuilder {
@@ -4914,6 +4973,15 @@ func (builder *SocialArchiveAdjustRecordBuilder) Details(details []*SocialArchiv
 	return builder
 }
 
+// 增减员记录ID
+//
+// 示例值：7480742425276139052
+func (builder *SocialArchiveAdjustRecordBuilder) RecordId(recordId string) *SocialArchiveAdjustRecordBuilder {
+	builder.recordId = recordId
+	builder.recordIdFlag = true
+	return builder
+}
+
 func (builder *SocialArchiveAdjustRecordBuilder) Build() *SocialArchiveAdjustRecord {
 	req := &SocialArchiveAdjustRecord{}
 	if builder.userIdFlag {
@@ -4926,6 +4994,148 @@ func (builder *SocialArchiveAdjustRecordBuilder) Build() *SocialArchiveAdjustRec
 	}
 	if builder.detailsFlag {
 		req.Details = builder.details
+	}
+	if builder.recordIdFlag {
+		req.RecordId = &builder.recordId
+
+	}
+	return req
+}
+
+type SocialArchiveAdjustRecordEvent struct {
+	Id *string `json:"id,omitempty"` // 记录id
+
+	InsuranceType *string `json:"insurance_type,omitempty"` // 参保类型。social_insurance社保、provident_fund公积金
+
+	OperateType *string `json:"operate_type,omitempty"` // 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+
+	SourceType *string `json:"source_type,omitempty"` // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+
+	RecordType *string `json:"record_type,omitempty"` // 增减员类型, increase: 增员; attrtion: 减员
+
+	AfterAdjustRecordDetail *SocialArchiveDetail `json:"after_adjust_record_detail,omitempty"` // 参保档案
+
+	BeforeAdjustRecordDetail *SocialArchiveDetail `json:"before_adjust_record_detail,omitempty"` // 参保档案
+}
+
+type SocialArchiveAdjustRecordEventBuilder struct {
+	id     string // 记录id
+	idFlag bool
+
+	insuranceType     string // 参保类型。social_insurance社保、provident_fund公积金
+	insuranceTypeFlag bool
+
+	operateType     string // 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+	operateTypeFlag bool
+
+	sourceType     string // 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+	sourceTypeFlag bool
+
+	recordType     string // 增减员类型, increase: 增员; attrtion: 减员
+	recordTypeFlag bool
+
+	afterAdjustRecordDetail     *SocialArchiveDetail // 参保档案
+	afterAdjustRecordDetailFlag bool
+
+	beforeAdjustRecordDetail     *SocialArchiveDetail // 参保档案
+	beforeAdjustRecordDetailFlag bool
+}
+
+func NewSocialArchiveAdjustRecordEventBuilder() *SocialArchiveAdjustRecordEventBuilder {
+	builder := &SocialArchiveAdjustRecordEventBuilder{}
+	return builder
+}
+
+// 记录id
+//
+// 示例值：7563604424982054444
+func (builder *SocialArchiveAdjustRecordEventBuilder) Id(id string) *SocialArchiveAdjustRecordEventBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 参保类型。social_insurance社保、provident_fund公积金
+//
+// 示例值：
+func (builder *SocialArchiveAdjustRecordEventBuilder) InsuranceType(insuranceType string) *SocialArchiveAdjustRecordEventBuilder {
+	builder.insuranceType = insuranceType
+	builder.insuranceTypeFlag = true
+	return builder
+}
+
+// 待增/减员变更类型，increase新增、adjust编辑、confirm确认、submit_confirm提交并确认、delete取消
+//
+// 示例值：add
+func (builder *SocialArchiveAdjustRecordEventBuilder) OperateType(operateType string) *SocialArchiveAdjustRecordEventBuilder {
+	builder.operateType = operateType
+	builder.operateTypeFlag = true
+	return builder
+}
+
+// 变更事件来源。new_join增员、intern_to_official实习生转正、employee_type_change雇员类型变更、dismission离职、job_change变更、to_attrition_import待减员导入新增
+//
+// 示例值：new_join
+func (builder *SocialArchiveAdjustRecordEventBuilder) SourceType(sourceType string) *SocialArchiveAdjustRecordEventBuilder {
+	builder.sourceType = sourceType
+	builder.sourceTypeFlag = true
+	return builder
+}
+
+// 增减员类型, increase: 增员; attrtion: 减员
+//
+// 示例值：increase
+func (builder *SocialArchiveAdjustRecordEventBuilder) RecordType(recordType string) *SocialArchiveAdjustRecordEventBuilder {
+	builder.recordType = recordType
+	builder.recordTypeFlag = true
+	return builder
+}
+
+// 参保档案
+//
+// 示例值：
+func (builder *SocialArchiveAdjustRecordEventBuilder) AfterAdjustRecordDetail(afterAdjustRecordDetail *SocialArchiveDetail) *SocialArchiveAdjustRecordEventBuilder {
+	builder.afterAdjustRecordDetail = afterAdjustRecordDetail
+	builder.afterAdjustRecordDetailFlag = true
+	return builder
+}
+
+// 参保档案
+//
+// 示例值：
+func (builder *SocialArchiveAdjustRecordEventBuilder) BeforeAdjustRecordDetail(beforeAdjustRecordDetail *SocialArchiveDetail) *SocialArchiveAdjustRecordEventBuilder {
+	builder.beforeAdjustRecordDetail = beforeAdjustRecordDetail
+	builder.beforeAdjustRecordDetailFlag = true
+	return builder
+}
+
+func (builder *SocialArchiveAdjustRecordEventBuilder) Build() *SocialArchiveAdjustRecordEvent {
+	req := &SocialArchiveAdjustRecordEvent{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.insuranceTypeFlag {
+		req.InsuranceType = &builder.insuranceType
+
+	}
+	if builder.operateTypeFlag {
+		req.OperateType = &builder.operateType
+
+	}
+	if builder.sourceTypeFlag {
+		req.SourceType = &builder.sourceType
+
+	}
+	if builder.recordTypeFlag {
+		req.RecordType = &builder.recordType
+
+	}
+	if builder.afterAdjustRecordDetailFlag {
+		req.AfterAdjustRecordDetail = builder.afterAdjustRecordDetail
+	}
+	if builder.beforeAdjustRecordDetailFlag {
+		req.BeforeAdjustRecordDetail = builder.beforeAdjustRecordDetail
 	}
 	return req
 }

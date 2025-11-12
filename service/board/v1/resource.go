@@ -86,6 +86,32 @@ func (w *whiteboard) Theme(ctx context.Context, req *ThemeWhiteboardReq, options
 	return resp, err
 }
 
+// UpdateTheme
+//
+// - 更新画板主题
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=update_theme&project=board&resource=whiteboard&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/boardv1/updateTheme_whiteboard.go
+func (w *whiteboard) UpdateTheme(ctx context.Context, req *UpdateThemeWhiteboardReq, options ...larkcore.RequestOptionFunc) (*UpdateThemeWhiteboardResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/board/v1/whiteboards/:whiteboard_id/update_theme"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &UpdateThemeWhiteboardResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // Create
 //
 // - 在画板中创建节点
@@ -105,6 +131,32 @@ func (w *whiteboardNode) Create(ctx context.Context, req *CreateWhiteboardNodeRe
 	}
 	// 反序列响应结果
 	resp := &CreateWhiteboardNodeResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// CreatePlantuml
+//
+// - 创建 plant uml 图形
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=create_plantuml&project=board&resource=whiteboard.node&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/boardv1/createPlantuml_whiteboardNode.go
+func (w *whiteboardNode) CreatePlantuml(ctx context.Context, req *CreatePlantumlWhiteboardNodeReq, options ...larkcore.RequestOptionFunc) (*CreatePlantumlWhiteboardNodeResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/board/v1/whiteboards/:whiteboard_id/nodes/plantuml"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser, larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &CreatePlantumlWhiteboardNodeResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, w.config)
 	if err != nil {
 		return nil, err

@@ -619,6 +619,8 @@ type Block struct {
 	ReferenceBase *ReferenceBase `json:"reference_base,omitempty"` // 引用的多维表格
 
 	Project *Project `json:"project,omitempty"` // 飞书项目
+
+	MeetingNotesQa *MeetingNotesQa `json:"meeting_notes_qa,omitempty"` // 智能会议纪要 Block
 }
 
 type BlockBuilder struct {
@@ -801,6 +803,9 @@ type BlockBuilder struct {
 
 	project     *Project // 飞书项目
 	projectFlag bool
+
+	meetingNotesQa     *MeetingNotesQa // 智能会议纪要 Block
+	meetingNotesQaFlag bool
 }
 
 func NewBlockBuilder() *BlockBuilder {
@@ -1348,6 +1353,15 @@ func (builder *BlockBuilder) Project(project *Project) *BlockBuilder {
 	return builder
 }
 
+// 智能会议纪要 Block
+//
+// 示例值：
+func (builder *BlockBuilder) MeetingNotesQa(meetingNotesQa *MeetingNotesQa) *BlockBuilder {
+	builder.meetingNotesQa = meetingNotesQa
+	builder.meetingNotesQaFlag = true
+	return builder
+}
+
 func (builder *BlockBuilder) Build() *Block {
 	req := &Block{}
 	if builder.blockIdFlag {
@@ -1532,6 +1546,9 @@ func (builder *BlockBuilder) Build() *Block {
 	}
 	if builder.projectFlag {
 		req.Project = builder.project
+	}
+	if builder.meetingNotesQaFlag {
+		req.MeetingNotesQa = builder.meetingNotesQa
 	}
 	return req
 }
@@ -2734,6 +2751,8 @@ type Image struct {
 	Align *int `json:"align,omitempty"` // 对齐方式
 
 	Caption *Caption `json:"caption,omitempty"` // 图片描述
+
+	Scale *float64 `json:"scale,omitempty"` // 图片缩放比例，图片会根据宽高*scale等比例缩放进行展示。
 }
 
 type ImageBuilder struct {
@@ -2751,6 +2770,9 @@ type ImageBuilder struct {
 
 	caption     *Caption // 图片描述
 	captionFlag bool
+
+	scale     float64 // 图片缩放比例，图片会根据宽高*scale等比例缩放进行展示。
+	scaleFlag bool
 }
 
 func NewImageBuilder() *ImageBuilder {
@@ -2803,6 +2825,15 @@ func (builder *ImageBuilder) Caption(caption *Caption) *ImageBuilder {
 	return builder
 }
 
+// 图片缩放比例，图片会根据宽高*scale等比例缩放进行展示。
+//
+// 示例值：0.8427495291902072
+func (builder *ImageBuilder) Scale(scale float64) *ImageBuilder {
+	builder.scale = scale
+	builder.scaleFlag = true
+	return builder
+}
+
 func (builder *ImageBuilder) Build() *Image {
 	req := &Image{}
 	if builder.widthFlag {
@@ -2823,6 +2854,10 @@ func (builder *ImageBuilder) Build() *Image {
 	}
 	if builder.captionFlag {
 		req.Caption = builder.caption
+	}
+	if builder.scaleFlag {
+		req.Scale = &builder.scale
+
 	}
 	return req
 }
@@ -3303,6 +3338,22 @@ func (builder *LinkPreviewBuilder) Build() *LinkPreview {
 		req.UrlType = &builder.urlType
 
 	}
+	return req
+}
+
+type MeetingNotesQa struct {
+}
+
+type MeetingNotesQaBuilder struct {
+}
+
+func NewMeetingNotesQaBuilder() *MeetingNotesQaBuilder {
+	builder := &MeetingNotesQaBuilder{}
+	return builder
+}
+
+func (builder *MeetingNotesQaBuilder) Build() *MeetingNotesQa {
+	req := &MeetingNotesQa{}
 	return req
 }
 
@@ -4700,6 +4751,8 @@ type ReplaceImageRequest struct {
 	Align *int `json:"align,omitempty"` // 对齐方式
 
 	Caption *Caption `json:"caption,omitempty"` // 图片描述
+
+	Scale *float64 `json:"scale,omitempty"` // 图片缩放比例，图片会根据宽高*scale等比例缩放进行展示。
 }
 
 type ReplaceImageRequestBuilder struct {
@@ -4717,6 +4770,9 @@ type ReplaceImageRequestBuilder struct {
 
 	caption     *Caption // 图片描述
 	captionFlag bool
+
+	scale     float64 // 图片缩放比例，图片会根据宽高*scale等比例缩放进行展示。
+	scaleFlag bool
 }
 
 func NewReplaceImageRequestBuilder() *ReplaceImageRequestBuilder {
@@ -4769,6 +4825,15 @@ func (builder *ReplaceImageRequestBuilder) Caption(caption *Caption) *ReplaceIma
 	return builder
 }
 
+// 图片缩放比例，图片会根据宽高*scale等比例缩放进行展示。
+//
+// 示例值：0.8427495291902072
+func (builder *ReplaceImageRequestBuilder) Scale(scale float64) *ReplaceImageRequestBuilder {
+	builder.scale = scale
+	builder.scaleFlag = true
+	return builder
+}
+
 func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 	req := &ReplaceImageRequest{}
 	if builder.tokenFlag {
@@ -4789,6 +4854,10 @@ func (builder *ReplaceImageRequestBuilder) Build() *ReplaceImageRequest {
 	}
 	if builder.captionFlag {
 		req.Caption = builder.caption
+	}
+	if builder.scaleFlag {
+		req.Scale = &builder.scale
+
 	}
 	return req
 }
@@ -5900,6 +5969,37 @@ func (builder *UnmergeTableCellsRequestBuilder) Build() *UnmergeTableCellsReques
 	if builder.columnIndexFlag {
 		req.ColumnIndex = &builder.columnIndex
 
+	}
+	return req
+}
+
+type UpdateAgendaTitleElementsRequest struct {
+	Elements []*AgendaTitleElement `json:"elements,omitempty"` // 更新的 Agenda 标题元素列表，单次更新中 Reminder 上限 30 个，Mention_Doc 上限 50 个，Mention_User 上限 100 个
+}
+
+type UpdateAgendaTitleElementsRequestBuilder struct {
+	elements     []*AgendaTitleElement // 更新的 Agenda 标题元素列表，单次更新中 Reminder 上限 30 个，Mention_Doc 上限 50 个，Mention_User 上限 100 个
+	elementsFlag bool
+}
+
+func NewUpdateAgendaTitleElementsRequestBuilder() *UpdateAgendaTitleElementsRequestBuilder {
+	builder := &UpdateAgendaTitleElementsRequestBuilder{}
+	return builder
+}
+
+// 更新的 Agenda 标题元素列表，单次更新中 Reminder 上限 30 个，Mention_Doc 上限 50 个，Mention_User 上限 100 个
+//
+// 示例值：
+func (builder *UpdateAgendaTitleElementsRequestBuilder) Elements(elements []*AgendaTitleElement) *UpdateAgendaTitleElementsRequestBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+func (builder *UpdateAgendaTitleElementsRequestBuilder) Build() *UpdateAgendaTitleElementsRequest {
+	req := &UpdateAgendaTitleElementsRequest{}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
 	}
 	return req
 }

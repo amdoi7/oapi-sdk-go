@@ -30,6 +30,35 @@ const (
 )
 
 const (
+	StyleTypeBoard   = 1 // 画板样式
+	StyleTypeClassic = 2 // 经典样式
+
+)
+
+const (
+	SyntaxTypeUNKOWN   = 0 // 未知
+	SyntaxTypePLANTUML = 1 // Plantuml解析
+	SyntaxTypeMERMAID  = 2 // Mermaid解析
+
+)
+
+const (
+	DiagramTypeUNKOWN            = 0   // 未知
+	DiagramTypeMINDMAP           = 1   // 思维导图
+	DiagramTypeSEQUENCE          = 2   // 时序图
+	DiagramTypeACTIVITY          = 3   // 活动图
+	DiagramTypeCLASS             = 4   // 类图
+	DiagramTypeER                = 5   // ER
+	DiagramTypeFLOWCHART         = 6   // 流程图
+	DiagramTypeSTATE             = 7   // 用例图
+	DiagramTypeCOMPONENTDIAGRAM  = 8   // 组件图
+	DiagramTypeSTREAMINGACTIVITY = 101 // ai流式生成流程图
+	DiagramTypeSTREAMINGSEQUENCE = 102 // ai流式生成时序图
+	DiagramTypeTIMELINEGML       = 201 // plantUML语法补充超集GML
+
+)
+
+const (
 	UserIdTypeListWhiteboardNodeUserId  = "user_id"  // 以user_id来识别用户
 	UserIdTypeListWhiteboardNodeUnionId = "union_id" // 以union_id来识别用户
 	UserIdTypeListWhiteboardNodeOpenId  = "open_id"  // 以open_id来识别用户
@@ -228,6 +257,12 @@ type CompositeShape struct {
 	Type *string `json:"type,omitempty"` // 基础图形的具体类型
 
 	Pie *Pie `json:"pie,omitempty"` // 饼图属性，type=pie时需要设置
+
+	CircularRing *Pie `json:"circular_ring,omitempty"` // 圆环属性，type=circular_ring时需要设置
+
+	Trapezoid *Trapezoid `json:"trapezoid,omitempty"` // 梯形属性，type=trapezoid时可以设置
+
+	Cube *Cube `json:"cube,omitempty"` // 六面体属性，type=cube时可以设置
 }
 
 type CompositeShapeBuilder struct {
@@ -236,6 +271,15 @@ type CompositeShapeBuilder struct {
 
 	pie     *Pie // 饼图属性，type=pie时需要设置
 	pieFlag bool
+
+	circularRing     *Pie // 圆环属性，type=circular_ring时需要设置
+	circularRingFlag bool
+
+	trapezoid     *Trapezoid // 梯形属性，type=trapezoid时可以设置
+	trapezoidFlag bool
+
+	cube     *Cube // 六面体属性，type=cube时可以设置
+	cubeFlag bool
 }
 
 func NewCompositeShapeBuilder() *CompositeShapeBuilder {
@@ -261,6 +305,33 @@ func (builder *CompositeShapeBuilder) Pie(pie *Pie) *CompositeShapeBuilder {
 	return builder
 }
 
+// 圆环属性，type=circular_ring时需要设置
+//
+// 示例值：
+func (builder *CompositeShapeBuilder) CircularRing(circularRing *Pie) *CompositeShapeBuilder {
+	builder.circularRing = circularRing
+	builder.circularRingFlag = true
+	return builder
+}
+
+// 梯形属性，type=trapezoid时可以设置
+//
+// 示例值：
+func (builder *CompositeShapeBuilder) Trapezoid(trapezoid *Trapezoid) *CompositeShapeBuilder {
+	builder.trapezoid = trapezoid
+	builder.trapezoidFlag = true
+	return builder
+}
+
+// 六面体属性，type=cube时可以设置
+//
+// 示例值：
+func (builder *CompositeShapeBuilder) Cube(cube *Cube) *CompositeShapeBuilder {
+	builder.cube = cube
+	builder.cubeFlag = true
+	return builder
+}
+
 func (builder *CompositeShapeBuilder) Build() *CompositeShape {
 	req := &CompositeShape{}
 	if builder.typeFlag {
@@ -269,6 +340,15 @@ func (builder *CompositeShapeBuilder) Build() *CompositeShape {
 	}
 	if builder.pieFlag {
 		req.Pie = builder.pie
+	}
+	if builder.circularRingFlag {
+		req.CircularRing = builder.circularRing
+	}
+	if builder.trapezoidFlag {
+		req.Trapezoid = builder.trapezoid
+	}
+	if builder.cubeFlag {
+		req.Cube = builder.cube
 	}
 	return req
 }
@@ -287,6 +367,12 @@ type Connector struct {
 	Shape *string `json:"shape,omitempty"` // 连线类型
 
 	TurningPoints []*Point `json:"turning_points,omitempty"` // 连线转向点
+
+	CaptionAutoDirection *bool `json:"caption_auto_direction,omitempty"` // 连线上的文本方向是否自动跟随连线方向
+
+	CaptionPosition *float64 `json:"caption_position,omitempty"` // 文本在连线上的相对位置，范围0-1，0表示在连线的起始点，1表示在连线的终点
+
+	SpecifiedCoordinate *bool `json:"specified_coordinate,omitempty"` // 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
 }
 
 type ConnectorBuilder struct {
@@ -310,6 +396,15 @@ type ConnectorBuilder struct {
 
 	turningPoints     []*Point // 连线转向点
 	turningPointsFlag bool
+
+	captionAutoDirection     bool // 连线上的文本方向是否自动跟随连线方向
+	captionAutoDirectionFlag bool
+
+	captionPosition     float64 // 文本在连线上的相对位置，范围0-1，0表示在连线的起始点，1表示在连线的终点
+	captionPositionFlag bool
+
+	specifiedCoordinate     bool // 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
+	specifiedCoordinateFlag bool
 }
 
 func NewConnectorBuilder() *ConnectorBuilder {
@@ -380,6 +475,33 @@ func (builder *ConnectorBuilder) TurningPoints(turningPoints []*Point) *Connecto
 	return builder
 }
 
+// 连线上的文本方向是否自动跟随连线方向
+//
+// 示例值：true
+func (builder *ConnectorBuilder) CaptionAutoDirection(captionAutoDirection bool) *ConnectorBuilder {
+	builder.captionAutoDirection = captionAutoDirection
+	builder.captionAutoDirectionFlag = true
+	return builder
+}
+
+// 文本在连线上的相对位置，范围0-1，0表示在连线的起始点，1表示在连线的终点
+//
+// 示例值：0.5
+func (builder *ConnectorBuilder) CaptionPosition(captionPosition float64) *ConnectorBuilder {
+	builder.captionPosition = captionPosition
+	builder.captionPositionFlag = true
+	return builder
+}
+
+// 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
+//
+// 示例值：
+func (builder *ConnectorBuilder) SpecifiedCoordinate(specifiedCoordinate bool) *ConnectorBuilder {
+	builder.specifiedCoordinate = specifiedCoordinate
+	builder.specifiedCoordinateFlag = true
+	return builder
+}
+
 func (builder *ConnectorBuilder) Build() *Connector {
 	req := &Connector{}
 	if builder.startObjectFlag {
@@ -403,6 +525,18 @@ func (builder *ConnectorBuilder) Build() *Connector {
 	}
 	if builder.turningPointsFlag {
 		req.TurningPoints = builder.turningPoints
+	}
+	if builder.captionAutoDirectionFlag {
+		req.CaptionAutoDirection = &builder.captionAutoDirection
+
+	}
+	if builder.captionPositionFlag {
+		req.CaptionPosition = &builder.captionPosition
+
+	}
+	if builder.specifiedCoordinateFlag {
+		req.SpecifiedCoordinate = &builder.specifiedCoordinate
+
 	}
 	return req
 }
@@ -567,6 +701,37 @@ func (builder *ConnectorInfoBuilder) Build() *ConnectorInfo {
 	if builder.arrowStyleFlag {
 		req.ArrowStyle = &builder.arrowStyle
 
+	}
+	return req
+}
+
+type Cube struct {
+	ControlPoint *Point `json:"control_point,omitempty"` // 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+}
+
+type CubeBuilder struct {
+	controlPoint     *Point // 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+	controlPointFlag bool
+}
+
+func NewCubeBuilder() *CubeBuilder {
+	builder := &CubeBuilder{}
+	return builder
+}
+
+// 六面体控制点，相对六面体外接矩形的相对坐标。默认控制点为外接矩形长的0.8，宽的0.25
+//
+// 示例值：
+func (builder *CubeBuilder) ControlPoint(controlPoint *Point) *CubeBuilder {
+	builder.controlPoint = controlPoint
+	builder.controlPointFlag = true
+	return builder
+}
+
+func (builder *CubeBuilder) Build() *Cube {
+	req := &Cube{}
+	if builder.controlPointFlag {
+		req.ControlPoint = builder.controlPoint
 	}
 	return req
 }
@@ -954,6 +1119,8 @@ type MindMapNode struct {
 	LayoutPosition *string `json:"layout_position,omitempty"` // 子节点相对根节点的方向（根节点下的子节点设置才生效）
 
 	Children []string `json:"children,omitempty"` // 子节点列表
+
+	Collapsed *bool `json:"collapsed,omitempty"` // 是否收起子节点
 }
 
 type MindMapNodeBuilder struct {
@@ -971,6 +1138,9 @@ type MindMapNodeBuilder struct {
 
 	children     []string // 子节点列表
 	childrenFlag bool
+
+	collapsed     bool // 是否收起子节点
+	collapsedFlag bool
 }
 
 func NewMindMapNodeBuilder() *MindMapNodeBuilder {
@@ -1023,6 +1193,15 @@ func (builder *MindMapNodeBuilder) Children(children []string) *MindMapNodeBuild
 	return builder
 }
 
+// 是否收起子节点
+//
+// 示例值：
+func (builder *MindMapNodeBuilder) Collapsed(collapsed bool) *MindMapNodeBuilder {
+	builder.collapsed = collapsed
+	builder.collapsedFlag = true
+	return builder
+}
+
 func (builder *MindMapNodeBuilder) Build() *MindMapNode {
 	req := &MindMapNode{}
 	if builder.parentIdFlag {
@@ -1043,6 +1222,10 @@ func (builder *MindMapNodeBuilder) Build() *MindMapNode {
 	}
 	if builder.childrenFlag {
 		req.Children = builder.children
+	}
+	if builder.collapsedFlag {
+		req.Collapsed = &builder.collapsed
+
 	}
 	return req
 }
@@ -1404,6 +1587,594 @@ func (builder *PointBuilder) Build() *Point {
 	return req
 }
 
+type RichText struct {
+	Paragraphs []*RichTextParagraph `json:"paragraphs,omitempty"` // 段落列表
+}
+
+type RichTextBuilder struct {
+	paragraphs     []*RichTextParagraph // 段落列表
+	paragraphsFlag bool
+}
+
+func NewRichTextBuilder() *RichTextBuilder {
+	builder := &RichTextBuilder{}
+	return builder
+}
+
+// 段落列表
+//
+// 示例值：
+func (builder *RichTextBuilder) Paragraphs(paragraphs []*RichTextParagraph) *RichTextBuilder {
+	builder.paragraphs = paragraphs
+	builder.paragraphsFlag = true
+	return builder
+}
+
+func (builder *RichTextBuilder) Build() *RichText {
+	req := &RichText{}
+	if builder.paragraphsFlag {
+		req.Paragraphs = builder.paragraphs
+	}
+	return req
+}
+
+type RichTextElement struct {
+	ElementType *int `json:"element_type,omitempty"` // 元素类别
+
+	TextElement *RichTextElementText `json:"text_element,omitempty"` // 文本类别信息
+
+	LinkElement *RichTextElementLink `json:"link_element,omitempty"` // 超链接类别信息
+
+	MentionUserElement *RichTextElementMentionUser `json:"mention_user_element,omitempty"` // @用户类别信息
+
+	MentionDocElement *RichTextElementMentionDoc `json:"mention_doc_element,omitempty"` // 文档类别信息
+}
+
+type RichTextElementBuilder struct {
+	elementType     int // 元素类别
+	elementTypeFlag bool
+
+	textElement     *RichTextElementText // 文本类别信息
+	textElementFlag bool
+
+	linkElement     *RichTextElementLink // 超链接类别信息
+	linkElementFlag bool
+
+	mentionUserElement     *RichTextElementMentionUser // @用户类别信息
+	mentionUserElementFlag bool
+
+	mentionDocElement     *RichTextElementMentionDoc // 文档类别信息
+	mentionDocElementFlag bool
+}
+
+func NewRichTextElementBuilder() *RichTextElementBuilder {
+	builder := &RichTextElementBuilder{}
+	return builder
+}
+
+// 元素类别
+//
+// 示例值：
+func (builder *RichTextElementBuilder) ElementType(elementType int) *RichTextElementBuilder {
+	builder.elementType = elementType
+	builder.elementTypeFlag = true
+	return builder
+}
+
+// 文本类别信息
+//
+// 示例值：
+func (builder *RichTextElementBuilder) TextElement(textElement *RichTextElementText) *RichTextElementBuilder {
+	builder.textElement = textElement
+	builder.textElementFlag = true
+	return builder
+}
+
+// 超链接类别信息
+//
+// 示例值：
+func (builder *RichTextElementBuilder) LinkElement(linkElement *RichTextElementLink) *RichTextElementBuilder {
+	builder.linkElement = linkElement
+	builder.linkElementFlag = true
+	return builder
+}
+
+// @用户类别信息
+//
+// 示例值：
+func (builder *RichTextElementBuilder) MentionUserElement(mentionUserElement *RichTextElementMentionUser) *RichTextElementBuilder {
+	builder.mentionUserElement = mentionUserElement
+	builder.mentionUserElementFlag = true
+	return builder
+}
+
+// 文档类别信息
+//
+// 示例值：
+func (builder *RichTextElementBuilder) MentionDocElement(mentionDocElement *RichTextElementMentionDoc) *RichTextElementBuilder {
+	builder.mentionDocElement = mentionDocElement
+	builder.mentionDocElementFlag = true
+	return builder
+}
+
+func (builder *RichTextElementBuilder) Build() *RichTextElement {
+	req := &RichTextElement{}
+	if builder.elementTypeFlag {
+		req.ElementType = &builder.elementType
+
+	}
+	if builder.textElementFlag {
+		req.TextElement = builder.textElement
+	}
+	if builder.linkElementFlag {
+		req.LinkElement = builder.linkElement
+	}
+	if builder.mentionUserElementFlag {
+		req.MentionUserElement = builder.mentionUserElement
+	}
+	if builder.mentionDocElementFlag {
+		req.MentionDocElement = builder.mentionDocElement
+	}
+	return req
+}
+
+type RichTextElementLink struct {
+	Herf *string `json:"herf,omitempty"` // 链接
+
+	Text *string `json:"text,omitempty"` // 文字
+
+	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+}
+
+type RichTextElementLinkBuilder struct {
+	herf     string // 链接
+	herfFlag bool
+
+	text     string // 文字
+	textFlag bool
+
+	textStyle     *RichTextElementTextStyle // 文字样式
+	textStyleFlag bool
+}
+
+func NewRichTextElementLinkBuilder() *RichTextElementLinkBuilder {
+	builder := &RichTextElementLinkBuilder{}
+	return builder
+}
+
+// 链接
+//
+// 示例值：https://bytedance.larkoffice.com
+func (builder *RichTextElementLinkBuilder) Herf(herf string) *RichTextElementLinkBuilder {
+	builder.herf = herf
+	builder.herfFlag = true
+	return builder
+}
+
+// 文字
+//
+// 示例值：示例文案
+func (builder *RichTextElementLinkBuilder) Text(text string) *RichTextElementLinkBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+// 文字样式
+//
+// 示例值：
+func (builder *RichTextElementLinkBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementLinkBuilder {
+	builder.textStyle = textStyle
+	builder.textStyleFlag = true
+	return builder
+}
+
+func (builder *RichTextElementLinkBuilder) Build() *RichTextElementLink {
+	req := &RichTextElementLink{}
+	if builder.herfFlag {
+		req.Herf = &builder.herf
+
+	}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.textStyleFlag {
+		req.TextStyle = builder.textStyle
+	}
+	return req
+}
+
+type RichTextElementMentionDoc struct {
+	DocUrl *string `json:"doc_url,omitempty"` // 文档超链接
+
+	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+}
+
+type RichTextElementMentionDocBuilder struct {
+	docUrl     string // 文档超链接
+	docUrlFlag bool
+
+	textStyle     *RichTextElementTextStyle // 文字样式
+	textStyleFlag bool
+}
+
+func NewRichTextElementMentionDocBuilder() *RichTextElementMentionDocBuilder {
+	builder := &RichTextElementMentionDocBuilder{}
+	return builder
+}
+
+// 文档超链接
+//
+// 示例值：https://bytedance.larkoffice.com/wiki/xxxxx
+func (builder *RichTextElementMentionDocBuilder) DocUrl(docUrl string) *RichTextElementMentionDocBuilder {
+	builder.docUrl = docUrl
+	builder.docUrlFlag = true
+	return builder
+}
+
+// 文字样式
+//
+// 示例值：
+func (builder *RichTextElementMentionDocBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementMentionDocBuilder {
+	builder.textStyle = textStyle
+	builder.textStyleFlag = true
+	return builder
+}
+
+func (builder *RichTextElementMentionDocBuilder) Build() *RichTextElementMentionDoc {
+	req := &RichTextElementMentionDoc{}
+	if builder.docUrlFlag {
+		req.DocUrl = &builder.docUrl
+
+	}
+	if builder.textStyleFlag {
+		req.TextStyle = builder.textStyle
+	}
+	return req
+}
+
+type RichTextElementMentionUser struct {
+	UserId *string `json:"user_id,omitempty"` // 用户id
+
+	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字属性
+}
+
+type RichTextElementMentionUserBuilder struct {
+	userId     string // 用户id
+	userIdFlag bool
+
+	textStyle     *RichTextElementTextStyle // 文字属性
+	textStyleFlag bool
+}
+
+func NewRichTextElementMentionUserBuilder() *RichTextElementMentionUserBuilder {
+	builder := &RichTextElementMentionUserBuilder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：
+func (builder *RichTextElementMentionUserBuilder) UserId(userId string) *RichTextElementMentionUserBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 文字属性
+//
+// 示例值：
+func (builder *RichTextElementMentionUserBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementMentionUserBuilder {
+	builder.textStyle = textStyle
+	builder.textStyleFlag = true
+	return builder
+}
+
+func (builder *RichTextElementMentionUserBuilder) Build() *RichTextElementMentionUser {
+	req := &RichTextElementMentionUser{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.textStyleFlag {
+		req.TextStyle = builder.textStyle
+	}
+	return req
+}
+
+type RichTextElementText struct {
+	Text *string `json:"text,omitempty"` // 文字
+
+	TextStyle *RichTextElementTextStyle `json:"text_style,omitempty"` // 文字样式
+}
+
+type RichTextElementTextBuilder struct {
+	text     string // 文字
+	textFlag bool
+
+	textStyle     *RichTextElementTextStyle // 文字样式
+	textStyleFlag bool
+}
+
+func NewRichTextElementTextBuilder() *RichTextElementTextBuilder {
+	builder := &RichTextElementTextBuilder{}
+	return builder
+}
+
+// 文字
+//
+// 示例值：示例文案
+func (builder *RichTextElementTextBuilder) Text(text string) *RichTextElementTextBuilder {
+	builder.text = text
+	builder.textFlag = true
+	return builder
+}
+
+// 文字样式
+//
+// 示例值：
+func (builder *RichTextElementTextBuilder) TextStyle(textStyle *RichTextElementTextStyle) *RichTextElementTextBuilder {
+	builder.textStyle = textStyle
+	builder.textStyleFlag = true
+	return builder
+}
+
+func (builder *RichTextElementTextBuilder) Build() *RichTextElementText {
+	req := &RichTextElementText{}
+	if builder.textFlag {
+		req.Text = &builder.text
+
+	}
+	if builder.textStyleFlag {
+		req.TextStyle = builder.textStyle
+	}
+	return req
+}
+
+type RichTextElementTextStyle struct {
+	FontWeight *string `json:"font_weight,omitempty"` // 文字字重
+
+	FontSize *int `json:"font_size,omitempty"` // 文字大小
+
+	TextColor *string `json:"text_color,omitempty"` // 文字颜色，16 进制 rgb 值
+
+	TextBackgroundColor *string `json:"text_background_color,omitempty"` // 文字背景色，16 进制 rgb 值
+
+	LineThrough *bool `json:"line_through,omitempty"` // 是否存在删除线
+
+	Underline *bool `json:"underline,omitempty"` // 是否存在下划线
+
+	Italic *bool `json:"italic,omitempty"` // 是否斜体
+}
+
+type RichTextElementTextStyleBuilder struct {
+	fontWeight     string // 文字字重
+	fontWeightFlag bool
+
+	fontSize     int // 文字大小
+	fontSizeFlag bool
+
+	textColor     string // 文字颜色，16 进制 rgb 值
+	textColorFlag bool
+
+	textBackgroundColor     string // 文字背景色，16 进制 rgb 值
+	textBackgroundColorFlag bool
+
+	lineThrough     bool // 是否存在删除线
+	lineThroughFlag bool
+
+	underline     bool // 是否存在下划线
+	underlineFlag bool
+
+	italic     bool // 是否斜体
+	italicFlag bool
+}
+
+func NewRichTextElementTextStyleBuilder() *RichTextElementTextStyleBuilder {
+	builder := &RichTextElementTextStyleBuilder{}
+	return builder
+}
+
+// 文字字重
+//
+// 示例值：bold
+func (builder *RichTextElementTextStyleBuilder) FontWeight(fontWeight string) *RichTextElementTextStyleBuilder {
+	builder.fontWeight = fontWeight
+	builder.fontWeightFlag = true
+	return builder
+}
+
+// 文字大小
+//
+// 示例值：14
+func (builder *RichTextElementTextStyleBuilder) FontSize(fontSize int) *RichTextElementTextStyleBuilder {
+	builder.fontSize = fontSize
+	builder.fontSizeFlag = true
+	return builder
+}
+
+// 文字颜色，16 进制 rgb 值
+//
+// 示例值：#000000
+func (builder *RichTextElementTextStyleBuilder) TextColor(textColor string) *RichTextElementTextStyleBuilder {
+	builder.textColor = textColor
+	builder.textColorFlag = true
+	return builder
+}
+
+// 文字背景色，16 进制 rgb 值
+//
+// 示例值：#000000
+func (builder *RichTextElementTextStyleBuilder) TextBackgroundColor(textBackgroundColor string) *RichTextElementTextStyleBuilder {
+	builder.textBackgroundColor = textBackgroundColor
+	builder.textBackgroundColorFlag = true
+	return builder
+}
+
+// 是否存在删除线
+//
+// 示例值：
+func (builder *RichTextElementTextStyleBuilder) LineThrough(lineThrough bool) *RichTextElementTextStyleBuilder {
+	builder.lineThrough = lineThrough
+	builder.lineThroughFlag = true
+	return builder
+}
+
+// 是否存在下划线
+//
+// 示例值：
+func (builder *RichTextElementTextStyleBuilder) Underline(underline bool) *RichTextElementTextStyleBuilder {
+	builder.underline = underline
+	builder.underlineFlag = true
+	return builder
+}
+
+// 是否斜体
+//
+// 示例值：
+func (builder *RichTextElementTextStyleBuilder) Italic(italic bool) *RichTextElementTextStyleBuilder {
+	builder.italic = italic
+	builder.italicFlag = true
+	return builder
+}
+
+func (builder *RichTextElementTextStyleBuilder) Build() *RichTextElementTextStyle {
+	req := &RichTextElementTextStyle{}
+	if builder.fontWeightFlag {
+		req.FontWeight = &builder.fontWeight
+
+	}
+	if builder.fontSizeFlag {
+		req.FontSize = &builder.fontSize
+
+	}
+	if builder.textColorFlag {
+		req.TextColor = &builder.textColor
+
+	}
+	if builder.textBackgroundColorFlag {
+		req.TextBackgroundColor = &builder.textBackgroundColor
+
+	}
+	if builder.lineThroughFlag {
+		req.LineThrough = &builder.lineThrough
+
+	}
+	if builder.underlineFlag {
+		req.Underline = &builder.underline
+
+	}
+	if builder.italicFlag {
+		req.Italic = &builder.italic
+
+	}
+	return req
+}
+
+type RichTextParagraph struct {
+	ParagraphType *int `json:"paragraph_type,omitempty"` // 段落类别
+
+	Elements []*RichTextElement `json:"elements,omitempty"` // 元素列表
+
+	Indent *int `json:"indent,omitempty"` // 缩进
+
+	ListBeginIndex *int `json:"list_begin_index,omitempty"` // 有序列表开始序号
+
+	Quote *bool `json:"quote,omitempty"` // 引用
+}
+
+type RichTextParagraphBuilder struct {
+	paragraphType     int // 段落类别
+	paragraphTypeFlag bool
+
+	elements     []*RichTextElement // 元素列表
+	elementsFlag bool
+
+	indent     int // 缩进
+	indentFlag bool
+
+	listBeginIndex     int // 有序列表开始序号
+	listBeginIndexFlag bool
+
+	quote     bool // 引用
+	quoteFlag bool
+}
+
+func NewRichTextParagraphBuilder() *RichTextParagraphBuilder {
+	builder := &RichTextParagraphBuilder{}
+	return builder
+}
+
+// 段落类别
+//
+// 示例值：
+func (builder *RichTextParagraphBuilder) ParagraphType(paragraphType int) *RichTextParagraphBuilder {
+	builder.paragraphType = paragraphType
+	builder.paragraphTypeFlag = true
+	return builder
+}
+
+// 元素列表
+//
+// 示例值：
+func (builder *RichTextParagraphBuilder) Elements(elements []*RichTextElement) *RichTextParagraphBuilder {
+	builder.elements = elements
+	builder.elementsFlag = true
+	return builder
+}
+
+// 缩进
+//
+// 示例值：0
+func (builder *RichTextParagraphBuilder) Indent(indent int) *RichTextParagraphBuilder {
+	builder.indent = indent
+	builder.indentFlag = true
+	return builder
+}
+
+// 有序列表开始序号
+//
+// 示例值：0
+func (builder *RichTextParagraphBuilder) ListBeginIndex(listBeginIndex int) *RichTextParagraphBuilder {
+	builder.listBeginIndex = listBeginIndex
+	builder.listBeginIndexFlag = true
+	return builder
+}
+
+// 引用
+//
+// 示例值：
+func (builder *RichTextParagraphBuilder) Quote(quote bool) *RichTextParagraphBuilder {
+	builder.quote = quote
+	builder.quoteFlag = true
+	return builder
+}
+
+func (builder *RichTextParagraphBuilder) Build() *RichTextParagraph {
+	req := &RichTextParagraph{}
+	if builder.paragraphTypeFlag {
+		req.ParagraphType = &builder.paragraphType
+
+	}
+	if builder.elementsFlag {
+		req.Elements = builder.elements
+	}
+	if builder.indentFlag {
+		req.Indent = &builder.indent
+
+	}
+	if builder.listBeginIndexFlag {
+		req.ListBeginIndex = &builder.listBeginIndex
+
+	}
+	if builder.quoteFlag {
+		req.Quote = &builder.quote
+
+	}
+	return req
+}
+
 type Section struct {
 	Title *string `json:"title,omitempty"` // 分区标题
 }
@@ -1506,6 +2277,10 @@ type Style struct {
 	ThemeFillColorCode *int `json:"theme_fill_color_code,omitempty"` // 填充颜色主题配色编码值
 
 	ThemeBorderColorCode *int `json:"theme_border_color_code,omitempty"` // 边框颜色主题配色编码值
+
+	FillColorType *int `json:"fill_color_type,omitempty"` // 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
+
+	BorderColorType *int `json:"border_color_type,omitempty"` // 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
 }
 
 type StyleBuilder struct {
@@ -1538,6 +2313,12 @@ type StyleBuilder struct {
 
 	themeBorderColorCode     int // 边框颜色主题配色编码值
 	themeBorderColorCodeFlag bool
+
+	fillColorType     int // 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
+	fillColorTypeFlag bool
+
+	borderColorType     int // 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
+	borderColorTypeFlag bool
 }
 
 func NewStyleBuilder() *StyleBuilder {
@@ -1635,6 +2416,24 @@ func (builder *StyleBuilder) ThemeBorderColorCode(themeBorderColorCode int) *Sty
 	return builder
 }
 
+// 填充颜色类型：0=系统颜色，取theme_fill_color_code，1=自定义颜色，取fill_color
+//
+// 示例值：
+func (builder *StyleBuilder) FillColorType(fillColorType int) *StyleBuilder {
+	builder.fillColorType = fillColorType
+	builder.fillColorTypeFlag = true
+	return builder
+}
+
+// 边框颜色类型：0=系统颜色，取theme_border_color_code，1=自定义颜色，取border_color
+//
+// 示例值：
+func (builder *StyleBuilder) BorderColorType(borderColorType int) *StyleBuilder {
+	builder.borderColorType = borderColorType
+	builder.borderColorTypeFlag = true
+	return builder
+}
+
 func (builder *StyleBuilder) Build() *Style {
 	req := &Style{}
 	if builder.fillColorFlag {
@@ -1675,6 +2474,14 @@ func (builder *StyleBuilder) Build() *Style {
 	}
 	if builder.themeBorderColorCodeFlag {
 		req.ThemeBorderColorCode = &builder.themeBorderColorCode
+
+	}
+	if builder.fillColorTypeFlag {
+		req.FillColorType = &builder.fillColorType
+
+	}
+	if builder.borderColorTypeFlag {
+		req.BorderColorType = &builder.borderColorType
 
 	}
 	return req
@@ -2090,6 +2897,12 @@ type Text struct {
 	ThemeTextColorCode *int `json:"theme_text_color_code,omitempty"` // 文字颜色主题配色编码值
 
 	ThemeTextBackgroundColorCode *int `json:"theme_text_background_color_code,omitempty"` // 文字背景颜色主题配色编码值
+
+	RichText *RichText `json:"rich_text,omitempty"` // 富文本
+
+	TextColorType *int `json:"text_color_type,omitempty"` // 文字颜色类型，0=系统颜色，1=自定义颜色
+
+	TextBackgroundColorType *int `json:"text_background_color_type,omitempty"` // 文字背景颜色类型，0=系统颜色，1=自定义颜色
 }
 
 type TextBuilder struct {
@@ -2131,6 +2944,15 @@ type TextBuilder struct {
 
 	themeTextBackgroundColorCode     int // 文字背景颜色主题配色编码值
 	themeTextBackgroundColorCodeFlag bool
+
+	richText     *RichText // 富文本
+	richTextFlag bool
+
+	textColorType     int // 文字颜色类型，0=系统颜色，1=自定义颜色
+	textColorTypeFlag bool
+
+	textBackgroundColorType     int // 文字背景颜色类型，0=系统颜色，1=自定义颜色
+	textBackgroundColorTypeFlag bool
 }
 
 func NewTextBuilder() *TextBuilder {
@@ -2255,6 +3077,33 @@ func (builder *TextBuilder) ThemeTextBackgroundColorCode(themeTextBackgroundColo
 	return builder
 }
 
+// 富文本
+//
+// 示例值：
+func (builder *TextBuilder) RichText(richText *RichText) *TextBuilder {
+	builder.richText = richText
+	builder.richTextFlag = true
+	return builder
+}
+
+// 文字颜色类型，0=系统颜色，1=自定义颜色
+//
+// 示例值：
+func (builder *TextBuilder) TextColorType(textColorType int) *TextBuilder {
+	builder.textColorType = textColorType
+	builder.textColorTypeFlag = true
+	return builder
+}
+
+// 文字背景颜色类型，0=系统颜色，1=自定义颜色
+//
+// 示例值：
+func (builder *TextBuilder) TextBackgroundColorType(textBackgroundColorType int) *TextBuilder {
+	builder.textBackgroundColorType = textBackgroundColorType
+	builder.textBackgroundColorTypeFlag = true
+	return builder
+}
+
 func (builder *TextBuilder) Build() *Text {
 	req := &Text{}
 	if builder.textFlag {
@@ -2307,6 +3156,49 @@ func (builder *TextBuilder) Build() *Text {
 	}
 	if builder.themeTextBackgroundColorCodeFlag {
 		req.ThemeTextBackgroundColorCode = &builder.themeTextBackgroundColorCode
+
+	}
+	if builder.richTextFlag {
+		req.RichText = builder.richText
+	}
+	if builder.textColorTypeFlag {
+		req.TextColorType = &builder.textColorType
+
+	}
+	if builder.textBackgroundColorTypeFlag {
+		req.TextBackgroundColorType = &builder.textBackgroundColorType
+
+	}
+	return req
+}
+
+type Trapezoid struct {
+	TopLength *float64 `json:"top_length,omitempty"` // 梯形上底长（短边）。默认为下底边长度的2/3，不能超过下底边长度。
+}
+
+type TrapezoidBuilder struct {
+	topLength     float64 // 梯形上底长（短边）。默认为下底边长度的2/3，不能超过下底边长度。
+	topLengthFlag bool
+}
+
+func NewTrapezoidBuilder() *TrapezoidBuilder {
+	builder := &TrapezoidBuilder{}
+	return builder
+}
+
+// 梯形上底长（短边）。默认为下底边长度的2/3，不能超过下底边长度。
+//
+// 示例值：10
+func (builder *TrapezoidBuilder) TopLength(topLength float64) *TrapezoidBuilder {
+	builder.topLength = topLength
+	builder.topLengthFlag = true
+	return builder
+}
+
+func (builder *TrapezoidBuilder) Build() *Trapezoid {
+	req := &Trapezoid{}
+	if builder.topLengthFlag {
+		req.TopLength = &builder.topLength
 
 	}
 	return req
@@ -2863,6 +3755,114 @@ func (resp *ThemeWhiteboardResp) Success() bool {
 	return resp.Code == 0
 }
 
+type UpdateThemeWhiteboardReqBodyBuilder struct {
+	theme     string // 主题名称
+	themeFlag bool
+}
+
+func NewUpdateThemeWhiteboardReqBodyBuilder() *UpdateThemeWhiteboardReqBodyBuilder {
+	builder := &UpdateThemeWhiteboardReqBodyBuilder{}
+	return builder
+}
+
+// 主题名称
+//
+//示例值：classic
+func (builder *UpdateThemeWhiteboardReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardReqBodyBuilder {
+	builder.theme = theme
+	builder.themeFlag = true
+	return builder
+}
+
+func (builder *UpdateThemeWhiteboardReqBodyBuilder) Build() *UpdateThemeWhiteboardReqBody {
+	req := &UpdateThemeWhiteboardReqBody{}
+	if builder.themeFlag {
+		req.Theme = &builder.theme
+	}
+	return req
+}
+
+type UpdateThemeWhiteboardPathReqBodyBuilder struct {
+	theme     string
+	themeFlag bool
+}
+
+func NewUpdateThemeWhiteboardPathReqBodyBuilder() *UpdateThemeWhiteboardPathReqBodyBuilder {
+	builder := &UpdateThemeWhiteboardPathReqBodyBuilder{}
+	return builder
+}
+
+// 主题名称
+//
+// 示例值：classic
+func (builder *UpdateThemeWhiteboardPathReqBodyBuilder) Theme(theme string) *UpdateThemeWhiteboardPathReqBodyBuilder {
+	builder.theme = theme
+	builder.themeFlag = true
+	return builder
+}
+
+func (builder *UpdateThemeWhiteboardPathReqBodyBuilder) Build() (*UpdateThemeWhiteboardReqBody, error) {
+	req := &UpdateThemeWhiteboardReqBody{}
+	if builder.themeFlag {
+		req.Theme = &builder.theme
+	}
+	return req, nil
+}
+
+type UpdateThemeWhiteboardReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *UpdateThemeWhiteboardReqBody
+}
+
+func NewUpdateThemeWhiteboardReqBuilder() *UpdateThemeWhiteboardReqBuilder {
+	builder := &UpdateThemeWhiteboardReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 画板 id，唯一标识
+//
+// 示例值：KRy1wHU6dhmdWIbgkSIbqikMcQc
+func (builder *UpdateThemeWhiteboardReqBuilder) WhiteboardId(whiteboardId string) *UpdateThemeWhiteboardReqBuilder {
+	builder.apiReq.PathParams.Set("whiteboard_id", fmt.Sprint(whiteboardId))
+	return builder
+}
+
+// 更新画板主题
+func (builder *UpdateThemeWhiteboardReqBuilder) Body(body *UpdateThemeWhiteboardReqBody) *UpdateThemeWhiteboardReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *UpdateThemeWhiteboardReqBuilder) Build() *UpdateThemeWhiteboardReq {
+	req := &UpdateThemeWhiteboardReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type UpdateThemeWhiteboardReqBody struct {
+	Theme *string `json:"theme,omitempty"` // 主题名称
+}
+
+type UpdateThemeWhiteboardReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *UpdateThemeWhiteboardReqBody `body:""`
+}
+
+type UpdateThemeWhiteboardResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *UpdateThemeWhiteboardResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateWhiteboardNodeReqBodyBuilder struct {
 	nodes     []*WhiteboardNode // 子节点数据
 	nodesFlag bool
@@ -2992,6 +3992,212 @@ type CreateWhiteboardNodeResp struct {
 }
 
 func (resp *CreateWhiteboardNodeResp) Success() bool {
+	return resp.Code == 0
+}
+
+type CreatePlantumlWhiteboardNodeReqBodyBuilder struct {
+	plantUmlCode     string // plant uml 代码
+	plantUmlCodeFlag bool
+
+	styleType     int //
+	styleTypeFlag bool
+
+	syntaxType     int // 语法类型
+	syntaxTypeFlag bool
+
+	diagramType     int //
+	diagramTypeFlag bool
+}
+
+func NewCreatePlantumlWhiteboardNodeReqBodyBuilder() *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder := &CreatePlantumlWhiteboardNodeReqBodyBuilder{}
+	return builder
+}
+
+// plant uml 代码
+//
+//示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) PlantUmlCode(plantUmlCode string) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.plantUmlCode = plantUmlCode
+	builder.plantUmlCodeFlag = true
+	return builder
+}
+
+//
+//
+//示例值：1
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.styleType = styleType
+	builder.styleTypeFlag = true
+	return builder
+}
+
+// 语法类型
+//
+//示例值：
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.syntaxType = syntaxType
+	builder.syntaxTypeFlag = true
+	return builder
+}
+
+//
+//
+//示例值：
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.diagramType = diagramType
+	builder.diagramTypeFlag = true
+	return builder
+}
+
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Build() *CreatePlantumlWhiteboardNodeReqBody {
+	req := &CreatePlantumlWhiteboardNodeReqBody{}
+	if builder.plantUmlCodeFlag {
+		req.PlantUmlCode = &builder.plantUmlCode
+	}
+	if builder.styleTypeFlag {
+		req.StyleType = &builder.styleType
+	}
+	if builder.syntaxTypeFlag {
+		req.SyntaxType = &builder.syntaxType
+	}
+	if builder.diagramTypeFlag {
+		req.DiagramType = &builder.diagramType
+	}
+	return req
+}
+
+type CreatePlantumlWhiteboardNodePathReqBodyBuilder struct {
+	plantUmlCode     string
+	plantUmlCodeFlag bool
+	styleType        int
+	styleTypeFlag    bool
+	syntaxType       int
+	syntaxTypeFlag   bool
+	diagramType      int
+	diagramTypeFlag  bool
+}
+
+func NewCreatePlantumlWhiteboardNodePathReqBodyBuilder() *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder := &CreatePlantumlWhiteboardNodePathReqBodyBuilder{}
+	return builder
+}
+
+// plant uml 代码
+//
+// 示例值：@startuml\nAlice -> Bob: Authentication Request\nBob --> Alice: Authentication Response\n@enduml
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) PlantUmlCode(plantUmlCode string) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.plantUmlCode = plantUmlCode
+	builder.plantUmlCodeFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：1
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) StyleType(styleType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.styleType = styleType
+	builder.styleTypeFlag = true
+	return builder
+}
+
+// 语法类型
+//
+// 示例值：
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) SyntaxType(syntaxType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.syntaxType = syntaxType
+	builder.syntaxTypeFlag = true
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) DiagramType(diagramType int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.diagramType = diagramType
+	builder.diagramTypeFlag = true
+	return builder
+}
+
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Build() (*CreatePlantumlWhiteboardNodeReqBody, error) {
+	req := &CreatePlantumlWhiteboardNodeReqBody{}
+	if builder.plantUmlCodeFlag {
+		req.PlantUmlCode = &builder.plantUmlCode
+	}
+	if builder.styleTypeFlag {
+		req.StyleType = &builder.styleType
+	}
+	if builder.syntaxTypeFlag {
+		req.SyntaxType = &builder.syntaxType
+	}
+	if builder.diagramTypeFlag {
+		req.DiagramType = &builder.diagramType
+	}
+	return req, nil
+}
+
+type CreatePlantumlWhiteboardNodeReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *CreatePlantumlWhiteboardNodeReqBody
+}
+
+func NewCreatePlantumlWhiteboardNodeReqBuilder() *CreatePlantumlWhiteboardNodeReqBuilder {
+	builder := &CreatePlantumlWhiteboardNodeReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 画板 token
+//
+// 示例值：VF5Bwo7Z5icC0bk8EWbb57Vbckh
+func (builder *CreatePlantumlWhiteboardNodeReqBuilder) WhiteboardId(whiteboardId string) *CreatePlantumlWhiteboardNodeReqBuilder {
+	builder.apiReq.PathParams.Set("whiteboard_id", fmt.Sprint(whiteboardId))
+	return builder
+}
+
+// 创建 plant uml 图形
+func (builder *CreatePlantumlWhiteboardNodeReqBuilder) Body(body *CreatePlantumlWhiteboardNodeReqBody) *CreatePlantumlWhiteboardNodeReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *CreatePlantumlWhiteboardNodeReqBuilder) Build() *CreatePlantumlWhiteboardNodeReq {
+	req := &CreatePlantumlWhiteboardNodeReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type CreatePlantumlWhiteboardNodeReqBody struct {
+	PlantUmlCode *string `json:"plant_uml_code,omitempty"` // plant uml 代码
+
+	StyleType *int `json:"style_type,omitempty"` //
+
+	SyntaxType *int `json:"syntax_type,omitempty"` // 语法类型
+
+	DiagramType *int `json:"diagram_type,omitempty"` //
+}
+
+type CreatePlantumlWhiteboardNodeReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *CreatePlantumlWhiteboardNodeReqBody `body:""`
+}
+
+type CreatePlantumlWhiteboardNodeRespData struct {
+	NodeId *string `json:"node_id,omitempty"` // 创建生成的plant uml节点id
+}
+
+type CreatePlantumlWhiteboardNodeResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *CreatePlantumlWhiteboardNodeRespData `json:"data"` // 业务数据
+}
+
+func (resp *CreatePlantumlWhiteboardNodeResp) Success() bool {
 	return resp.Code == 0
 }
 
