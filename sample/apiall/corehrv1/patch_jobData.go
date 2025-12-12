@@ -56,6 +56,7 @@ func main() {
 			WorkShift(larkcorehr.NewEnumBuilder().Build()).
 			CompensationType(larkcorehr.NewEnumBuilder().Build()).
 			ServiceCompany("6890452208593372680").
+			EmployeeSubtypeId("6890452208593372680").
 			PathwayId("6890452208593372671").
 			Build()).
 		Build()

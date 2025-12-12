@@ -27,15 +27,15 @@ const (
 )
 
 const (
-	UserIdTypeOpenId  = "open_id"  // open_id
-	UserIdTypeUnionId = "union_id" // union_id
-	UserIdTypeUserId  = "user_id"  // user_id
+	LogoutUserIDTypeOpenId  = "open_id"  // open_id
+	LogoutUserIDTypeUnionId = "union_id" // union_id
+	LogoutUserIDTypeUserId  = "user_id"  // user_id
 )
 
 const (
-	UserIdTypeQuerySessionOpenId  = "open_id"  // 用户的 open id
-	UserIdTypeQuerySessionUnionId = "union_id" // 用户的 union id
-	UserIdTypeQuerySessionUserId  = "user_id"  // 用户的 user id
+	MGetMaskSessionsByUserIDsUserIDTypeOpenId  = "open_id"  // 用户的 open id
+	MGetMaskSessionsByUserIDsUserIDTypeUnionId = "union_id" // 用户的 union id
+	MGetMaskSessionsByUserIDsUserIDTypeUserId  = "user_id"  // 用户的 user id
 )
 
 type Credentials struct {

@@ -31,297 +31,297 @@ import (
 )
 
 const (
-	UserIdTypeUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	SearchAssignedUserUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	SearchAssignedUserUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	SearchAssignedUserUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	SearchAssignedUserUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeAddRoleAssignAuthorizationUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeAddRoleAssignAuthorizationUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeAddRoleAssignAuthorizationOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeAddRoleAssignAuthorizationPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	AddRoleAssignAuthorizationUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	AddRoleAssignAuthorizationUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	AddRoleAssignAuthorizationUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	AddRoleAssignAuthorizationUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeGetByParamAuthorizationUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeGetByParamAuthorizationUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeGetByParamAuthorizationOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeGetByParamAuthorizationPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	GetByParamAuthorizationUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	GetByParamAuthorizationUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	GetByParamAuthorizationUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	GetByParamAuthorizationUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeQueryAuthorizationUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeQueryAuthorizationUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeQueryAuthorizationOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeQueryAuthorizationPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	QueryAuthorizationUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	QueryAuthorizationUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	QueryAuthorizationUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	QueryAuthorizationUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeRemoveRoleAssignAuthorizationUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeRemoveRoleAssignAuthorizationUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeRemoveRoleAssignAuthorizationOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeRemoveRoleAssignAuthorizationPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	RemoveRoleAssignAuthorizationUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	RemoveRoleAssignAuthorizationUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	RemoveRoleAssignAuthorizationUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	RemoveRoleAssignAuthorizationUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeUpdateRoleAssignAuthorizationUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeUpdateRoleAssignAuthorizationUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeUpdateRoleAssignAuthorizationOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeUpdateRoleAssignAuthorizationPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	UpdateRoleAssignAuthorizationUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	UpdateRoleAssignAuthorizationUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	UpdateRoleAssignAuthorizationUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	UpdateRoleAssignAuthorizationUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	IdTransformTypeCoreHR2Feishu = 1 // 飞书人事 -> 飞书通讯录
-	IdTransformTypeFeishu2CoreHR = 2 // 飞书通讯录 -> 飞书人事
-	IdTransformTypeAdmin2Feishu  = 3 // people admin -> 飞书人事
-	IdTransformTypeAdmin2CoreHR  = 4 // people admin -> 飞书通讯录
-
-)
-
-const (
-	IdTypeEmploymentID   = "user_id"          // 员工ID，当选择 user_id 且 id_transform_type 为 1、2、4 时，feishu_user_id_type 必填
-	IdTypeDepartmentID   = "department_id"    // 部门ID，当选择 department_id 且 id_transform_type 为 1、2、4 时，feishu_department_id_type 必填
-	IdTypeJobLevelID     = "job_level_id"     // 职级ID
-	IdTypeJobFamilyID    = "job_family_id"    // 序列ID
-	IdTypeEmployeeTypeID = "employee_type_id" // 人员类型ID
-)
-
-const (
-	FeishuUserIdTypeUserId  = "user_id"  // 以 user_id 来识别用户
-	FeishuUserIdTypeUnionId = "union_id" // 以 union_id 来识别用户
-	FeishuUserIdTypeOpenId  = "open_id"  // 以 open_id 来识别用户
-)
-
-const (
-	FeishuDepartmentIdTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
-	FeishuDepartmentIdTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
-)
-
-const (
-	UserIdTypeMatchCompensationStandardUserId         = "user_id"          // 以user_id来识别用户
-	UserIdTypeMatchCompensationStandardUnionId        = "union_id"         // 以union_id来识别用户
-	UserIdTypeMatchCompensationStandardOpenId         = "open_id"          // 以open_id来识别用户
-	UserIdTypeMatchCompensationStandardPeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
-)
-
-const (
-	DepartmentIdTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
-)
-
-const (
-	ReferenceObjectApiCpstItem      = "cpst_item"      // 薪资项目
-	ReferenceObjectApiCpstIndicator = "cpst_indicator" // 薪资统计指标
-)
-
-const (
-	RecruitmentTypeExperiencedProfessionals = "experienced_professionals" // 社招
-	RecruitmentTypeRecentGraduates          = "recent_graduates"          // 校招
-	RecruitmentTypeRoutineIntern            = "routine_intern"            // 日常实习
-)
-
-const (
-	UserIdTypeCreateDepartmentUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeCreateDepartmentUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeCreateDepartmentOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeCreateDepartmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-)
-
-const (
-	DepartmentIdTypeCreateDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeCreateDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeCreateDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
-)
-
-const (
-	UserIdTypeGetDepartmentUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeGetDepartmentUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeGetDepartmentOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeGetDepartmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-)
-
-const (
-	DepartmentIdTypeGetDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeGetDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
-)
-
-const (
-	UserIdTypeListDepartmentUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeListDepartmentUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeListDepartmentOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeListDepartmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-)
-
-const (
-	DepartmentIdTypeListDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeListDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeListDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
-)
-
-const (
-	UserIdTypePatchDepartmentUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypePatchDepartmentUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypePatchDepartmentOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypePatchDepartmentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-)
-
-const (
-	DepartmentIdTypePatchDepartmentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypePatchDepartmentDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypePatchDepartmentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
-)
-
-const (
-	UserIdTypeDeleteEmploymentUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeDeleteEmploymentUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeDeleteEmploymentOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeDeleteEmploymentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-)
-
-const (
-	UserIdTypePatchEmploymentUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypePatchEmploymentUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypePatchEmploymentOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypePatchEmploymentPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
-)
-
-const (
-	DepartmentIdTypePatchEmploymentOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypePatchEmploymentDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypePatchEmploymentPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
-)
-
-const (
-	TransferMode1 = 1 // 直接异动
-	TransferMode2 = 2 // 发起异动
+	ConvertCommonDataIdIDTransformTypeCoreHR2Feishu = 1 // 飞书人事 -> 飞书通讯录
+	ConvertCommonDataIdIDTransformTypeFeishu2CoreHR = 2 // 飞书通讯录 -> 飞书人事
+	ConvertCommonDataIdIDTransformTypeAdmin2Feishu  = 3 // people admin -> 飞书人事
+	ConvertCommonDataIdIDTransformTypeAdmin2CoreHR  = 4 // people admin -> 飞书通讯录
 
 )
 
 const (
-	UserIdTypeCreateJobChangeUserId         = "user_id"          // 以user_id来识别用户
-	UserIdTypeCreateJobChangeUnionId        = "union_id"         // 以union_id来识别用户
-	UserIdTypeCreateJobChangeOpenId         = "open_id"          // 以open_id来识别用户
-	UserIdTypeCreateJobChangePeopleAdminId  = "people_admin_id"  // 以people_admin_id来识别用户
-	UserIdTypeCreateJobChangePeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
+	ConvertCommonDataIdIDTypeEmploymentID   = "user_id"          // 员工ID，当选择 user_id 且 id_transform_type 为 1、2、4 时，feishu_user_id_type 必填
+	ConvertCommonDataIdIDTypeDepartmentID   = "department_id"    // 部门ID，当选择 department_id 且 id_transform_type 为 1、2、4 时，feishu_department_id_type 必填
+	ConvertCommonDataIdIDTypeJobLevelID     = "job_level_id"     // 职级ID
+	ConvertCommonDataIdIDTypeJobFamilyID    = "job_family_id"    // 序列ID
+	ConvertCommonDataIdIDTypeEmployeeTypeID = "employee_type_id" // 人员类型ID
 )
 
 const (
-	DepartmentIdTypeCreateJobChangeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeCreateJobChangeDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeCreateJobChangePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	ConvertCommonDataIdFeishuUserIDTypeUserId  = "user_id"  // 以 user_id 来识别用户
+	ConvertCommonDataIdFeishuUserIDTypeUnionId = "union_id" // 以 union_id 来识别用户
+	ConvertCommonDataIdFeishuUserIDTypeOpenId  = "open_id"  // 以 open_id 来识别用户
 )
 
 const (
-	UserIdTypeCreateJobDataUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeCreateJobDataUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeCreateJobDataOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeCreateJobDataPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	ConvertCommonDataIdFeishuDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以 open_department_id 来标识部门
+	ConvertCommonDataIdFeishuDepartmentIDTypeDepartmentId     = "department_id"      // 以 department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypeCreateJobDataOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeCreateJobDataDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeCreateJobDataPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	MatchCompensationStandardUserIDTypeUserId         = "user_id"          // 以user_id来识别用户
+	MatchCompensationStandardUserIDTypeUnionId        = "union_id"         // 以union_id来识别用户
+	MatchCompensationStandardUserIDTypeOpenId         = "open_id"          // 以open_id来识别用户
+	MatchCompensationStandardUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
 )
 
 const (
-	UserIdTypeGetJobDataUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeGetJobDataUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeGetJobDataOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeGetJobDataPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	MatchCompensationStandardDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	MatchCompensationStandardDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	MatchCompensationStandardDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypeGetJobDataOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeGetJobDataDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeGetJobDataPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	MatchCompensationStandardReferenceObjectApiCpstItem      = "cpst_item"      // 薪资项目
+	MatchCompensationStandardReferenceObjectApiCpstIndicator = "cpst_indicator" // 薪资统计指标
 )
 
 const (
-	UserIdTypeListJobDataUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeListJobDataUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeListJobDataOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeListJobDataPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	MatchCompensationStandardRecruitmentTypeExperiencedProfessionals = "experienced_professionals" // 社招
+	MatchCompensationStandardRecruitmentTypeRecentGraduates          = "recent_graduates"          // 校招
+	MatchCompensationStandardRecruitmentTypeRoutineIntern            = "routine_intern"            // 日常实习
 )
 
 const (
-	DepartmentIdTypeListJobDataOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeListJobDataDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeListJobDataPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	CreateDepartmentUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	CreateDepartmentUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	CreateDepartmentUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	CreateDepartmentUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypePatchJobDataUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypePatchJobDataUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypePatchJobDataOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypePatchJobDataPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	CreateDepartmentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	CreateDepartmentDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	CreateDepartmentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypePatchJobDataOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypePatchJobDataDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypePatchJobDataPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	GetDepartmentUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	GetDepartmentUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	GetDepartmentUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	GetDepartmentUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeLeaveBalancesLeaveUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeLeaveBalancesLeaveUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeLeaveBalancesLeaveOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeLeaveBalancesLeavePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	GetDepartmentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	GetDepartmentDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	GetDepartmentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
-	UserIdTypeLeaveRequestHistoryLeaveUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeLeaveRequestHistoryLeaveUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeLeaveRequestHistoryLeaveOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeLeaveRequestHistoryLeavePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	ListDepartmentUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	ListDepartmentUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	ListDepartmentUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	ListDepartmentUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeLeaveTypesLeaveUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeLeaveTypesLeaveUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeLeaveTypesLeaveOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeLeaveTypesLeavePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	ListDepartmentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	ListDepartmentDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	ListDepartmentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
-	UserIdTypeCreateLeaveGrantingRecordUserId         = "user_id"          // 以user_id来识别用户
-	UserIdTypeCreateLeaveGrantingRecordUnionId        = "union_id"         // 以union_id来识别用户
-	UserIdTypeCreateLeaveGrantingRecordOpenId         = "open_id"          // 以open_id来识别用户
-	UserIdTypeCreateLeaveGrantingRecordPeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
+	PatchDepartmentUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	PatchDepartmentUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	PatchDepartmentUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	PatchDepartmentUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
 )
 
 const (
-	UserIdTypeSearchOffboardingUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeSearchOffboardingUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeSearchOffboardingOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeSearchOffboardingPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	PatchDepartmentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	PatchDepartmentDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	PatchDepartmentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
-	OffboardingModeTerminationOfDismissal = 1 // 直接离职
+	DeleteEmploymentUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	DeleteEmploymentUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	DeleteEmploymentUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	DeleteEmploymentUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	PatchEmploymentUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	PatchEmploymentUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	PatchEmploymentUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	PatchEmploymentUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	PatchEmploymentDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	PatchEmploymentDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	PatchEmploymentDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	CreateJobChangeTransferMode1 = 1 // 直接异动
+	CreateJobChangeTransferMode2 = 2 // 发起异动
 
 )
 
 const (
-	UserIdTypeSubmitOffboardingUserId         = "user_id"          // 以 user_id 来识别用户
-	UserIdTypeSubmitOffboardingUnionId        = "union_id"         // 以 union_id 来识别用户
-	UserIdTypeSubmitOffboardingOpenId         = "open_id"          // 以 open_id 来识别用户
-	UserIdTypeSubmitOffboardingPeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+	CreateJobChangeUserIDTypeUserId         = "user_id"          // 以user_id来识别用户
+	CreateJobChangeUserIDTypeUnionId        = "union_id"         // 以union_id来识别用户
+	CreateJobChangeUserIDTypeOpenId         = "open_id"          // 以open_id来识别用户
+	CreateJobChangeUserIDTypePeopleAdminId  = "people_admin_id"  // 以people_admin_id来识别用户
+	CreateJobChangeUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
 )
 
 const (
-	UserIdTypeGetPersonPeopleEmployeeId = "people_employee_id" // 以people_employee_id来识别用户
+	CreateJobChangeDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	CreateJobChangeDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	CreateJobChangeDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 const (
-	DepartmentIdTypeQuerySecurityGroupOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
-	DepartmentIdTypeQuerySecurityGroupDepartmentId             = "department_id"               // 以 department_id 来标识部门
-	DepartmentIdTypeQuerySecurityGroupPeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+	CreateJobDataUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	CreateJobDataUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	CreateJobDataUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	CreateJobDataUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	CreateJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	CreateJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	CreateJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	GetJobDataUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	GetJobDataUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	GetJobDataUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	GetJobDataUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	GetJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	GetJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	GetJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	ListJobDataUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	ListJobDataUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	ListJobDataUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	ListJobDataUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	ListJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	ListJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	ListJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	PatchJobDataUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	PatchJobDataUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	PatchJobDataUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	PatchJobDataUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	PatchJobDataDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	PatchJobDataDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	PatchJobDataDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
+)
+
+const (
+	LeaveBalancesLeaveUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	LeaveBalancesLeaveUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	LeaveBalancesLeaveUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	LeaveBalancesLeaveUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	LeaveRequestHistoryLeaveUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	LeaveRequestHistoryLeaveUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	LeaveRequestHistoryLeaveUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	LeaveRequestHistoryLeaveUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	LeaveTypesLeaveUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	LeaveTypesLeaveUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	LeaveTypesLeaveUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	LeaveTypesLeaveUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	CreateLeaveGrantingRecordUserIDTypeUserId         = "user_id"          // 以user_id来识别用户
+	CreateLeaveGrantingRecordUserIDTypeUnionId        = "union_id"         // 以union_id来识别用户
+	CreateLeaveGrantingRecordUserIDTypeOpenId         = "open_id"          // 以open_id来识别用户
+	CreateLeaveGrantingRecordUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的ID来识别用户
+)
+
+const (
+	SearchOffboardingUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	SearchOffboardingUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	SearchOffboardingUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	SearchOffboardingUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	SubmitOffboardingOffboardingModeTerminationOfDismissal = 1 // 直接离职
+
+)
+
+const (
+	SubmitOffboardingUserIDTypeUserId         = "user_id"          // 以 user_id 来识别用户
+	SubmitOffboardingUserIDTypeUnionId        = "union_id"         // 以 union_id 来识别用户
+	SubmitOffboardingUserIDTypeOpenId         = "open_id"          // 以 open_id 来识别用户
+	SubmitOffboardingUserIDTypePeopleCorehrId = "people_corehr_id" // 以飞书人事的 ID 来识别用户
+)
+
+const (
+	GetPersonUserIDTypePeopleEmployeeId = "people_employee_id" // 以people_employee_id来识别用户
+)
+
+const (
+	QuerySecurityGroupDepartmentIDTypeOpenDepartmentId         = "open_department_id"          // 以 open_department_id 来标识部门
+	QuerySecurityGroupDepartmentIDTypeDepartmentId             = "department_id"               // 以 department_id 来标识部门
+	QuerySecurityGroupDepartmentIDTypePeopleCorehrDepartmentId = "people_corehr_department_id" // 以 people_corehr_department_id 来标识部门
 )
 
 type Address struct {
@@ -4335,6 +4335,8 @@ type Currency struct {
 	NumericCode *int `json:"numeric_code,omitempty"` // 数字代码
 
 	CurrencyAlpha3Code *string `json:"currency_alpha_3_code,omitempty"` // 三位字母代码
+
+	CountryRegionIdList []string `json:"country_region_id_list,omitempty"` // 货币所属国家/地区 ID 列表，详细信息可通过[查询国家/地区信息]接口查询获得
 }
 
 type CurrencyBuilder struct {
@@ -4352,6 +4354,9 @@ type CurrencyBuilder struct {
 
 	currencyAlpha3Code     string // 三位字母代码
 	currencyAlpha3CodeFlag bool
+
+	countryRegionIdList     []string // 货币所属国家/地区 ID 列表，详细信息可通过[查询国家/地区信息]接口查询获得
+	countryRegionIdListFlag bool
 }
 
 func NewCurrencyBuilder() *CurrencyBuilder {
@@ -4404,6 +4409,15 @@ func (builder *CurrencyBuilder) CurrencyAlpha3Code(currencyAlpha3Code string) *C
 	return builder
 }
 
+// 货币所属国家/地区 ID 列表，详细信息可通过[查询国家/地区信息]接口查询获得
+//
+// 示例值：
+func (builder *CurrencyBuilder) CountryRegionIdList(countryRegionIdList []string) *CurrencyBuilder {
+	builder.countryRegionIdList = countryRegionIdList
+	builder.countryRegionIdListFlag = true
+	return builder
+}
+
 func (builder *CurrencyBuilder) Build() *Currency {
 	req := &Currency{}
 	if builder.idFlag {
@@ -4424,6 +4438,9 @@ func (builder *CurrencyBuilder) Build() *Currency {
 	if builder.currencyAlpha3CodeFlag {
 		req.CurrencyAlpha3Code = &builder.currencyAlpha3Code
 
+	}
+	if builder.countryRegionIdListFlag {
+		req.CountryRegionIdList = builder.countryRegionIdList
 	}
 	return req
 }
@@ -7468,6 +7485,123 @@ func (builder *EmploymentLeaveBalanceBuilder) Build() *EmploymentLeaveBalance {
 	return req
 }
 
+type EntityFieldReq struct {
+	EntityKey *string `json:"entity_key,omitempty"` // 实体下的所属属性key，如：id、name
+
+	FieldKey *string `json:"field_key,omitempty"` // 实体的字段Key
+}
+
+type EntityFieldReqBuilder struct {
+	entityKey     string // 实体下的所属属性key，如：id、name
+	entityKeyFlag bool
+
+	fieldKey     string // 实体的字段Key
+	fieldKeyFlag bool
+}
+
+func NewEntityFieldReqBuilder() *EntityFieldReqBuilder {
+	builder := &EntityFieldReqBuilder{}
+	return builder
+}
+
+// 实体下的所属属性key，如：id、name
+//
+// 示例值：user
+func (builder *EntityFieldReqBuilder) EntityKey(entityKey string) *EntityFieldReqBuilder {
+	builder.entityKey = entityKey
+	builder.entityKeyFlag = true
+	return builder
+}
+
+// 实体的字段Key
+//
+// 示例值：id
+func (builder *EntityFieldReqBuilder) FieldKey(fieldKey string) *EntityFieldReqBuilder {
+	builder.fieldKey = fieldKey
+	builder.fieldKeyFlag = true
+	return builder
+}
+
+func (builder *EntityFieldReqBuilder) Build() *EntityFieldReq {
+	req := &EntityFieldReq{}
+	if builder.entityKeyFlag {
+		req.EntityKey = &builder.entityKey
+
+	}
+	if builder.fieldKeyFlag {
+		req.FieldKey = &builder.fieldKey
+
+	}
+	return req
+}
+
+type EntityFieldResult struct {
+	EntityKey *string `json:"entity_key,omitempty"` // 实体key
+
+	FieldKey *string `json:"field_key,omitempty"` // 实体的字段Key
+
+	FieldName *Name `json:"field_name,omitempty"` // 名称信息
+}
+
+type EntityFieldResultBuilder struct {
+	entityKey     string // 实体key
+	entityKeyFlag bool
+
+	fieldKey     string // 实体的字段Key
+	fieldKeyFlag bool
+
+	fieldName     *Name // 名称信息
+	fieldNameFlag bool
+}
+
+func NewEntityFieldResultBuilder() *EntityFieldResultBuilder {
+	builder := &EntityFieldResultBuilder{}
+	return builder
+}
+
+// 实体key
+//
+// 示例值：user
+func (builder *EntityFieldResultBuilder) EntityKey(entityKey string) *EntityFieldResultBuilder {
+	builder.entityKey = entityKey
+	builder.entityKeyFlag = true
+	return builder
+}
+
+// 实体的字段Key
+//
+// 示例值：id
+func (builder *EntityFieldResultBuilder) FieldKey(fieldKey string) *EntityFieldResultBuilder {
+	builder.fieldKey = fieldKey
+	builder.fieldKeyFlag = true
+	return builder
+}
+
+// 名称信息
+//
+// 示例值：
+func (builder *EntityFieldResultBuilder) FieldName(fieldName *Name) *EntityFieldResultBuilder {
+	builder.fieldName = fieldName
+	builder.fieldNameFlag = true
+	return builder
+}
+
+func (builder *EntityFieldResultBuilder) Build() *EntityFieldResult {
+	req := &EntityFieldResult{}
+	if builder.entityKeyFlag {
+		req.EntityKey = &builder.entityKey
+
+	}
+	if builder.fieldKeyFlag {
+		req.FieldKey = &builder.fieldKey
+
+	}
+	if builder.fieldNameFlag {
+		req.FieldName = builder.fieldName
+	}
+	return req
+}
+
 type Enum struct {
 	EnumName *string `json:"enum_name,omitempty"` // 枚举值
 
@@ -7753,6 +7887,8 @@ type FilterExpression struct {
 	Conditions []*FilterCondition `json:"conditions,omitempty"` // 规则
 
 	Expression *string `json:"expression,omitempty"` // 表达式
+
+	LogicExpression *string `json:"logic_expression,omitempty"` // 表达式
 }
 
 type FilterExpressionBuilder struct {
@@ -7761,6 +7897,9 @@ type FilterExpressionBuilder struct {
 
 	expression     string // 表达式
 	expressionFlag bool
+
+	logicExpression     string // 表达式
+	logicExpressionFlag bool
 }
 
 func NewFilterExpressionBuilder() *FilterExpressionBuilder {
@@ -7786,6 +7925,15 @@ func (builder *FilterExpressionBuilder) Expression(expression string) *FilterExp
 	return builder
 }
 
+// 表达式
+//
+// 示例值：1 and 2
+func (builder *FilterExpressionBuilder) LogicExpression(logicExpression string) *FilterExpressionBuilder {
+	builder.logicExpression = logicExpression
+	builder.logicExpressionFlag = true
+	return builder
+}
+
 func (builder *FilterExpressionBuilder) Build() *FilterExpression {
 	req := &FilterExpression{}
 	if builder.conditionsFlag {
@@ -7793,6 +7941,10 @@ func (builder *FilterExpressionBuilder) Build() *FilterExpression {
 	}
 	if builder.expressionFlag {
 		req.Expression = &builder.expression
+
+	}
+	if builder.logicExpressionFlag {
+		req.LogicExpression = &builder.logicExpression
 
 	}
 	return req
@@ -11085,6 +11237,10 @@ type LeaveBalance struct {
 	TakenCurrentDate *string `json:"taken_current_date,omitempty"` // 已休时长（截止当日）
 
 	OffboardingGranted *string `json:"offboarding_granted,omitempty"` // 本周期授予时长（离职折算）
+
+	LeaveBalanceExcludingUnderApproval *string `json:"leave_balance_excluding_under_approval,omitempty"` // 假期余额（不包含审批中）
+
+	LeaveQuantityUnderApproval *string `json:"leave_quantity_under_approval,omitempty"` // 审批中额度
 }
 
 type LeaveBalanceBuilder struct {
@@ -11129,6 +11285,12 @@ type LeaveBalanceBuilder struct {
 
 	offboardingGranted     string // 本周期授予时长（离职折算）
 	offboardingGrantedFlag bool
+
+	leaveBalanceExcludingUnderApproval     string // 假期余额（不包含审批中）
+	leaveBalanceExcludingUnderApprovalFlag bool
+
+	leaveQuantityUnderApproval     string // 审批中额度
+	leaveQuantityUnderApprovalFlag bool
 }
 
 func NewLeaveBalanceBuilder() *LeaveBalanceBuilder {
@@ -11262,6 +11424,24 @@ func (builder *LeaveBalanceBuilder) OffboardingGranted(offboardingGranted string
 	return builder
 }
 
+// 假期余额（不包含审批中）
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) LeaveBalanceExcludingUnderApproval(leaveBalanceExcludingUnderApproval string) *LeaveBalanceBuilder {
+	builder.leaveBalanceExcludingUnderApproval = leaveBalanceExcludingUnderApproval
+	builder.leaveBalanceExcludingUnderApprovalFlag = true
+	return builder
+}
+
+// 审批中额度
+//
+// 示例值：0
+func (builder *LeaveBalanceBuilder) LeaveQuantityUnderApproval(leaveQuantityUnderApproval string) *LeaveBalanceBuilder {
+	builder.leaveQuantityUnderApproval = leaveQuantityUnderApproval
+	builder.leaveQuantityUnderApprovalFlag = true
+	return builder
+}
+
 func (builder *LeaveBalanceBuilder) Build() *LeaveBalance {
 	req := &LeaveBalance{}
 	if builder.leaveTypeIdFlag {
@@ -11317,6 +11497,14 @@ func (builder *LeaveBalanceBuilder) Build() *LeaveBalance {
 	}
 	if builder.offboardingGrantedFlag {
 		req.OffboardingGranted = &builder.offboardingGranted
+
+	}
+	if builder.leaveBalanceExcludingUnderApprovalFlag {
+		req.LeaveBalanceExcludingUnderApproval = &builder.leaveBalanceExcludingUnderApproval
+
+	}
+	if builder.leaveQuantityUnderApprovalFlag {
+		req.LeaveQuantityUnderApproval = &builder.leaveQuantityUnderApproval
 
 	}
 	return req
@@ -11385,6 +11573,56 @@ func (builder *LeaveDurationBuilder) Build() *LeaveDuration {
 	}
 	if builder.durationPerDayFlag {
 		req.DurationPerDay = &builder.durationPerDay
+
+	}
+	return req
+}
+
+type LeaveExtendItem struct {
+	Key *string `json:"key,omitempty"` // 扩展字段的键
+
+	Value *string `json:"value,omitempty"` // 扩展字段的值
+}
+
+type LeaveExtendItemBuilder struct {
+	key     string // 扩展字段的键
+	keyFlag bool
+
+	value     string // 扩展字段的值
+	valueFlag bool
+}
+
+func NewLeaveExtendItemBuilder() *LeaveExtendItemBuilder {
+	builder := &LeaveExtendItemBuilder{}
+	return builder
+}
+
+// 扩展字段的键
+//
+// 示例值：SampleKey
+func (builder *LeaveExtendItemBuilder) Key(key string) *LeaveExtendItemBuilder {
+	builder.key = key
+	builder.keyFlag = true
+	return builder
+}
+
+// 扩展字段的值
+//
+// 示例值：SampleValue
+func (builder *LeaveExtendItemBuilder) Value(value string) *LeaveExtendItemBuilder {
+	builder.value = value
+	builder.valueFlag = true
+	return builder
+}
+
+func (builder *LeaveExtendItemBuilder) Build() *LeaveExtendItem {
+	req := &LeaveExtendItem{}
+	if builder.keyFlag {
+		req.Key = &builder.key
+
+	}
+	if builder.valueFlag {
+		req.Value = &builder.value
 
 	}
 	return req
@@ -11781,6 +12019,8 @@ type LeaveRequest struct {
 	WdPaidType *int `json:"wd_paid_type,omitempty"` // workDay算薪类型
 
 	LeaveCorrectProcessInfo []*LeaveProcessInfo `json:"leave_correct_process_info,omitempty"` // 请假更正流程信息
+
+	WorkdayExtendInfos []*LeaveExtendItem `json:"workday_extend_infos,omitempty"` // workday扩展字段信息
 }
 
 type LeaveRequestBuilder struct {
@@ -11870,6 +12110,9 @@ type LeaveRequestBuilder struct {
 
 	leaveCorrectProcessInfo     []*LeaveProcessInfo // 请假更正流程信息
 	leaveCorrectProcessInfoFlag bool
+
+	workdayExtendInfos     []*LeaveExtendItem // workday扩展字段信息
+	workdayExtendInfosFlag bool
 }
 
 func NewLeaveRequestBuilder() *LeaveRequestBuilder {
@@ -12138,6 +12381,15 @@ func (builder *LeaveRequestBuilder) LeaveCorrectProcessInfo(leaveCorrectProcessI
 	return builder
 }
 
+// workday扩展字段信息
+//
+// 示例值：
+func (builder *LeaveRequestBuilder) WorkdayExtendInfos(workdayExtendInfos []*LeaveExtendItem) *LeaveRequestBuilder {
+	builder.workdayExtendInfos = workdayExtendInfos
+	builder.workdayExtendInfosFlag = true
+	return builder
+}
+
 func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	req := &LeaveRequest{}
 	if builder.leaveRequestIdFlag {
@@ -12247,6 +12499,9 @@ func (builder *LeaveRequestBuilder) Build() *LeaveRequest {
 	}
 	if builder.leaveCorrectProcessInfoFlag {
 		req.LeaveCorrectProcessInfo = builder.leaveCorrectProcessInfo
+	}
+	if builder.workdayExtendInfosFlag {
+		req.WorkdayExtendInfos = builder.workdayExtendInfos
 	}
 	return req
 }
@@ -22553,6 +22808,70 @@ func (builder *MatchCompensationStandardReqBuilder) EffectiveTime(effectiveTime 
 	return builder
 }
 
+// 绩效周期ID
+//
+// 示例值：7527790505990932012
+func (builder *MatchCompensationStandardReqBuilder) PerformanceReviewPeriodId(performanceReviewPeriodId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("performance_review_period_id", fmt.Sprint(performanceReviewPeriodId))
+	return builder
+}
+
+// 绩效评估项ID
+//
+// 示例值：7382324314454492716
+func (builder *MatchCompensationStandardReqBuilder) PerformanceIndicatorId(performanceIndicatorId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("performance_indicator_id", fmt.Sprint(performanceIndicatorId))
+	return builder
+}
+
+// 绩效等级ID
+//
+// 示例值：7382324475995670060
+func (builder *MatchCompensationStandardReqBuilder) PerformanceScoreGradeId(performanceScoreGradeId string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("performance_score_grade_id", fmt.Sprint(performanceScoreGradeId))
+	return builder
+}
+
+// 自定义组织1 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg1Ids(customOrg1Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_1_ids", fmt.Sprint(customOrg1Ids))
+	return builder
+}
+
+// 自定义组织2 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg2Ids(customOrg2Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_2_ids", fmt.Sprint(customOrg2Ids))
+	return builder
+}
+
+// 自定义组织3 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg3Ids(customOrg3Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_3_ids", fmt.Sprint(customOrg3Ids))
+	return builder
+}
+
+// 自定义组织4 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg4Ids(customOrg4Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_4_ids", fmt.Sprint(customOrg4Ids))
+	return builder
+}
+
+// 自定义组织5 IDs
+//
+// 示例值：7530538330711508524
+func (builder *MatchCompensationStandardReqBuilder) CustomOrg5Ids(customOrg5Ids string) *MatchCompensationStandardReqBuilder {
+	builder.apiReq.QueryParams.Set("custom_org_5_ids", fmt.Sprint(customOrg5Ids))
+	return builder
+}
+
 func (builder *MatchCompensationStandardReqBuilder) Build() *MatchCompensationStandardReq {
 	req := &MatchCompensationStandardReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -24794,19 +25113,10 @@ func (builder *DeleteJobDataReqBuilder) JobDataId(jobDataId string) *DeleteJobDa
 	return builder
 }
 
-// 需要删除的任职记录版本 ID
-//
-// 示例值：1616161616
-func (builder *DeleteJobDataReqBuilder) VersionId(versionId string) *DeleteJobDataReqBuilder {
-	builder.apiReq.QueryParams.Set("version_id", fmt.Sprint(versionId))
-	return builder
-}
-
 func (builder *DeleteJobDataReqBuilder) Build() *DeleteJobDataReq {
 	req := &DeleteJobDataReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
 	return req
 }
 
@@ -29589,6 +29899,28 @@ type PatchWorkingHoursTypeResp struct {
 
 func (resp *PatchWorkingHoursTypeResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2CommonDataIdUserMappingChangedV1Data struct {
+	ChangeType *string `json:"change_type,omitempty"` // 变更类型，取值范围：insert、delete
+
+	IdTransformType *int `json:"id_transform_type,omitempty"` // ID转换类型。1:飞书人事<->飞书，2:飞书人事<->PeopleAdmin，3:PeopleAdmin<->飞书
+
+	CorehrId *string `json:"corehr_id,omitempty"` // 飞书人事ID，仅id_transform_type等于1、2时有值
+
+	PeopleAdminId *string `json:"people_admin_id,omitempty"` // PeopleAdmin ID，仅id_transform_type等于2、3时有值
+
+	FeishuId *UserId `json:"feishu_id,omitempty"` // 飞书ID，仅id_transform_type等于1、3时有值
+}
+
+type P2CommonDataIdUserMappingChangedV1 struct {
+	*larkevent.EventV2Base                                         // 事件基础数据
+	*larkevent.EventReq                                            // 请求原生数据
+	Event                  *P2CommonDataIdUserMappingChangedV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2CommonDataIdUserMappingChangedV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type P2CommonDataMetaDataUpdatedV1Data struct {

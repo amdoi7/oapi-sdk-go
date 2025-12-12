@@ -23,6 +23,9 @@ type V1 struct {
 	SeatActivity                      *seatActivity                      // seat_activity
 	SeatAssignment                    *seatAssignment                    // seat_assignment
 	UserTask                          *userTask                          // user_task
+	Workspace                         *workspace                         // workspace
+	WorkspaceTable                    *workspaceTable                    // workspace.table
+	WorkspaceView                     *workspaceView                     // workspace.view
 }
 
 func New(config *larkcore.Config) *V1 {
@@ -41,6 +44,9 @@ func New(config *larkcore.Config) *V1 {
 		SeatActivity:                      &seatActivity{config: config},
 		SeatAssignment:                    &seatAssignment{config: config},
 		UserTask:                          &userTask{config: config},
+		Workspace:                         &workspace{config: config},
+		WorkspaceTable:                    &workspaceTable{config: config},
+		WorkspaceView:                     &workspaceView{config: config},
 	}
 }
 
@@ -84,6 +90,15 @@ type seatAssignment struct {
 	config *larkcore.Config
 }
 type userTask struct {
+	config *larkcore.Config
+}
+type workspace struct {
+	config *larkcore.Config
+}
+type workspaceTable struct {
+	config *larkcore.Config
+}
+type workspaceView struct {
 	config *larkcore.Config
 }
 
@@ -1067,6 +1082,188 @@ func (u *userTask) RollbackPoints(ctx context.Context, req *RollbackPointsUserTa
 	// 反序列响应结果
 	resp := &RollbackPointsUserTaskResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// SqlCommands
+//
+// - 执行 SQL
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=sql_commands&project=apaas&resource=workspace&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/sqlCommands_workspace.go
+func (w *workspace) SqlCommands(ctx context.Context, req *SqlCommandsWorkspaceReq, options ...larkcore.RequestOptionFunc) (*SqlCommandsWorkspaceResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/sql_commands"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SqlCommandsWorkspaceResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RecordsBatchUpdate
+//
+// - 批量更新数据表中的记录
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=records_batch_update&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/recordsBatchUpdate_workspaceTable.go
+func (w *workspaceTable) RecordsBatchUpdate(ctx context.Context, req *RecordsBatchUpdateWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*RecordsBatchUpdateWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records_batch_update"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecordsBatchUpdateWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RecordsDelete
+//
+// - 删除数据表中的记录
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=records_delete&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/recordsDelete_workspaceTable.go
+func (w *workspaceTable) RecordsDelete(ctx context.Context, req *RecordsDeleteWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*RecordsDeleteWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records"
+	apiReq.HttpMethod = http.MethodDelete
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecordsDeleteWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RecordsGet
+//
+// - 查询数据表数据记录
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=records_get&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/recordsGet_workspaceTable.go
+func (w *workspaceTable) RecordsGet(ctx context.Context, req *RecordsGetWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*RecordsGetWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecordsGetWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RecordsPatch
+//
+// - 按条件更新数据表中的记录
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=records_patch&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/recordsPatch_workspaceTable.go
+func (w *workspaceTable) RecordsPatch(ctx context.Context, req *RecordsPatchWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*RecordsPatchWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records"
+	apiReq.HttpMethod = http.MethodPatch
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecordsPatchWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// RecordsPost
+//
+// - 向数据表中添加或更新记录
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=records_post&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/recordsPost_workspaceTable.go
+func (w *workspaceTable) RecordsPost(ctx context.Context, req *RecordsPostWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*RecordsPostWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name/records"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &RecordsPostWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// ViewsGet
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=views_get&project=apaas&resource=workspace.view&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/viewsGet_workspaceView.go
+func (w *workspaceView) ViewsGet(ctx context.Context, req *ViewsGetWorkspaceViewReq, options ...larkcore.RequestOptionFunc) (*ViewsGetWorkspaceViewResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/views/:view_name/records"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ViewsGetWorkspaceViewResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
 	if err != nil {
 		return nil, err
 	}

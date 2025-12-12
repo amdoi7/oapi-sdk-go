@@ -238,6 +238,10 @@ type Attachment struct {
 	Id *string `json:"id,omitempty"` // 附件 id
 
 	AttachmentType *int `json:"attachment_type,omitempty"` // 附件类型
+
+	IsInline *bool `json:"is_inline,omitempty"` // 是否为内联图片，true 表示是内联图片
+
+	Cid *string `json:"cid,omitempty"` // 内容 ID，HTML 中通过 cid: 协议引用该图片
 }
 
 type AttachmentBuilder struct {
@@ -252,6 +256,12 @@ type AttachmentBuilder struct {
 
 	attachmentType     int // 附件类型
 	attachmentTypeFlag bool
+
+	isInline     bool // 是否为内联图片，true 表示是内联图片
+	isInlineFlag bool
+
+	cid     string // 内容 ID，HTML 中通过 cid: 协议引用该图片
+	cidFlag bool
 }
 
 func NewAttachmentBuilder() *AttachmentBuilder {
@@ -295,6 +305,24 @@ func (builder *AttachmentBuilder) AttachmentType(attachmentType int) *Attachment
 	return builder
 }
 
+// 是否为内联图片，true 表示是内联图片
+//
+// 示例值：false
+func (builder *AttachmentBuilder) IsInline(isInline bool) *AttachmentBuilder {
+	builder.isInline = isInline
+	builder.isInlineFlag = true
+	return builder
+}
+
+// 内容 ID，HTML 中通过 cid: 协议引用该图片
+//
+// 示例值：image1@example.com
+func (builder *AttachmentBuilder) Cid(cid string) *AttachmentBuilder {
+	builder.cid = cid
+	builder.cidFlag = true
+	return builder
+}
+
 func (builder *AttachmentBuilder) Build() *Attachment {
 	req := &Attachment{}
 	if builder.bodyFlag {
@@ -311,6 +339,14 @@ func (builder *AttachmentBuilder) Build() *Attachment {
 	}
 	if builder.attachmentTypeFlag {
 		req.AttachmentType = &builder.attachmentType
+
+	}
+	if builder.isInlineFlag {
+		req.IsInline = &builder.isInline
+
+	}
+	if builder.cidFlag {
+		req.Cid = &builder.cid
 
 	}
 	return req
@@ -416,6 +452,91 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
+type DomainIncrementalSwitch struct {
+	DomainName *string `json:"domain_name,omitempty"` // 域名名称
+
+	Items []*IncrementalSwitchEntity `json:"items,omitempty"` // 实体列表
+
+	UserIdType *string `json:"user_id_type,omitempty"` // 用户 ID 类型
+
+	DepartmentIdType *string `json:"department_id_type,omitempty"` // 部门ID类型
+}
+
+type DomainIncrementalSwitchBuilder struct {
+	domainName     string // 域名名称
+	domainNameFlag bool
+
+	items     []*IncrementalSwitchEntity // 实体列表
+	itemsFlag bool
+
+	userIdType     string // 用户 ID 类型
+	userIdTypeFlag bool
+
+	departmentIdType     string // 部门ID类型
+	departmentIdTypeFlag bool
+}
+
+func NewDomainIncrementalSwitchBuilder() *DomainIncrementalSwitchBuilder {
+	builder := &DomainIncrementalSwitchBuilder{}
+	return builder
+}
+
+// 域名名称
+//
+// 示例值：test.com
+func (builder *DomainIncrementalSwitchBuilder) DomainName(domainName string) *DomainIncrementalSwitchBuilder {
+	builder.domainName = domainName
+	builder.domainNameFlag = true
+	return builder
+}
+
+// 实体列表
+//
+// 示例值：
+func (builder *DomainIncrementalSwitchBuilder) Items(items []*IncrementalSwitchEntity) *DomainIncrementalSwitchBuilder {
+	builder.items = items
+	builder.itemsFlag = true
+	return builder
+}
+
+// 用户 ID 类型
+//
+// 示例值：xxxx
+func (builder *DomainIncrementalSwitchBuilder) UserIdType(userIdType string) *DomainIncrementalSwitchBuilder {
+	builder.userIdType = userIdType
+	builder.userIdTypeFlag = true
+	return builder
+}
+
+// 部门ID类型
+//
+// 示例值：xxxx
+func (builder *DomainIncrementalSwitchBuilder) DepartmentIdType(departmentIdType string) *DomainIncrementalSwitchBuilder {
+	builder.departmentIdType = departmentIdType
+	builder.departmentIdTypeFlag = true
+	return builder
+}
+
+func (builder *DomainIncrementalSwitchBuilder) Build() *DomainIncrementalSwitch {
+	req := &DomainIncrementalSwitch{}
+	if builder.domainNameFlag {
+		req.DomainName = &builder.domainName
+
+	}
+	if builder.itemsFlag {
+		req.Items = builder.items
+	}
+	if builder.userIdTypeFlag {
+		req.UserIdType = &builder.userIdType
+
+	}
+	if builder.departmentIdTypeFlag {
+		req.DepartmentIdType = &builder.departmentIdType
+
+	}
+	return req
+}
+
 type EmailAlias struct {
 	PrimaryEmail *string `json:"primary_email,omitempty"` // 主邮箱地址
 
@@ -461,6 +582,74 @@ func (builder *EmailAliasBuilder) Build() *EmailAlias {
 	}
 	if builder.emailAliasFlag {
 		req.EmailAlias = &builder.emailAlias
+
+	}
+	return req
+}
+
+type EnterpriseEmailChangeEvent struct {
+	OpenId *string `json:"open_id,omitempty"` // 用户ID
+
+	EventId *string `json:"event_id,omitempty"` // 事件ID
+
+	EventType *int `json:"event_type,omitempty"` // 事件类型
+}
+
+type EnterpriseEmailChangeEventBuilder struct {
+	openId     string // 用户ID
+	openIdFlag bool
+
+	eventId     string // 事件ID
+	eventIdFlag bool
+
+	eventType     int // 事件类型
+	eventTypeFlag bool
+}
+
+func NewEnterpriseEmailChangeEventBuilder() *EnterpriseEmailChangeEventBuilder {
+	builder := &EnterpriseEmailChangeEventBuilder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：
+func (builder *EnterpriseEmailChangeEventBuilder) OpenId(openId string) *EnterpriseEmailChangeEventBuilder {
+	builder.openId = openId
+	builder.openIdFlag = true
+	return builder
+}
+
+// 事件ID
+//
+// 示例值：123_123
+func (builder *EnterpriseEmailChangeEventBuilder) EventId(eventId string) *EnterpriseEmailChangeEventBuilder {
+	builder.eventId = eventId
+	builder.eventIdFlag = true
+	return builder
+}
+
+// 事件类型
+//
+// 示例值：1
+func (builder *EnterpriseEmailChangeEventBuilder) EventType(eventType int) *EnterpriseEmailChangeEventBuilder {
+	builder.eventType = eventType
+	builder.eventTypeFlag = true
+	return builder
+}
+
+func (builder *EnterpriseEmailChangeEventBuilder) Build() *EnterpriseEmailChangeEvent {
+	req := &EnterpriseEmailChangeEvent{}
+	if builder.openIdFlag {
+		req.OpenId = &builder.openId
+
+	}
+	if builder.eventIdFlag {
+		req.EventId = &builder.eventId
+
+	}
+	if builder.eventTypeFlag {
+		req.EventType = &builder.eventType
 
 	}
 	return req
@@ -760,6 +949,110 @@ func (builder *FolderBuilder) Build() *Folder {
 	return req
 }
 
+type IncrementalSwitchEntity struct {
+	EntityType *string `json:"entity_type,omitempty"` // 实体类型
+
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	Email *string `json:"email,omitempty"` // 邮箱地址
+
+	LarkDepartmentId *string `json:"lark_department_id,omitempty"` // 部门ID
+
+	GroupId *string `json:"group_id,omitempty"` // 用户组ID
+}
+
+type IncrementalSwitchEntityBuilder struct {
+	entityType     string // 实体类型
+	entityTypeFlag bool
+
+	userId     string // 用户ID
+	userIdFlag bool
+
+	email     string // 邮箱地址
+	emailFlag bool
+
+	larkDepartmentId     string // 部门ID
+	larkDepartmentIdFlag bool
+
+	groupId     string // 用户组ID
+	groupIdFlag bool
+}
+
+func NewIncrementalSwitchEntityBuilder() *IncrementalSwitchEntityBuilder {
+	builder := &IncrementalSwitchEntityBuilder{}
+	return builder
+}
+
+// 实体类型
+//
+// 示例值：
+func (builder *IncrementalSwitchEntityBuilder) EntityType(entityType string) *IncrementalSwitchEntityBuilder {
+	builder.entityType = entityType
+	builder.entityTypeFlag = true
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：abcd
+func (builder *IncrementalSwitchEntityBuilder) UserId(userId string) *IncrementalSwitchEntityBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 邮箱地址
+//
+// 示例值：test@test.com
+func (builder *IncrementalSwitchEntityBuilder) Email(email string) *IncrementalSwitchEntityBuilder {
+	builder.email = email
+	builder.emailFlag = true
+	return builder
+}
+
+// 部门ID
+//
+// 示例值：xxxx
+func (builder *IncrementalSwitchEntityBuilder) LarkDepartmentId(larkDepartmentId string) *IncrementalSwitchEntityBuilder {
+	builder.larkDepartmentId = larkDepartmentId
+	builder.larkDepartmentIdFlag = true
+	return builder
+}
+
+// 用户组ID
+//
+// 示例值：xxxx
+func (builder *IncrementalSwitchEntityBuilder) GroupId(groupId string) *IncrementalSwitchEntityBuilder {
+	builder.groupId = groupId
+	builder.groupIdFlag = true
+	return builder
+}
+
+func (builder *IncrementalSwitchEntityBuilder) Build() *IncrementalSwitchEntity {
+	req := &IncrementalSwitchEntity{}
+	if builder.entityTypeFlag {
+		req.EntityType = &builder.entityType
+
+	}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.emailFlag {
+		req.Email = &builder.email
+
+	}
+	if builder.larkDepartmentIdFlag {
+		req.LarkDepartmentId = &builder.larkDepartmentId
+
+	}
+	if builder.groupIdFlag {
+		req.GroupId = &builder.groupId
+
+	}
+	return req
+}
+
 type MailAddress struct {
 	MailAddress *string `json:"mail_address,omitempty"` // 邮件地址
 
@@ -1049,6 +1342,38 @@ func (builder *MailFlowRuleInfoBuilder) Build() *MailFlowRuleInfo {
 	}
 	if builder.actionCategoryFlag {
 		req.ActionCategory = &builder.actionCategory
+
+	}
+	return req
+}
+
+type MailGroupAsSenderPermissionMember struct {
+	UserId *string `json:"user_id,omitempty"` // 租户内用户的唯一标识
+}
+
+type MailGroupAsSenderPermissionMemberBuilder struct {
+	userId     string // 租户内用户的唯一标识
+	userIdFlag bool
+}
+
+func NewMailGroupAsSenderPermissionMemberBuilder() *MailGroupAsSenderPermissionMemberBuilder {
+	builder := &MailGroupAsSenderPermissionMemberBuilder{}
+	return builder
+}
+
+// 租户内用户的唯一标识
+//
+// 示例值：
+func (builder *MailGroupAsSenderPermissionMemberBuilder) UserId(userId string) *MailGroupAsSenderPermissionMemberBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+func (builder *MailGroupAsSenderPermissionMemberBuilder) Build() *MailGroupAsSenderPermissionMember {
+	req := &MailGroupAsSenderPermissionMember{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
 
 	}
 	return req
@@ -2101,6 +2426,128 @@ func (builder *MessageBuilder) Build() *Message {
 	}
 	if builder.threadIdFlag {
 		req.ThreadId = &builder.threadId
+
+	}
+	return req
+}
+
+type MessageMeta struct {
+	MessageId *string `json:"message_id,omitempty"` // 邮件的唯一标识符
+
+	ThreadId *string `json:"thread_id,omitempty"` // 邮件所属会话的唯一标识符
+
+	FolderId *string `json:"folder_id,omitempty"` // 邮件所属文件夹的ID
+
+	SmtpMessageId *string `json:"smtp_message_id,omitempty"` // SMTP协议中使用的邮件ID（符合RFC 2822标准）
+
+	InternalDate *string `json:"internal_date,omitempty"` // 创建/收/发信时间（毫秒）
+
+	MessageState *int `json:"message_state,omitempty"` // 邮件状态
+}
+
+type MessageMetaBuilder struct {
+	messageId     string // 邮件的唯一标识符
+	messageIdFlag bool
+
+	threadId     string // 邮件所属会话的唯一标识符
+	threadIdFlag bool
+
+	folderId     string // 邮件所属文件夹的ID
+	folderIdFlag bool
+
+	smtpMessageId     string // SMTP协议中使用的邮件ID（符合RFC 2822标准）
+	smtpMessageIdFlag bool
+
+	internalDate     string // 创建/收/发信时间（毫秒）
+	internalDateFlag bool
+
+	messageState     int // 邮件状态
+	messageStateFlag bool
+}
+
+func NewMessageMetaBuilder() *MessageMetaBuilder {
+	builder := &MessageMetaBuilder{}
+	return builder
+}
+
+// 邮件的唯一标识符
+//
+// 示例值：msg_123456
+func (builder *MessageMetaBuilder) MessageId(messageId string) *MessageMetaBuilder {
+	builder.messageId = messageId
+	builder.messageIdFlag = true
+	return builder
+}
+
+// 邮件所属会话的唯一标识符
+//
+// 示例值：thread_789
+func (builder *MessageMetaBuilder) ThreadId(threadId string) *MessageMetaBuilder {
+	builder.threadId = threadId
+	builder.threadIdFlag = true
+	return builder
+}
+
+// 邮件所属文件夹的ID
+//
+// 示例值："INBOX"
+func (builder *MessageMetaBuilder) FolderId(folderId string) *MessageMetaBuilder {
+	builder.folderId = folderId
+	builder.folderIdFlag = true
+	return builder
+}
+
+// SMTP协议中使用的邮件ID（符合RFC 2822标准）
+//
+// 示例值：123456@example.com
+func (builder *MessageMetaBuilder) SmtpMessageId(smtpMessageId string) *MessageMetaBuilder {
+	builder.smtpMessageId = smtpMessageId
+	builder.smtpMessageIdFlag = true
+	return builder
+}
+
+// 创建/收/发信时间（毫秒）
+//
+// 示例值：1651234567890
+func (builder *MessageMetaBuilder) InternalDate(internalDate string) *MessageMetaBuilder {
+	builder.internalDate = internalDate
+	builder.internalDateFlag = true
+	return builder
+}
+
+// 邮件状态
+//
+// 示例值：1
+func (builder *MessageMetaBuilder) MessageState(messageState int) *MessageMetaBuilder {
+	builder.messageState = messageState
+	builder.messageStateFlag = true
+	return builder
+}
+
+func (builder *MessageMetaBuilder) Build() *MessageMeta {
+	req := &MessageMeta{}
+	if builder.messageIdFlag {
+		req.MessageId = &builder.messageId
+
+	}
+	if builder.threadIdFlag {
+		req.ThreadId = &builder.threadId
+
+	}
+	if builder.folderIdFlag {
+		req.FolderId = &builder.folderId
+
+	}
+	if builder.smtpMessageIdFlag {
+		req.SmtpMessageId = &builder.smtpMessageId
+
+	}
+	if builder.internalDateFlag {
+		req.InternalDate = &builder.internalDate
+
+	}
+	if builder.messageStateFlag {
+		req.MessageState = &builder.messageState
 
 	}
 	return req
@@ -7239,9 +7686,324 @@ func (resp *ListUserMailboxMessageResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SendUserMailboxMessageReqBodyBuilder struct {
+	subject     string // 主题
+	subjectFlag bool
+
+	to     []*MailAddress // 收件人
+	toFlag bool
+
+	raw     string // 原始EML信息base64后的字符串
+	rawFlag bool
+
+	cc     []*MailAddress // 抄送
+	ccFlag bool
+
+	bcc     []*MailAddress // 密送
+	bccFlag bool
+
+	bodyHtml     string // 正文
+	bodyHtmlFlag bool
+
+	bodyPlainText     string // 正文纯文本
+	bodyPlainTextFlag bool
+
+	attachments     []*Attachment // 附件
+	attachmentsFlag bool
+
+	dedupeKey     string // 去重键
+	dedupeKeyFlag bool
+
+	headFrom     *MailAddress // EML中发件人信息
+	headFromFlag bool
+}
+
+func NewSendUserMailboxMessageReqBodyBuilder() *SendUserMailboxMessageReqBodyBuilder {
+	builder := &SendUserMailboxMessageReqBodyBuilder{}
+	return builder
+}
+
+// 主题
+//
+//示例值：邮件标题
+func (builder *SendUserMailboxMessageReqBodyBuilder) Subject(subject string) *SendUserMailboxMessageReqBodyBuilder {
+	builder.subject = subject
+	builder.subjectFlag = true
+	return builder
+}
+
+// 收件人
+//
+//示例值：
+func (builder *SendUserMailboxMessageReqBodyBuilder) To(to []*MailAddress) *SendUserMailboxMessageReqBodyBuilder {
+	builder.to = to
+	builder.toFlag = true
+	return builder
+}
+
+// 原始EML信息base64后的字符串
+//
+//示例值：U3ViamVjdDogSGVsbG8hCkZyb206ICJtaWtlIiA8bWlrZUBtaWtlLmNvbT4KTWltZS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRpdmU7CiBib3VuZGFyeT1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKRGF0ZTogV2VkLCAyMyBKdWwgMjAyNSAxNTo0NDoxOCArMDgwMApNZXNzYWdlLUlkOiA8bW9ja3V1aWRtZXNzYWdlX2lkQGxhcmsuY29tPgpUbzogImphY2siIDxqYWNrQGphY2suY29tPgoKLS1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKCldlbGNvbWUgdG8gTGFyayBtYWlsIQotLWIyOGZhMjI0YTFlZTZkNjdmMTc5NWI0ZTFkMTAzZDcxMGU3MzllZWZiMWZmOWY5ZDg1YjgzY2U5NGYxMQo=
+func (builder *SendUserMailboxMessageReqBodyBuilder) Raw(raw string) *SendUserMailboxMessageReqBodyBuilder {
+	builder.raw = raw
+	builder.rawFlag = true
+	return builder
+}
+
+// 抄送
+//
+//示例值：
+func (builder *SendUserMailboxMessageReqBodyBuilder) Cc(cc []*MailAddress) *SendUserMailboxMessageReqBodyBuilder {
+	builder.cc = cc
+	builder.ccFlag = true
+	return builder
+}
+
+// 密送
+//
+//示例值：
+func (builder *SendUserMailboxMessageReqBodyBuilder) Bcc(bcc []*MailAddress) *SendUserMailboxMessageReqBodyBuilder {
+	builder.bcc = bcc
+	builder.bccFlag = true
+	return builder
+}
+
+// 正文
+//
+//示例值：xxxx
+func (builder *SendUserMailboxMessageReqBodyBuilder) BodyHtml(bodyHtml string) *SendUserMailboxMessageReqBodyBuilder {
+	builder.bodyHtml = bodyHtml
+	builder.bodyHtmlFlag = true
+	return builder
+}
+
+// 正文纯文本
+//
+//示例值：xxxx
+func (builder *SendUserMailboxMessageReqBodyBuilder) BodyPlainText(bodyPlainText string) *SendUserMailboxMessageReqBodyBuilder {
+	builder.bodyPlainText = bodyPlainText
+	builder.bodyPlainTextFlag = true
+	return builder
+}
+
+// 附件
+//
+//示例值：
+func (builder *SendUserMailboxMessageReqBodyBuilder) Attachments(attachments []*Attachment) *SendUserMailboxMessageReqBodyBuilder {
+	builder.attachments = attachments
+	builder.attachmentsFlag = true
+	return builder
+}
+
+// 去重键
+//
+//示例值：abc-ddd-eee-fff-ggg
+func (builder *SendUserMailboxMessageReqBodyBuilder) DedupeKey(dedupeKey string) *SendUserMailboxMessageReqBodyBuilder {
+	builder.dedupeKey = dedupeKey
+	builder.dedupeKeyFlag = true
+	return builder
+}
+
+// EML中发件人信息
+//
+//示例值：
+func (builder *SendUserMailboxMessageReqBodyBuilder) HeadFrom(headFrom *MailAddress) *SendUserMailboxMessageReqBodyBuilder {
+	builder.headFrom = headFrom
+	builder.headFromFlag = true
+	return builder
+}
+
+func (builder *SendUserMailboxMessageReqBodyBuilder) Build() *SendUserMailboxMessageReqBody {
+	req := &SendUserMailboxMessageReqBody{}
+	if builder.subjectFlag {
+		req.Subject = &builder.subject
+	}
+	if builder.toFlag {
+		req.To = builder.to
+	}
+	if builder.rawFlag {
+		req.Raw = &builder.raw
+	}
+	if builder.ccFlag {
+		req.Cc = builder.cc
+	}
+	if builder.bccFlag {
+		req.Bcc = builder.bcc
+	}
+	if builder.bodyHtmlFlag {
+		req.BodyHtml = &builder.bodyHtml
+	}
+	if builder.bodyPlainTextFlag {
+		req.BodyPlainText = &builder.bodyPlainText
+	}
+	if builder.attachmentsFlag {
+		req.Attachments = builder.attachments
+	}
+	if builder.dedupeKeyFlag {
+		req.DedupeKey = &builder.dedupeKey
+	}
+	if builder.headFromFlag {
+		req.HeadFrom = builder.headFrom
+	}
+	return req
+}
+
+type SendUserMailboxMessagePathReqBodyBuilder struct {
+	subject           string
+	subjectFlag       bool
+	to                []*MailAddress
+	toFlag            bool
+	raw               string
+	rawFlag           bool
+	cc                []*MailAddress
+	ccFlag            bool
+	bcc               []*MailAddress
+	bccFlag           bool
+	bodyHtml          string
+	bodyHtmlFlag      bool
+	bodyPlainText     string
+	bodyPlainTextFlag bool
+	attachments       []*Attachment
+	attachmentsFlag   bool
+	dedupeKey         string
+	dedupeKeyFlag     bool
+	headFrom          *MailAddress
+	headFromFlag      bool
+}
+
+func NewSendUserMailboxMessagePathReqBodyBuilder() *SendUserMailboxMessagePathReqBodyBuilder {
+	builder := &SendUserMailboxMessagePathReqBodyBuilder{}
+	return builder
+}
+
+// 主题
+//
+// 示例值：邮件标题
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) Subject(subject string) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.subject = subject
+	builder.subjectFlag = true
+	return builder
+}
+
+// 收件人
+//
+// 示例值：
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) To(to []*MailAddress) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.to = to
+	builder.toFlag = true
+	return builder
+}
+
+// 原始EML信息base64后的字符串
+//
+// 示例值：U3ViamVjdDogSGVsbG8hCkZyb206ICJtaWtlIiA8bWlrZUBtaWtlLmNvbT4KTWltZS1WZXJzaW9uOiAxLjAKQ29udGVudC1UeXBlOiBtdWx0aXBhcnQvYWx0ZXJuYXRpdmU7CiBib3VuZGFyeT1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKRGF0ZTogV2VkLCAyMyBKdWwgMjAyNSAxNTo0NDoxOCArMDgwMApNZXNzYWdlLUlkOiA8bW9ja3V1aWRtZXNzYWdlX2lkQGxhcmsuY29tPgpUbzogImphY2siIDxqYWNrQGphY2suY29tPgoKLS1iMjhmYTIyNGExZWU2ZDY3ZjE3OTViNGUxZDEwM2Q3MTBlNzM5ZWVmYjFmZjlmOWQ4NWI4M2NlOTRmMTEKQ29udGVudC1UcmFuc2Zlci1FbmNvZGluZzogN2JpdApDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9VVRGLTgKCldlbGNvbWUgdG8gTGFyayBtYWlsIQotLWIyOGZhMjI0YTFlZTZkNjdmMTc5NWI0ZTFkMTAzZDcxMGU3MzllZWZiMWZmOWY5ZDg1YjgzY2U5NGYxMQo=
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) Raw(raw string) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.raw = raw
+	builder.rawFlag = true
+	return builder
+}
+
+// 抄送
+//
+// 示例值：
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) Cc(cc []*MailAddress) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.cc = cc
+	builder.ccFlag = true
+	return builder
+}
+
+// 密送
+//
+// 示例值：
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) Bcc(bcc []*MailAddress) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.bcc = bcc
+	builder.bccFlag = true
+	return builder
+}
+
+// 正文
+//
+// 示例值：xxxx
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) BodyHtml(bodyHtml string) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.bodyHtml = bodyHtml
+	builder.bodyHtmlFlag = true
+	return builder
+}
+
+// 正文纯文本
+//
+// 示例值：xxxx
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) BodyPlainText(bodyPlainText string) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.bodyPlainText = bodyPlainText
+	builder.bodyPlainTextFlag = true
+	return builder
+}
+
+// 附件
+//
+// 示例值：
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) Attachments(attachments []*Attachment) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.attachments = attachments
+	builder.attachmentsFlag = true
+	return builder
+}
+
+// 去重键
+//
+// 示例值：abc-ddd-eee-fff-ggg
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) DedupeKey(dedupeKey string) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.dedupeKey = dedupeKey
+	builder.dedupeKeyFlag = true
+	return builder
+}
+
+// EML中发件人信息
+//
+// 示例值：
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) HeadFrom(headFrom *MailAddress) *SendUserMailboxMessagePathReqBodyBuilder {
+	builder.headFrom = headFrom
+	builder.headFromFlag = true
+	return builder
+}
+
+func (builder *SendUserMailboxMessagePathReqBodyBuilder) Build() (*SendUserMailboxMessageReqBody, error) {
+	req := &SendUserMailboxMessageReqBody{}
+	if builder.subjectFlag {
+		req.Subject = &builder.subject
+	}
+	if builder.toFlag {
+		req.To = builder.to
+	}
+	if builder.rawFlag {
+		req.Raw = &builder.raw
+	}
+	if builder.ccFlag {
+		req.Cc = builder.cc
+	}
+	if builder.bccFlag {
+		req.Bcc = builder.bcc
+	}
+	if builder.bodyHtmlFlag {
+		req.BodyHtml = &builder.bodyHtml
+	}
+	if builder.bodyPlainTextFlag {
+		req.BodyPlainText = &builder.bodyPlainText
+	}
+	if builder.attachmentsFlag {
+		req.Attachments = builder.attachments
+	}
+	if builder.dedupeKeyFlag {
+		req.DedupeKey = &builder.dedupeKey
+	}
+	if builder.headFromFlag {
+		req.HeadFrom = builder.headFrom
+	}
+	return req, nil
+}
+
 type SendUserMailboxMessageReqBuilder struct {
-	apiReq  *larkcore.ApiReq
-	message *Message
+	apiReq *larkcore.ApiReq
+	body   *SendUserMailboxMessageReqBody
 }
 
 func NewSendUserMailboxMessageReqBuilder() *SendUserMailboxMessageReqBuilder {
@@ -7262,8 +8024,8 @@ func (builder *SendUserMailboxMessageReqBuilder) UserMailboxId(userMailboxId str
 }
 
 //
-func (builder *SendUserMailboxMessageReqBuilder) Message(message *Message) *SendUserMailboxMessageReqBuilder {
-	builder.message = message
+func (builder *SendUserMailboxMessageReqBuilder) Body(body *SendUserMailboxMessageReqBody) *SendUserMailboxMessageReqBuilder {
+	builder.body = body
 	return builder
 }
 
@@ -7271,18 +8033,47 @@ func (builder *SendUserMailboxMessageReqBuilder) Build() *SendUserMailboxMessage
 	req := &SendUserMailboxMessageReq{}
 	req.apiReq = &larkcore.ApiReq{}
 	req.apiReq.PathParams = builder.apiReq.PathParams
-	req.apiReq.Body = builder.message
+	req.apiReq.Body = builder.body
 	return req
 }
 
+type SendUserMailboxMessageReqBody struct {
+	Subject *string `json:"subject,omitempty"` // 主题
+
+	To []*MailAddress `json:"to,omitempty"` // 收件人
+
+	Raw *string `json:"raw,omitempty"` // 原始EML信息base64后的字符串
+
+	Cc []*MailAddress `json:"cc,omitempty"` // 抄送
+
+	Bcc []*MailAddress `json:"bcc,omitempty"` // 密送
+
+	BodyHtml *string `json:"body_html,omitempty"` // 正文
+
+	BodyPlainText *string `json:"body_plain_text,omitempty"` // 正文纯文本
+
+	Attachments []*Attachment `json:"attachments,omitempty"` // 附件
+
+	DedupeKey *string `json:"dedupe_key,omitempty"` // 去重键
+
+	HeadFrom *MailAddress `json:"head_from,omitempty"` // EML中发件人信息
+}
+
 type SendUserMailboxMessageReq struct {
-	apiReq  *larkcore.ApiReq
-	Message *Message `body:""`
+	apiReq *larkcore.ApiReq
+	Body   *SendUserMailboxMessageReqBody `body:""`
+}
+
+type SendUserMailboxMessageRespData struct {
+	MessageId *string `json:"message_id,omitempty"` // 邮件ID
+
+	ThreadId *string `json:"thread_id,omitempty"` // 会话ID
 }
 
 type SendUserMailboxMessageResp struct {
 	*larkcore.ApiResp `json:"-"`
 	larkcore.CodeError
+	Data *SendUserMailboxMessageRespData `json:"data"` // 业务数据
 }
 
 func (resp *SendUserMailboxMessageResp) Success() bool {

@@ -3110,6 +3110,8 @@ type LumpSumPaymentForUpdate struct {
 	Details []*LumpSumPaymentDetailForUpdate `json:"details,omitempty"` // 发放明细列表
 
 	BindingPeriodDecimal *string `json:"binding_period_decimal,omitempty"` // 绑定期带小数
+
+	OperationSource *string `json:"operation_source,omitempty"` // 操作来源
 }
 
 type LumpSumPaymentForUpdateBuilder struct {
@@ -3142,6 +3144,9 @@ type LumpSumPaymentForUpdateBuilder struct {
 
 	bindingPeriodDecimal     string // 绑定期带小数
 	bindingPeriodDecimalFlag bool
+
+	operationSource     string // 操作来源
+	operationSourceFlag bool
 }
 
 func NewLumpSumPaymentForUpdateBuilder() *LumpSumPaymentForUpdateBuilder {
@@ -3239,6 +3244,15 @@ func (builder *LumpSumPaymentForUpdateBuilder) BindingPeriodDecimal(bindingPerio
 	return builder
 }
 
+// 操作来源
+//
+// 示例值：apaas_spot
+func (builder *LumpSumPaymentForUpdateBuilder) OperationSource(operationSource string) *LumpSumPaymentForUpdateBuilder {
+	builder.operationSource = operationSource
+	builder.operationSourceFlag = true
+	return builder
+}
+
 func (builder *LumpSumPaymentForUpdateBuilder) Build() *LumpSumPaymentForUpdate {
 	req := &LumpSumPaymentForUpdate{}
 	if builder.idFlag {
@@ -3278,6 +3292,10 @@ func (builder *LumpSumPaymentForUpdateBuilder) Build() *LumpSumPaymentForUpdate 
 	}
 	if builder.bindingPeriodDecimalFlag {
 		req.BindingPeriodDecimal = &builder.bindingPeriodDecimal
+
+	}
+	if builder.operationSourceFlag {
+		req.OperationSource = &builder.operationSource
 
 	}
 	return req

@@ -6178,6 +6178,8 @@ type Template struct {
 	StageType *string `json:"stage_type,omitempty"` // 环节类型
 
 	ReviewStageRole *string `json:"review_stage_role,omitempty"` // 环节执行角色
+
+	ReviewStageDataWriteMode *string `json:"review_stage_data_write_mode,omitempty"` // 评估型环节评估模式
 }
 
 type TemplateBuilder struct {
@@ -6192,6 +6194,9 @@ type TemplateBuilder struct {
 
 	reviewStageRole     string // 环节执行角色
 	reviewStageRoleFlag bool
+
+	reviewStageDataWriteMode     string // 评估型环节评估模式
+	reviewStageDataWriteModeFlag bool
 }
 
 func NewTemplateBuilder() *TemplateBuilder {
@@ -6235,6 +6240,15 @@ func (builder *TemplateBuilder) ReviewStageRole(reviewStageRole string) *Templat
 	return builder
 }
 
+// 评估型环节评估模式
+//
+// 示例值：cooperate,independent
+func (builder *TemplateBuilder) ReviewStageDataWriteMode(reviewStageDataWriteMode string) *TemplateBuilder {
+	builder.reviewStageDataWriteMode = reviewStageDataWriteMode
+	builder.reviewStageDataWriteModeFlag = true
+	return builder
+}
+
 func (builder *TemplateBuilder) Build() *Template {
 	req := &Template{}
 	if builder.templateIdFlag {
@@ -6250,6 +6264,10 @@ func (builder *TemplateBuilder) Build() *Template {
 	}
 	if builder.reviewStageRoleFlag {
 		req.ReviewStageRole = &builder.reviewStageRole
+
+	}
+	if builder.reviewStageDataWriteModeFlag {
+		req.ReviewStageDataWriteMode = &builder.reviewStageDataWriteMode
 
 	}
 	return req

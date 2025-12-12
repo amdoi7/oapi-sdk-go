@@ -25,78 +25,78 @@ import (
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateApprovalV4DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateApprovalV4DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	CreateApprovalV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateApprovalV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateApprovalV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	LocaleZhcn = "zh-CN" // 中文
-	LocaleEnus = "en-US" // 英文
-	LocaleJajp = "ja-JP" // 日文
-	LocaleZhhk = "zh-HK" // 繁体中文（中国香港）
-	LocaleZhtw = "zh-TW" // 繁体中文（中国台湾）
-	LocaleDede = "de-DE" // 德语
-	LocaleEses = "es-ES" // 西班牙语
-	LocaleFrfr = "fr-FR" // 法语
-	LocaleIdid = "id-ID" // 印度尼西亚语
-	LocaleItit = "it-IT" // 意大利语
-	LocaleKokr = "ko-KR" // 韩语
-	LocalePtbr = "pt-BR" // 葡萄牙语
-	LocaleThth = "th-TH" // 泰语
-	LocaleVivn = "vi-VN" // 越南语
-	LocaleMsmy = "ms-MY" // 马来语
-	LocaleRuru = "ru-RU" // 俄语
+	GetApprovalV4LocaleZhcn = "zh-CN" // 中文
+	GetApprovalV4LocaleEnus = "en-US" // 英文
+	GetApprovalV4LocaleJajp = "ja-JP" // 日文
+	GetApprovalV4LocaleZhhk = "zh-HK" // 繁体中文（中国香港）
+	GetApprovalV4LocaleZhtw = "zh-TW" // 繁体中文（中国台湾）
+	GetApprovalV4LocaleDede = "de-DE" // 德语
+	GetApprovalV4LocaleEses = "es-ES" // 西班牙语
+	GetApprovalV4LocaleFrfr = "fr-FR" // 法语
+	GetApprovalV4LocaleIdid = "id-ID" // 印度尼西亚语
+	GetApprovalV4LocaleItit = "it-IT" // 意大利语
+	GetApprovalV4LocaleKokr = "ko-KR" // 韩语
+	GetApprovalV4LocalePtbr = "pt-BR" // 葡萄牙语
+	GetApprovalV4LocaleThth = "th-TH" // 泰语
+	GetApprovalV4LocaleVivn = "vi-VN" // 越南语
+	GetApprovalV4LocaleMsmy = "ms-MY" // 马来语
+	GetApprovalV4LocaleRuru = "ru-RU" // 俄语
 )
 
 const (
-	UserIdTypeGetApprovalUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetApprovalUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetApprovalOpenId  = "open_id"  // 以open_id来识别用户
+	GetApprovalV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetApprovalV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetApprovalV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeCreateExternalApprovalDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateExternalApprovalOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateExternalApprovalV4DepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateExternalApprovalV4DepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeCreateExternalApprovalUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateExternalApprovalUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateExternalApprovalOpenId  = "open_id"  // 以open_id来识别用户
+	CreateExternalApprovalV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateExternalApprovalV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateExternalApprovalV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetExternalApprovalUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetExternalApprovalUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetExternalApprovalOpenId  = "open_id"  // 以open_id来识别用户
+	GetExternalApprovalV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetExternalApprovalV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetExternalApprovalV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	StatusPending    = "PENDING"    // 审批中
-	StatusApproved   = "APPROVED"   // 审批流程结束，结果为同意
-	StatusRejected   = "REJECTED"   // 审批流程结束，结果为拒绝
-	StatusCanceled   = "CANCELED"   // 审批发起人撤回
-	StatusDeleted    = "DELETED"    // 审批被删除
-	StatusHidden     = "HIDDEN"     // 状态隐藏(不显示状态)
-	StatusTerminated = "TERMINATED" // 审批终止
+	ExternalInstanceStatusPending    = "PENDING"    // 审批中
+	ExternalInstanceStatusApproved   = "APPROVED"   // 审批流程结束，结果为同意
+	ExternalInstanceStatusRejected   = "REJECTED"   // 审批流程结束，结果为拒绝
+	ExternalInstanceStatusCanceled   = "CANCELED"   // 审批发起人撤回
+	ExternalInstanceStatusDeleted    = "DELETED"    // 审批被删除
+	ExternalInstanceStatusHidden     = "HIDDEN"     // 状态隐藏(不显示状态)
+	ExternalInstanceStatusTerminated = "TERMINATED" // 审批终止
 )
 
 const (
-	DisplayMethodBrowser     = "BROWSER"     // 跳转系统默认浏览器打开
-	DisplayMethodSIdebar     = "SIDEBAR"     // 飞书中侧边抽屉打开
-	DisplayMethodNormal      = "NORMAL"      // 飞书内嵌页面打开
-	DisplayMethodTrusteeship = "TRUSTEESHIP" // 以托管打开
+	ExternalInstanceDisplayMethodBrowser     = "BROWSER"     // 跳转系统默认浏览器打开
+	ExternalInstanceDisplayMethodSIdebar     = "SIDEBAR"     // 飞书中侧边抽屉打开
+	ExternalInstanceDisplayMethodNormal      = "NORMAL"      // 飞书内嵌页面打开
+	ExternalInstanceDisplayMethodTrusteeship = "TRUSTEESHIP" // 以托管打开
 )
 
 const (
-	UpdateModeReplace = "REPLACE" // 全量替换，默认值
-	UpdateModeUpdate  = "UPDATE"  // 增量更新
+	ExternalInstanceUpdateModeReplace = "REPLACE" // 全量替换，默认值
+	ExternalInstanceUpdateModeUpdate  = "UPDATE"  // 增量更新
 )
 
 const (
@@ -122,153 +122,153 @@ const (
 )
 
 const (
-	UserIdTypeCancelInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCancelInstanceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCancelInstanceOpenId  = "open_id"  // 以open_id来识别用户
+	CancelInstanceV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CancelInstanceV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CancelInstanceV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCcInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCcInstanceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCcInstanceOpenId  = "open_id"  // 以open_id来识别用户
+	CcInstanceV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CcInstanceV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CcInstanceV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	TitleDisplayMethodDisplayAll           = 0 // 如果都有title，展示approval 和instance的title，竖线分割。
-	TitleDisplayMethodDisplayInstanceTitle = 1 // 如果都有title，只展示instance的title
+	InstanceCreateTitleDisplayMethodDisplayAll           = 0 // 如果都有title，展示approval 和instance的title，竖线分割。
+	InstanceCreateTitleDisplayMethodDisplayInstanceTitle = 1 // 如果都有title，只展示instance的title
 
 )
 
 const (
-	LocaleGetInstanceZhcn = "zh-CN" // 中文
-	LocaleGetInstanceEnus = "en-US" // 英文
-	LocaleGetInstanceJajp = "ja-JP" // 日文
-	LocaleGetInstanceZhhk = "zh-HK" // 繁体中文（中国香港）
-	LocaleGetInstanceZhtw = "zh-TW" // 繁体中文（中国台湾）
-	LocaleGetInstanceDede = "de-DE" // 德语
-	LocaleGetInstanceEses = "es-ES" // 西班牙语
-	LocaleGetInstanceFrfr = "fr-FR" // 法语
-	LocaleGetInstanceIdid = "id-ID" // 印度尼西亚语
-	LocaleGetInstanceItit = "it-IT" // 意大利语
-	LocaleGetInstanceKokr = "ko-KR" // 韩语
-	LocaleGetInstancePtbr = "pt-BR" // 葡萄牙语
-	LocaleGetInstanceThth = "th-TH" // 泰语
-	LocaleGetInstanceVivn = "vi-VN" // 越南语
-	LocaleGetInstanceMsmy = "ms-MY" // 马来语
-	LocaleGetInstanceRuru = "ru-RU" // 俄语
+	GetInstanceV4LocaleZhcn = "zh-CN" // 中文
+	GetInstanceV4LocaleEnus = "en-US" // 英文
+	GetInstanceV4LocaleJajp = "ja-JP" // 日文
+	GetInstanceV4LocaleZhhk = "zh-HK" // 繁体中文（中国香港）
+	GetInstanceV4LocaleZhtw = "zh-TW" // 繁体中文（中国台湾）
+	GetInstanceV4LocaleDede = "de-DE" // 德语
+	GetInstanceV4LocaleEses = "es-ES" // 西班牙语
+	GetInstanceV4LocaleFrfr = "fr-FR" // 法语
+	GetInstanceV4LocaleIdid = "id-ID" // 印度尼西亚语
+	GetInstanceV4LocaleItit = "it-IT" // 意大利语
+	GetInstanceV4LocaleKokr = "ko-KR" // 韩语
+	GetInstanceV4LocalePtbr = "pt-BR" // 葡萄牙语
+	GetInstanceV4LocaleThth = "th-TH" // 泰语
+	GetInstanceV4LocaleVivn = "vi-VN" // 越南语
+	GetInstanceV4LocaleMsmy = "ms-MY" // 马来语
+	GetInstanceV4LocaleRuru = "ru-RU" // 俄语
 )
 
 const (
-	UserIdTypeGetInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetInstanceOpenId  = "open_id"  // 以open_id来识别用户
-	UserIdTypeGetInstanceUnionId = "union_id" // 以union_id来识别用户
+	GetInstanceV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetInstanceV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+	GetInstanceV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
 )
 
 const (
-	UserIdTypePreviewInstanceOpenId  = "open_id"  // 以open_id来识别用户
-	UserIdTypePreviewInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePreviewInstanceUnionId = "union_id" // 以union_id来识别用户
+	PreviewInstanceUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
+	PreviewInstanceUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	PreviewInstanceUserIDTypeUnionId = "union_id" // 以union_id来识别用户
 )
 
 const (
-	InstanceStatusPending   = "PENDING"  // 审批中
-	InstanceStatusRecall    = "RECALL"   // 撤回
-	InstanceStatusReject    = "REJECT"   // 拒绝
-	InstanceStatusDeleted   = "DELETED"  // 已删除
-	InstanceStatusApproverd = "APPROVED" // 通过
-	InstanceStatusAll       = "ALL"      // 所有状态
+	InstanceSearchInstanceStatusPending   = "PENDING"  // 审批中
+	InstanceSearchInstanceStatusRecall    = "RECALL"   // 撤回
+	InstanceSearchInstanceStatusReject    = "REJECT"   // 拒绝
+	InstanceSearchInstanceStatusDeleted   = "DELETED"  // 已删除
+	InstanceSearchInstanceStatusApproverd = "APPROVED" // 通过
+	InstanceSearchInstanceStatusAll       = "ALL"      // 所有状态
 )
 
 const (
-	LocaleQueryInstanceZhCn = "zh-CN" // 中文
-	LocaleQueryInstanceEnUs = "en-US" // 英文
-	LocaleQueryInstanceJaJp = "ja-JP" // 日文
-	LocaleQueryInstanceZhHk = "zh-HK" // 繁体中文（中国香港）
-	LocaleQueryInstanceZhTw = "zh-TW" // 繁体中文（中国台湾）
-	LocaleQueryInstanceDeDe = "de-DE" // 德语
-	LocaleQueryInstanceEsEs = "es-ES" // 西班牙语
-	LocaleQueryInstanceFrFr = "fr-FR" // 法语
-	LocaleQueryInstanceIdId = "id-ID" // 印度尼西亚语
-	LocaleQueryInstanceItIt = "it-IT" // 意大利语
-	LocaleQueryInstanceKoKr = "ko-KR" // 韩语
-	LocaleQueryInstancePtBr = "pt-BR" // 葡萄牙语
-	LocaleQueryInstanceThTh = "th-TH" // 泰语
-	LocaleQueryInstanceViVn = "vi-VN" // 越南语
-	LocaleQueryInstanceMsMy = "ms-MY" // 马来语
-	LocaleQueryInstanceRuRu = "ru-RU" // 俄语
+	InstanceSearchLocaleZhCn = "zh-CN" // 中文
+	InstanceSearchLocaleEnUs = "en-US" // 英文
+	InstanceSearchLocaleJaJp = "ja-JP" // 日文
+	InstanceSearchLocaleZhHk = "zh-HK" // 繁体中文（中国香港）
+	InstanceSearchLocaleZhTw = "zh-TW" // 繁体中文（中国台湾）
+	InstanceSearchLocaleDeDe = "de-DE" // 德语
+	InstanceSearchLocaleEsEs = "es-ES" // 西班牙语
+	InstanceSearchLocaleFrFr = "fr-FR" // 法语
+	InstanceSearchLocaleIdId = "id-ID" // 印度尼西亚语
+	InstanceSearchLocaleItIt = "it-IT" // 意大利语
+	InstanceSearchLocaleKoKr = "ko-KR" // 韩语
+	InstanceSearchLocalePtBr = "pt-BR" // 葡萄牙语
+	InstanceSearchLocaleThTh = "th-TH" // 泰语
+	InstanceSearchLocaleViVn = "vi-VN" // 越南语
+	InstanceSearchLocaleMsMy = "ms-MY" // 马来语
+	InstanceSearchLocaleRuRu = "ru-RU" // 俄语
 )
 
 const (
-	UserIdTypeQueryInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeQueryInstanceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeQueryInstanceOpenId  = "open_id"  // 以open_id来识别用户
+	QueryInstanceV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	QueryInstanceV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	QueryInstanceV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	ReadStatusREAD   = "READ"   // 已读
-	ReadStatusUNREAD = "UNREAD" // 未读
-	ReadStatusALL    = "ALL"    // 所有状态
+	CcSearchReadStatusREAD   = "READ"   // 已读
+	CcSearchReadStatusUNREAD = "UNREAD" // 未读
+	CcSearchReadStatusALL    = "ALL"    // 所有状态
 )
 
 const (
-	LocaleSearchCcInstanceZhCn = "zh-CN" // 中文
-	LocaleSearchCcInstanceEnUs = "en-US" // 英文
-	LocaleSearchCcInstanceJaJp = "ja-JP" // 日文
-	LocaleSearchCcInstanceZhHk = "zh-HK" // 繁体中文（中国香港）
-	LocaleSearchCcInstanceZhTw = "zh-TW" // 繁体中文（中国台湾）
-	LocaleSearchCcInstanceDeDe = "de-DE" // 德语
-	LocaleSearchCcInstanceEsEs = "es-ES" // 西班牙语
-	LocaleSearchCcInstanceFrFr = "fr-FR" // 法语
-	LocaleSearchCcInstanceIdId = "id-ID" // 印度尼西亚语
-	LocaleSearchCcInstanceItIt = "it-IT" // 意大利语
-	LocaleSearchCcInstanceKoKr = "ko-KR" // 韩语
-	LocaleSearchCcInstancePtBr = "pt-BR" // 葡萄牙语
-	LocaleSearchCcInstanceThTh = "th-TH" // 泰语
-	LocaleSearchCcInstanceViVn = "vi-VN" // 越南语
-	LocaleSearchCcInstanceMsMy = "ms-MY" // 马来语
-	LocaleSearchCcInstanceRuRu = "ru-RU" // 俄语
+	CcSearchLocaleZhCn = "zh-CN" // 中文
+	CcSearchLocaleEnUs = "en-US" // 英文
+	CcSearchLocaleJaJp = "ja-JP" // 日文
+	CcSearchLocaleZhHk = "zh-HK" // 繁体中文（中国香港）
+	CcSearchLocaleZhTw = "zh-TW" // 繁体中文（中国台湾）
+	CcSearchLocaleDeDe = "de-DE" // 德语
+	CcSearchLocaleEsEs = "es-ES" // 西班牙语
+	CcSearchLocaleFrFr = "fr-FR" // 法语
+	CcSearchLocaleIdId = "id-ID" // 印度尼西亚语
+	CcSearchLocaleItIt = "it-IT" // 意大利语
+	CcSearchLocaleKoKr = "ko-KR" // 韩语
+	CcSearchLocalePtBr = "pt-BR" // 葡萄牙语
+	CcSearchLocaleThTh = "th-TH" // 泰语
+	CcSearchLocaleViVn = "vi-VN" // 越南语
+	CcSearchLocaleMsMy = "ms-MY" // 马来语
+	CcSearchLocaleRuRu = "ru-RU" // 俄语
 )
 
 const (
-	UserIdTypeSearchCcInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchCcInstanceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchCcInstanceOpenId  = "open_id"  // 以open_id来识别用户
+	SearchCcInstanceV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SearchCcInstanceV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SearchCcInstanceV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeSpecifiedRollbackInstanceUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSpecifiedRollbackInstanceUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSpecifiedRollbackInstanceOpenId  = "open_id"  // 以open_id来识别用户
+	SpecifiedRollbackInstanceUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SpecifiedRollbackInstanceUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SpecifiedRollbackInstanceUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateInstanceCommentOpenId  = "open_id"  // open_id(ou_开头)
-	UserIdTypeCreateInstanceCommentUserId  = "user_id"  // user_id(字符串)
-	UserIdTypeCreateInstanceCommentUnionId = "union_id" // union_id(on_开头)
+	CreateInstanceCommentUserIDTypeOpenId  = "open_id"  // open_id(ou_开头)
+	CreateInstanceCommentUserIDTypeUserId  = "user_id"  // user_id(字符串)
+	CreateInstanceCommentUserIDTypeUnionId = "union_id" // union_id(on_开头)
 )
 
 const (
-	UserIdTypeDeleteInstanceCommentOpenId  = "open_id"  // open_id(ou_开头)
-	UserIdTypeDeleteInstanceCommentUserId  = "user_id"  // user_id（字符串）
-	UserIdTypeDeleteInstanceCommentUnionId = "union_id" // union_id（on_开头）
+	DeleteInstanceCommentOAPIUserIDTypeOpenId  = "open_id"  // open_id(ou_开头)
+	DeleteInstanceCommentOAPIUserIDTypeUserId  = "user_id"  // user_id（字符串）
+	DeleteInstanceCommentOAPIUserIDTypeUnionId = "union_id" // union_id（on_开头）
 )
 
 const (
-	UserIdTypeListInstanceCommentOpenId  = "open_id"  // open_id(ou_开头)
-	UserIdTypeListInstanceCommentUserId  = "user_id"  // user_id(字符串)
-	UserIdTypeListInstanceCommentUnionId = "union_id" // union_id(on_开头)
+	ListInstanceCommentUserIDTypeOpenId  = "open_id"  // open_id(ou_开头)
+	ListInstanceCommentUserIDTypeUserId  = "user_id"  // user_id(字符串)
+	ListInstanceCommentUserIDTypeUnionId = "union_id" // union_id(on_开头)
 )
 
 const (
-	UserIdTypeRemoveInstanceCommentOpenId  = "open_id"  // open_id(ou_开头)
-	UserIdTypeRemoveInstanceCommentUserId  = "user_id"  // user_id(字符串）
-	UserIdTypeRemoveInstanceCommentUnionId = "union_id" // union_id(on_开头)
+	RemoveInstanceCommentUserIDTypeOpenId  = "open_id"  // open_id(ou_开头)
+	RemoveInstanceCommentUserIDTypeUserId  = "user_id"  // user_id(字符串）
+	RemoveInstanceCommentUserIDTypeUnionId = "union_id" // union_id(on_开头)
 )
 
 const (
-	UserIdTypeApproveTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeApproveTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeApproveTaskOpenId  = "open_id"  // 以open_id来识别用户
+	ApproveTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ApproveTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ApproveTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -280,71 +280,71 @@ const (
 )
 
 const (
-	UserIdTypeQueryTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeQueryTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeQueryTaskOpenId  = "open_id"  // 以open_id来识别用户
+	OpenAPIListTaskUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	OpenAPIListTaskUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	OpenAPIListTaskUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeRejectTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeRejectTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeRejectTaskOpenId  = "open_id"  // 以open_id来识别用户
+	RejectTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	RejectTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	RejectTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeResubmitTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeResubmitTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeResubmitTaskOpenId  = "open_id"  // 以open_id来识别用户
+	ResubmitTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ResubmitTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ResubmitTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	TaskStatusPending     = "PENDING"     // 审批中
-	TaskStatusReject      = "REJECTED"    // 拒绝
-	TaskStatusApproverd   = "APPROVED"    // 通过
-	TaskStatusTRANSFERRED = "TRANSFERRED" // 转交
-	TaskStatusDONE        = "DONE"        // 已完成
-	TaskStatusRMREPEAT    = "RM_REPEAT"   // 去重
-	TaskStatusPROCESSED   = "PROCESSED"   // 已处理
-	TaskStatusALL         = "ALL"         // 所有状态
+	TaskSearchTaskStatusPending     = "PENDING"     // 审批中
+	TaskSearchTaskStatusReject      = "REJECTED"    // 拒绝
+	TaskSearchTaskStatusApproverd   = "APPROVED"    // 通过
+	TaskSearchTaskStatusTRANSFERRED = "TRANSFERRED" // 转交
+	TaskSearchTaskStatusDONE        = "DONE"        // 已完成
+	TaskSearchTaskStatusRMREPEAT    = "RM_REPEAT"   // 去重
+	TaskSearchTaskStatusPROCESSED   = "PROCESSED"   // 已处理
+	TaskSearchTaskStatusALL         = "ALL"         // 所有状态
 )
 
 const (
-	LocaleSearchTaskZhCn = "zh-CN" // 中文
-	LocaleSearchTaskEnUs = "en-US" // 英文
-	LocaleSearchTaskJaJp = "ja-JP" // 日文
-	LocaleSearchTaskZhHk = "zh-HK" // 繁体中文（中国香港）
-	LocaleSearchTaskZhTw = "zh-TW" // 繁体中文（中国台湾）
-	LocaleSearchTaskDeDe = "de-DE" // 德语
-	LocaleSearchTaskEsEs = "es-ES" // 西班牙语
-	LocaleSearchTaskFrFr = "fr-FR" // 法语
-	LocaleSearchTaskIdId = "id-ID" // 印度尼西亚语
-	LocaleSearchTaskItIt = "it-IT" // 意大利语
-	LocaleSearchTaskKoKr = "ko-KR" // 韩语
-	LocaleSearchTaskPtBr = "pt-BR" // 葡萄牙语
-	LocaleSearchTaskThTh = "th-TH" // 泰语
-	LocaleSearchTaskViVn = "vi-VN" // 越南语
-	LocaleSearchTaskMsMy = "ms-MY" // 马来语
-	LocaleSearchTaskRuRu = "ru-RU" // 俄语
+	TaskSearchLocaleZhCn = "zh-CN" // 中文
+	TaskSearchLocaleEnUs = "en-US" // 英文
+	TaskSearchLocaleJaJp = "ja-JP" // 日文
+	TaskSearchLocaleZhHk = "zh-HK" // 繁体中文（中国香港）
+	TaskSearchLocaleZhTw = "zh-TW" // 繁体中文（中国台湾）
+	TaskSearchLocaleDeDe = "de-DE" // 德语
+	TaskSearchLocaleEsEs = "es-ES" // 西班牙语
+	TaskSearchLocaleFrFr = "fr-FR" // 法语
+	TaskSearchLocaleIdId = "id-ID" // 印度尼西亚语
+	TaskSearchLocaleItIt = "it-IT" // 意大利语
+	TaskSearchLocaleKoKr = "ko-KR" // 韩语
+	TaskSearchLocalePtBr = "pt-BR" // 葡萄牙语
+	TaskSearchLocaleThTh = "th-TH" // 泰语
+	TaskSearchLocaleViVn = "vi-VN" // 越南语
+	TaskSearchLocaleMsMy = "ms-MY" // 马来语
+	TaskSearchLocaleRuRu = "ru-RU" // 俄语
 )
 
 const (
-	OrderUpdateTimeDESC = 0 // 按update_time倒排
-	OrderUpdateTimeASC  = 1 // 按update_time正排
-	OrderStartTimeDESC  = 2 // 按start_time倒排
-	OrderStartTimeASC   = 3 // 按start_time正排
+	TaskSearchOrderUpdateTimeDESC = 0 // 按update_time倒排
+	TaskSearchOrderUpdateTimeASC  = 1 // 按update_time正排
+	TaskSearchOrderStartTimeDESC  = 2 // 按start_time倒排
+	TaskSearchOrderStartTimeASC   = 3 // 按start_time正排
 
 )
 
 const (
-	UserIdTypeSearchTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchTaskOpenId  = "open_id"  // 以open_id来识别用户
+	SearchTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SearchTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SearchTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeTransferTaskUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeTransferTaskUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeTransferTaskOpenId  = "open_id"  // 以open_id来识别用户
+	TransferTaskV4UserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	TransferTaskV4UserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	TransferTaskV4UserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type ActionConfig struct {
@@ -457,6 +457,18 @@ type Approval struct {
 	ApprovalName *string `json:"approval_name,omitempty"` // 审批定义名称
 
 	Status *string `json:"status,omitempty"` // 审批定义状态
+
+	Id *string `json:"id,omitempty"` // 审批定义id
+
+	VersionId *string `json:"version_id,omitempty"` // 审批定义版本id
+
+	Description *string `json:"description,omitempty"` // 审批定义描述
+
+	ExternalId *string `json:"external_id,omitempty"` // 三方审批定义id
+
+	CreateLink *string `json:"create_link,omitempty"` // 三方审批定义创建链接
+
+	CreateCount *string `json:"create_count,omitempty"` // 历史提单次数（T+1）
 }
 
 type ApprovalBuilder struct {
@@ -468,6 +480,24 @@ type ApprovalBuilder struct {
 
 	status     string // 审批定义状态
 	statusFlag bool
+
+	id     string // 审批定义id
+	idFlag bool
+
+	versionId     string // 审批定义版本id
+	versionIdFlag bool
+
+	description     string // 审批定义描述
+	descriptionFlag bool
+
+	externalId     string // 三方审批定义id
+	externalIdFlag bool
+
+	createLink     string // 三方审批定义创建链接
+	createLinkFlag bool
+
+	createCount     string // 历史提单次数（T+1）
+	createCountFlag bool
 }
 
 func NewApprovalBuilder() *ApprovalBuilder {
@@ -502,6 +532,60 @@ func (builder *ApprovalBuilder) Status(status string) *ApprovalBuilder {
 	return builder
 }
 
+// 审批定义id
+//
+// 示例值：
+func (builder *ApprovalBuilder) Id(id string) *ApprovalBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 审批定义版本id
+//
+// 示例值：
+func (builder *ApprovalBuilder) VersionId(versionId string) *ApprovalBuilder {
+	builder.versionId = versionId
+	builder.versionIdFlag = true
+	return builder
+}
+
+// 审批定义描述
+//
+// 示例值：
+func (builder *ApprovalBuilder) Description(description string) *ApprovalBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 三方审批定义id
+//
+// 示例值：
+func (builder *ApprovalBuilder) ExternalId(externalId string) *ApprovalBuilder {
+	builder.externalId = externalId
+	builder.externalIdFlag = true
+	return builder
+}
+
+// 三方审批定义创建链接
+//
+// 示例值：
+func (builder *ApprovalBuilder) CreateLink(createLink string) *ApprovalBuilder {
+	builder.createLink = createLink
+	builder.createLinkFlag = true
+	return builder
+}
+
+// 历史提单次数（T+1）
+//
+// 示例值：
+func (builder *ApprovalBuilder) CreateCount(createCount string) *ApprovalBuilder {
+	builder.createCount = createCount
+	builder.createCountFlag = true
+	return builder
+}
+
 func (builder *ApprovalBuilder) Build() *Approval {
 	req := &Approval{}
 	if builder.approvalCodeFlag {
@@ -514,6 +598,30 @@ func (builder *ApprovalBuilder) Build() *Approval {
 	}
 	if builder.statusFlag {
 		req.Status = &builder.status
+
+	}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.versionIdFlag {
+		req.VersionId = &builder.versionId
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.externalIdFlag {
+		req.ExternalId = &builder.externalId
+
+	}
+	if builder.createLinkFlag {
+		req.CreateLink = &builder.createLink
+
+	}
+	if builder.createCountFlag {
+		req.CreateCount = &builder.createCount
 
 	}
 	return req
@@ -3752,6 +3860,245 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
+type District struct {
+	Id *string `json:"id,omitempty"` // 区域的唯一标识
+
+	Name *string `json:"name,omitempty"` // 名称
+
+	Level *string `json:"level,omitempty"` // 层级
+
+	HasSubDistrict *bool `json:"has_sub_district,omitempty"` // 是否有子区域
+
+	ParentDistricts []*DistrictBaseInfo `json:"parent_districts,omitempty"` // 父区域列表，顺序由叶子节点到根节点，不包含叶子节点本身，仅遍历方式为leaf_level时返回
+}
+
+type DistrictBuilder struct {
+	id     string // 区域的唯一标识
+	idFlag bool
+
+	name     string // 名称
+	nameFlag bool
+
+	level     string // 层级
+	levelFlag bool
+
+	hasSubDistrict     bool // 是否有子区域
+	hasSubDistrictFlag bool
+
+	parentDistricts     []*DistrictBaseInfo // 父区域列表，顺序由叶子节点到根节点，不包含叶子节点本身，仅遍历方式为leaf_level时返回
+	parentDistrictsFlag bool
+}
+
+func NewDistrictBuilder() *DistrictBuilder {
+	builder := &DistrictBuilder{}
+	return builder
+}
+
+// 区域的唯一标识
+//
+// 示例值：2038349
+func (builder *DistrictBuilder) Id(id string) *DistrictBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：Beijing
+func (builder *DistrictBuilder) Name(name string) *DistrictBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 层级
+//
+// 示例值：Province
+func (builder *DistrictBuilder) Level(level string) *DistrictBuilder {
+	builder.level = level
+	builder.levelFlag = true
+	return builder
+}
+
+// 是否有子区域
+//
+// 示例值：false
+func (builder *DistrictBuilder) HasSubDistrict(hasSubDistrict bool) *DistrictBuilder {
+	builder.hasSubDistrict = hasSubDistrict
+	builder.hasSubDistrictFlag = true
+	return builder
+}
+
+// 父区域列表，顺序由叶子节点到根节点，不包含叶子节点本身，仅遍历方式为leaf_level时返回
+//
+// 示例值：
+func (builder *DistrictBuilder) ParentDistricts(parentDistricts []*DistrictBaseInfo) *DistrictBuilder {
+	builder.parentDistricts = parentDistricts
+	builder.parentDistrictsFlag = true
+	return builder
+}
+
+func (builder *DistrictBuilder) Build() *District {
+	req := &District{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.levelFlag {
+		req.Level = &builder.level
+
+	}
+	if builder.hasSubDistrictFlag {
+		req.HasSubDistrict = &builder.hasSubDistrict
+
+	}
+	if builder.parentDistrictsFlag {
+		req.ParentDistricts = builder.parentDistricts
+	}
+	return req
+}
+
+type DistrictBaseInfo struct {
+	Id *string `json:"id,omitempty"` // 区域的唯一标识
+
+	Name *string `json:"name,omitempty"` // 名称
+
+	Level *string `json:"level,omitempty"` // 层级
+}
+
+type DistrictBaseInfoBuilder struct {
+	id     string // 区域的唯一标识
+	idFlag bool
+
+	name     string // 名称
+	nameFlag bool
+
+	level     string // 层级
+	levelFlag bool
+}
+
+func NewDistrictBaseInfoBuilder() *DistrictBaseInfoBuilder {
+	builder := &DistrictBaseInfoBuilder{}
+	return builder
+}
+
+// 区域的唯一标识
+//
+// 示例值：1814991
+func (builder *DistrictBaseInfoBuilder) Id(id string) *DistrictBaseInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 名称
+//
+// 示例值：China
+func (builder *DistrictBaseInfoBuilder) Name(name string) *DistrictBaseInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 层级
+//
+// 示例值：Country
+func (builder *DistrictBaseInfoBuilder) Level(level string) *DistrictBaseInfoBuilder {
+	builder.level = level
+	builder.levelFlag = true
+	return builder
+}
+
+func (builder *DistrictBaseInfoBuilder) Build() *DistrictBaseInfo {
+	req := &DistrictBaseInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.levelFlag {
+		req.Level = &builder.level
+
+	}
+	return req
+}
+
+type EntityProcessRecord struct {
+	InsertNum *int `json:"insert_num,omitempty"` // 新增的条数
+
+	UpdateNum *int `json:"update_num,omitempty"` // 更新的条数
+
+	DeleteNum *int `json:"delete_num,omitempty"` // 删除的条数
+}
+
+type EntityProcessRecordBuilder struct {
+	insertNum     int // 新增的条数
+	insertNumFlag bool
+
+	updateNum     int // 更新的条数
+	updateNumFlag bool
+
+	deleteNum     int // 删除的条数
+	deleteNumFlag bool
+}
+
+func NewEntityProcessRecordBuilder() *EntityProcessRecordBuilder {
+	builder := &EntityProcessRecordBuilder{}
+	return builder
+}
+
+// 新增的条数
+//
+// 示例值：10
+func (builder *EntityProcessRecordBuilder) InsertNum(insertNum int) *EntityProcessRecordBuilder {
+	builder.insertNum = insertNum
+	builder.insertNumFlag = true
+	return builder
+}
+
+// 更新的条数
+//
+// 示例值：10
+func (builder *EntityProcessRecordBuilder) UpdateNum(updateNum int) *EntityProcessRecordBuilder {
+	builder.updateNum = updateNum
+	builder.updateNumFlag = true
+	return builder
+}
+
+// 删除的条数
+//
+// 示例值：10
+func (builder *EntityProcessRecordBuilder) DeleteNum(deleteNum int) *EntityProcessRecordBuilder {
+	builder.deleteNum = deleteNum
+	builder.deleteNumFlag = true
+	return builder
+}
+
+func (builder *EntityProcessRecordBuilder) Build() *EntityProcessRecord {
+	req := &EntityProcessRecord{}
+	if builder.insertNumFlag {
+		req.InsertNum = &builder.insertNum
+
+	}
+	if builder.updateNumFlag {
+		req.UpdateNum = &builder.updateNum
+
+	}
+	if builder.deleteNumFlag {
+		req.DeleteNum = &builder.deleteNum
+
+	}
+	return req
+}
+
 type ExteranlInstanceCheck struct {
 	InstanceId *string `json:"instance_id,omitempty"` // 审批实例 id
 
@@ -6043,6 +6390,8 @@ type InstanceCreate struct {
 	NodeAutoApprovalList []*NodeAutoApproval `json:"node_auto_approval_list,omitempty"` // 自动通过节点ID
 
 	ByteExtra *string `json:"byte_extra,omitempty"` // 字节内部扩展字段
+
+	WithLink *bool `json:"with_link,omitempty"` // 是否可选返回链接
 }
 
 type InstanceCreateBuilder struct {
@@ -6102,6 +6451,9 @@ type InstanceCreateBuilder struct {
 
 	byteExtra     string // 字节内部扩展字段
 	byteExtraFlag bool
+
+	withLink     bool // 是否可选返回链接
+	withLinkFlag bool
 }
 
 func NewInstanceCreateBuilder() *InstanceCreateBuilder {
@@ -6280,6 +6632,15 @@ func (builder *InstanceCreateBuilder) ByteExtra(byteExtra string) *InstanceCreat
 	return builder
 }
 
+// 是否可选返回链接
+//
+// 示例值：
+func (builder *InstanceCreateBuilder) WithLink(withLink bool) *InstanceCreateBuilder {
+	builder.withLink = withLink
+	builder.withLinkFlag = true
+	return builder
+}
+
 func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 	req := &InstanceCreate{}
 	if builder.approvalCodeFlag {
@@ -6352,6 +6713,10 @@ func (builder *InstanceCreateBuilder) Build() *InstanceCreate {
 		req.ByteExtra = &builder.byteExtra
 
 	}
+	if builder.withLinkFlag {
+		req.WithLink = &builder.withLink
+
+	}
 	return req
 }
 
@@ -6399,6 +6764,38 @@ func (builder *InstanceDetailScenarioContextBuilder) Build() *InstanceDetailScen
 	}
 	if builder.extraFlag {
 		req.Extra = builder.extra
+	}
+	return req
+}
+
+type InstanceDraft struct {
+	ApprovalId *string `json:"approval_id,omitempty"` // 审批定义id
+}
+
+type InstanceDraftBuilder struct {
+	approvalId     string // 审批定义id
+	approvalIdFlag bool
+}
+
+func NewInstanceDraftBuilder() *InstanceDraftBuilder {
+	builder := &InstanceDraftBuilder{}
+	return builder
+}
+
+// 审批定义id
+//
+// 示例值：7545781352325070867
+func (builder *InstanceDraftBuilder) ApprovalId(approvalId string) *InstanceDraftBuilder {
+	builder.approvalId = approvalId
+	builder.approvalIdFlag = true
+	return builder
+}
+
+func (builder *InstanceDraftBuilder) Build() *InstanceDraft {
+	req := &InstanceDraft{}
+	if builder.approvalIdFlag {
+		req.ApprovalId = &builder.approvalId
+
 	}
 	return req
 }
@@ -9223,6 +9620,71 @@ func (builder *PreviewNodeBuilder) Build() *PreviewNode {
 	if builder.hasCcTypeFreeFlag {
 		req.HasCcTypeFree = &builder.hasCcTypeFree
 
+	}
+	return req
+}
+
+type ProcessRecord struct {
+	Instance *EntityProcessRecord `json:"instance,omitempty"` // 发生变更的实例
+
+	Task *EntityProcessRecord `json:"task,omitempty"` // 发生变更的待办
+
+	Cc *EntityProcessRecord `json:"cc,omitempty"` // 发生变更的抄送
+}
+
+type ProcessRecordBuilder struct {
+	instance     *EntityProcessRecord // 发生变更的实例
+	instanceFlag bool
+
+	task     *EntityProcessRecord // 发生变更的待办
+	taskFlag bool
+
+	cc     *EntityProcessRecord // 发生变更的抄送
+	ccFlag bool
+}
+
+func NewProcessRecordBuilder() *ProcessRecordBuilder {
+	builder := &ProcessRecordBuilder{}
+	return builder
+}
+
+// 发生变更的实例
+//
+// 示例值：
+func (builder *ProcessRecordBuilder) Instance(instance *EntityProcessRecord) *ProcessRecordBuilder {
+	builder.instance = instance
+	builder.instanceFlag = true
+	return builder
+}
+
+// 发生变更的待办
+//
+// 示例值：
+func (builder *ProcessRecordBuilder) Task(task *EntityProcessRecord) *ProcessRecordBuilder {
+	builder.task = task
+	builder.taskFlag = true
+	return builder
+}
+
+// 发生变更的抄送
+//
+// 示例值：
+func (builder *ProcessRecordBuilder) Cc(cc *EntityProcessRecord) *ProcessRecordBuilder {
+	builder.cc = cc
+	builder.ccFlag = true
+	return builder
+}
+
+func (builder *ProcessRecordBuilder) Build() *ProcessRecord {
+	req := &ProcessRecord{}
+	if builder.instanceFlag {
+		req.Instance = builder.instance
+	}
+	if builder.taskFlag {
+		req.Task = builder.task
+	}
+	if builder.ccFlag {
+		req.Cc = builder.cc
 	}
 	return req
 }
@@ -12459,6 +12921,22 @@ func (builder *GetApprovalReqBuilder) UserIdType(userIdType string) *GetApproval
 	return builder
 }
 
+// 可选是否返回外部数据源和假勤控件选项
+//
+// 示例值：false
+func (builder *GetApprovalReqBuilder) WithOption(withOption bool) *GetApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("with_option", fmt.Sprint(withOption))
+	return builder
+}
+
+// 用户id
+//
+// 示例值：ou_7a4aaac5650dc0b77e85e96e7476ff1d
+func (builder *GetApprovalReqBuilder) UserId(userId string) *GetApprovalReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id", fmt.Sprint(userId))
+	return builder
+}
+
 func (builder *GetApprovalReqBuilder) Build() *GetApprovalReq {
 	req := &GetApprovalReq{}
 	req.apiReq = &larkcore.ApiReq{}
@@ -12851,6 +13329,8 @@ type CreateExternalInstanceReq struct {
 
 type CreateExternalInstanceRespData struct {
 	Data *ExternalInstance `json:"data,omitempty"` // 同步的实例数据
+
+	ProcessRecord *ProcessRecord `json:"process_record,omitempty"` // 本次变更信息
 }
 
 type CreateExternalInstanceResp struct {
@@ -13541,6 +14021,8 @@ type CreateInstanceReq struct {
 
 type CreateInstanceRespData struct {
 	InstanceCode *string `json:"instance_code,omitempty"` // 审批实例 Code
+
+	InstanceLink *string `json:"instance_link,omitempty"` // 审批实例链接
 }
 
 type CreateInstanceResp struct {
@@ -13655,98 +14137,6 @@ type GetInstanceResp struct {
 }
 
 func (resp *GetInstanceResp) Success() bool {
-	return resp.Code == 0
-}
-
-type ListInstanceReqBuilder struct {
-	apiReq *larkcore.ApiReq
-	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
-}
-
-func NewListInstanceReqBuilder() *ListInstanceReqBuilder {
-	builder := &ListInstanceReqBuilder{}
-	builder.apiReq = &larkcore.ApiReq{
-		PathParams:  larkcore.PathParams{},
-		QueryParams: larkcore.QueryParams{},
-	}
-	return builder
-}
-
-// 最大返回多少记录，当使用迭代器访问时才有效
-func (builder *ListInstanceReqBuilder) Limit(limit int) *ListInstanceReqBuilder {
-	builder.limit = limit
-	return builder
-}
-
-// 分页大小
-//
-// 示例值：100
-func (builder *ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder {
-	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
-	return builder
-}
-
-// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
-//
-// 示例值：nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
-func (builder *ListInstanceReqBuilder) PageToken(pageToken string) *ListInstanceReqBuilder {
-	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
-	return builder
-}
-
-// 审批定义唯一标识
-//
-// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
-func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListInstanceReqBuilder {
-	builder.apiReq.QueryParams.Set("approval_code", fmt.Sprint(approvalCode))
-	return builder
-}
-
-// 审批实例创建时间区间（毫秒）
-//
-// 示例值：1567690398020
-func (builder *ListInstanceReqBuilder) StartTime(startTime string) *ListInstanceReqBuilder {
-	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
-	return builder
-}
-
-// 审批实例创建时间区间（毫秒）
-//
-// 示例值：1567690398020
-func (builder *ListInstanceReqBuilder) EndTime(endTime string) *ListInstanceReqBuilder {
-	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
-	return builder
-}
-
-func (builder *ListInstanceReqBuilder) Build() *ListInstanceReq {
-	req := &ListInstanceReq{}
-	req.apiReq = &larkcore.ApiReq{}
-	req.Limit = builder.limit
-	req.apiReq.QueryParams = builder.apiReq.QueryParams
-	return req
-}
-
-type ListInstanceReq struct {
-	apiReq *larkcore.ApiReq
-	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
-
-}
-
-type ListInstanceRespData struct {
-	InstanceCodeList []string `json:"instance_code_list,omitempty"` // 审批实例 Code
-
-	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
-
-	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
-}
-
-type ListInstanceResp struct {
-	*larkcore.ApiResp `json:"-"`
-	larkcore.CodeError
-	Data *ListInstanceRespData `json:"data"` // 业务数据
-}
-
-func (resp *ListInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
@@ -14986,60 +15376,6 @@ func (iterator *ListExternalTaskIterator) Next() (bool, *ExternalTaskList, error
 }
 
 func (iterator *ListExternalTaskIterator) NextPageToken() *string {
-	return iterator.nextPageToken
-}
-
-type ListInstanceIterator struct {
-	nextPageToken *string
-	items         []string
-	index         int
-	limit         int
-	ctx           context.Context
-	req           *ListInstanceReq
-	listFunc      func(ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceResp, error)
-	options       []larkcore.RequestOptionFunc
-	curlNum       int
-}
-
-func (iterator *ListInstanceIterator) Next() (bool, string, error) {
-	// 达到最大量，则返回
-	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
-		return false, "", nil
-	}
-
-	// 为0则拉取数据
-	if iterator.index == 0 || iterator.index >= len(iterator.items) {
-		if iterator.index != 0 && iterator.nextPageToken == nil {
-			return false, "", nil
-		}
-		if iterator.nextPageToken != nil {
-			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
-		}
-		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
-		if err != nil {
-			return false, "", err
-		}
-
-		if resp.Code != 0 {
-			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
-		}
-
-		if len(resp.Data.InstanceCodeList) == 0 {
-			return false, "", nil
-		}
-
-		iterator.nextPageToken = resp.Data.PageToken
-		iterator.items = resp.Data.InstanceCodeList
-		iterator.index = 0
-	}
-
-	block := iterator.items[iterator.index]
-	iterator.index++
-	iterator.curlNum++
-	return true, block, nil
-}
-
-func (iterator *ListInstanceIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

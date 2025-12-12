@@ -20,9 +20,9 @@ import (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	GetSpreadsheetUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetSpreadsheetUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetSpreadsheetUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 type AddSheet struct {

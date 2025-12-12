@@ -3932,6 +3932,146 @@ func (builder *CriterionBuilder) Build() *Criterion {
 	return req
 }
 
+type Data struct {
+	Workspace *string `json:"workspace,omitempty"` // workspace信息
+
+	App *string `json:"app,omitempty"` // app id
+
+	Table *string `json:"table,omitempty"` // 发生数据记录变更的数据表
+
+	Type *string `json:"type,omitempty"` // 变更类型
+
+	Operator *string `json:"operator,omitempty"` // 变更人
+
+	Before *string `json:"before,omitempty"` // 变更前的数据记录
+
+	After *string `json:"after,omitempty"` // 变更后的数据记录
+}
+
+type DataBuilder struct {
+	workspace     string // workspace信息
+	workspaceFlag bool
+
+	app     string // app id
+	appFlag bool
+
+	table     string // 发生数据记录变更的数据表
+	tableFlag bool
+
+	type_    string // 变更类型
+	typeFlag bool
+
+	operator     string // 变更人
+	operatorFlag bool
+
+	before     string // 变更前的数据记录
+	beforeFlag bool
+
+	after     string // 变更后的数据记录
+	afterFlag bool
+}
+
+func NewDataBuilder() *DataBuilder {
+	builder := &DataBuilder{}
+	return builder
+}
+
+// workspace信息
+//
+// 示例值：workspace_aadiyljodleqw
+func (builder *DataBuilder) Workspace(workspace string) *DataBuilder {
+	builder.workspace = workspace
+	builder.workspaceFlag = true
+	return builder
+}
+
+// app id
+//
+// 示例值：app_xxxx
+func (builder *DataBuilder) App(app string) *DataBuilder {
+	builder.app = app
+	builder.appFlag = true
+	return builder
+}
+
+// 发生数据记录变更的数据表
+//
+// 示例值：t1
+func (builder *DataBuilder) Table(table string) *DataBuilder {
+	builder.table = table
+	builder.tableFlag = true
+	return builder
+}
+
+// 变更类型
+//
+// 示例值：
+func (builder *DataBuilder) Type(type_ string) *DataBuilder {
+	builder.type_ = type_
+	builder.typeFlag = true
+	return builder
+}
+
+// 变更人
+//
+// 示例值：(1801755886986304)
+func (builder *DataBuilder) Operator(operator string) *DataBuilder {
+	builder.operator = operator
+	builder.operatorFlag = true
+	return builder
+}
+
+// 变更前的数据记录
+//
+// 示例值：{		   "_created_at": "2025-10-30 22:32:56.90873+08",			 "_created_by": "(1801755886986304)",			 "_id": "6ca55db2-503f-4490-ae6b-76834f9e6d15",			 "_updated_at": "2025-10-30 22:32:56.90873+08",			 "_updated_by": "(1801755886986304)",			 "custom_col_1": 123,			 "custom_col_2": 000,			 "custom_col_3": "xxx",			 "custom_col_5": "yyy" }
+func (builder *DataBuilder) Before(before string) *DataBuilder {
+	builder.before = before
+	builder.beforeFlag = true
+	return builder
+}
+
+// 变更后的数据记录
+//
+// 示例值："{	 "_updated_at": "2025-10-14 18:18:26.509353+08",	 "_updated_by": "(1801755886986304)",	 "custom_col_1": 456 }"
+func (builder *DataBuilder) After(after string) *DataBuilder {
+	builder.after = after
+	builder.afterFlag = true
+	return builder
+}
+
+func (builder *DataBuilder) Build() *Data {
+	req := &Data{}
+	if builder.workspaceFlag {
+		req.Workspace = &builder.workspace
+
+	}
+	if builder.appFlag {
+		req.App = &builder.app
+
+	}
+	if builder.tableFlag {
+		req.Table = &builder.table
+
+	}
+	if builder.typeFlag {
+		req.Type = &builder.type_
+
+	}
+	if builder.operatorFlag {
+		req.Operator = &builder.operator
+
+	}
+	if builder.beforeFlag {
+		req.Before = &builder.before
+
+	}
+	if builder.afterFlag {
+		req.After = &builder.after
+
+	}
+	return req
+}
+
 type DataModelPermissionAccess struct {
 	ApiId *string `json:"api_id,omitempty"` // 对象的api_id
 
@@ -16215,6 +16355,760 @@ type RollbackPointsUserTaskResp struct {
 }
 
 func (resp *RollbackPointsUserTaskResp) Success() bool {
+	return resp.Code == 0
+}
+
+type SqlCommandsWorkspaceReqBodyBuilder struct {
+	sql     string // 要执行的 SQL 语句
+	sqlFlag bool
+}
+
+func NewSqlCommandsWorkspaceReqBodyBuilder() *SqlCommandsWorkspaceReqBodyBuilder {
+	builder := &SqlCommandsWorkspaceReqBodyBuilder{}
+	return builder
+}
+
+// 要执行的 SQL 语句
+//
+//示例值：SELECT name FROM student
+func (builder *SqlCommandsWorkspaceReqBodyBuilder) Sql(sql string) *SqlCommandsWorkspaceReqBodyBuilder {
+	builder.sql = sql
+	builder.sqlFlag = true
+	return builder
+}
+
+func (builder *SqlCommandsWorkspaceReqBodyBuilder) Build() *SqlCommandsWorkspaceReqBody {
+	req := &SqlCommandsWorkspaceReqBody{}
+	if builder.sqlFlag {
+		req.Sql = &builder.sql
+	}
+	return req
+}
+
+type SqlCommandsWorkspacePathReqBodyBuilder struct {
+	sql     string
+	sqlFlag bool
+}
+
+func NewSqlCommandsWorkspacePathReqBodyBuilder() *SqlCommandsWorkspacePathReqBodyBuilder {
+	builder := &SqlCommandsWorkspacePathReqBodyBuilder{}
+	return builder
+}
+
+// 要执行的 SQL 语句
+//
+// 示例值：SELECT name FROM student
+func (builder *SqlCommandsWorkspacePathReqBodyBuilder) Sql(sql string) *SqlCommandsWorkspacePathReqBodyBuilder {
+	builder.sql = sql
+	builder.sqlFlag = true
+	return builder
+}
+
+func (builder *SqlCommandsWorkspacePathReqBodyBuilder) Build() (*SqlCommandsWorkspaceReqBody, error) {
+	req := &SqlCommandsWorkspaceReqBody{}
+	if builder.sqlFlag {
+		req.Sql = &builder.sql
+	}
+	return req, nil
+}
+
+type SqlCommandsWorkspaceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SqlCommandsWorkspaceReqBody
+}
+
+func NewSqlCommandsWorkspaceReqBuilder() *SqlCommandsWorkspaceReqBuilder {
+	builder := &SqlCommandsWorkspaceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *SqlCommandsWorkspaceReqBuilder) WorkspaceId(workspaceId string) *SqlCommandsWorkspaceReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 执行 SQL
+func (builder *SqlCommandsWorkspaceReqBuilder) Body(body *SqlCommandsWorkspaceReqBody) *SqlCommandsWorkspaceReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SqlCommandsWorkspaceReqBuilder) Build() *SqlCommandsWorkspaceReq {
+	req := &SqlCommandsWorkspaceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SqlCommandsWorkspaceReqBody struct {
+	Sql *string `json:"sql,omitempty"` // 要执行的 SQL 语句
+}
+
+type SqlCommandsWorkspaceReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SqlCommandsWorkspaceReqBody `body:""`
+}
+
+type SqlCommandsWorkspaceRespData struct {
+	Result *string `json:"result,omitempty"` // 如果是 SELECT 命令，返回的是查询结果的 JSON 序列化字符串。如果是其他无返回的命令，如 DELETE 等，result 为空。
+}
+
+type SqlCommandsWorkspaceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SqlCommandsWorkspaceRespData `json:"data"` // 业务数据
+}
+
+func (resp *SqlCommandsWorkspaceResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecordsBatchUpdateWorkspaceTableReqBodyBuilder struct {
+	records     string // 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+	recordsFlag bool
+}
+
+func NewRecordsBatchUpdateWorkspaceTableReqBodyBuilder() *RecordsBatchUpdateWorkspaceTableReqBodyBuilder {
+	builder := &RecordsBatchUpdateWorkspaceTableReqBodyBuilder{}
+	return builder
+}
+
+// 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+//
+//示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
+func (builder *RecordsBatchUpdateWorkspaceTableReqBodyBuilder) Records(records string) *RecordsBatchUpdateWorkspaceTableReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *RecordsBatchUpdateWorkspaceTableReqBodyBuilder) Build() *RecordsBatchUpdateWorkspaceTableReqBody {
+	req := &RecordsBatchUpdateWorkspaceTableReqBody{}
+	if builder.recordsFlag {
+		req.Records = &builder.records
+	}
+	return req
+}
+
+type RecordsBatchUpdateWorkspaceTablePathReqBodyBuilder struct {
+	records     string
+	recordsFlag bool
+}
+
+func NewRecordsBatchUpdateWorkspaceTablePathReqBodyBuilder() *RecordsBatchUpdateWorkspaceTablePathReqBodyBuilder {
+	builder := &RecordsBatchUpdateWorkspaceTablePathReqBodyBuilder{}
+	return builder
+}
+
+// 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+//
+// 示例值：[{\"_id\":\"657fade8-394d-4d86-aa35-0129e3bd7614\",\"age\":10}]
+func (builder *RecordsBatchUpdateWorkspaceTablePathReqBodyBuilder) Records(records string) *RecordsBatchUpdateWorkspaceTablePathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *RecordsBatchUpdateWorkspaceTablePathReqBodyBuilder) Build() (*RecordsBatchUpdateWorkspaceTableReqBody, error) {
+	req := &RecordsBatchUpdateWorkspaceTableReqBody{}
+	if builder.recordsFlag {
+		req.Records = &builder.records
+	}
+	return req, nil
+}
+
+type RecordsBatchUpdateWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RecordsBatchUpdateWorkspaceTableReqBody
+}
+
+func NewRecordsBatchUpdateWorkspaceTableReqBuilder() *RecordsBatchUpdateWorkspaceTableReqBuilder {
+	builder := &RecordsBatchUpdateWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *RecordsBatchUpdateWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *RecordsBatchUpdateWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 数据表表名
+//
+// 示例值：table_name_1
+func (builder *RecordsBatchUpdateWorkspaceTableReqBuilder) TableName(tableName string) *RecordsBatchUpdateWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
+	return builder
+}
+
+// 批量更新数据表中的记录
+func (builder *RecordsBatchUpdateWorkspaceTableReqBuilder) Body(body *RecordsBatchUpdateWorkspaceTableReqBody) *RecordsBatchUpdateWorkspaceTableReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RecordsBatchUpdateWorkspaceTableReqBuilder) Build() *RecordsBatchUpdateWorkspaceTableReq {
+	req := &RecordsBatchUpdateWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RecordsBatchUpdateWorkspaceTableReqBody struct {
+	Records *string `json:"records,omitempty"` // 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
+}
+
+type RecordsBatchUpdateWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RecordsBatchUpdateWorkspaceTableReqBody `body:""`
+}
+
+type RecordsBatchUpdateWorkspaceTableRespData struct {
+	RecordIds []string `json:"record_ids,omitempty"` // 更新的记录唯一ID列表
+}
+
+type RecordsBatchUpdateWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecordsBatchUpdateWorkspaceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecordsBatchUpdateWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecordsDeleteWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewRecordsDeleteWorkspaceTableReqBuilder() *RecordsDeleteWorkspaceTableReqBuilder {
+	builder := &RecordsDeleteWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *RecordsDeleteWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *RecordsDeleteWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 数据表表名
+//
+// 示例值：table_name_1
+func (builder *RecordsDeleteWorkspaceTableReqBuilder) TableName(tableName string) *RecordsDeleteWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
+	return builder
+}
+
+// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering;此处用法和查询数据记录一致
+//
+// 示例值：age=gt.10
+func (builder *RecordsDeleteWorkspaceTableReqBuilder) Filter(filter string) *RecordsDeleteWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
+	return builder
+}
+
+func (builder *RecordsDeleteWorkspaceTableReqBuilder) Build() *RecordsDeleteWorkspaceTableReq {
+	req := &RecordsDeleteWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type RecordsDeleteWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type RecordsDeleteWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+}
+
+func (resp *RecordsDeleteWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecordsGetWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewRecordsGetWorkspaceTableReqBuilder() *RecordsGetWorkspaceTableReqBuilder {
+	builder := &RecordsGetWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *RecordsGetWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 数据表表名
+//
+// 示例值：table_name_1
+func (builder *RecordsGetWorkspaceTableReqBuilder) TableName(tableName string) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
+	return builder
+}
+
+// 分页大小，用于限制一次请求所返回的数据条目数。默认10，最大500
+//
+// 示例值：10
+func (builder *RecordsGetWorkspaceTableReqBuilder) PageSize(pageSize int) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：
+func (builder *RecordsGetWorkspaceTableReqBuilder) PageToken(pageToken string) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 返回的列，默认为 *，即返回所有列。;遵循 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#vertical-filtering
+//
+// 示例值：_id,_created_at,name
+func (builder *RecordsGetWorkspaceTableReqBuilder) Select(select_ string) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("select", fmt.Sprint(select_))
+	return builder
+}
+
+// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
+//
+// 示例值：age=gt.10
+func (builder *RecordsGetWorkspaceTableReqBuilder) Filter(filter string) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
+	return builder
+}
+
+// 排序条件，如果没指定 asc/desc，默认为 asc，null 值可排在最前或最后。;尊许 PostgREST 语法，详情可查看;https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering
+//
+// 示例值：age.desc,score.asc
+func (builder *RecordsGetWorkspaceTableReqBuilder) Order(order string) *RecordsGetWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("order", fmt.Sprint(order))
+	return builder
+}
+
+func (builder *RecordsGetWorkspaceTableReqBuilder) Build() *RecordsGetWorkspaceTableReq {
+	req := &RecordsGetWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type RecordsGetWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type RecordsGetWorkspaceTableRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	Total *int `json:"total,omitempty"` // 符合条件的记录总数
+
+	Items *string `json:"items,omitempty"` // 数据记录列表，格式为数组序列化后的 JSONString
+}
+
+type RecordsGetWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecordsGetWorkspaceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecordsGetWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecordsPatchWorkspaceTableReqBodyBuilder struct {
+	record     string // 要更新的数据记录信息
+	recordFlag bool
+}
+
+func NewRecordsPatchWorkspaceTableReqBodyBuilder() *RecordsPatchWorkspaceTableReqBodyBuilder {
+	builder := &RecordsPatchWorkspaceTableReqBodyBuilder{}
+	return builder
+}
+
+// 要更新的数据记录信息
+//
+//示例值：{\"age\":10}
+func (builder *RecordsPatchWorkspaceTableReqBodyBuilder) Record(record string) *RecordsPatchWorkspaceTableReqBodyBuilder {
+	builder.record = record
+	builder.recordFlag = true
+	return builder
+}
+
+func (builder *RecordsPatchWorkspaceTableReqBodyBuilder) Build() *RecordsPatchWorkspaceTableReqBody {
+	req := &RecordsPatchWorkspaceTableReqBody{}
+	if builder.recordFlag {
+		req.Record = &builder.record
+	}
+	return req
+}
+
+type RecordsPatchWorkspaceTablePathReqBodyBuilder struct {
+	record     string
+	recordFlag bool
+}
+
+func NewRecordsPatchWorkspaceTablePathReqBodyBuilder() *RecordsPatchWorkspaceTablePathReqBodyBuilder {
+	builder := &RecordsPatchWorkspaceTablePathReqBodyBuilder{}
+	return builder
+}
+
+// 要更新的数据记录信息
+//
+// 示例值：{\"age\":10}
+func (builder *RecordsPatchWorkspaceTablePathReqBodyBuilder) Record(record string) *RecordsPatchWorkspaceTablePathReqBodyBuilder {
+	builder.record = record
+	builder.recordFlag = true
+	return builder
+}
+
+func (builder *RecordsPatchWorkspaceTablePathReqBodyBuilder) Build() (*RecordsPatchWorkspaceTableReqBody, error) {
+	req := &RecordsPatchWorkspaceTableReqBody{}
+	if builder.recordFlag {
+		req.Record = &builder.record
+	}
+	return req, nil
+}
+
+type RecordsPatchWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RecordsPatchWorkspaceTableReqBody
+}
+
+func NewRecordsPatchWorkspaceTableReqBuilder() *RecordsPatchWorkspaceTableReqBuilder {
+	builder := &RecordsPatchWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *RecordsPatchWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *RecordsPatchWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 数据表表名
+//
+// 示例值：table_name_1
+func (builder *RecordsPatchWorkspaceTableReqBuilder) TableName(tableName string) *RecordsPatchWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
+	return builder
+}
+
+// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
+//
+// 示例值：age=gt.10
+func (builder *RecordsPatchWorkspaceTableReqBuilder) Filter(filter string) *RecordsPatchWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
+	return builder
+}
+
+// 按条件更新数据表中的记录
+func (builder *RecordsPatchWorkspaceTableReqBuilder) Body(body *RecordsPatchWorkspaceTableReqBody) *RecordsPatchWorkspaceTableReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RecordsPatchWorkspaceTableReqBuilder) Build() *RecordsPatchWorkspaceTableReq {
+	req := &RecordsPatchWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RecordsPatchWorkspaceTableReqBody struct {
+	Record *string `json:"record,omitempty"` // 要更新的数据记录信息
+}
+
+type RecordsPatchWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RecordsPatchWorkspaceTableReqBody `body:""`
+}
+
+type RecordsPatchWorkspaceTableRespData struct {
+	RecordIds []string `json:"record_ids,omitempty"` // 更新的记录唯一ID列表
+}
+
+type RecordsPatchWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecordsPatchWorkspaceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecordsPatchWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type RecordsPostWorkspaceTableReqBodyBuilder struct {
+	records     string // 要插入的数据记录列表，单次支持最多 500 条
+	recordsFlag bool
+}
+
+func NewRecordsPostWorkspaceTableReqBodyBuilder() *RecordsPostWorkspaceTableReqBodyBuilder {
+	builder := &RecordsPostWorkspaceTableReqBodyBuilder{}
+	return builder
+}
+
+// 要插入的数据记录列表，单次支持最多 500 条
+//
+//示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
+func (builder *RecordsPostWorkspaceTableReqBodyBuilder) Records(records string) *RecordsPostWorkspaceTableReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *RecordsPostWorkspaceTableReqBodyBuilder) Build() *RecordsPostWorkspaceTableReqBody {
+	req := &RecordsPostWorkspaceTableReqBody{}
+	if builder.recordsFlag {
+		req.Records = &builder.records
+	}
+	return req
+}
+
+type RecordsPostWorkspaceTablePathReqBodyBuilder struct {
+	records     string
+	recordsFlag bool
+}
+
+func NewRecordsPostWorkspaceTablePathReqBodyBuilder() *RecordsPostWorkspaceTablePathReqBodyBuilder {
+	builder := &RecordsPostWorkspaceTablePathReqBodyBuilder{}
+	return builder
+}
+
+// 要插入的数据记录列表，单次支持最多 500 条
+//
+// 示例值：[{\"name\":\"王一一\",\"gender\":\"male\",\"age\":10},{\"name\":\"王二二\",\"gender\":\"female\",\"age\":10}]
+func (builder *RecordsPostWorkspaceTablePathReqBodyBuilder) Records(records string) *RecordsPostWorkspaceTablePathReqBodyBuilder {
+	builder.records = records
+	builder.recordsFlag = true
+	return builder
+}
+
+func (builder *RecordsPostWorkspaceTablePathReqBodyBuilder) Build() (*RecordsPostWorkspaceTableReqBody, error) {
+	req := &RecordsPostWorkspaceTableReqBody{}
+	if builder.recordsFlag {
+		req.Records = &builder.records
+	}
+	return req, nil
+}
+
+type RecordsPostWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *RecordsPostWorkspaceTableReqBody
+}
+
+func NewRecordsPostWorkspaceTableReqBuilder() *RecordsPostWorkspaceTableReqBuilder {
+	builder := &RecordsPostWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *RecordsPostWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *RecordsPostWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 数据表表名
+//
+// 示例值：table_name_1
+func (builder *RecordsPostWorkspaceTableReqBuilder) TableName(tableName string) *RecordsPostWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
+	return builder
+}
+
+// UPSERT 时使用，指定列，多列英文逗号拼接
+//
+// 示例值：name,age
+func (builder *RecordsPostWorkspaceTableReqBuilder) Columns(columns string) *RecordsPostWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("columns", fmt.Sprint(columns))
+	return builder
+}
+
+// 向数据表中添加或更新记录
+func (builder *RecordsPostWorkspaceTableReqBuilder) Body(body *RecordsPostWorkspaceTableReqBody) *RecordsPostWorkspaceTableReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *RecordsPostWorkspaceTableReqBuilder) Build() *RecordsPostWorkspaceTableReq {
+	req := &RecordsPostWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type RecordsPostWorkspaceTableReqBody struct {
+	Records *string `json:"records,omitempty"` // 要插入的数据记录列表，单次支持最多 500 条
+}
+
+type RecordsPostWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *RecordsPostWorkspaceTableReqBody `body:""`
+}
+
+type RecordsPostWorkspaceTableRespData struct {
+	RecordIds []string `json:"record_ids,omitempty"` // 按照记录顺序创建或更新的记录 ID 列表
+}
+
+type RecordsPostWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *RecordsPostWorkspaceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *RecordsPostWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ViewsGetWorkspaceViewReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewViewsGetWorkspaceViewReqBuilder() *ViewsGetWorkspaceViewReqBuilder {
+	builder := &ViewsGetWorkspaceViewReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间id
+//
+// 示例值：workspace_abc
+func (builder *ViewsGetWorkspaceViewReqBuilder) WorkspaceId(workspaceId string) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 视图名称
+//
+// 示例值：view_name_1
+func (builder *ViewsGetWorkspaceViewReqBuilder) ViewName(viewName string) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.PathParams.Set("view_name", fmt.Sprint(viewName))
+	return builder
+}
+
+// 分页大小，用于限制一次请求所返回的数据条目数。默认10，最大500
+//
+// 示例值：10
+func (builder *ViewsGetWorkspaceViewReqBuilder) PageSize(pageSize int) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：
+func (builder *ViewsGetWorkspaceViewReqBuilder) PageToken(pageToken string) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 返回的列，默认为 *，即返回所有列。;遵循 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#vertical-filtering
+//
+// 示例值：_id,_created_at,name
+func (builder *ViewsGetWorkspaceViewReqBuilder) Select(select_ string) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.QueryParams.Set("select", fmt.Sprint(select_))
+	return builder
+}
+
+// 筛选条件，尊许 PostgREST 语法，详情可查看 https://docs.postgrest.org/en/v13/references/api/tables_views.html#horizontal-filtering
+//
+// 示例值：age=gt.10
+func (builder *ViewsGetWorkspaceViewReqBuilder) Filter(filter string) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.QueryParams.Set("filter", fmt.Sprint(filter))
+	return builder
+}
+
+// 排序条件，如果没指定 asc/desc，默认为 asc，null 值可排在最前或最后。;尊许 PostgREST 语法，详情可查看;https://docs.postgrest.org/en/v13/references/api/tables_views.html#ordering
+//
+// 示例值：age.desc,score.asc
+func (builder *ViewsGetWorkspaceViewReqBuilder) Order(order string) *ViewsGetWorkspaceViewReqBuilder {
+	builder.apiReq.QueryParams.Set("order", fmt.Sprint(order))
+	return builder
+}
+
+func (builder *ViewsGetWorkspaceViewReqBuilder) Build() *ViewsGetWorkspaceViewReq {
+	req := &ViewsGetWorkspaceViewReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ViewsGetWorkspaceViewReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ViewsGetWorkspaceViewRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	Total *int `json:"total,omitempty"` // 符合条件的记录总数
+
+	Items *string `json:"items,omitempty"` // 数据记录列表，格式为数组序列化后的 JSONString
+}
+
+type ViewsGetWorkspaceViewResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ViewsGetWorkspaceViewRespData `json:"data"` // 业务数据
+}
+
+func (resp *ViewsGetWorkspaceViewResp) Success() bool {
 	return resp.Code == 0
 }
 

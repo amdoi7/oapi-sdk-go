@@ -4956,7 +4956,7 @@ type ApplicationDetailInfo struct {
 
 	InterviewAggregation *InterviewAggregation `json:"interview_aggregation,omitempty"` // 投递面试信息
 
-	Offer *OfferInfoV2 `json:"offer,omitempty"` // 投递 Offer 信息
+	Offer *OfferInfoV2 `json:"offer,omitempty"` // 投递 Offer 信息（正式offer）
 
 	Employee *EmployeeV2 `json:"employee,omitempty"` // 投递员工入转离信息
 
@@ -4983,7 +4983,7 @@ type ApplicationDetailInfoBuilder struct {
 	interviewAggregation     *InterviewAggregation // 投递面试信息
 	interviewAggregationFlag bool
 
-	offer     *OfferInfoV2 // 投递 Offer 信息
+	offer     *OfferInfoV2 // 投递 Offer 信息（正式offer）
 	offerFlag bool
 
 	employee     *EmployeeV2 // 投递员工入转离信息
@@ -5049,7 +5049,7 @@ func (builder *ApplicationDetailInfoBuilder) InterviewAggregation(interviewAggre
 	return builder
 }
 
-// 投递 Offer 信息
+// 投递 Offer 信息（正式offer）
 //
 // 示例值：
 func (builder *ApplicationDetailInfoBuilder) Offer(offer *OfferInfoV2) *ApplicationDetailInfoBuilder {
@@ -64311,7 +64311,7 @@ type UpdateJobRequirementReqBodyBuilder struct {
 	displayProgress     int // 需求状态
 	displayProgressFlag bool
 
-	headCount     int // 需求人数
+	headCount     int // 需求人数，取值范围需大于 0
 	headCountFlag bool
 
 	recruitmentTypeId     string // 职位性质 ID
@@ -64413,7 +64413,7 @@ func (builder *UpdateJobRequirementReqBodyBuilder) DisplayProgress(displayProgre
 	return builder
 }
 
-// 需求人数
+// 需求人数，取值范围需大于 0
 //
 //示例值：11
 func (builder *UpdateJobRequirementReqBodyBuilder) HeadCount(headCount int) *UpdateJobRequirementReqBodyBuilder {
@@ -64806,7 +64806,7 @@ func (builder *UpdateJobRequirementPathReqBodyBuilder) DisplayProgress(displayPr
 	return builder
 }
 
-// 需求人数
+// 需求人数，取值范围需大于 0
 //
 // 示例值：11
 func (builder *UpdateJobRequirementPathReqBodyBuilder) HeadCount(headCount int) *UpdateJobRequirementPathReqBodyBuilder {
@@ -65199,7 +65199,7 @@ type UpdateJobRequirementReqBody struct {
 
 	DisplayProgress *int `json:"display_progress,omitempty"` // 需求状态
 
-	HeadCount *int `json:"head_count,omitempty"` // 需求人数
+	HeadCount *int `json:"head_count,omitempty"` // 需求人数，取值范围需大于 0
 
 	RecruitmentTypeId *string `json:"recruitment_type_id,omitempty"` // 职位性质 ID
 

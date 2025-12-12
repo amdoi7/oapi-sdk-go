@@ -230,6 +230,73 @@ func (builder *BlockRoleBuilder) Build() *BlockRole {
 	return req
 }
 
+type ConditionGroup struct {
+	ConditionType *int `json:"condition_type,omitempty"` // 条件组类型
+
+	Conditions []*RecRuleCondition `json:"conditions,omitempty"` // 条件列表
+
+	Conjunction *string `json:"conjunction,omitempty"` // 条件符
+}
+
+type ConditionGroupBuilder struct {
+	conditionType     int // 条件组类型
+	conditionTypeFlag bool
+
+	conditions     []*RecRuleCondition // 条件列表
+	conditionsFlag bool
+
+	conjunction     string // 条件符
+	conjunctionFlag bool
+}
+
+func NewConditionGroupBuilder() *ConditionGroupBuilder {
+	builder := &ConditionGroupBuilder{}
+	return builder
+}
+
+// 条件组类型
+//
+// 示例值：and
+func (builder *ConditionGroupBuilder) ConditionType(conditionType int) *ConditionGroupBuilder {
+	builder.conditionType = conditionType
+	builder.conditionTypeFlag = true
+	return builder
+}
+
+// 条件列表
+//
+// 示例值：
+func (builder *ConditionGroupBuilder) Conditions(conditions []*RecRuleCondition) *ConditionGroupBuilder {
+	builder.conditions = conditions
+	builder.conditionsFlag = true
+	return builder
+}
+
+// 条件符
+//
+// 示例值：or
+func (builder *ConditionGroupBuilder) Conjunction(conjunction string) *ConditionGroupBuilder {
+	builder.conjunction = conjunction
+	builder.conjunctionFlag = true
+	return builder
+}
+
+func (builder *ConditionGroupBuilder) Build() *ConditionGroup {
+	req := &ConditionGroup{}
+	if builder.conditionTypeFlag {
+		req.ConditionType = &builder.conditionType
+
+	}
+	if builder.conditionsFlag {
+		req.Conditions = builder.conditions
+	}
+	if builder.conjunctionFlag {
+		req.Conjunction = &builder.conjunction
+
+	}
+	return req
+}
+
 type DepartmentId struct {
 	DepartmentId *string `json:"department_id,omitempty"` //
 
@@ -1006,6 +1073,10 @@ type RecRule struct {
 	Perm *int `json:"perm,omitempty"` // 规则筛选记录对应的权限
 
 	OtherPerm *int `json:"other_perm,omitempty"` // 其他记录权限，仅在table_perm为2时有效
+
+	ConditionGroups []*ConditionGroup `json:"condition_groups,omitempty"` // 条件组
+
+	DisplayRecRuleVersion *int `json:"display_rec_rule_version,omitempty"` // 条件版本
 }
 
 type RecRuleBuilder struct {
@@ -1020,6 +1091,12 @@ type RecRuleBuilder struct {
 
 	otherPerm     int // 其他记录权限，仅在table_perm为2时有效
 	otherPermFlag bool
+
+	conditionGroups     []*ConditionGroup // 条件组
+	conditionGroupsFlag bool
+
+	displayRecRuleVersion     int // 条件版本
+	displayRecRuleVersionFlag bool
 }
 
 func NewRecRuleBuilder() *RecRuleBuilder {
@@ -1063,6 +1140,24 @@ func (builder *RecRuleBuilder) OtherPerm(otherPerm int) *RecRuleBuilder {
 	return builder
 }
 
+// 条件组
+//
+// 示例值：
+func (builder *RecRuleBuilder) ConditionGroups(conditionGroups []*ConditionGroup) *RecRuleBuilder {
+	builder.conditionGroups = conditionGroups
+	builder.conditionGroupsFlag = true
+	return builder
+}
+
+// 条件版本
+//
+// 示例值：1
+func (builder *RecRuleBuilder) DisplayRecRuleVersion(displayRecRuleVersion int) *RecRuleBuilder {
+	builder.displayRecRuleVersion = displayRecRuleVersion
+	builder.displayRecRuleVersionFlag = true
+	return builder
+}
+
 func (builder *RecRuleBuilder) Build() *RecRule {
 	req := &RecRule{}
 	if builder.conditionsFlag {
@@ -1078,6 +1173,13 @@ func (builder *RecRuleBuilder) Build() *RecRule {
 	}
 	if builder.otherPermFlag {
 		req.OtherPerm = &builder.otherPerm
+
+	}
+	if builder.conditionGroupsFlag {
+		req.ConditionGroups = builder.conditionGroups
+	}
+	if builder.displayRecRuleVersionFlag {
+		req.DisplayRecRuleVersion = &builder.displayRecRuleVersion
 
 	}
 	return req

@@ -346,6 +346,7 @@ const (
 	ParentTypeUploadAllMediaCalendar            = "calendar"               // 日历文件
 	ParentTypeUploadAllMediaBaseGlobal          = "base_global"            // base文件
 	ParentTypeUploadAllMediaLarkAiMediaAnalysis = "lark_ai_media_analysis" // ai素材
+	ParentTypeUploadAllMediaWhiteboard          = "whiteboard"             // 白板文件
 )
 
 const (
@@ -363,6 +364,7 @@ const (
 	ParentTypeUploadPrepareMediaCalendar            = "calendar"               // 日历文件
 	ParentTypeUploadPrepareMediaBaseGlobal          = "base_global"            // base文件
 	ParentTypeUploadPrepareMediaLarkAiMediaAnalysis = "lark_ai_media_analysis" // ai素材
+	ParentTypeUploadPrepareMediaWhiteboard          = "whiteboard"             // 白板文件
 )
 
 const (

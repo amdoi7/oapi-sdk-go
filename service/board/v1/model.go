@@ -36,14 +36,14 @@ const (
 )
 
 const (
-	SyntaxTypeUNKOWN   = 0 // 未知
+	SyntaxTypeUNKNOWN  = 0 // 未知
 	SyntaxTypePLANTUML = 1 // Plantuml解析
 	SyntaxTypeMERMAID  = 2 // Mermaid解析
 
 )
 
 const (
-	DiagramTypeUNKOWN            = 0   // 未知
+	DiagramTypeUNKNOWN           = 0   // 未知
 	DiagramTypeMINDMAP           = 1   // 思维导图
 	DiagramTypeSEQUENCE          = 2   // 时序图
 	DiagramTypeACTIVITY          = 3   // 活动图
@@ -373,6 +373,8 @@ type Connector struct {
 	CaptionPosition *float64 `json:"caption_position,omitempty"` // 文本在连线上的相对位置，范围0-1，0表示在连线的起始点，1表示在连线的终点
 
 	SpecifiedCoordinate *bool `json:"specified_coordinate,omitempty"` // 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
+
+	CaptionPositionType *int `json:"caption_position_type,omitempty"` // 文字相对连线的位置类型，0=OnLine，表示文字在连线那不；1=AboveLine，文字在连线的上方，文字在线的上方，连线走向的上边或左边；2=BellowLine，文字在连线的下方，文字在线的上方，连线走向的下边或右边
 }
 
 type ConnectorBuilder struct {
@@ -405,6 +407,9 @@ type ConnectorBuilder struct {
 
 	specifiedCoordinate     bool // 指定连线坐标及长宽。为 true 时需要用户设置连线的坐标及长宽信息。为 false 时会根据连线的开始、结束端点自动计算连线的坐标及长宽信息
 	specifiedCoordinateFlag bool
+
+	captionPositionType     int // 文字相对连线的位置类型，0=OnLine，表示文字在连线那不；1=AboveLine，文字在连线的上方，文字在线的上方，连线走向的上边或左边；2=BellowLine，文字在连线的下方，文字在线的上方，连线走向的下边或右边
+	captionPositionTypeFlag bool
 }
 
 func NewConnectorBuilder() *ConnectorBuilder {
@@ -502,6 +507,15 @@ func (builder *ConnectorBuilder) SpecifiedCoordinate(specifiedCoordinate bool) *
 	return builder
 }
 
+// 文字相对连线的位置类型，0=OnLine，表示文字在连线那不；1=AboveLine，文字在连线的上方，文字在线的上方，连线走向的上边或左边；2=BellowLine，文字在连线的下方，文字在线的上方，连线走向的下边或右边
+//
+// 示例值：
+func (builder *ConnectorBuilder) CaptionPositionType(captionPositionType int) *ConnectorBuilder {
+	builder.captionPositionType = captionPositionType
+	builder.captionPositionTypeFlag = true
+	return builder
+}
+
 func (builder *ConnectorBuilder) Build() *Connector {
 	req := &Connector{}
 	if builder.startObjectFlag {
@@ -536,6 +550,10 @@ func (builder *ConnectorBuilder) Build() *Connector {
 	}
 	if builder.specifiedCoordinateFlag {
 		req.SpecifiedCoordinate = &builder.specifiedCoordinate
+
+	}
+	if builder.captionPositionTypeFlag {
+		req.CaptionPositionType = &builder.captionPositionType
 
 	}
 	return req
