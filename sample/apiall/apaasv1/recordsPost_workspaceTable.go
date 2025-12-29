@@ -30,6 +30,7 @@ func main() {
 		WorkspaceId("workspace_abc").
 		TableName("table_name_1").
 		Columns("name,age").
+		OnConflict("user_id,product_id").
 		Body(larkapaas.NewRecordsPostWorkspaceTableReqBodyBuilder().
 			Records("").
 			Build()).

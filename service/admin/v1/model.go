@@ -27,105 +27,105 @@ import (
 )
 
 const (
-	DepartmentIdTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ApiMGetDepartmentDailyStatisticsDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ApiMGetDepartmentDailyStatisticsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户
+	ApiMGetUserDailyStatisticsUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ApiMGetUserDailyStatisticsUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ApiMGetUserDailyStatisticsUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	DepartmentIdTypeListAdminUserStatDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListAdminUserStatOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	ApiMGetUserDailyStatisticsDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ApiMGetUserDailyStatisticsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	UserIdTypeListAuditInfoUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListAuditInfoUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListAuditInfoOpenId  = "open_id"  // 以open_id来识别用户
+	GetAuditInfoListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetAuditInfoListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetAuditInfoListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	OperatorTypeUser = "user" // 以user_id来识别用户
-	OperatorTypeBot  = "bot"  // [已废弃] 以bot_id来识别用户
+	GetAuditInfoListOperatorTypeUser = "user" // 以user_id来识别用户
+	GetAuditInfoListOperatorTypeBot  = "bot"  // [已废弃] 以bot_id来识别用户
 )
 
 const (
-	UserTypeAll          = 0 // 互联网上的任何人
-	UserTypeNormalUser   = 1 // 组织内成员
-	UserTypeExternalUser = 2 // 组织外成员
-
-)
-
-const (
-	GrantTypeManual   = 0 // 手动选择有效期
-	GrantTypeJoinTime = 1 // 匹配系统入职时间
+	GetAuditInfoListUserTypeAll          = 0 // 互联网上的任何人
+	GetAuditInfoListUserTypeNormalUser   = 1 // 组织内成员
+	GetAuditInfoListUserTypeExternalUser = 2 // 组织外成员
 
 )
 
 const (
-	UserIdTypeCreateBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeCreateBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeCreateBadgeGrantUserId  = "user_id"  // 用户的user_id
-)
-
-const (
-	DepartmentIdTypeCreateBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeCreateBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
-)
-
-const (
-	UserIdTypeGetBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeGetBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeGetBadgeGrantUserId  = "user_id"  // 用户的user_id
-)
-
-const (
-	DepartmentIdTypeGetBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeGetBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
-)
-
-const (
-	UserIdTypeListBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeListBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeListBadgeGrantUserId  = "user_id"  // 用户的user_id
-)
-
-const (
-	DepartmentIdTypeListBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeListBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
-)
-
-const (
-	GrantTypeUpdateBadgeGrantManual   = 0 // 手动选择有效期
-	GrantTypeUpdateBadgeGrantJoinTime = 1 // 匹配系统入职时间
+	GrantGrantTypeManual   = 0 // 手动选择有效期
+	GrantGrantTypeJoinTime = 1 // 匹配系统入职时间
 
 )
 
 const (
-	UserIdTypeUpdateBadgeGrantOpenId  = "open_id"  // 用户的open_id
-	UserIdTypeUpdateBadgeGrantUnionId = "union_id" // 用户的union_id
-	UserIdTypeUpdateBadgeGrantUserId  = "user_id"  // 用户的user_id
+	CreateGrantUserIDTypeOpenId  = "open_id"  // 用户的open_id
+	CreateGrantUserIDTypeUnionId = "union_id" // 用户的union_id
+	CreateGrantUserIDTypeUserId  = "user_id"  // 用户的user_id
 )
 
 const (
-	DepartmentIdTypeUpdateBadgeGrantDepartmentId     = "department_id"      // 以自定义department_id来标识部门
-	DepartmentIdTypeUpdateBadgeGrantOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+	CreateGrantDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	CreateGrantDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
 )
 
 const (
-	ImageTypeDetail = 1 // 勋章详情图
-	ImageTypeShow   = 2 // 勋章挂饰图
+	GetGrantUserIDTypeOpenId  = "open_id"  // 用户的open_id
+	GetGrantUserIDTypeUnionId = "union_id" // 用户的union_id
+	GetGrantUserIDTypeUserId  = "user_id"  // 用户的user_id
+)
+
+const (
+	GetGrantDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	GetGrantDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	ScanGrantsUserIDTypeOpenId  = "open_id"  // 用户的open_id
+	ScanGrantsUserIDTypeUnionId = "union_id" // 用户的union_id
+	ScanGrantsUserIDTypeUserId  = "user_id"  // 用户的user_id
+)
+
+const (
+	ScanGrantsDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	ScanGrantsDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	GrantGrantTypeUpdateBadgeGrantManual   = 0 // 手动选择有效期
+	GrantGrantTypeUpdateBadgeGrantJoinTime = 1 // 匹配系统入职时间
 
 )
 
 const (
-	UserIdTypeResetPasswordOpenId  = "open_id"  // open_id
-	UserIdTypeResetPasswordUnionId = "union_id" // union_id
-	UserIdTypeResetPasswordUserId  = "user_id"  // user_id
+	UpdateGrantUserIDTypeOpenId  = "open_id"  // 用户的open_id
+	UpdateGrantUserIDTypeUnionId = "union_id" // 用户的union_id
+	UpdateGrantUserIDTypeUserId  = "user_id"  // 用户的user_id
+)
+
+const (
+	UpdateGrantDepartmentIDTypeDepartmentId     = "department_id"      // 以自定义department_id来标识部门
+	UpdateGrantDepartmentIDTypeOpenDepartmentId = "open_department_id" // 以open_department_id来标识部门
+)
+
+const (
+	UploadBadgeImageImageTypeDetail = 1 // 勋章详情图
+	UploadBadgeImageImageTypeShow   = 2 // 勋章挂饰图
+
+)
+
+const (
+	ResetPasswordOapiUserIDTypeOpenId  = "open_id"  // open_id
+	ResetPasswordOapiUserIDTypeUnionId = "union_id" // union_id
+	ResetPasswordOapiUserIDTypeUserId  = "user_id"  // user_id
 )
 
 type AdminDeptExtContactStat struct {
@@ -1836,6 +1836,92 @@ func (builder *AdministratorBuilder) Build() *Administrator {
 	return req
 }
 
+type AnnualBaseTopAi struct {
+	NameCn *string `json:"name_cn,omitempty"` // 2025年用户多维表格文档使用最多的AI功能名称(中文)
+
+	NameEn *string `json:"name_en,omitempty"` // 2025年用户多维表格文档使用最多的AI功能名称(英文)
+
+	NameCnList *string `json:"name_cn_list,omitempty"` // 2025年用户多维表格文档使用的Top5 AI功能名称(中文)
+
+	NameEnList *string `json:"name_en_list,omitempty"` // 2025年用户多维表格文档使用的Top5 AI功能名称(英文)
+}
+
+type AnnualBaseTopAiBuilder struct {
+	nameCn     string // 2025年用户多维表格文档使用最多的AI功能名称(中文)
+	nameCnFlag bool
+
+	nameEn     string // 2025年用户多维表格文档使用最多的AI功能名称(英文)
+	nameEnFlag bool
+
+	nameCnList     string // 2025年用户多维表格文档使用的Top5 AI功能名称(中文)
+	nameCnListFlag bool
+
+	nameEnList     string // 2025年用户多维表格文档使用的Top5 AI功能名称(英文)
+	nameEnListFlag bool
+}
+
+func NewAnnualBaseTopAiBuilder() *AnnualBaseTopAiBuilder {
+	builder := &AnnualBaseTopAiBuilder{}
+	return builder
+}
+
+// 2025年用户多维表格文档使用最多的AI功能名称(中文)
+//
+// 示例值：AI 字段捷径
+func (builder *AnnualBaseTopAiBuilder) NameCn(nameCn string) *AnnualBaseTopAiBuilder {
+	builder.nameCn = nameCn
+	builder.nameCnFlag = true
+	return builder
+}
+
+// 2025年用户多维表格文档使用最多的AI功能名称(英文)
+//
+// 示例值：AI field shortcuts
+func (builder *AnnualBaseTopAiBuilder) NameEn(nameEn string) *AnnualBaseTopAiBuilder {
+	builder.nameEn = nameEn
+	builder.nameEnFlag = true
+	return builder
+}
+
+// 2025年用户多维表格文档使用的Top5 AI功能名称(中文)
+//
+// 示例值：AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI  浮窗工具栏
+func (builder *AnnualBaseTopAiBuilder) NameCnList(nameCnList string) *AnnualBaseTopAiBuilder {
+	builder.nameCnList = nameCnList
+	builder.nameCnListFlag = true
+	return builder
+}
+
+// 2025年用户多维表格文档使用的Top5 AI功能名称(英文)
+//
+// 示例值：AI sidebar,Workflow AI Agent node,AI field shortcuts,AI-generated formulas,AI smart toolbar
+func (builder *AnnualBaseTopAiBuilder) NameEnList(nameEnList string) *AnnualBaseTopAiBuilder {
+	builder.nameEnList = nameEnList
+	builder.nameEnListFlag = true
+	return builder
+}
+
+func (builder *AnnualBaseTopAiBuilder) Build() *AnnualBaseTopAi {
+	req := &AnnualBaseTopAi{}
+	if builder.nameCnFlag {
+		req.NameCn = &builder.nameCn
+
+	}
+	if builder.nameEnFlag {
+		req.NameEn = &builder.nameEn
+
+	}
+	if builder.nameCnListFlag {
+		req.NameCnList = &builder.nameCnList
+
+	}
+	if builder.nameEnListFlag {
+		req.NameEnList = &builder.nameEnList
+
+	}
+	return req
+}
+
 type AnnualReportMapFloat struct {
 	Year *string `json:"year,omitempty"` // 年份
 
@@ -1931,6 +2017,74 @@ func (builder *AnnualReportMapIntBuilder) Build() *AnnualReportMapInt {
 	}
 	if builder.countFlag {
 		req.Count = &builder.count
+
+	}
+	return req
+}
+
+type AnnualVcOrgCnt struct {
+	OrganizedMeetingCnt *string `json:"organized_meeting_cnt,omitempty"` // 2025年用户组织的会议数
+
+	OrganizedCalMeetingCnt *string `json:"organized_cal_meeting_cnt,omitempty"` // 2025年用户组织日程会议数
+
+	OrganizedInstantMeetingCnt *string `json:"organized_instant_meeting_cnt,omitempty"` // 2025年用户组织即时会议数
+}
+
+type AnnualVcOrgCntBuilder struct {
+	organizedMeetingCnt     string // 2025年用户组织的会议数
+	organizedMeetingCntFlag bool
+
+	organizedCalMeetingCnt     string // 2025年用户组织日程会议数
+	organizedCalMeetingCntFlag bool
+
+	organizedInstantMeetingCnt     string // 2025年用户组织即时会议数
+	organizedInstantMeetingCntFlag bool
+}
+
+func NewAnnualVcOrgCntBuilder() *AnnualVcOrgCntBuilder {
+	builder := &AnnualVcOrgCntBuilder{}
+	return builder
+}
+
+// 2025年用户组织的会议数
+//
+// 示例值：66
+func (builder *AnnualVcOrgCntBuilder) OrganizedMeetingCnt(organizedMeetingCnt string) *AnnualVcOrgCntBuilder {
+	builder.organizedMeetingCnt = organizedMeetingCnt
+	builder.organizedMeetingCntFlag = true
+	return builder
+}
+
+// 2025年用户组织日程会议数
+//
+// 示例值：88
+func (builder *AnnualVcOrgCntBuilder) OrganizedCalMeetingCnt(organizedCalMeetingCnt string) *AnnualVcOrgCntBuilder {
+	builder.organizedCalMeetingCnt = organizedCalMeetingCnt
+	builder.organizedCalMeetingCntFlag = true
+	return builder
+}
+
+// 2025年用户组织即时会议数
+//
+// 示例值：99
+func (builder *AnnualVcOrgCntBuilder) OrganizedInstantMeetingCnt(organizedInstantMeetingCnt string) *AnnualVcOrgCntBuilder {
+	builder.organizedInstantMeetingCnt = organizedInstantMeetingCnt
+	builder.organizedInstantMeetingCntFlag = true
+	return builder
+}
+
+func (builder *AnnualVcOrgCntBuilder) Build() *AnnualVcOrgCnt {
+	req := &AnnualVcOrgCnt{}
+	if builder.organizedMeetingCntFlag {
+		req.OrganizedMeetingCnt = &builder.organizedMeetingCnt
+
+	}
+	if builder.organizedCalMeetingCntFlag {
+		req.OrganizedCalMeetingCnt = &builder.organizedCalMeetingCnt
+
+	}
+	if builder.organizedInstantMeetingCntFlag {
+		req.OrganizedInstantMeetingCnt = &builder.organizedInstantMeetingCnt
 
 	}
 	return req
@@ -5410,6 +5564,8 @@ type UserAnnualReport struct {
 	Year2023 *UserReport2023 `json:"year_2023,omitempty"` // 2023用户年度报告
 
 	Year2024 *UserReport2024 `json:"year_2024,omitempty"` // 2024用户年度报告
+
+	Year2025 *UserReport2025 `json:"year_2025,omitempty"` // 2025用户年度报告
 }
 
 type UserAnnualReportBuilder struct {
@@ -5424,6 +5580,9 @@ type UserAnnualReportBuilder struct {
 
 	year2024     *UserReport2024 // 2024用户年度报告
 	year2024Flag bool
+
+	year2025     *UserReport2025 // 2025用户年度报告
+	year2025Flag bool
 }
 
 func NewUserAnnualReportBuilder() *UserAnnualReportBuilder {
@@ -5467,6 +5626,15 @@ func (builder *UserAnnualReportBuilder) Year2024(year2024 *UserReport2024) *User
 	return builder
 }
 
+// 2025用户年度报告
+//
+// 示例值：
+func (builder *UserAnnualReportBuilder) Year2025(year2025 *UserReport2025) *UserAnnualReportBuilder {
+	builder.year2025 = year2025
+	builder.year2025Flag = true
+	return builder
+}
+
 func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 	req := &UserAnnualReport{}
 	if builder.year2021Flag {
@@ -5480,6 +5648,9 @@ func (builder *UserAnnualReportBuilder) Build() *UserAnnualReport {
 	}
 	if builder.year2024Flag {
 		req.Year2024 = builder.year2024
+	}
+	if builder.year2025Flag {
+		req.Year2025 = builder.year2025
 	}
 	return req
 }
@@ -8267,6 +8438,1098 @@ func (builder *UserReport2024Builder) Build() *UserReport2024 {
 	}
 	if builder.peopleInterviewOfferNum2Flag {
 		req.PeopleInterviewOfferNum2 = builder.peopleInterviewOfferNum2
+	}
+	return req
+}
+
+type UserReport2025 struct {
+	UserId *string `json:"user_id,omitempty"` // 用户ID
+
+	TenantAllCnt *string `json:"tenant_all_cnt,omitempty"` // 租户当前飞书激活未离职账号总数
+
+	UserRegisterDate *string `json:"user_register_date,omitempty"` // 用户飞书账号激活日期(yyyyMMdd)
+
+	FeishuActiveDays *string `json:"feishu_active_days,omitempty"` // 用户2025年有飞书活跃的天数
+
+	FeishuDurationBusyMonth *string `json:"feishu_duration_busy_month,omitempty"` // 用户2025年飞书在线时长最长的那个月（字符串，取值'01'~'12'）
+
+	FeishuDurationBusyMonthHours *float64 `json:"feishu_duration_busy_month_hours,omitempty"` // 用户2025年上述在线时长最长的那个月的在线时长（小时，保留2位小数）
+
+	BusyMonthSendMsgCnt *string `json:"busy_month_send_msg_cnt,omitempty"` // 用户2025年上述在线时长最长的那个月，用户发消息数
+
+	BusyMonthEditDocCnt *string `json:"busy_month_edit_doc_cnt,omitempty"` // 用户2025年上述在线时长最长的那个月，用户编辑文档数量
+
+	BusyMonthReadDocCnt *string `json:"busy_month_read_doc_cnt,omitempty"` // 用户2025年上述在线时长最长的那个月，用户阅读文档数
+
+	BusyMonthJoinMeetingCnt *string `json:"busy_month_join_meeting_cnt,omitempty"` // 用户2025年上述在线时长最长的那个月，用户参会数量
+
+	BusyMonthMeetingDuration *float64 `json:"busy_month_meeting_duration,omitempty"` // 用户2025年上述在线时长最长的那个月，用户参会时长（小时,保留2位小数）
+
+	ImTalkedChatCnt *string `json:"im_talked_chat_cnt,omitempty"` // 用户2025年发过消息的飞书群聊数量（包含已解散群；不包含仅发过表情的群）
+
+	ImPrivateChatCnt *string `json:"im_private_chat_cnt,omitempty"` // 用户2025年发消息私聊过的单聊对象数量（去重，不考虑对方是否本租户人员；不考虑对方是否已离职；不含跟自己聊、不含跟bot聊）
+
+	ImSendMsgCnt *string `json:"im_send_msg_cnt,omitempty"` // 用户2025年在上述群聊、单聊两种场景下，发出的消息总数
+
+	ImEmojiTop1 *string `json:"im_emoji_top1,omitempty"` // 用户2025年使用最多的表情（排除自定义）
+
+	ImEmojiTop1Cnt *string `json:"im_emoji_top1_cnt,omitempty"` // 用户2025年使用最多表情使用总次数（排除自定义）
+
+	ImEmojiTop2 *string `json:"im_emoji_top2,omitempty"` // 用户2025年使用第二多的表情（排除自定义）
+
+	ImEmojiTop2Cnt *string `json:"im_emoji_top2_cnt,omitempty"` // 用户2025年使用第二多表情使用总次数（排除自定义）
+
+	ImEmojiTop3 *string `json:"im_emoji_top3,omitempty"` // 用户2025年使用最第三多的表情（排除自定义）
+
+	ImEmojiTop3Cnt *string `json:"im_emoji_top3_cnt,omitempty"` // 用户2025年使用第三多表情使用总次数（排除自定义）
+
+	CcmCreateFcnt *string `json:"ccm_create_fcnt,omitempty"` // 用户2025年创建的云文档数量（仅算docx/doc；未删除的文档；排除群公告；独立文档）
+
+	CcmCreateRank *string `json:"ccm_create_rank,omitempty"` // 用户2025年创建云文档数在租户内的排名
+
+	CcmCreateRankUcnt *string `json:"ccm_create_rank_ucnt,omitempty"` // 租户2025年创建云文档数量 > 0 的总人数（去重，仅算docx\doc；未删除的文档；排除群公告；独立文档）
+
+	CcmCreateViewedUcnt *string `json:"ccm_create_viewed_ucnt,omitempty"` // 用户2025年创建的文档被浏览的人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+
+	CcmCreateLikedCnt *string `json:"ccm_create_liked_cnt,omitempty"` // 用户2025年创建的文档被点赞次数（仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+
+	CcmCreateViewedMostUcnt *string `json:"ccm_create_viewed_most_ucnt,omitempty"` // 用户2025年创建的文档，在本年度内浏览人数最多的那篇的浏览人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间，未删除的文档）
+
+	CcmAllReadDocCnt *string `json:"ccm_all_read_doc_cnt,omitempty"` // 用户2025年阅读的文档总数(仅算doc/docx)
+
+	DocsAiQuickviewUseCnt *string `json:"docs_ai_quickview_use_cnt,omitempty"` // 用户2025年使用文档AI速览的文档篇数(仅算doc/docx)
+
+	VcJoinMeetingCnt *string `json:"vc_join_meeting_cnt,omitempty"` // 用户2025年参与会议总数（包含用户发起、非用户发起）
+
+	VcJoinMeetingDuration *float64 `json:"vc_join_meeting_duration,omitempty"` // 用户2025年的参会总时长（小时，保留2位小数）
+
+	VcOrgMeetingCnt []*AnnualVcOrgCnt `json:"vc_org_meeting_cnt,omitempty"` // 用户2025年全年组织的会议数量
+
+	AiNotesCreateCnt *string `json:"ai_notes_create_cnt,omitempty"` // 用户2025作为纪要owner生成的智能纪要数量
+
+	AiNotesReadCnt *string `json:"ai_notes_read_cnt,omitempty"` // 用户2025阅读智能纪要的篇数（去重）
+
+	KnowledgeAiUseCnt *string `json:"knowledge_ai_use_cnt,omitempty"` // 用户2025使用知识问答的次数
+
+	KnowledgeAiUseBusyDay *string `json:"knowledge_ai_use_busy_day,omitempty"` // 用户2025使用知识问答次数最多的那一天（有并列多天时，取后一个日期，yyyyMMdd）
+
+	KnowledgeAiUseBusyDayCnt *string `json:"knowledge_ai_use_busy_day_cnt,omitempty"` // 用户2025使用知识问答次数最多的那一天的使用次数
+
+	BaseCreateFcnt *string `json:"base_create_fcnt,omitempty"` // 用户2025创建的多维表格数量
+
+	BaseAiTop1NameMap []*AnnualBaseTopAi `json:"base_ai_top1_name_map,omitempty"` // 用户2025年多维表文档使用最多的AI功能名称（中英文，列表里为top5）
+
+	BaseCreateViewUcnt *string `json:"base_create_view_ucnt,omitempty"` // 用户所创建的多维表格2025年内一共有多少人消费过（去重，仅文档阅读，不计算表单等外部形态）
+
+	BaseMostRowsCnt *string `json:"base_most_rows_cnt,omitempty"` // 用户2025年创建的多维表格中单表行数最大的那篇的行数
+
+	BaseCreateDashboardCnt *string `json:"base_create_dashboard_cnt,omitempty"` // 用户2025年在多维表格中创建的仪表盘数量
+
+	BaseWorkflowCreateCnt *string `json:"base_workflow_create_cnt,omitempty"` // 用户2025年创建的多维表格自动化流程数量
+
+	BaseWorkflowInsCnt *string `json:"base_workflow_ins_cnt,omitempty"` // 用户创建的多维表格自动化流程在2025年内总运行次数（不限制流程创建时间）
+
+	AilyDevelopAppCnt *string `json:"aily_develop_app_cnt,omitempty"` // 用户2025年有进入开发后台界面的Aily工作流应用数量（当前有管理员/开发者身份，且未删除、已发布（不限应用的实际创建时间））
+
+	AilyDevelopAppActiveUcnt *string `json:"aily_develop_app_active_ucnt,omitempty"` // 用户已发布的Aily工作流应用，在2025年的活跃人数（去重，当前有管理员/开发者身份，且未删除）
+
+	AilyDevelopActiveMostAppIntents *string `json:"aily_develop_active_most_app_intents,omitempty"` // 用户参与搭建的Aily应用（未删除，已发布），在2025年对话次数最多的那个应用的对话次数
+
+	AilyChatCnt *string `json:"aily_chat_cnt,omitempty"` // 用户2025年以用户身份与Aily应用、Aily智能体、工作助手的对话总次数
+
+	AilyArtifactCreateCnt *string `json:"aily_artifact_create_cnt,omitempty"` // 用户2025年与Aily智能体对话中生产的交付产物数量（报告、网页、文档等）
+
+	ApaasDevelopAppCnt *string `json:"apaas_develop_app_cnt,omitempty"` // 用户当前有管理员/开发者身份，且未删除，且已发布（不限应用的实际创建时间）的aPaaS应用，在2025年有进入开发后台界面的应用数量
+
+	ApaasDevelopAppActiveUcnt *string `json:"apaas_develop_app_active_ucnt,omitempty"` // 用户当前已发布，有管理员/开发者身份，且未删除的aPaaS应用，在2025年的的活跃人数（去重）
+
+	ApaasDevelopActiveMostAppUcnt *string `json:"apaas_develop_active_most_app_ucnt,omitempty"` // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的活跃人数最大的那个应用的访问人数（去重）
+
+	ApaasDevelopAiRunCnt *string `json:"apaas_develop_ai_run_cnt,omitempty"` // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的AI能力运行次数
+
+	MeegoIsProjectAdmin *string `json:"meego_is_project_admin,omitempty"` // 用户2025年是否任意meego空间的管理员
+
+	MeegoCreateWiCnt *string `json:"meego_create_wi_cnt,omitempty"` // 用户2025年在meego中新建实例数
+
+	MeegoCreateWiRoleUcnt *string `json:"meego_create_wi_role_ucnt,omitempty"` // 用户2025年在meego中，新建实例的参与人员总数(去重)
+
+	MeegoMostViewWiUcnt *string `json:"meego_most_view_wi_ucnt,omitempty"` // 用户2025年在meego中，新建实例且被浏览次数最多的实例的浏览用户数(去重)
+
+	MeegoSetAiFieldCnt *string `json:"meego_set_ai_field_cnt,omitempty"` // 用户2025年为meego空间管理员的meego中配置AI字段的数量
+
+	MeegoAiFieldRunCnt *string `json:"meego_ai_field_run_cnt,omitempty"` // 用户2025年为meego空间管理员的meego中配置AI字段的执行次数
+
+	MeegoAiGanttUseCnt *string `json:"meego_ai_gantt_use_cnt,omitempty"` // 用户2025年在meego中对 AI人力分析的使用次数
+
+	MeegoAiWeeklyReportUseCnt *string `json:"meego_ai_weekly_report_use_cnt,omitempty"` // 用户2025年在meego中对 AI个人周报的使用次数
+}
+
+type UserReport2025Builder struct {
+	userId     string // 用户ID
+	userIdFlag bool
+
+	tenantAllCnt     string // 租户当前飞书激活未离职账号总数
+	tenantAllCntFlag bool
+
+	userRegisterDate     string // 用户飞书账号激活日期(yyyyMMdd)
+	userRegisterDateFlag bool
+
+	feishuActiveDays     string // 用户2025年有飞书活跃的天数
+	feishuActiveDaysFlag bool
+
+	feishuDurationBusyMonth     string // 用户2025年飞书在线时长最长的那个月（字符串，取值'01'~'12'）
+	feishuDurationBusyMonthFlag bool
+
+	feishuDurationBusyMonthHours     float64 // 用户2025年上述在线时长最长的那个月的在线时长（小时，保留2位小数）
+	feishuDurationBusyMonthHoursFlag bool
+
+	busyMonthSendMsgCnt     string // 用户2025年上述在线时长最长的那个月，用户发消息数
+	busyMonthSendMsgCntFlag bool
+
+	busyMonthEditDocCnt     string // 用户2025年上述在线时长最长的那个月，用户编辑文档数量
+	busyMonthEditDocCntFlag bool
+
+	busyMonthReadDocCnt     string // 用户2025年上述在线时长最长的那个月，用户阅读文档数
+	busyMonthReadDocCntFlag bool
+
+	busyMonthJoinMeetingCnt     string // 用户2025年上述在线时长最长的那个月，用户参会数量
+	busyMonthJoinMeetingCntFlag bool
+
+	busyMonthMeetingDuration     float64 // 用户2025年上述在线时长最长的那个月，用户参会时长（小时,保留2位小数）
+	busyMonthMeetingDurationFlag bool
+
+	imTalkedChatCnt     string // 用户2025年发过消息的飞书群聊数量（包含已解散群；不包含仅发过表情的群）
+	imTalkedChatCntFlag bool
+
+	imPrivateChatCnt     string // 用户2025年发消息私聊过的单聊对象数量（去重，不考虑对方是否本租户人员；不考虑对方是否已离职；不含跟自己聊、不含跟bot聊）
+	imPrivateChatCntFlag bool
+
+	imSendMsgCnt     string // 用户2025年在上述群聊、单聊两种场景下，发出的消息总数
+	imSendMsgCntFlag bool
+
+	imEmojiTop1     string // 用户2025年使用最多的表情（排除自定义）
+	imEmojiTop1Flag bool
+
+	imEmojiTop1Cnt     string // 用户2025年使用最多表情使用总次数（排除自定义）
+	imEmojiTop1CntFlag bool
+
+	imEmojiTop2     string // 用户2025年使用第二多的表情（排除自定义）
+	imEmojiTop2Flag bool
+
+	imEmojiTop2Cnt     string // 用户2025年使用第二多表情使用总次数（排除自定义）
+	imEmojiTop2CntFlag bool
+
+	imEmojiTop3     string // 用户2025年使用最第三多的表情（排除自定义）
+	imEmojiTop3Flag bool
+
+	imEmojiTop3Cnt     string // 用户2025年使用第三多表情使用总次数（排除自定义）
+	imEmojiTop3CntFlag bool
+
+	ccmCreateFcnt     string // 用户2025年创建的云文档数量（仅算docx/doc；未删除的文档；排除群公告；独立文档）
+	ccmCreateFcntFlag bool
+
+	ccmCreateRank     string // 用户2025年创建云文档数在租户内的排名
+	ccmCreateRankFlag bool
+
+	ccmCreateRankUcnt     string // 租户2025年创建云文档数量 > 0 的总人数（去重，仅算docx\doc；未删除的文档；排除群公告；独立文档）
+	ccmCreateRankUcntFlag bool
+
+	ccmCreateViewedUcnt     string // 用户2025年创建的文档被浏览的人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+	ccmCreateViewedUcntFlag bool
+
+	ccmCreateLikedCnt     string // 用户2025年创建的文档被点赞次数（仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+	ccmCreateLikedCntFlag bool
+
+	ccmCreateViewedMostUcnt     string // 用户2025年创建的文档，在本年度内浏览人数最多的那篇的浏览人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间，未删除的文档）
+	ccmCreateViewedMostUcntFlag bool
+
+	ccmAllReadDocCnt     string // 用户2025年阅读的文档总数(仅算doc/docx)
+	ccmAllReadDocCntFlag bool
+
+	docsAiQuickviewUseCnt     string // 用户2025年使用文档AI速览的文档篇数(仅算doc/docx)
+	docsAiQuickviewUseCntFlag bool
+
+	vcJoinMeetingCnt     string // 用户2025年参与会议总数（包含用户发起、非用户发起）
+	vcJoinMeetingCntFlag bool
+
+	vcJoinMeetingDuration     float64 // 用户2025年的参会总时长（小时，保留2位小数）
+	vcJoinMeetingDurationFlag bool
+
+	vcOrgMeetingCnt     []*AnnualVcOrgCnt // 用户2025年全年组织的会议数量
+	vcOrgMeetingCntFlag bool
+
+	aiNotesCreateCnt     string // 用户2025作为纪要owner生成的智能纪要数量
+	aiNotesCreateCntFlag bool
+
+	aiNotesReadCnt     string // 用户2025阅读智能纪要的篇数（去重）
+	aiNotesReadCntFlag bool
+
+	knowledgeAiUseCnt     string // 用户2025使用知识问答的次数
+	knowledgeAiUseCntFlag bool
+
+	knowledgeAiUseBusyDay     string // 用户2025使用知识问答次数最多的那一天（有并列多天时，取后一个日期，yyyyMMdd）
+	knowledgeAiUseBusyDayFlag bool
+
+	knowledgeAiUseBusyDayCnt     string // 用户2025使用知识问答次数最多的那一天的使用次数
+	knowledgeAiUseBusyDayCntFlag bool
+
+	baseCreateFcnt     string // 用户2025创建的多维表格数量
+	baseCreateFcntFlag bool
+
+	baseAiTop1NameMap     []*AnnualBaseTopAi // 用户2025年多维表文档使用最多的AI功能名称（中英文，列表里为top5）
+	baseAiTop1NameMapFlag bool
+
+	baseCreateViewUcnt     string // 用户所创建的多维表格2025年内一共有多少人消费过（去重，仅文档阅读，不计算表单等外部形态）
+	baseCreateViewUcntFlag bool
+
+	baseMostRowsCnt     string // 用户2025年创建的多维表格中单表行数最大的那篇的行数
+	baseMostRowsCntFlag bool
+
+	baseCreateDashboardCnt     string // 用户2025年在多维表格中创建的仪表盘数量
+	baseCreateDashboardCntFlag bool
+
+	baseWorkflowCreateCnt     string // 用户2025年创建的多维表格自动化流程数量
+	baseWorkflowCreateCntFlag bool
+
+	baseWorkflowInsCnt     string // 用户创建的多维表格自动化流程在2025年内总运行次数（不限制流程创建时间）
+	baseWorkflowInsCntFlag bool
+
+	ailyDevelopAppCnt     string // 用户2025年有进入开发后台界面的Aily工作流应用数量（当前有管理员/开发者身份，且未删除、已发布（不限应用的实际创建时间））
+	ailyDevelopAppCntFlag bool
+
+	ailyDevelopAppActiveUcnt     string // 用户已发布的Aily工作流应用，在2025年的活跃人数（去重，当前有管理员/开发者身份，且未删除）
+	ailyDevelopAppActiveUcntFlag bool
+
+	ailyDevelopActiveMostAppIntents     string // 用户参与搭建的Aily应用（未删除，已发布），在2025年对话次数最多的那个应用的对话次数
+	ailyDevelopActiveMostAppIntentsFlag bool
+
+	ailyChatCnt     string // 用户2025年以用户身份与Aily应用、Aily智能体、工作助手的对话总次数
+	ailyChatCntFlag bool
+
+	ailyArtifactCreateCnt     string // 用户2025年与Aily智能体对话中生产的交付产物数量（报告、网页、文档等）
+	ailyArtifactCreateCntFlag bool
+
+	apaasDevelopAppCnt     string // 用户当前有管理员/开发者身份，且未删除，且已发布（不限应用的实际创建时间）的aPaaS应用，在2025年有进入开发后台界面的应用数量
+	apaasDevelopAppCntFlag bool
+
+	apaasDevelopAppActiveUcnt     string // 用户当前已发布，有管理员/开发者身份，且未删除的aPaaS应用，在2025年的的活跃人数（去重）
+	apaasDevelopAppActiveUcntFlag bool
+
+	apaasDevelopActiveMostAppUcnt     string // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的活跃人数最大的那个应用的访问人数（去重）
+	apaasDevelopActiveMostAppUcntFlag bool
+
+	apaasDevelopAiRunCnt     string // 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的AI能力运行次数
+	apaasDevelopAiRunCntFlag bool
+
+	meegoIsProjectAdmin     string // 用户2025年是否任意meego空间的管理员
+	meegoIsProjectAdminFlag bool
+
+	meegoCreateWiCnt     string // 用户2025年在meego中新建实例数
+	meegoCreateWiCntFlag bool
+
+	meegoCreateWiRoleUcnt     string // 用户2025年在meego中，新建实例的参与人员总数(去重)
+	meegoCreateWiRoleUcntFlag bool
+
+	meegoMostViewWiUcnt     string // 用户2025年在meego中，新建实例且被浏览次数最多的实例的浏览用户数(去重)
+	meegoMostViewWiUcntFlag bool
+
+	meegoSetAiFieldCnt     string // 用户2025年为meego空间管理员的meego中配置AI字段的数量
+	meegoSetAiFieldCntFlag bool
+
+	meegoAiFieldRunCnt     string // 用户2025年为meego空间管理员的meego中配置AI字段的执行次数
+	meegoAiFieldRunCntFlag bool
+
+	meegoAiGanttUseCnt     string // 用户2025年在meego中对 AI人力分析的使用次数
+	meegoAiGanttUseCntFlag bool
+
+	meegoAiWeeklyReportUseCnt     string // 用户2025年在meego中对 AI个人周报的使用次数
+	meegoAiWeeklyReportUseCntFlag bool
+}
+
+func NewUserReport2025Builder() *UserReport2025Builder {
+	builder := &UserReport2025Builder{}
+	return builder
+}
+
+// 用户ID
+//
+// 示例值：ou_7dab8a3d3cdcc9da365777c7ad535d62
+func (builder *UserReport2025Builder) UserId(userId string) *UserReport2025Builder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 租户当前飞书激活未离职账号总数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) TenantAllCnt(tenantAllCnt string) *UserReport2025Builder {
+	builder.tenantAllCnt = tenantAllCnt
+	builder.tenantAllCntFlag = true
+	return builder
+}
+
+// 用户飞书账号激活日期(yyyyMMdd)
+//
+// 示例值：20210110
+func (builder *UserReport2025Builder) UserRegisterDate(userRegisterDate string) *UserReport2025Builder {
+	builder.userRegisterDate = userRegisterDate
+	builder.userRegisterDateFlag = true
+	return builder
+}
+
+// 用户2025年有飞书活跃的天数
+//
+// 示例值：188
+func (builder *UserReport2025Builder) FeishuActiveDays(feishuActiveDays string) *UserReport2025Builder {
+	builder.feishuActiveDays = feishuActiveDays
+	builder.feishuActiveDaysFlag = true
+	return builder
+}
+
+// 用户2025年飞书在线时长最长的那个月（字符串，取值'01'~'12'）
+//
+// 示例值：12
+func (builder *UserReport2025Builder) FeishuDurationBusyMonth(feishuDurationBusyMonth string) *UserReport2025Builder {
+	builder.feishuDurationBusyMonth = feishuDurationBusyMonth
+	builder.feishuDurationBusyMonthFlag = true
+	return builder
+}
+
+// 用户2025年上述在线时长最长的那个月的在线时长（小时，保留2位小数）
+//
+// 示例值：6.88
+func (builder *UserReport2025Builder) FeishuDurationBusyMonthHours(feishuDurationBusyMonthHours float64) *UserReport2025Builder {
+	builder.feishuDurationBusyMonthHours = feishuDurationBusyMonthHours
+	builder.feishuDurationBusyMonthHoursFlag = true
+	return builder
+}
+
+// 用户2025年上述在线时长最长的那个月，用户发消息数
+//
+// 示例值：88888
+func (builder *UserReport2025Builder) BusyMonthSendMsgCnt(busyMonthSendMsgCnt string) *UserReport2025Builder {
+	builder.busyMonthSendMsgCnt = busyMonthSendMsgCnt
+	builder.busyMonthSendMsgCntFlag = true
+	return builder
+}
+
+// 用户2025年上述在线时长最长的那个月，用户编辑文档数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BusyMonthEditDocCnt(busyMonthEditDocCnt string) *UserReport2025Builder {
+	builder.busyMonthEditDocCnt = busyMonthEditDocCnt
+	builder.busyMonthEditDocCntFlag = true
+	return builder
+}
+
+// 用户2025年上述在线时长最长的那个月，用户阅读文档数
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BusyMonthReadDocCnt(busyMonthReadDocCnt string) *UserReport2025Builder {
+	builder.busyMonthReadDocCnt = busyMonthReadDocCnt
+	builder.busyMonthReadDocCntFlag = true
+	return builder
+}
+
+// 用户2025年上述在线时长最长的那个月，用户参会数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BusyMonthJoinMeetingCnt(busyMonthJoinMeetingCnt string) *UserReport2025Builder {
+	builder.busyMonthJoinMeetingCnt = busyMonthJoinMeetingCnt
+	builder.busyMonthJoinMeetingCntFlag = true
+	return builder
+}
+
+// 用户2025年上述在线时长最长的那个月，用户参会时长（小时,保留2位小数）
+//
+// 示例值：88.88
+func (builder *UserReport2025Builder) BusyMonthMeetingDuration(busyMonthMeetingDuration float64) *UserReport2025Builder {
+	builder.busyMonthMeetingDuration = busyMonthMeetingDuration
+	builder.busyMonthMeetingDurationFlag = true
+	return builder
+}
+
+// 用户2025年发过消息的飞书群聊数量（包含已解散群；不包含仅发过表情的群）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) ImTalkedChatCnt(imTalkedChatCnt string) *UserReport2025Builder {
+	builder.imTalkedChatCnt = imTalkedChatCnt
+	builder.imTalkedChatCntFlag = true
+	return builder
+}
+
+// 用户2025年发消息私聊过的单聊对象数量（去重，不考虑对方是否本租户人员；不考虑对方是否已离职；不含跟自己聊、不含跟bot聊）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) ImPrivateChatCnt(imPrivateChatCnt string) *UserReport2025Builder {
+	builder.imPrivateChatCnt = imPrivateChatCnt
+	builder.imPrivateChatCntFlag = true
+	return builder
+}
+
+// 用户2025年在上述群聊、单聊两种场景下，发出的消息总数
+//
+// 示例值：88
+func (builder *UserReport2025Builder) ImSendMsgCnt(imSendMsgCnt string) *UserReport2025Builder {
+	builder.imSendMsgCnt = imSendMsgCnt
+	builder.imSendMsgCntFlag = true
+	return builder
+}
+
+// 用户2025年使用最多的表情（排除自定义）
+//
+// 示例值：love
+func (builder *UserReport2025Builder) ImEmojiTop1(imEmojiTop1 string) *UserReport2025Builder {
+	builder.imEmojiTop1 = imEmojiTop1
+	builder.imEmojiTop1Flag = true
+	return builder
+}
+
+// 用户2025年使用最多表情使用总次数（排除自定义）
+//
+// 示例值：888
+func (builder *UserReport2025Builder) ImEmojiTop1Cnt(imEmojiTop1Cnt string) *UserReport2025Builder {
+	builder.imEmojiTop1Cnt = imEmojiTop1Cnt
+	builder.imEmojiTop1CntFlag = true
+	return builder
+}
+
+// 用户2025年使用第二多的表情（排除自定义）
+//
+// 示例值：jiayi
+func (builder *UserReport2025Builder) ImEmojiTop2(imEmojiTop2 string) *UserReport2025Builder {
+	builder.imEmojiTop2 = imEmojiTop2
+	builder.imEmojiTop2Flag = true
+	return builder
+}
+
+// 用户2025年使用第二多表情使用总次数（排除自定义）
+//
+// 示例值：666
+func (builder *UserReport2025Builder) ImEmojiTop2Cnt(imEmojiTop2Cnt string) *UserReport2025Builder {
+	builder.imEmojiTop2Cnt = imEmojiTop2Cnt
+	builder.imEmojiTop2CntFlag = true
+	return builder
+}
+
+// 用户2025年使用最第三多的表情（排除自定义）
+//
+// 示例值：lightthumbsup
+func (builder *UserReport2025Builder) ImEmojiTop3(imEmojiTop3 string) *UserReport2025Builder {
+	builder.imEmojiTop3 = imEmojiTop3
+	builder.imEmojiTop3Flag = true
+	return builder
+}
+
+// 用户2025年使用第三多表情使用总次数（排除自定义）
+//
+// 示例值：555
+func (builder *UserReport2025Builder) ImEmojiTop3Cnt(imEmojiTop3Cnt string) *UserReport2025Builder {
+	builder.imEmojiTop3Cnt = imEmojiTop3Cnt
+	builder.imEmojiTop3CntFlag = true
+	return builder
+}
+
+// 用户2025年创建的云文档数量（仅算docx/doc；未删除的文档；排除群公告；独立文档）
+//
+// 示例值：888
+func (builder *UserReport2025Builder) CcmCreateFcnt(ccmCreateFcnt string) *UserReport2025Builder {
+	builder.ccmCreateFcnt = ccmCreateFcnt
+	builder.ccmCreateFcntFlag = true
+	return builder
+}
+
+// 用户2025年创建云文档数在租户内的排名
+//
+// 示例值：8
+func (builder *UserReport2025Builder) CcmCreateRank(ccmCreateRank string) *UserReport2025Builder {
+	builder.ccmCreateRank = ccmCreateRank
+	builder.ccmCreateRankFlag = true
+	return builder
+}
+
+// 租户2025年创建云文档数量 > 0 的总人数（去重，仅算docx\doc；未删除的文档；排除群公告；独立文档）
+//
+// 示例值：888
+func (builder *UserReport2025Builder) CcmCreateRankUcnt(ccmCreateRankUcnt string) *UserReport2025Builder {
+	builder.ccmCreateRankUcnt = ccmCreateRankUcnt
+	builder.ccmCreateRankUcntFlag = true
+	return builder
+}
+
+// 用户2025年创建的文档被浏览的人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+//
+// 示例值：888
+func (builder *UserReport2025Builder) CcmCreateViewedUcnt(ccmCreateViewedUcnt string) *UserReport2025Builder {
+	builder.ccmCreateViewedUcnt = ccmCreateViewedUcnt
+	builder.ccmCreateViewedUcntFlag = true
+	return builder
+}
+
+// 用户2025年创建的文档被点赞次数（仅算docx/doc；排除群公告；独立文档；不限文档创建时间；不限访客是否已离职）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) CcmCreateLikedCnt(ccmCreateLikedCnt string) *UserReport2025Builder {
+	builder.ccmCreateLikedCnt = ccmCreateLikedCnt
+	builder.ccmCreateLikedCntFlag = true
+	return builder
+}
+
+// 用户2025年创建的文档，在本年度内浏览人数最多的那篇的浏览人数（去重，仅算docx/doc；排除群公告；独立文档；不限文档创建时间，未删除的文档）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) CcmCreateViewedMostUcnt(ccmCreateViewedMostUcnt string) *UserReport2025Builder {
+	builder.ccmCreateViewedMostUcnt = ccmCreateViewedMostUcnt
+	builder.ccmCreateViewedMostUcntFlag = true
+	return builder
+}
+
+// 用户2025年阅读的文档总数(仅算doc/docx)
+//
+// 示例值：666
+func (builder *UserReport2025Builder) CcmAllReadDocCnt(ccmAllReadDocCnt string) *UserReport2025Builder {
+	builder.ccmAllReadDocCnt = ccmAllReadDocCnt
+	builder.ccmAllReadDocCntFlag = true
+	return builder
+}
+
+// 用户2025年使用文档AI速览的文档篇数(仅算doc/docx)
+//
+// 示例值：88
+func (builder *UserReport2025Builder) DocsAiQuickviewUseCnt(docsAiQuickviewUseCnt string) *UserReport2025Builder {
+	builder.docsAiQuickviewUseCnt = docsAiQuickviewUseCnt
+	builder.docsAiQuickviewUseCntFlag = true
+	return builder
+}
+
+// 用户2025年参与会议总数（包含用户发起、非用户发起）
+//
+// 示例值：666
+func (builder *UserReport2025Builder) VcJoinMeetingCnt(vcJoinMeetingCnt string) *UserReport2025Builder {
+	builder.vcJoinMeetingCnt = vcJoinMeetingCnt
+	builder.vcJoinMeetingCntFlag = true
+	return builder
+}
+
+// 用户2025年的参会总时长（小时，保留2位小数）
+//
+// 示例值：88.88
+func (builder *UserReport2025Builder) VcJoinMeetingDuration(vcJoinMeetingDuration float64) *UserReport2025Builder {
+	builder.vcJoinMeetingDuration = vcJoinMeetingDuration
+	builder.vcJoinMeetingDurationFlag = true
+	return builder
+}
+
+// 用户2025年全年组织的会议数量
+//
+// 示例值：[{"organized_meeting_cnt":39, "organized_cal_meeting_cnt":20, "organized_instant_meeting_cnt":19}]
+func (builder *UserReport2025Builder) VcOrgMeetingCnt(vcOrgMeetingCnt []*AnnualVcOrgCnt) *UserReport2025Builder {
+	builder.vcOrgMeetingCnt = vcOrgMeetingCnt
+	builder.vcOrgMeetingCntFlag = true
+	return builder
+}
+
+// 用户2025作为纪要owner生成的智能纪要数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) AiNotesCreateCnt(aiNotesCreateCnt string) *UserReport2025Builder {
+	builder.aiNotesCreateCnt = aiNotesCreateCnt
+	builder.aiNotesCreateCntFlag = true
+	return builder
+}
+
+// 用户2025阅读智能纪要的篇数（去重）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) AiNotesReadCnt(aiNotesReadCnt string) *UserReport2025Builder {
+	builder.aiNotesReadCnt = aiNotesReadCnt
+	builder.aiNotesReadCntFlag = true
+	return builder
+}
+
+// 用户2025使用知识问答的次数
+//
+// 示例值：88
+func (builder *UserReport2025Builder) KnowledgeAiUseCnt(knowledgeAiUseCnt string) *UserReport2025Builder {
+	builder.knowledgeAiUseCnt = knowledgeAiUseCnt
+	builder.knowledgeAiUseCntFlag = true
+	return builder
+}
+
+// 用户2025使用知识问答次数最多的那一天（有并列多天时，取后一个日期，yyyyMMdd）
+//
+// 示例值：20250510
+func (builder *UserReport2025Builder) KnowledgeAiUseBusyDay(knowledgeAiUseBusyDay string) *UserReport2025Builder {
+	builder.knowledgeAiUseBusyDay = knowledgeAiUseBusyDay
+	builder.knowledgeAiUseBusyDayFlag = true
+	return builder
+}
+
+// 用户2025使用知识问答次数最多的那一天的使用次数
+//
+// 示例值：88
+func (builder *UserReport2025Builder) KnowledgeAiUseBusyDayCnt(knowledgeAiUseBusyDayCnt string) *UserReport2025Builder {
+	builder.knowledgeAiUseBusyDayCnt = knowledgeAiUseBusyDayCnt
+	builder.knowledgeAiUseBusyDayCntFlag = true
+	return builder
+}
+
+// 用户2025创建的多维表格数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BaseCreateFcnt(baseCreateFcnt string) *UserReport2025Builder {
+	builder.baseCreateFcnt = baseCreateFcnt
+	builder.baseCreateFcntFlag = true
+	return builder
+}
+
+// 用户2025年多维表文档使用最多的AI功能名称（中英文，列表里为top5）
+//
+// 示例值：[{"name_cn":"AI 字段捷径","name_en":"AI field shortcuts","name_cn_list":"AI 侧边栏,工作流 AI Agent 节点,AI 字段捷径,AI 生成公式,AI  浮窗工具栏","name_en_list":"AI sidebar,Workflow AI Agent node,AI field shortcuts,AI-generated formulas,AI smart toolbar"}]
+func (builder *UserReport2025Builder) BaseAiTop1NameMap(baseAiTop1NameMap []*AnnualBaseTopAi) *UserReport2025Builder {
+	builder.baseAiTop1NameMap = baseAiTop1NameMap
+	builder.baseAiTop1NameMapFlag = true
+	return builder
+}
+
+// 用户所创建的多维表格2025年内一共有多少人消费过（去重，仅文档阅读，不计算表单等外部形态）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BaseCreateViewUcnt(baseCreateViewUcnt string) *UserReport2025Builder {
+	builder.baseCreateViewUcnt = baseCreateViewUcnt
+	builder.baseCreateViewUcntFlag = true
+	return builder
+}
+
+// 用户2025年创建的多维表格中单表行数最大的那篇的行数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) BaseMostRowsCnt(baseMostRowsCnt string) *UserReport2025Builder {
+	builder.baseMostRowsCnt = baseMostRowsCnt
+	builder.baseMostRowsCntFlag = true
+	return builder
+}
+
+// 用户2025年在多维表格中创建的仪表盘数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BaseCreateDashboardCnt(baseCreateDashboardCnt string) *UserReport2025Builder {
+	builder.baseCreateDashboardCnt = baseCreateDashboardCnt
+	builder.baseCreateDashboardCntFlag = true
+	return builder
+}
+
+// 用户2025年创建的多维表格自动化流程数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BaseWorkflowCreateCnt(baseWorkflowCreateCnt string) *UserReport2025Builder {
+	builder.baseWorkflowCreateCnt = baseWorkflowCreateCnt
+	builder.baseWorkflowCreateCntFlag = true
+	return builder
+}
+
+// 用户创建的多维表格自动化流程在2025年内总运行次数（不限制流程创建时间）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) BaseWorkflowInsCnt(baseWorkflowInsCnt string) *UserReport2025Builder {
+	builder.baseWorkflowInsCnt = baseWorkflowInsCnt
+	builder.baseWorkflowInsCntFlag = true
+	return builder
+}
+
+// 用户2025年有进入开发后台界面的Aily工作流应用数量（当前有管理员/开发者身份，且未删除、已发布（不限应用的实际创建时间））
+//
+// 示例值：88
+func (builder *UserReport2025Builder) AilyDevelopAppCnt(ailyDevelopAppCnt string) *UserReport2025Builder {
+	builder.ailyDevelopAppCnt = ailyDevelopAppCnt
+	builder.ailyDevelopAppCntFlag = true
+	return builder
+}
+
+// 用户已发布的Aily工作流应用，在2025年的活跃人数（去重，当前有管理员/开发者身份，且未删除）
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) AilyDevelopAppActiveUcnt(ailyDevelopAppActiveUcnt string) *UserReport2025Builder {
+	builder.ailyDevelopAppActiveUcnt = ailyDevelopAppActiveUcnt
+	builder.ailyDevelopAppActiveUcntFlag = true
+	return builder
+}
+
+// 用户参与搭建的Aily应用（未删除，已发布），在2025年对话次数最多的那个应用的对话次数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) AilyDevelopActiveMostAppIntents(ailyDevelopActiveMostAppIntents string) *UserReport2025Builder {
+	builder.ailyDevelopActiveMostAppIntents = ailyDevelopActiveMostAppIntents
+	builder.ailyDevelopActiveMostAppIntentsFlag = true
+	return builder
+}
+
+// 用户2025年以用户身份与Aily应用、Aily智能体、工作助手的对话总次数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) AilyChatCnt(ailyChatCnt string) *UserReport2025Builder {
+	builder.ailyChatCnt = ailyChatCnt
+	builder.ailyChatCntFlag = true
+	return builder
+}
+
+// 用户2025年与Aily智能体对话中生产的交付产物数量（报告、网页、文档等）
+//
+// 示例值：88
+func (builder *UserReport2025Builder) AilyArtifactCreateCnt(ailyArtifactCreateCnt string) *UserReport2025Builder {
+	builder.ailyArtifactCreateCnt = ailyArtifactCreateCnt
+	builder.ailyArtifactCreateCntFlag = true
+	return builder
+}
+
+// 用户当前有管理员/开发者身份，且未删除，且已发布（不限应用的实际创建时间）的aPaaS应用，在2025年有进入开发后台界面的应用数量
+//
+// 示例值：88
+func (builder *UserReport2025Builder) ApaasDevelopAppCnt(apaasDevelopAppCnt string) *UserReport2025Builder {
+	builder.apaasDevelopAppCnt = apaasDevelopAppCnt
+	builder.apaasDevelopAppCntFlag = true
+	return builder
+}
+
+// 用户当前已发布，有管理员/开发者身份，且未删除的aPaaS应用，在2025年的的活跃人数（去重）
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) ApaasDevelopAppActiveUcnt(apaasDevelopAppActiveUcnt string) *UserReport2025Builder {
+	builder.apaasDevelopAppActiveUcnt = apaasDevelopAppActiveUcnt
+	builder.apaasDevelopAppActiveUcntFlag = true
+	return builder
+}
+
+// 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的活跃人数最大的那个应用的访问人数（去重）
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) ApaasDevelopActiveMostAppUcnt(apaasDevelopActiveMostAppUcnt string) *UserReport2025Builder {
+	builder.apaasDevelopActiveMostAppUcnt = apaasDevelopActiveMostAppUcnt
+	builder.apaasDevelopActiveMostAppUcntFlag = true
+	return builder
+}
+
+// 用户当前有管理员/开发者身份，且未删除，且已发布的aPaaS应用，在2025年的AI能力运行次数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) ApaasDevelopAiRunCnt(apaasDevelopAiRunCnt string) *UserReport2025Builder {
+	builder.apaasDevelopAiRunCnt = apaasDevelopAiRunCnt
+	builder.apaasDevelopAiRunCntFlag = true
+	return builder
+}
+
+// 用户2025年是否任意meego空间的管理员
+//
+// 示例值：0
+func (builder *UserReport2025Builder) MeegoIsProjectAdmin(meegoIsProjectAdmin string) *UserReport2025Builder {
+	builder.meegoIsProjectAdmin = meegoIsProjectAdmin
+	builder.meegoIsProjectAdminFlag = true
+	return builder
+}
+
+// 用户2025年在meego中新建实例数
+//
+// 示例值：88
+func (builder *UserReport2025Builder) MeegoCreateWiCnt(meegoCreateWiCnt string) *UserReport2025Builder {
+	builder.meegoCreateWiCnt = meegoCreateWiCnt
+	builder.meegoCreateWiCntFlag = true
+	return builder
+}
+
+// 用户2025年在meego中，新建实例的参与人员总数(去重)
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) MeegoCreateWiRoleUcnt(meegoCreateWiRoleUcnt string) *UserReport2025Builder {
+	builder.meegoCreateWiRoleUcnt = meegoCreateWiRoleUcnt
+	builder.meegoCreateWiRoleUcntFlag = true
+	return builder
+}
+
+// 用户2025年在meego中，新建实例且被浏览次数最多的实例的浏览用户数(去重)
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) MeegoMostViewWiUcnt(meegoMostViewWiUcnt string) *UserReport2025Builder {
+	builder.meegoMostViewWiUcnt = meegoMostViewWiUcnt
+	builder.meegoMostViewWiUcntFlag = true
+	return builder
+}
+
+// 用户2025年为meego空间管理员的meego中配置AI字段的数量
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) MeegoSetAiFieldCnt(meegoSetAiFieldCnt string) *UserReport2025Builder {
+	builder.meegoSetAiFieldCnt = meegoSetAiFieldCnt
+	builder.meegoSetAiFieldCntFlag = true
+	return builder
+}
+
+// 用户2025年为meego空间管理员的meego中配置AI字段的执行次数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) MeegoAiFieldRunCnt(meegoAiFieldRunCnt string) *UserReport2025Builder {
+	builder.meegoAiFieldRunCnt = meegoAiFieldRunCnt
+	builder.meegoAiFieldRunCntFlag = true
+	return builder
+}
+
+// 用户2025年在meego中对 AI人力分析的使用次数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) MeegoAiGanttUseCnt(meegoAiGanttUseCnt string) *UserReport2025Builder {
+	builder.meegoAiGanttUseCnt = meegoAiGanttUseCnt
+	builder.meegoAiGanttUseCntFlag = true
+	return builder
+}
+
+// 用户2025年在meego中对 AI个人周报的使用次数
+//
+// 示例值：8888
+func (builder *UserReport2025Builder) MeegoAiWeeklyReportUseCnt(meegoAiWeeklyReportUseCnt string) *UserReport2025Builder {
+	builder.meegoAiWeeklyReportUseCnt = meegoAiWeeklyReportUseCnt
+	builder.meegoAiWeeklyReportUseCntFlag = true
+	return builder
+}
+
+func (builder *UserReport2025Builder) Build() *UserReport2025 {
+	req := &UserReport2025{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.tenantAllCntFlag {
+		req.TenantAllCnt = &builder.tenantAllCnt
+
+	}
+	if builder.userRegisterDateFlag {
+		req.UserRegisterDate = &builder.userRegisterDate
+
+	}
+	if builder.feishuActiveDaysFlag {
+		req.FeishuActiveDays = &builder.feishuActiveDays
+
+	}
+	if builder.feishuDurationBusyMonthFlag {
+		req.FeishuDurationBusyMonth = &builder.feishuDurationBusyMonth
+
+	}
+	if builder.feishuDurationBusyMonthHoursFlag {
+		req.FeishuDurationBusyMonthHours = &builder.feishuDurationBusyMonthHours
+
+	}
+	if builder.busyMonthSendMsgCntFlag {
+		req.BusyMonthSendMsgCnt = &builder.busyMonthSendMsgCnt
+
+	}
+	if builder.busyMonthEditDocCntFlag {
+		req.BusyMonthEditDocCnt = &builder.busyMonthEditDocCnt
+
+	}
+	if builder.busyMonthReadDocCntFlag {
+		req.BusyMonthReadDocCnt = &builder.busyMonthReadDocCnt
+
+	}
+	if builder.busyMonthJoinMeetingCntFlag {
+		req.BusyMonthJoinMeetingCnt = &builder.busyMonthJoinMeetingCnt
+
+	}
+	if builder.busyMonthMeetingDurationFlag {
+		req.BusyMonthMeetingDuration = &builder.busyMonthMeetingDuration
+
+	}
+	if builder.imTalkedChatCntFlag {
+		req.ImTalkedChatCnt = &builder.imTalkedChatCnt
+
+	}
+	if builder.imPrivateChatCntFlag {
+		req.ImPrivateChatCnt = &builder.imPrivateChatCnt
+
+	}
+	if builder.imSendMsgCntFlag {
+		req.ImSendMsgCnt = &builder.imSendMsgCnt
+
+	}
+	if builder.imEmojiTop1Flag {
+		req.ImEmojiTop1 = &builder.imEmojiTop1
+
+	}
+	if builder.imEmojiTop1CntFlag {
+		req.ImEmojiTop1Cnt = &builder.imEmojiTop1Cnt
+
+	}
+	if builder.imEmojiTop2Flag {
+		req.ImEmojiTop2 = &builder.imEmojiTop2
+
+	}
+	if builder.imEmojiTop2CntFlag {
+		req.ImEmojiTop2Cnt = &builder.imEmojiTop2Cnt
+
+	}
+	if builder.imEmojiTop3Flag {
+		req.ImEmojiTop3 = &builder.imEmojiTop3
+
+	}
+	if builder.imEmojiTop3CntFlag {
+		req.ImEmojiTop3Cnt = &builder.imEmojiTop3Cnt
+
+	}
+	if builder.ccmCreateFcntFlag {
+		req.CcmCreateFcnt = &builder.ccmCreateFcnt
+
+	}
+	if builder.ccmCreateRankFlag {
+		req.CcmCreateRank = &builder.ccmCreateRank
+
+	}
+	if builder.ccmCreateRankUcntFlag {
+		req.CcmCreateRankUcnt = &builder.ccmCreateRankUcnt
+
+	}
+	if builder.ccmCreateViewedUcntFlag {
+		req.CcmCreateViewedUcnt = &builder.ccmCreateViewedUcnt
+
+	}
+	if builder.ccmCreateLikedCntFlag {
+		req.CcmCreateLikedCnt = &builder.ccmCreateLikedCnt
+
+	}
+	if builder.ccmCreateViewedMostUcntFlag {
+		req.CcmCreateViewedMostUcnt = &builder.ccmCreateViewedMostUcnt
+
+	}
+	if builder.ccmAllReadDocCntFlag {
+		req.CcmAllReadDocCnt = &builder.ccmAllReadDocCnt
+
+	}
+	if builder.docsAiQuickviewUseCntFlag {
+		req.DocsAiQuickviewUseCnt = &builder.docsAiQuickviewUseCnt
+
+	}
+	if builder.vcJoinMeetingCntFlag {
+		req.VcJoinMeetingCnt = &builder.vcJoinMeetingCnt
+
+	}
+	if builder.vcJoinMeetingDurationFlag {
+		req.VcJoinMeetingDuration = &builder.vcJoinMeetingDuration
+
+	}
+	if builder.vcOrgMeetingCntFlag {
+		req.VcOrgMeetingCnt = builder.vcOrgMeetingCnt
+	}
+	if builder.aiNotesCreateCntFlag {
+		req.AiNotesCreateCnt = &builder.aiNotesCreateCnt
+
+	}
+	if builder.aiNotesReadCntFlag {
+		req.AiNotesReadCnt = &builder.aiNotesReadCnt
+
+	}
+	if builder.knowledgeAiUseCntFlag {
+		req.KnowledgeAiUseCnt = &builder.knowledgeAiUseCnt
+
+	}
+	if builder.knowledgeAiUseBusyDayFlag {
+		req.KnowledgeAiUseBusyDay = &builder.knowledgeAiUseBusyDay
+
+	}
+	if builder.knowledgeAiUseBusyDayCntFlag {
+		req.KnowledgeAiUseBusyDayCnt = &builder.knowledgeAiUseBusyDayCnt
+
+	}
+	if builder.baseCreateFcntFlag {
+		req.BaseCreateFcnt = &builder.baseCreateFcnt
+
+	}
+	if builder.baseAiTop1NameMapFlag {
+		req.BaseAiTop1NameMap = builder.baseAiTop1NameMap
+	}
+	if builder.baseCreateViewUcntFlag {
+		req.BaseCreateViewUcnt = &builder.baseCreateViewUcnt
+
+	}
+	if builder.baseMostRowsCntFlag {
+		req.BaseMostRowsCnt = &builder.baseMostRowsCnt
+
+	}
+	if builder.baseCreateDashboardCntFlag {
+		req.BaseCreateDashboardCnt = &builder.baseCreateDashboardCnt
+
+	}
+	if builder.baseWorkflowCreateCntFlag {
+		req.BaseWorkflowCreateCnt = &builder.baseWorkflowCreateCnt
+
+	}
+	if builder.baseWorkflowInsCntFlag {
+		req.BaseWorkflowInsCnt = &builder.baseWorkflowInsCnt
+
+	}
+	if builder.ailyDevelopAppCntFlag {
+		req.AilyDevelopAppCnt = &builder.ailyDevelopAppCnt
+
+	}
+	if builder.ailyDevelopAppActiveUcntFlag {
+		req.AilyDevelopAppActiveUcnt = &builder.ailyDevelopAppActiveUcnt
+
+	}
+	if builder.ailyDevelopActiveMostAppIntentsFlag {
+		req.AilyDevelopActiveMostAppIntents = &builder.ailyDevelopActiveMostAppIntents
+
+	}
+	if builder.ailyChatCntFlag {
+		req.AilyChatCnt = &builder.ailyChatCnt
+
+	}
+	if builder.ailyArtifactCreateCntFlag {
+		req.AilyArtifactCreateCnt = &builder.ailyArtifactCreateCnt
+
+	}
+	if builder.apaasDevelopAppCntFlag {
+		req.ApaasDevelopAppCnt = &builder.apaasDevelopAppCnt
+
+	}
+	if builder.apaasDevelopAppActiveUcntFlag {
+		req.ApaasDevelopAppActiveUcnt = &builder.apaasDevelopAppActiveUcnt
+
+	}
+	if builder.apaasDevelopActiveMostAppUcntFlag {
+		req.ApaasDevelopActiveMostAppUcnt = &builder.apaasDevelopActiveMostAppUcnt
+
+	}
+	if builder.apaasDevelopAiRunCntFlag {
+		req.ApaasDevelopAiRunCnt = &builder.apaasDevelopAiRunCnt
+
+	}
+	if builder.meegoIsProjectAdminFlag {
+		req.MeegoIsProjectAdmin = &builder.meegoIsProjectAdmin
+
+	}
+	if builder.meegoCreateWiCntFlag {
+		req.MeegoCreateWiCnt = &builder.meegoCreateWiCnt
+
+	}
+	if builder.meegoCreateWiRoleUcntFlag {
+		req.MeegoCreateWiRoleUcnt = &builder.meegoCreateWiRoleUcnt
+
+	}
+	if builder.meegoMostViewWiUcntFlag {
+		req.MeegoMostViewWiUcnt = &builder.meegoMostViewWiUcnt
+
+	}
+	if builder.meegoSetAiFieldCntFlag {
+		req.MeegoSetAiFieldCnt = &builder.meegoSetAiFieldCnt
+
+	}
+	if builder.meegoAiFieldRunCntFlag {
+		req.MeegoAiFieldRunCnt = &builder.meegoAiFieldRunCnt
+
+	}
+	if builder.meegoAiGanttUseCntFlag {
+		req.MeegoAiGanttUseCnt = &builder.meegoAiGanttUseCnt
+
+	}
+	if builder.meegoAiWeeklyReportUseCntFlag {
+		req.MeegoAiWeeklyReportUseCnt = &builder.meegoAiWeeklyReportUseCnt
+
 	}
 	return req
 }

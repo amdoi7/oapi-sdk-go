@@ -44,7 +44,6 @@ func main() {
 		CpstPlanId("6967639606963471118").
 		CpstSalaryLevelId("6967639606963471119").
 		EffectiveTime("1660924800000").
-		PerformanceReviewPeriodId("7527790505990932012").
 		PerformanceIndicatorId("7382324314454492716").
 		PerformanceScoreGradeId("7382324475995670060").
 		CustomOrg1Ids("7530538330711508524").

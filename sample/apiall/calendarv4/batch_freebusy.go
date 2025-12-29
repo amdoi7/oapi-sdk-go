@@ -34,6 +34,7 @@ func main() {
 			UserIds([]string{}).
 			IncludeExternalCalendar(true).
 			OnlyBusy(true).
+			NeedRsvpStatus(true).
 			Build()).
 		Build()
 	// 发起请求

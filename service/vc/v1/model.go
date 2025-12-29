@@ -29,9 +29,9 @@ import (
 )
 
 const (
-	QueryTypeRoom = 1 // 会议室
-	QueryTypeErc  = 2 // erc
-	QueryTypeSip  = 3 // SIP会议室系统
+	GetAlertHistoryQueryTypeRoom = 1 // 会议室
+	GetAlertHistoryQueryTypeErc  = 2 // erc
+	GetAlertHistoryQueryTypeSip  = 3 // SIP会议室系统
 
 )
 
@@ -50,9 +50,9 @@ const (
 )
 
 const (
-	UserIdTypeUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	ExportMeetingListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ExportMeetingListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ExportMeetingListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -63,21 +63,21 @@ const (
 )
 
 const (
-	UserIdTypeParticipantListExportUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeParticipantListExportUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeParticipantListExportOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	ExportParticipantListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ExportParticipantListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ExportParticipantListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeParticipantQualityListExportUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeParticipantQualityListExportUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeParticipantQualityListExportOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	ExportParticipantQualityListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ExportParticipantQualityListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ExportParticipantQualityListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeGetMeetingUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMeetingUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	GetMeetingByIDUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetMeetingByIDUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetMeetingByIDUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -87,33 +87,33 @@ const (
 )
 
 const (
-	UserIdTypeInviteMeetingUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeInviteMeetingUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeInviteMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	InviteParticipantUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	InviteParticipantUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	InviteParticipantUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeKickoutMeetingUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeKickoutMeetingUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeKickoutMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	KickoutParticipantUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	KickoutParticipantUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	KickoutParticipantUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeSetHostMeetingUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSetHostMeetingUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSetHostMeetingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	SetHostUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetHostUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetHostUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	ActionTypeAuthorize = 0 // 授权
-	ActionTypeRevoke    = 1 // 取消授权
+	SetRecordingPermissionActionTypeAuthorize = 0 // 授权
+	SetRecordingPermissionActionTypeRevoke    = 1 // 取消授权
 
 )
 
 const (
-	UserIdTypeSetPermissionMeetingRecordingUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSetPermissionMeetingRecordingUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSetPermissionMeetingRecordingOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	SetRecordingPermissionUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetRecordingPermissionUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetRecordingPermissionUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -131,9 +131,9 @@ const (
 )
 
 const (
-	UserIdTypeGetMeetingListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetMeetingListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetMeetingListOpenId  = "open_id"  // 以open_id来识别用户
+	GetMeetingListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetMeetingListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetMeetingListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -144,15 +144,15 @@ const (
 )
 
 const (
-	UserIdTypeGetParticipantListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetParticipantListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetParticipantListOpenId  = "open_id"  // 以open_id来识别用户
+	GetParticipantListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetParticipantListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetParticipantListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetParticipantQualityListUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetParticipantQualityListUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetParticipantQualityListOpenId  = "open_id"  // 以open_id来识别用户
+	GetParticipantQualityListUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetParticipantQualityListUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetParticipantQualityListUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
@@ -178,117 +178,117 @@ const (
 )
 
 const (
-	UserIdTypeGetTopUserReportUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetTopUserReportUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetTopUserReportOpenId  = "open_id"  // 以open_id来识别用户
+	GetTopUserReportUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetTopUserReportUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetTopUserReportUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeApplyReserveUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeApplyReserveUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeApplyReserveOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	ApplyReserveUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ApplyReserveUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ApplyReserveUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeGetReserveUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetReserveUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetReserveOpenId  = "open_id"  // 以open_id来识别用户
+	GetReserveByIDUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetReserveByIDUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetReserveByIDUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetActiveMeetingReserveUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetActiveMeetingReserveUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetActiveMeetingReserveOpenId  = "open_id"  // 以open_id来识别用户
+	GetActiveMeetingByReserveIDUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetActiveMeetingByReserveIDUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetActiveMeetingByReserveIDUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeUpdateReserveUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeUpdateReserveUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeUpdateReserveOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UpdateReserveUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateReserveUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateReserveUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypePatchReserveConfigUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchReserveConfigUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchReserveConfigOpenId  = "open_id"  // 以open_id来识别用户
+	SetReserveScopeUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetReserveScopeUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetReserveScopeUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeReserveScopeReserveConfigUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeReserveScopeReserveConfigUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeReserveScopeReserveConfigOpenId  = "open_id"  // 以open_id来识别用户
+	GetReserveScopeUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetReserveScopeUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetReserveScopeUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetReserveConfigAdminUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetReserveConfigAdminUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetReserveConfigAdminOpenId  = "open_id"  // 以open_id来识别用户
+	GetReserveAdminUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetReserveAdminUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetReserveAdminUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchReserveConfigAdminUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchReserveConfigAdminUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchReserveConfigAdminOpenId  = "open_id"  // 以open_id来识别用户
+	SetReserveAdminUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetReserveAdminUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetReserveAdminUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetReserveConfigDisableInformUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetReserveConfigDisableInformUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetReserveConfigDisableInformOpenId  = "open_id"  // 以open_id来识别用户
+	GetDisableInformUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetDisableInformUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetDisableInformUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchReserveConfigDisableInformUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchReserveConfigDisableInformUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchReserveConfigDisableInformOpenId  = "open_id"  // 以open_id来识别用户
+	SetDisableInformUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetDisableInformUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetDisableInformUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeGetReserveConfigFormUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetReserveConfigFormUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetReserveConfigFormOpenId  = "open_id"  // 以open_id来识别用户
+	GetReserveFormUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetReserveFormUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetReserveFormUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypePatchReserveConfigFormUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchReserveConfigFormUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchReserveConfigFormOpenId  = "open_id"  // 以open_id来识别用户
+	SetReserveFormUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetReserveFormUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetReserveFormUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户
 )
 
 const (
-	UserIdTypeCreateRoomUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateRoomUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	CreateRoomUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	CreateRoomUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	CreateRoomUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeGetRoomUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetRoomUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	GetRoomByIDUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetRoomByIDUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetRoomByIDUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeListRoomUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeListRoomUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeListRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	ListRoomUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	ListRoomUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	ListRoomUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeMgetRoomUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeMgetRoomUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeMgetRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	MGetRoomByIDsUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	MGetRoomByIDsUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	MGetRoomByIDsUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypePatchRoomUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypePatchRoomUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypePatchRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	UpdateRoomByIDUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	UpdateRoomByIDUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	UpdateRoomByIDUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
-	UserIdTypeSearchRoomUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSearchRoomUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSearchRoomOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	SearchRoomUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SearchRoomUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SearchRoomUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -302,9 +302,9 @@ const (
 )
 
 const (
-	UserIdTypeQueryRoomConfigUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeQueryRoomConfigUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeQueryRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	GetRoomConfigUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetRoomConfigUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetRoomConfigUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -318,9 +318,9 @@ const (
 )
 
 const (
-	UserIdTypeSetRoomConfigUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeSetRoomConfigUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeSetRoomConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	SetRoomConfigUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetRoomConfigUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetRoomConfigUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -364,9 +364,9 @@ const (
 )
 
 const (
-	UserIdTypeCreateScopeConfigUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeCreateScopeConfigUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeCreateScopeConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	SetScopeConfigUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	SetScopeConfigUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	SetScopeConfigUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 const (
@@ -376,9 +376,9 @@ const (
 )
 
 const (
-	UserIdTypeGetScopeConfigUserId  = "user_id"  // 以user_id来识别用户
-	UserIdTypeGetScopeConfigUnionId = "union_id" // 以union_id来识别用户
-	UserIdTypeGetScopeConfigOpenId  = "open_id"  // 以open_id来识别用户（推荐）
+	GetScopeConfigUserIDTypeUserId  = "user_id"  // 以user_id来识别用户
+	GetScopeConfigUserIDTypeUnionId = "union_id" // 以union_id来识别用户
+	GetScopeConfigUserIDTypeOpenId  = "open_id"  // 以open_id来识别用户（推荐）
 )
 
 type Alert struct {
@@ -3530,6 +3530,226 @@ func (builder *MeetingSecuritySettingBuilder) Build() *MeetingSecuritySetting {
 	}
 	if builder.hasSetSecurityContactsAndGroupFlag {
 		req.HasSetSecurityContactsAndGroup = &builder.hasSetSecurityContactsAndGroup
+
+	}
+	return req
+}
+
+type MeetingSubtitle struct {
+	Content *string `json:"content,omitempty"` // 字幕文本内容
+
+	Language *string `json:"language,omitempty"` // 语种
+
+	SpeakerUserId *int `json:"speaker_user_id,omitempty"` // 用户 ID
+
+	SpeakerDeviceId *int `json:"speaker_device_id,omitempty"` // 用户 DID
+
+	SsdSpeaker *MeetingSubtitleSsdSpeaker `json:"ssd_speaker,omitempty"` // 说话人信息
+}
+
+type MeetingSubtitleBuilder struct {
+	content     string // 字幕文本内容
+	contentFlag bool
+
+	language     string // 语种
+	languageFlag bool
+
+	speakerUserId     int // 用户 ID
+	speakerUserIdFlag bool
+
+	speakerDeviceId     int // 用户 DID
+	speakerDeviceIdFlag bool
+
+	ssdSpeaker     *MeetingSubtitleSsdSpeaker // 说话人信息
+	ssdSpeakerFlag bool
+}
+
+func NewMeetingSubtitleBuilder() *MeetingSubtitleBuilder {
+	builder := &MeetingSubtitleBuilder{}
+	return builder
+}
+
+// 字幕文本内容
+//
+// 示例值：你好。
+func (builder *MeetingSubtitleBuilder) Content(content string) *MeetingSubtitleBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 语种
+//
+// 示例值：zh
+func (builder *MeetingSubtitleBuilder) Language(language string) *MeetingSubtitleBuilder {
+	builder.language = language
+	builder.languageFlag = true
+	return builder
+}
+
+// 用户 ID
+//
+// 示例值：123456789
+func (builder *MeetingSubtitleBuilder) SpeakerUserId(speakerUserId int) *MeetingSubtitleBuilder {
+	builder.speakerUserId = speakerUserId
+	builder.speakerUserIdFlag = true
+	return builder
+}
+
+// 用户 DID
+//
+// 示例值：987654321
+func (builder *MeetingSubtitleBuilder) SpeakerDeviceId(speakerDeviceId int) *MeetingSubtitleBuilder {
+	builder.speakerDeviceId = speakerDeviceId
+	builder.speakerDeviceIdFlag = true
+	return builder
+}
+
+// 说话人信息
+//
+// 示例值：
+func (builder *MeetingSubtitleBuilder) SsdSpeaker(ssdSpeaker *MeetingSubtitleSsdSpeaker) *MeetingSubtitleBuilder {
+	builder.ssdSpeaker = ssdSpeaker
+	builder.ssdSpeakerFlag = true
+	return builder
+}
+
+func (builder *MeetingSubtitleBuilder) Build() *MeetingSubtitle {
+	req := &MeetingSubtitle{}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.languageFlag {
+		req.Language = &builder.language
+
+	}
+	if builder.speakerUserIdFlag {
+		req.SpeakerUserId = &builder.speakerUserId
+
+	}
+	if builder.speakerDeviceIdFlag {
+		req.SpeakerDeviceId = &builder.speakerDeviceId
+
+	}
+	if builder.ssdSpeakerFlag {
+		req.SsdSpeaker = builder.ssdSpeaker
+	}
+	return req
+}
+
+type MeetingSubtitleData struct {
+	SegId *int `json:"seg_id,omitempty"` // 时间戳
+
+	Subtitle *MeetingSubtitle `json:"subtitle,omitempty"` // 字幕
+}
+
+type MeetingSubtitleDataBuilder struct {
+	segId     int // 时间戳
+	segIdFlag bool
+
+	subtitle     *MeetingSubtitle // 字幕
+	subtitleFlag bool
+}
+
+func NewMeetingSubtitleDataBuilder() *MeetingSubtitleDataBuilder {
+	builder := &MeetingSubtitleDataBuilder{}
+	return builder
+}
+
+// 时间戳
+//
+// 示例值：9223372036854775807
+func (builder *MeetingSubtitleDataBuilder) SegId(segId int) *MeetingSubtitleDataBuilder {
+	builder.segId = segId
+	builder.segIdFlag = true
+	return builder
+}
+
+// 字幕
+//
+// 示例值：
+func (builder *MeetingSubtitleDataBuilder) Subtitle(subtitle *MeetingSubtitle) *MeetingSubtitleDataBuilder {
+	builder.subtitle = subtitle
+	builder.subtitleFlag = true
+	return builder
+}
+
+func (builder *MeetingSubtitleDataBuilder) Build() *MeetingSubtitleData {
+	req := &MeetingSubtitleData{}
+	if builder.segIdFlag {
+		req.SegId = &builder.segId
+
+	}
+	if builder.subtitleFlag {
+		req.Subtitle = builder.subtitle
+	}
+	return req
+}
+
+type MeetingSubtitleSsdSpeaker struct {
+	UserId *string `json:"user_id,omitempty"` // 用户id
+
+	SpeakerId *int `json:"speaker_id,omitempty"` // 说话人聚类结果
+
+	SpeakerIdType *int `json:"speaker_id_type,omitempty"` // 说话人类型
+}
+
+type MeetingSubtitleSsdSpeakerBuilder struct {
+	userId     string // 用户id
+	userIdFlag bool
+
+	speakerId     int // 说话人聚类结果
+	speakerIdFlag bool
+
+	speakerIdType     int // 说话人类型
+	speakerIdTypeFlag bool
+}
+
+func NewMeetingSubtitleSsdSpeakerBuilder() *MeetingSubtitleSsdSpeakerBuilder {
+	builder := &MeetingSubtitleSsdSpeakerBuilder{}
+	return builder
+}
+
+// 用户id
+//
+// 示例值：
+func (builder *MeetingSubtitleSsdSpeakerBuilder) UserId(userId string) *MeetingSubtitleSsdSpeakerBuilder {
+	builder.userId = userId
+	builder.userIdFlag = true
+	return builder
+}
+
+// 说话人聚类结果
+//
+// 示例值：1
+func (builder *MeetingSubtitleSsdSpeakerBuilder) SpeakerId(speakerId int) *MeetingSubtitleSsdSpeakerBuilder {
+	builder.speakerId = speakerId
+	builder.speakerIdFlag = true
+	return builder
+}
+
+// 说话人类型
+//
+// 示例值：
+func (builder *MeetingSubtitleSsdSpeakerBuilder) SpeakerIdType(speakerIdType int) *MeetingSubtitleSsdSpeakerBuilder {
+	builder.speakerIdType = speakerIdType
+	builder.speakerIdTypeFlag = true
+	return builder
+}
+
+func (builder *MeetingSubtitleSsdSpeakerBuilder) Build() *MeetingSubtitleSsdSpeaker {
+	req := &MeetingSubtitleSsdSpeaker{}
+	if builder.userIdFlag {
+		req.UserId = &builder.userId
+
+	}
+	if builder.speakerIdFlag {
+		req.SpeakerId = &builder.speakerId
+
+	}
+	if builder.speakerIdTypeFlag {
+		req.SpeakerIdType = &builder.speakerIdType
 
 	}
 	return req

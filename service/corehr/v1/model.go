@@ -22808,14 +22808,6 @@ func (builder *MatchCompensationStandardReqBuilder) EffectiveTime(effectiveTime 
 	return builder
 }
 
-// 绩效周期ID
-//
-// 示例值：7527790505990932012
-func (builder *MatchCompensationStandardReqBuilder) PerformanceReviewPeriodId(performanceReviewPeriodId string) *MatchCompensationStandardReqBuilder {
-	builder.apiReq.QueryParams.Set("performance_review_period_id", fmt.Sprint(performanceReviewPeriodId))
-	return builder
-}
-
 // 绩效评估项ID
 //
 // 示例值：7382324314454492716

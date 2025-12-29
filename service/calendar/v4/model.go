@@ -4312,6 +4312,8 @@ type Freebusy struct {
 	StartTime *string `json:"start_time,omitempty"` // 忙闲信息开始时间，RFC3339 date_time 格式
 
 	EndTime *string `json:"end_time,omitempty"` // 忙闲信息结束时间，RFC3339 date_time 格式
+
+	RsvpStatus *string `json:"rsvp_status,omitempty"` // 参与人RSVP状态
 }
 
 type FreebusyBuilder struct {
@@ -4320,6 +4322,9 @@ type FreebusyBuilder struct {
 
 	endTime     string // 忙闲信息结束时间，RFC3339 date_time 格式
 	endTimeFlag bool
+
+	rsvpStatus     string // 参与人RSVP状态
+	rsvpStatusFlag bool
 }
 
 func NewFreebusyBuilder() *FreebusyBuilder {
@@ -4345,6 +4350,15 @@ func (builder *FreebusyBuilder) EndTime(endTime string) *FreebusyBuilder {
 	return builder
 }
 
+// 参与人RSVP状态
+//
+// 示例值：
+func (builder *FreebusyBuilder) RsvpStatus(rsvpStatus string) *FreebusyBuilder {
+	builder.rsvpStatus = rsvpStatus
+	builder.rsvpStatusFlag = true
+	return builder
+}
+
 func (builder *FreebusyBuilder) Build() *Freebusy {
 	req := &Freebusy{}
 	if builder.startTimeFlag {
@@ -4353,6 +4367,10 @@ func (builder *FreebusyBuilder) Build() *Freebusy {
 	}
 	if builder.endTimeFlag {
 		req.EndTime = &builder.endTime
+
+	}
+	if builder.rsvpStatusFlag {
+		req.RsvpStatus = &builder.rsvpStatus
 
 	}
 	return req
@@ -10129,6 +10147,9 @@ type BatchFreebusyReqBodyBuilder struct {
 
 	onlyBusy     bool // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
 	onlyBusyFlag bool
+
+	needRsvpStatus     bool // 是否需要RSVP状态信息
+	needRsvpStatusFlag bool
 }
 
 func NewBatchFreebusyReqBodyBuilder() *BatchFreebusyReqBodyBuilder {
@@ -10181,6 +10202,15 @@ func (builder *BatchFreebusyReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFreebu
 	return builder
 }
 
+// 是否需要RSVP状态信息
+//
+//示例值：true
+func (builder *BatchFreebusyReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *BatchFreebusyReqBodyBuilder {
+	builder.needRsvpStatus = needRsvpStatus
+	builder.needRsvpStatusFlag = true
+	return builder
+}
+
 func (builder *BatchFreebusyReqBodyBuilder) Build() *BatchFreebusyReqBody {
 	req := &BatchFreebusyReqBody{}
 	if builder.timeMinFlag {
@@ -10198,6 +10228,9 @@ func (builder *BatchFreebusyReqBodyBuilder) Build() *BatchFreebusyReqBody {
 	if builder.onlyBusyFlag {
 		req.OnlyBusy = &builder.onlyBusy
 	}
+	if builder.needRsvpStatusFlag {
+		req.NeedRsvpStatus = &builder.needRsvpStatus
+	}
 	return req
 }
 
@@ -10212,6 +10245,8 @@ type BatchFreebusyPathReqBodyBuilder struct {
 	includeExternalCalendarFlag bool
 	onlyBusy                    bool
 	onlyBusyFlag                bool
+	needRsvpStatus              bool
+	needRsvpStatusFlag          bool
 }
 
 func NewBatchFreebusyPathReqBodyBuilder() *BatchFreebusyPathReqBodyBuilder {
@@ -10264,6 +10299,15 @@ func (builder *BatchFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *BatchFr
 	return builder
 }
 
+// 是否需要RSVP状态信息
+//
+// 示例值：true
+func (builder *BatchFreebusyPathReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *BatchFreebusyPathReqBodyBuilder {
+	builder.needRsvpStatus = needRsvpStatus
+	builder.needRsvpStatusFlag = true
+	return builder
+}
+
 func (builder *BatchFreebusyPathReqBodyBuilder) Build() (*BatchFreebusyReqBody, error) {
 	req := &BatchFreebusyReqBody{}
 	if builder.timeMinFlag {
@@ -10280,6 +10324,9 @@ func (builder *BatchFreebusyPathReqBodyBuilder) Build() (*BatchFreebusyReqBody, 
 	}
 	if builder.onlyBusyFlag {
 		req.OnlyBusy = &builder.onlyBusy
+	}
+	if builder.needRsvpStatusFlag {
+		req.NeedRsvpStatus = &builder.needRsvpStatus
 	}
 	return req, nil
 }
@@ -10330,6 +10377,8 @@ type BatchFreebusyReqBody struct {
 	IncludeExternalCalendar *bool `json:"include_external_calendar,omitempty"` // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
 
 	OnlyBusy *bool `json:"only_busy,omitempty"` // 是否包含标记为空闲的日程，不传默认为true，即包含空闲日程。
+
+	NeedRsvpStatus *bool `json:"need_rsvp_status,omitempty"` // 是否需要RSVP状态信息
 }
 
 type BatchFreebusyReq struct {
@@ -10369,6 +10418,9 @@ type ListFreebusyReqBodyBuilder struct {
 
 	onlyBusy     bool // 是否包含标记为空闲的日程，不传默认为true，即包含。
 	onlyBusyFlag bool
+
+	needRsvpStatus     bool // 是否需要RSVP状态信息
+	needRsvpStatusFlag bool
 }
 
 func NewListFreebusyReqBodyBuilder() *ListFreebusyReqBodyBuilder {
@@ -10430,6 +10482,15 @@ func (builder *ListFreebusyReqBodyBuilder) OnlyBusy(onlyBusy bool) *ListFreebusy
 	return builder
 }
 
+// 是否需要RSVP状态信息
+//
+//示例值：true
+func (builder *ListFreebusyReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *ListFreebusyReqBodyBuilder {
+	builder.needRsvpStatus = needRsvpStatus
+	builder.needRsvpStatusFlag = true
+	return builder
+}
+
 func (builder *ListFreebusyReqBodyBuilder) Build() *ListFreebusyReqBody {
 	req := &ListFreebusyReqBody{}
 	if builder.timeMinFlag {
@@ -10450,6 +10511,9 @@ func (builder *ListFreebusyReqBodyBuilder) Build() *ListFreebusyReqBody {
 	if builder.onlyBusyFlag {
 		req.OnlyBusy = &builder.onlyBusy
 	}
+	if builder.needRsvpStatusFlag {
+		req.NeedRsvpStatus = &builder.needRsvpStatus
+	}
 	return req
 }
 
@@ -10466,6 +10530,8 @@ type ListFreebusyPathReqBodyBuilder struct {
 	includeExternalCalendarFlag bool
 	onlyBusy                    bool
 	onlyBusyFlag                bool
+	needRsvpStatus              bool
+	needRsvpStatusFlag          bool
 }
 
 func NewListFreebusyPathReqBodyBuilder() *ListFreebusyPathReqBodyBuilder {
@@ -10527,6 +10593,15 @@ func (builder *ListFreebusyPathReqBodyBuilder) OnlyBusy(onlyBusy bool) *ListFree
 	return builder
 }
 
+// 是否需要RSVP状态信息
+//
+// 示例值：true
+func (builder *ListFreebusyPathReqBodyBuilder) NeedRsvpStatus(needRsvpStatus bool) *ListFreebusyPathReqBodyBuilder {
+	builder.needRsvpStatus = needRsvpStatus
+	builder.needRsvpStatusFlag = true
+	return builder
+}
+
 func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, error) {
 	req := &ListFreebusyReqBody{}
 	if builder.timeMinFlag {
@@ -10546,6 +10621,9 @@ func (builder *ListFreebusyPathReqBodyBuilder) Build() (*ListFreebusyReqBody, er
 	}
 	if builder.onlyBusyFlag {
 		req.OnlyBusy = &builder.onlyBusy
+	}
+	if builder.needRsvpStatusFlag {
+		req.NeedRsvpStatus = &builder.needRsvpStatus
 	}
 	return req, nil
 }
@@ -10598,6 +10676,8 @@ type ListFreebusyReqBody struct {
 	IncludeExternalCalendar *bool `json:"include_external_calendar,omitempty"` // 是否包含绑定的三方日历中的日程，不传默认为true，即包含。
 
 	OnlyBusy *bool `json:"only_busy,omitempty"` // 是否包含标记为空闲的日程，不传默认为true，即包含。
+
+	NeedRsvpStatus *bool `json:"need_rsvp_status,omitempty"` // 是否需要RSVP状态信息
 }
 
 type ListFreebusyReq struct {

@@ -11019,6 +11019,419 @@ func (builder *WorkflowInstanceLogBuilder) Build() *WorkflowInstanceLog {
 	return req
 }
 
+type WorkspaceDataTable struct {
+	Name *string `json:"name,omitempty"` // 数据表名，如 student
+
+	Description *string `json:"description,omitempty"` // 数据表描述
+
+	Columns []*WorkspaceDataTableColumnInfo `json:"columns,omitempty"` // 数据表列
+}
+
+type WorkspaceDataTableBuilder struct {
+	name     string // 数据表名，如 student
+	nameFlag bool
+
+	description     string // 数据表描述
+	descriptionFlag bool
+
+	columns     []*WorkspaceDataTableColumnInfo // 数据表列
+	columnsFlag bool
+}
+
+func NewWorkspaceDataTableBuilder() *WorkspaceDataTableBuilder {
+	builder := &WorkspaceDataTableBuilder{}
+	return builder
+}
+
+// 数据表名，如 student
+//
+// 示例值：student
+func (builder *WorkspaceDataTableBuilder) Name(name string) *WorkspaceDataTableBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 数据表描述
+//
+// 示例值：studect数据表
+func (builder *WorkspaceDataTableBuilder) Description(description string) *WorkspaceDataTableBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 数据表列
+//
+// 示例值：
+func (builder *WorkspaceDataTableBuilder) Columns(columns []*WorkspaceDataTableColumnInfo) *WorkspaceDataTableBuilder {
+	builder.columns = columns
+	builder.columnsFlag = true
+	return builder
+}
+
+func (builder *WorkspaceDataTableBuilder) Build() *WorkspaceDataTable {
+	req := &WorkspaceDataTable{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.columnsFlag {
+		req.Columns = builder.columns
+	}
+	return req
+}
+
+type WorkspaceDataTableColumnInfo struct {
+	Name *string `json:"name,omitempty"` // 列名
+
+	Description *string `json:"description,omitempty"` // 列描述
+
+	DataType *string `json:"data_type,omitempty"` // 数据库数据类型
+
+	IsPrimaryKey *bool `json:"is_primary_key,omitempty"` // 是否是主键
+
+	IsUnique *bool `json:"is_unique,omitempty"` // 是否唯一
+
+	IsAutoIncrement *bool `json:"is_auto_increment,omitempty"` // 是否是自增
+
+	IsArray *bool `json:"is_array,omitempty"` // 是否是数组类型
+
+	IsAllowNull *bool `json:"is_allow_null,omitempty"` // 是否允许为空
+
+	DefaultValue *string `json:"default_value,omitempty"` // 默认值
+}
+
+type WorkspaceDataTableColumnInfoBuilder struct {
+	name     string // 列名
+	nameFlag bool
+
+	description     string // 列描述
+	descriptionFlag bool
+
+	dataType     string // 数据库数据类型
+	dataTypeFlag bool
+
+	isPrimaryKey     bool // 是否是主键
+	isPrimaryKeyFlag bool
+
+	isUnique     bool // 是否唯一
+	isUniqueFlag bool
+
+	isAutoIncrement     bool // 是否是自增
+	isAutoIncrementFlag bool
+
+	isArray     bool // 是否是数组类型
+	isArrayFlag bool
+
+	isAllowNull     bool // 是否允许为空
+	isAllowNullFlag bool
+
+	defaultValue     string // 默认值
+	defaultValueFlag bool
+}
+
+func NewWorkspaceDataTableColumnInfoBuilder() *WorkspaceDataTableColumnInfoBuilder {
+	builder := &WorkspaceDataTableColumnInfoBuilder{}
+	return builder
+}
+
+// 列名
+//
+// 示例值：column_name
+func (builder *WorkspaceDataTableColumnInfoBuilder) Name(name string) *WorkspaceDataTableColumnInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 列描述
+//
+// 示例值：column_name的描述
+func (builder *WorkspaceDataTableColumnInfoBuilder) Description(description string) *WorkspaceDataTableColumnInfoBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 数据库数据类型
+//
+// 示例值：varchar
+func (builder *WorkspaceDataTableColumnInfoBuilder) DataType(dataType string) *WorkspaceDataTableColumnInfoBuilder {
+	builder.dataType = dataType
+	builder.dataTypeFlag = true
+	return builder
+}
+
+// 是否是主键
+//
+// 示例值：false
+func (builder *WorkspaceDataTableColumnInfoBuilder) IsPrimaryKey(isPrimaryKey bool) *WorkspaceDataTableColumnInfoBuilder {
+	builder.isPrimaryKey = isPrimaryKey
+	builder.isPrimaryKeyFlag = true
+	return builder
+}
+
+// 是否唯一
+//
+// 示例值：false
+func (builder *WorkspaceDataTableColumnInfoBuilder) IsUnique(isUnique bool) *WorkspaceDataTableColumnInfoBuilder {
+	builder.isUnique = isUnique
+	builder.isUniqueFlag = true
+	return builder
+}
+
+// 是否是自增
+//
+// 示例值：false
+func (builder *WorkspaceDataTableColumnInfoBuilder) IsAutoIncrement(isAutoIncrement bool) *WorkspaceDataTableColumnInfoBuilder {
+	builder.isAutoIncrement = isAutoIncrement
+	builder.isAutoIncrementFlag = true
+	return builder
+}
+
+// 是否是数组类型
+//
+// 示例值：false
+func (builder *WorkspaceDataTableColumnInfoBuilder) IsArray(isArray bool) *WorkspaceDataTableColumnInfoBuilder {
+	builder.isArray = isArray
+	builder.isArrayFlag = true
+	return builder
+}
+
+// 是否允许为空
+//
+// 示例值：false
+func (builder *WorkspaceDataTableColumnInfoBuilder) IsAllowNull(isAllowNull bool) *WorkspaceDataTableColumnInfoBuilder {
+	builder.isAllowNull = isAllowNull
+	builder.isAllowNullFlag = true
+	return builder
+}
+
+// 默认值
+//
+// 示例值：
+func (builder *WorkspaceDataTableColumnInfoBuilder) DefaultValue(defaultValue string) *WorkspaceDataTableColumnInfoBuilder {
+	builder.defaultValue = defaultValue
+	builder.defaultValueFlag = true
+	return builder
+}
+
+func (builder *WorkspaceDataTableColumnInfoBuilder) Build() *WorkspaceDataTableColumnInfo {
+	req := &WorkspaceDataTableColumnInfo{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.dataTypeFlag {
+		req.DataType = &builder.dataType
+
+	}
+	if builder.isPrimaryKeyFlag {
+		req.IsPrimaryKey = &builder.isPrimaryKey
+
+	}
+	if builder.isUniqueFlag {
+		req.IsUnique = &builder.isUnique
+
+	}
+	if builder.isAutoIncrementFlag {
+		req.IsAutoIncrement = &builder.isAutoIncrement
+
+	}
+	if builder.isArrayFlag {
+		req.IsArray = &builder.isArray
+
+	}
+	if builder.isAllowNullFlag {
+		req.IsAllowNull = &builder.isAllowNull
+
+	}
+	if builder.defaultValueFlag {
+		req.DefaultValue = &builder.defaultValue
+
+	}
+	return req
+}
+
+type WorkspaceEnum struct {
+	Name *string `json:"name,omitempty"` // 枚举名称
+
+	Description *string `json:"description,omitempty"` // 枚举描述
+
+	Options []string `json:"options,omitempty"` // 枚举值列表
+
+	CreatedAt *int `json:"created_at,omitempty"` // 创建时间，毫秒时间戳
+
+	CreatedBy *WorkspaceUserInfo `json:"created_by,omitempty"` // 创建人
+}
+
+type WorkspaceEnumBuilder struct {
+	name     string // 枚举名称
+	nameFlag bool
+
+	description     string // 枚举描述
+	descriptionFlag bool
+
+	options     []string // 枚举值列表
+	optionsFlag bool
+
+	createdAt     int // 创建时间，毫秒时间戳
+	createdAtFlag bool
+
+	createdBy     *WorkspaceUserInfo // 创建人
+	createdByFlag bool
+}
+
+func NewWorkspaceEnumBuilder() *WorkspaceEnumBuilder {
+	builder := &WorkspaceEnumBuilder{}
+	return builder
+}
+
+// 枚举名称
+//
+// 示例值：enum_demo
+func (builder *WorkspaceEnumBuilder) Name(name string) *WorkspaceEnumBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 枚举描述
+//
+// 示例值：enum_demo的描述
+func (builder *WorkspaceEnumBuilder) Description(description string) *WorkspaceEnumBuilder {
+	builder.description = description
+	builder.descriptionFlag = true
+	return builder
+}
+
+// 枚举值列表
+//
+// 示例值：
+func (builder *WorkspaceEnumBuilder) Options(options []string) *WorkspaceEnumBuilder {
+	builder.options = options
+	builder.optionsFlag = true
+	return builder
+}
+
+// 创建时间，毫秒时间戳
+//
+// 示例值：1765524810744
+func (builder *WorkspaceEnumBuilder) CreatedAt(createdAt int) *WorkspaceEnumBuilder {
+	builder.createdAt = createdAt
+	builder.createdAtFlag = true
+	return builder
+}
+
+// 创建人
+//
+// 示例值：
+func (builder *WorkspaceEnumBuilder) CreatedBy(createdBy *WorkspaceUserInfo) *WorkspaceEnumBuilder {
+	builder.createdBy = createdBy
+	builder.createdByFlag = true
+	return builder
+}
+
+func (builder *WorkspaceEnumBuilder) Build() *WorkspaceEnum {
+	req := &WorkspaceEnum{}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.descriptionFlag {
+		req.Description = &builder.description
+
+	}
+	if builder.optionsFlag {
+		req.Options = builder.options
+	}
+	if builder.createdAtFlag {
+		req.CreatedAt = &builder.createdAt
+
+	}
+	if builder.createdByFlag {
+		req.CreatedBy = builder.createdBy
+	}
+	return req
+}
+
+type WorkspaceUserInfo struct {
+	Id *string `json:"id,omitempty"` // 用户 id，如 1693861178143800
+
+	Name *string `json:"name,omitempty"` // 用户姓名，如王小小
+
+	Avatar *string `json:"avatar,omitempty"` // 用户头像 URL
+}
+
+type WorkspaceUserInfoBuilder struct {
+	id     string // 用户 id，如 1693861178143800
+	idFlag bool
+
+	name     string // 用户姓名，如王小小
+	nameFlag bool
+
+	avatar     string // 用户头像 URL
+	avatarFlag bool
+}
+
+func NewWorkspaceUserInfoBuilder() *WorkspaceUserInfoBuilder {
+	builder := &WorkspaceUserInfoBuilder{}
+	return builder
+}
+
+// 用户 id，如 1693861178143800
+//
+// 示例值：1693861178143800
+func (builder *WorkspaceUserInfoBuilder) Id(id string) *WorkspaceUserInfoBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 用户姓名，如王小小
+//
+// 示例值：王小小
+func (builder *WorkspaceUserInfoBuilder) Name(name string) *WorkspaceUserInfoBuilder {
+	builder.name = name
+	builder.nameFlag = true
+	return builder
+}
+
+// 用户头像 URL
+//
+// 示例值：https://xxx.image_url.com
+func (builder *WorkspaceUserInfoBuilder) Avatar(avatar string) *WorkspaceUserInfoBuilder {
+	builder.avatar = avatar
+	builder.avatarFlag = true
+	return builder
+}
+
+func (builder *WorkspaceUserInfoBuilder) Build() *WorkspaceUserInfo {
+	req := &WorkspaceUserInfo{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.nameFlag {
+		req.Name = &builder.name
+
+	}
+	if builder.avatarFlag {
+		req.Avatar = &builder.avatar
+
+	}
+	return req
+}
+
 type ListAppReqBuilder struct {
 	apiReq *larkcore.ApiReq
 	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
@@ -16970,6 +17383,14 @@ func (builder *RecordsPostWorkspaceTableReqBuilder) TableName(tableName string) 
 // 示例值：name,age
 func (builder *RecordsPostWorkspaceTableReqBuilder) Columns(columns string) *RecordsPostWorkspaceTableReqBuilder {
 	builder.apiReq.QueryParams.Set("columns", fmt.Sprint(columns))
+	return builder
+}
+
+// UPSERT 时使用，指定使用哪一个或多个具有唯一约束的字段作为冲突判断依据，默认为表主键。;假设 user_products 表有一个由 user_id 和 product_id 组成的复合唯一约束。
+//
+// 示例值：user_id,product_id
+func (builder *RecordsPostWorkspaceTableReqBuilder) OnConflict(onConflict string) *RecordsPostWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("on_conflict", fmt.Sprint(onConflict))
 	return builder
 }
 

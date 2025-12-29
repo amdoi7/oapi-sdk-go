@@ -1527,6 +1527,74 @@ func (builder *AbilityBuilder) Build() *Ability {
 	return req
 }
 
+type AbilityAssessment struct {
+	Id *string `json:"id,omitempty"` // 能力项评价id
+
+	AbilityId *string `json:"ability_id,omitempty"` // 能力项id
+
+	Content *string `json:"content,omitempty"` // 能力项评价内容
+}
+
+type AbilityAssessmentBuilder struct {
+	id     string // 能力项评价id
+	idFlag bool
+
+	abilityId     string // 能力项id
+	abilityIdFlag bool
+
+	content     string // 能力项评价内容
+	contentFlag bool
+}
+
+func NewAbilityAssessmentBuilder() *AbilityAssessmentBuilder {
+	builder := &AbilityAssessmentBuilder{}
+	return builder
+}
+
+// 能力项评价id
+//
+// 示例值：6949805467799537964
+func (builder *AbilityAssessmentBuilder) Id(id string) *AbilityAssessmentBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 能力项id
+//
+// 示例值：7270798542321666366
+func (builder *AbilityAssessmentBuilder) AbilityId(abilityId string) *AbilityAssessmentBuilder {
+	builder.abilityId = abilityId
+	builder.abilityIdFlag = true
+	return builder
+}
+
+// 能力项评价内容
+//
+// 示例值：能力项评价
+func (builder *AbilityAssessmentBuilder) Content(content string) *AbilityAssessmentBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *AbilityAssessmentBuilder) Build() *AbilityAssessment {
+	req := &AbilityAssessment{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.abilityIdFlag {
+		req.AbilityId = &builder.abilityId
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
 type Acceptance struct {
 	OperatorType *int `json:"operator_type,omitempty"` // 操作类型
 
@@ -15456,6 +15524,74 @@ func (builder *DimensionAbilityBuilder) Build() *DimensionAbility {
 	return req
 }
 
+type DimensionAbilityArgs struct {
+	AbilityId *string `json:"ability_id,omitempty"` // 能力项id
+
+	PlaceHolder *string `json:"place_holder,omitempty"` // 能力项占位符
+
+	EnPlaceHolder *string `json:"en_place_holder,omitempty"` // 英文能力项占位符
+}
+
+type DimensionAbilityArgsBuilder struct {
+	abilityId     string // 能力项id
+	abilityIdFlag bool
+
+	placeHolder     string // 能力项占位符
+	placeHolderFlag bool
+
+	enPlaceHolder     string // 英文能力项占位符
+	enPlaceHolderFlag bool
+}
+
+func NewDimensionAbilityArgsBuilder() *DimensionAbilityArgsBuilder {
+	builder := &DimensionAbilityArgsBuilder{}
+	return builder
+}
+
+// 能力项id
+//
+// 示例值：6930815272790114324
+func (builder *DimensionAbilityArgsBuilder) AbilityId(abilityId string) *DimensionAbilityArgsBuilder {
+	builder.abilityId = abilityId
+	builder.abilityIdFlag = true
+	return builder
+}
+
+// 能力项占位符
+//
+// 示例值：占位符
+func (builder *DimensionAbilityArgsBuilder) PlaceHolder(placeHolder string) *DimensionAbilityArgsBuilder {
+	builder.placeHolder = placeHolder
+	builder.placeHolderFlag = true
+	return builder
+}
+
+// 英文能力项占位符
+//
+// 示例值：place holder
+func (builder *DimensionAbilityArgsBuilder) EnPlaceHolder(enPlaceHolder string) *DimensionAbilityArgsBuilder {
+	builder.enPlaceHolder = enPlaceHolder
+	builder.enPlaceHolderFlag = true
+	return builder
+}
+
+func (builder *DimensionAbilityArgsBuilder) Build() *DimensionAbilityArgs {
+	req := &DimensionAbilityArgs{}
+	if builder.abilityIdFlag {
+		req.AbilityId = &builder.abilityId
+
+	}
+	if builder.placeHolderFlag {
+		req.PlaceHolder = &builder.placeHolder
+
+	}
+	if builder.enPlaceHolderFlag {
+		req.EnPlaceHolder = &builder.enPlaceHolder
+
+	}
+	return req
+}
+
 type DimensionAssessment struct {
 	InterviewFeedbackFormDimensionId *string `json:"interview_feedback_form_dimension_id,omitempty"` // 对应模版中维度ID
 
@@ -15476,6 +15612,8 @@ type DimensionAssessment struct {
 	RecommendedJobLevel *RecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度为「职级建议」时，从此取值
 
 	QuestionAssessments []*QuestionAssessment `json:"question_assessments,omitempty"` // 维度关联面试题
+
+	AbilityAssessments []*AbilityAssessment `json:"ability_assessments,omitempty"` // 能力项评价
 }
 
 type DimensionAssessmentBuilder struct {
@@ -15508,6 +15646,9 @@ type DimensionAssessmentBuilder struct {
 
 	questionAssessments     []*QuestionAssessment // 维度关联面试题
 	questionAssessmentsFlag bool
+
+	abilityAssessments     []*AbilityAssessment // 能力项评价
+	abilityAssessmentsFlag bool
 }
 
 func NewDimensionAssessmentBuilder() *DimensionAssessmentBuilder {
@@ -15605,6 +15746,15 @@ func (builder *DimensionAssessmentBuilder) QuestionAssessments(questionAssessmen
 	return builder
 }
 
+// 能力项评价
+//
+// 示例值：
+func (builder *DimensionAssessmentBuilder) AbilityAssessments(abilityAssessments []*AbilityAssessment) *DimensionAssessmentBuilder {
+	builder.abilityAssessments = abilityAssessments
+	builder.abilityAssessmentsFlag = true
+	return builder
+}
+
 func (builder *DimensionAssessmentBuilder) Build() *DimensionAssessment {
 	req := &DimensionAssessment{}
 	if builder.interviewFeedbackFormDimensionIdFlag {
@@ -15641,6 +15791,9 @@ func (builder *DimensionAssessmentBuilder) Build() *DimensionAssessment {
 	}
 	if builder.questionAssessmentsFlag {
 		req.QuestionAssessments = builder.questionAssessments
+	}
+	if builder.abilityAssessmentsFlag {
+		req.AbilityAssessments = builder.abilityAssessments
 	}
 	return req
 }
@@ -15772,6 +15925,8 @@ type DimensionOption struct {
 	Name *I18n `json:"name,omitempty"` // 选项名称
 
 	ScoreVal *int `json:"score_val,omitempty"` // 选项对应的分数
+
+	AliasName *I18n `json:"alias_name,omitempty"` // 选项全称
 }
 
 type DimensionOptionBuilder struct {
@@ -15783,6 +15938,9 @@ type DimensionOptionBuilder struct {
 
 	scoreVal     int // 选项对应的分数
 	scoreValFlag bool
+
+	aliasName     *I18n // 选项全称
+	aliasNameFlag bool
 }
 
 func NewDimensionOptionBuilder() *DimensionOptionBuilder {
@@ -15817,6 +15975,15 @@ func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int) *DimensionOptionBu
 	return builder
 }
 
+// 选项全称
+//
+// 示例值：
+func (builder *DimensionOptionBuilder) AliasName(aliasName *I18n) *DimensionOptionBuilder {
+	builder.aliasName = aliasName
+	builder.aliasNameFlag = true
+	return builder
+}
+
 func (builder *DimensionOptionBuilder) Build() *DimensionOption {
 	req := &DimensionOption{}
 	if builder.idFlag {
@@ -15829,6 +15996,9 @@ func (builder *DimensionOptionBuilder) Build() *DimensionOption {
 	if builder.scoreValFlag {
 		req.ScoreVal = &builder.scoreVal
 
+	}
+	if builder.aliasNameFlag {
+		req.AliasName = builder.aliasName
 	}
 	return req
 }
@@ -22151,6 +22321,8 @@ type InterviewDimensionOption struct {
 	Description *I18n `json:"description,omitempty"` //
 
 	ScoreVal *int `json:"score_val,omitempty"` // 选项分数值
+
+	AliasName *I18n `json:"alias_name,omitempty"` // 选项全称
 }
 
 type InterviewDimensionOptionBuilder struct {
@@ -22165,6 +22337,9 @@ type InterviewDimensionOptionBuilder struct {
 
 	scoreVal     int // 选项分数值
 	scoreValFlag bool
+
+	aliasName     *I18n // 选项全称
+	aliasNameFlag bool
 }
 
 func NewInterviewDimensionOptionBuilder() *InterviewDimensionOptionBuilder {
@@ -22208,6 +22383,15 @@ func (builder *InterviewDimensionOptionBuilder) ScoreVal(scoreVal int) *Intervie
 	return builder
 }
 
+// 选项全称
+//
+// 示例值：
+func (builder *InterviewDimensionOptionBuilder) AliasName(aliasName *I18n) *InterviewDimensionOptionBuilder {
+	builder.aliasName = aliasName
+	builder.aliasNameFlag = true
+	return builder
+}
+
 func (builder *InterviewDimensionOptionBuilder) Build() *InterviewDimensionOption {
 	req := &InterviewDimensionOption{}
 	if builder.idFlag {
@@ -22223,6 +22407,9 @@ func (builder *InterviewDimensionOptionBuilder) Build() *InterviewDimensionOptio
 	if builder.scoreValFlag {
 		req.ScoreVal = &builder.scoreVal
 
+	}
+	if builder.aliasNameFlag {
+		req.AliasName = builder.aliasName
 	}
 	return req
 }
@@ -23387,6 +23574,8 @@ type InterviewFeedbackFormDimension struct {
 	AbilityList []*DimensionAbility `json:"ability_list,omitempty"` // 能力项列表
 
 	RelatedDimensionConfig *RelatedDimensionConfig `json:"related_dimension_config,omitempty"` // 维度间关联配置
+
+	DimensionAbilityArgs []*DimensionAbilityArgs `json:"dimension_ability_args,omitempty"` // 能力项关联配置
 }
 
 type InterviewFeedbackFormDimensionBuilder struct {
@@ -23428,6 +23617,9 @@ type InterviewFeedbackFormDimensionBuilder struct {
 
 	relatedDimensionConfig     *RelatedDimensionConfig // 维度间关联配置
 	relatedDimensionConfigFlag bool
+
+	dimensionAbilityArgs     []*DimensionAbilityArgs // 能力项关联配置
+	dimensionAbilityArgsFlag bool
 }
 
 func NewInterviewFeedbackFormDimensionBuilder() *InterviewFeedbackFormDimensionBuilder {
@@ -23552,6 +23744,15 @@ func (builder *InterviewFeedbackFormDimensionBuilder) RelatedDimensionConfig(rel
 	return builder
 }
 
+// 能力项关联配置
+//
+// 示例值：
+func (builder *InterviewFeedbackFormDimensionBuilder) DimensionAbilityArgs(dimensionAbilityArgs []*DimensionAbilityArgs) *InterviewFeedbackFormDimensionBuilder {
+	builder.dimensionAbilityArgs = dimensionAbilityArgs
+	builder.dimensionAbilityArgsFlag = true
+	return builder
+}
+
 func (builder *InterviewFeedbackFormDimensionBuilder) Build() *InterviewFeedbackFormDimension {
 	req := &InterviewFeedbackFormDimension{}
 	if builder.idFlag {
@@ -23599,6 +23800,9 @@ func (builder *InterviewFeedbackFormDimensionBuilder) Build() *InterviewFeedback
 	}
 	if builder.relatedDimensionConfigFlag {
 		req.RelatedDimensionConfig = builder.relatedDimensionConfig
+	}
+	if builder.dimensionAbilityArgsFlag {
+		req.DimensionAbilityArgs = builder.dimensionAbilityArgs
 	}
 	return req
 }

@@ -89,6 +89,74 @@ func (builder *AbilityBuilder) Build() *Ability {
 	return req
 }
 
+type AbilityAssessment struct {
+	Id *string `json:"id,omitempty"` // 能力项评价id
+
+	AbilityId *string `json:"ability_id,omitempty"` // 能力项id
+
+	Content *string `json:"content,omitempty"` // 能力项评价内容
+}
+
+type AbilityAssessmentBuilder struct {
+	id     string // 能力项评价id
+	idFlag bool
+
+	abilityId     string // 能力项id
+	abilityIdFlag bool
+
+	content     string // 能力项评价内容
+	contentFlag bool
+}
+
+func NewAbilityAssessmentBuilder() *AbilityAssessmentBuilder {
+	builder := &AbilityAssessmentBuilder{}
+	return builder
+}
+
+// 能力项评价id
+//
+// 示例值：6949805467799537964
+func (builder *AbilityAssessmentBuilder) Id(id string) *AbilityAssessmentBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+// 能力项id
+//
+// 示例值：7270798542321666366
+func (builder *AbilityAssessmentBuilder) AbilityId(abilityId string) *AbilityAssessmentBuilder {
+	builder.abilityId = abilityId
+	builder.abilityIdFlag = true
+	return builder
+}
+
+// 能力项评价内容
+//
+// 示例值：能力项评价
+func (builder *AbilityAssessmentBuilder) Content(content string) *AbilityAssessmentBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *AbilityAssessmentBuilder) Build() *AbilityAssessment {
+	req := &AbilityAssessment{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
+	}
+	if builder.abilityIdFlag {
+		req.AbilityId = &builder.abilityId
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	return req
+}
+
 type Attachment struct {
 	FileId *string `json:"file_id,omitempty"` // 附件 ID
 
@@ -2105,6 +2173,8 @@ type DimensionAssessment struct {
 	RecommendedJobLevel *RecommendedJobLevel `json:"recommended_job_level,omitempty"` // 当维度为「职级建议」时，从此取值
 
 	QuestionAssessments []*QuestionAssessment `json:"question_assessments,omitempty"` // 维度关联面试题
+
+	AbilityAssessments []*AbilityAssessment `json:"ability_assessments,omitempty"` // 能力项评价
 }
 
 type DimensionAssessmentBuilder struct {
@@ -2137,6 +2207,9 @@ type DimensionAssessmentBuilder struct {
 
 	questionAssessments     []*QuestionAssessment // 维度关联面试题
 	questionAssessmentsFlag bool
+
+	abilityAssessments     []*AbilityAssessment // 能力项评价
+	abilityAssessmentsFlag bool
 }
 
 func NewDimensionAssessmentBuilder() *DimensionAssessmentBuilder {
@@ -2234,6 +2307,15 @@ func (builder *DimensionAssessmentBuilder) QuestionAssessments(questionAssessmen
 	return builder
 }
 
+// 能力项评价
+//
+// 示例值：
+func (builder *DimensionAssessmentBuilder) AbilityAssessments(abilityAssessments []*AbilityAssessment) *DimensionAssessmentBuilder {
+	builder.abilityAssessments = abilityAssessments
+	builder.abilityAssessmentsFlag = true
+	return builder
+}
+
 func (builder *DimensionAssessmentBuilder) Build() *DimensionAssessment {
 	req := &DimensionAssessment{}
 	if builder.interviewFeedbackFormDimensionIdFlag {
@@ -2271,6 +2353,9 @@ func (builder *DimensionAssessmentBuilder) Build() *DimensionAssessment {
 	if builder.questionAssessmentsFlag {
 		req.QuestionAssessments = builder.questionAssessments
 	}
+	if builder.abilityAssessmentsFlag {
+		req.AbilityAssessments = builder.abilityAssessments
+	}
 	return req
 }
 
@@ -2280,6 +2365,8 @@ type DimensionOption struct {
 	Name *I18n `json:"name,omitempty"` // 选项名称
 
 	ScoreVal *int64 `json:"score_val,omitempty"` // 选项对应的分数
+
+	AliasName *I18n `json:"alias_name,omitempty"` // 选项全称
 }
 
 type DimensionOptionBuilder struct {
@@ -2291,6 +2378,9 @@ type DimensionOptionBuilder struct {
 
 	scoreVal     int64 // 选项对应的分数
 	scoreValFlag bool
+
+	aliasName     *I18n // 选项全称
+	aliasNameFlag bool
 }
 
 func NewDimensionOptionBuilder() *DimensionOptionBuilder {
@@ -2325,6 +2415,15 @@ func (builder *DimensionOptionBuilder) ScoreVal(scoreVal int64) *DimensionOption
 	return builder
 }
 
+// 选项全称
+//
+// 示例值：
+func (builder *DimensionOptionBuilder) AliasName(aliasName *I18n) *DimensionOptionBuilder {
+	builder.aliasName = aliasName
+	builder.aliasNameFlag = true
+	return builder
+}
+
 func (builder *DimensionOptionBuilder) Build() *DimensionOption {
 	req := &DimensionOption{}
 	if builder.idFlag {
@@ -2337,6 +2436,9 @@ func (builder *DimensionOptionBuilder) Build() *DimensionOption {
 	if builder.scoreValFlag {
 		req.ScoreVal = &builder.scoreVal
 
+	}
+	if builder.aliasNameFlag {
+		req.AliasName = builder.aliasName
 	}
 	return req
 }
