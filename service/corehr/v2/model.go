@@ -16,13 +16,12 @@ package larkcorehr
 import (
 	"io"
 
-	"io/ioutil"
-
 	"fmt"
+	"io/ioutil"
+	"strconv"
 
 	"context"
 	"errors"
-	"strconv"
 
 	"github.com/larksuite/oapi-sdk-go/v3/event"
 
@@ -1749,6 +1748,26 @@ type AddressForUpdate struct {
 	CityIdV2 *string `json:"city_id_v2,omitempty"` // 城市
 
 	DistrictIdV2 *string `json:"district_id_v2,omitempty"` // 区/县
+
+	CustomFields []*ObjectFieldData `json:"custom_fields,omitempty"` // 自定义字段
+
+	AddressLine1 *string `json:"address_line1,omitempty"` // 地址行 1
+
+	AddressLine2 *string `json:"address_line2,omitempty"` // 地址行 2
+
+	AddressLine3 *string `json:"address_line3,omitempty"` // 地址行 3
+
+	AddressLine4 *string `json:"address_line4,omitempty"` // 地址行 4
+
+	AddressLine5 *string `json:"address_line5,omitempty"` // 地址行 5
+
+	AddressLine6 *string `json:"address_line6,omitempty"` // 地址行 6
+
+	AddressLine7 *string `json:"address_line7,omitempty"` // 地址行 7
+
+	AddressLine8 *string `json:"address_line8,omitempty"` // 地址行 8
+
+	AddressLine9 *string `json:"address_line9,omitempty"` // 地址行 9
 }
 
 type AddressForUpdateBuilder struct {
@@ -1805,6 +1824,36 @@ type AddressForUpdateBuilder struct {
 
 	districtIdV2     string // 区/县
 	districtIdV2Flag bool
+
+	customFields     []*ObjectFieldData // 自定义字段
+	customFieldsFlag bool
+
+	addressLine1     string // 地址行 1
+	addressLine1Flag bool
+
+	addressLine2     string // 地址行 2
+	addressLine2Flag bool
+
+	addressLine3     string // 地址行 3
+	addressLine3Flag bool
+
+	addressLine4     string // 地址行 4
+	addressLine4Flag bool
+
+	addressLine5     string // 地址行 5
+	addressLine5Flag bool
+
+	addressLine6     string // 地址行 6
+	addressLine6Flag bool
+
+	addressLine7     string // 地址行 7
+	addressLine7Flag bool
+
+	addressLine8     string // 地址行 8
+	addressLine8Flag bool
+
+	addressLine9     string // 地址行 9
+	addressLine9Flag bool
 }
 
 func NewAddressForUpdateBuilder() *AddressForUpdateBuilder {
@@ -1974,6 +2023,96 @@ func (builder *AddressForUpdateBuilder) DistrictIdV2(districtIdV2 string) *Addre
 	return builder
 }
 
+// 自定义字段
+//
+// 示例值：
+func (builder *AddressForUpdateBuilder) CustomFields(customFields []*ObjectFieldData) *AddressForUpdateBuilder {
+	builder.customFields = customFields
+	builder.customFieldsFlag = true
+	return builder
+}
+
+// 地址行 1
+//
+// 示例值：丹佛测试地址-纽埃时区
+func (builder *AddressForUpdateBuilder) AddressLine1(addressLine1 string) *AddressForUpdateBuilder {
+	builder.addressLine1 = addressLine1
+	builder.addressLine1Flag = true
+	return builder
+}
+
+// 地址行 2
+//
+// 示例值：PoewH
+func (builder *AddressForUpdateBuilder) AddressLine2(addressLine2 string) *AddressForUpdateBuilder {
+	builder.addressLine2 = addressLine2
+	builder.addressLine2Flag = true
+	return builder
+}
+
+// 地址行 3
+//
+// 示例值：PoewH
+func (builder *AddressForUpdateBuilder) AddressLine3(addressLine3 string) *AddressForUpdateBuilder {
+	builder.addressLine3 = addressLine3
+	builder.addressLine3Flag = true
+	return builder
+}
+
+// 地址行 4
+//
+// 示例值：jmwJc
+func (builder *AddressForUpdateBuilder) AddressLine4(addressLine4 string) *AddressForUpdateBuilder {
+	builder.addressLine4 = addressLine4
+	builder.addressLine4Flag = true
+	return builder
+}
+
+// 地址行 5
+//
+// 示例值：jmwJc
+func (builder *AddressForUpdateBuilder) AddressLine5(addressLine5 string) *AddressForUpdateBuilder {
+	builder.addressLine5 = addressLine5
+	builder.addressLine5Flag = true
+	return builder
+}
+
+// 地址行 6
+//
+// 示例值：jmwJc
+func (builder *AddressForUpdateBuilder) AddressLine6(addressLine6 string) *AddressForUpdateBuilder {
+	builder.addressLine6 = addressLine6
+	builder.addressLine6Flag = true
+	return builder
+}
+
+// 地址行 7
+//
+// 示例值：jmwJc
+func (builder *AddressForUpdateBuilder) AddressLine7(addressLine7 string) *AddressForUpdateBuilder {
+	builder.addressLine7 = addressLine7
+	builder.addressLine7Flag = true
+	return builder
+}
+
+// 地址行 8
+//
+// 示例值：rafSu
+func (builder *AddressForUpdateBuilder) AddressLine8(addressLine8 string) *AddressForUpdateBuilder {
+	builder.addressLine8 = addressLine8
+	builder.addressLine8Flag = true
+	return builder
+}
+
+// 地址行 9
+//
+// 示例值：McPRG
+func (builder *AddressForUpdateBuilder) AddressLine9(addressLine9 string) *AddressForUpdateBuilder {
+	builder.addressLine9 = addressLine9
+	builder.addressLine9Flag = true
+	return builder
+}
+
 func (builder *AddressForUpdateBuilder) Build() *AddressForUpdate {
 	req := &AddressForUpdate{}
 	if builder.addressIdFlag {
@@ -2045,6 +2184,45 @@ func (builder *AddressForUpdateBuilder) Build() *AddressForUpdate {
 	}
 	if builder.districtIdV2Flag {
 		req.DistrictIdV2 = &builder.districtIdV2
+
+	}
+	if builder.customFieldsFlag {
+		req.CustomFields = builder.customFields
+	}
+	if builder.addressLine1Flag {
+		req.AddressLine1 = &builder.addressLine1
+
+	}
+	if builder.addressLine2Flag {
+		req.AddressLine2 = &builder.addressLine2
+
+	}
+	if builder.addressLine3Flag {
+		req.AddressLine3 = &builder.addressLine3
+
+	}
+	if builder.addressLine4Flag {
+		req.AddressLine4 = &builder.addressLine4
+
+	}
+	if builder.addressLine5Flag {
+		req.AddressLine5 = &builder.addressLine5
+
+	}
+	if builder.addressLine6Flag {
+		req.AddressLine6 = &builder.addressLine6
+
+	}
+	if builder.addressLine7Flag {
+		req.AddressLine7 = &builder.addressLine7
+
+	}
+	if builder.addressLine8Flag {
+		req.AddressLine8 = &builder.addressLine8
+
+	}
+	if builder.addressLine9Flag {
+		req.AddressLine9 = &builder.addressLine9
 
 	}
 	return req
@@ -16805,6 +16983,56 @@ func (builder *EmployeeBtBuilder) Build() *EmployeeBt {
 	return req
 }
 
+type EmployeeCheckInfo struct {
+	EmploymentId *string `json:"employment_id,omitempty"` // 员工ID
+
+	IsEligible *bool `json:"is_eligible,omitempty"` // 是否符合条件
+}
+
+type EmployeeCheckInfoBuilder struct {
+	employmentId     string // 员工ID
+	employmentIdFlag bool
+
+	isEligible     bool // 是否符合条件
+	isEligibleFlag bool
+}
+
+func NewEmployeeCheckInfoBuilder() *EmployeeCheckInfoBuilder {
+	builder := &EmployeeCheckInfoBuilder{}
+	return builder
+}
+
+// 员工ID
+//
+// 示例值：123
+func (builder *EmployeeCheckInfoBuilder) EmploymentId(employmentId string) *EmployeeCheckInfoBuilder {
+	builder.employmentId = employmentId
+	builder.employmentIdFlag = true
+	return builder
+}
+
+// 是否符合条件
+//
+// 示例值：true
+func (builder *EmployeeCheckInfoBuilder) IsEligible(isEligible bool) *EmployeeCheckInfoBuilder {
+	builder.isEligible = isEligible
+	builder.isEligibleFlag = true
+	return builder
+}
+
+func (builder *EmployeeCheckInfoBuilder) Build() *EmployeeCheckInfo {
+	req := &EmployeeCheckInfo{}
+	if builder.employmentIdFlag {
+		req.EmploymentId = &builder.employmentId
+
+	}
+	if builder.isEligibleFlag {
+		req.IsEligible = &builder.isEligible
+
+	}
+	return req
+}
+
 type EmployeeCostAllocation struct {
 	EmploymentId *string `json:"employment_id,omitempty"` // 员工id
 
@@ -18845,6 +19073,10 @@ type EmployeesInternationalAssignmentReq struct {
 	EffectiveTime *string `json:"effective_time,omitempty"` // 开始日期;- 格式：yyyy-mm-dd
 
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 结束日期;- 格式：yyyy-mm-dd
+
+	InternationalAssignmentAllowance *bool `json:"international_assignment_allowance,omitempty"` // 是否享有派驻津贴
+
+	Accommodation *bool `json:"accommodation,omitempty"` // 是否提供住宿
 }
 
 type EmployeesInternationalAssignmentReqBuilder struct {
@@ -18919,6 +19151,12 @@ type EmployeesInternationalAssignmentReqBuilder struct {
 
 	expirationTime     string // 结束日期;- 格式：yyyy-mm-dd
 	expirationTimeFlag bool
+
+	internationalAssignmentAllowance     bool // 是否享有派驻津贴
+	internationalAssignmentAllowanceFlag bool
+
+	accommodation     bool // 是否提供住宿
+	accommodationFlag bool
 }
 
 func NewEmployeesInternationalAssignmentReqBuilder() *EmployeesInternationalAssignmentReqBuilder {
@@ -19142,6 +19380,24 @@ func (builder *EmployeesInternationalAssignmentReqBuilder) ExpirationTime(expira
 	return builder
 }
 
+// 是否享有派驻津贴
+//
+// 示例值：true
+func (builder *EmployeesInternationalAssignmentReqBuilder) InternationalAssignmentAllowance(internationalAssignmentAllowance bool) *EmployeesInternationalAssignmentReqBuilder {
+	builder.internationalAssignmentAllowance = internationalAssignmentAllowance
+	builder.internationalAssignmentAllowanceFlag = true
+	return builder
+}
+
+// 是否提供住宿
+//
+// 示例值：true
+func (builder *EmployeesInternationalAssignmentReqBuilder) Accommodation(accommodation bool) *EmployeesInternationalAssignmentReqBuilder {
+	builder.accommodation = accommodation
+	builder.accommodationFlag = true
+	return builder
+}
+
 func (builder *EmployeesInternationalAssignmentReqBuilder) Build() *EmployeesInternationalAssignmentReq {
 	req := &EmployeesInternationalAssignmentReq{}
 	if builder.workLocationIdFlag {
@@ -19239,6 +19495,14 @@ func (builder *EmployeesInternationalAssignmentReqBuilder) Build() *EmployeesInt
 		req.ExpirationTime = &builder.expirationTime
 
 	}
+	if builder.internationalAssignmentAllowanceFlag {
+		req.InternationalAssignmentAllowance = &builder.internationalAssignmentAllowance
+
+	}
+	if builder.accommodationFlag {
+		req.Accommodation = &builder.accommodation
+
+	}
 	return req
 }
 
@@ -19294,6 +19558,10 @@ type EmployeesInternationalAssignmentResp struct {
 	ExpirationTime *string `json:"expiration_time,omitempty"` // 结束日期;- 格式：yyyy-mm-dd;- 在外派未结束时，该值默认为 9999-12-31
 
 	Id *string `json:"id,omitempty"` // 外派ID
+
+	Accommodation *bool `json:"accommodation,omitempty"` // 是否提供住宿
+
+	InternationalAssignmentAllowance *bool `json:"international_assignment_allowance,omitempty"` // 是否享有派驻津贴
 }
 
 type EmployeesInternationalAssignmentRespBuilder struct {
@@ -19374,6 +19642,12 @@ type EmployeesInternationalAssignmentRespBuilder struct {
 
 	id     string // 外派ID
 	idFlag bool
+
+	accommodation     bool // 是否提供住宿
+	accommodationFlag bool
+
+	internationalAssignmentAllowance     bool // 是否享有派驻津贴
+	internationalAssignmentAllowanceFlag bool
 }
 
 func NewEmployeesInternationalAssignmentRespBuilder() *EmployeesInternationalAssignmentRespBuilder {
@@ -19615,6 +19889,24 @@ func (builder *EmployeesInternationalAssignmentRespBuilder) Id(id string) *Emplo
 	return builder
 }
 
+// 是否提供住宿
+//
+// 示例值：true
+func (builder *EmployeesInternationalAssignmentRespBuilder) Accommodation(accommodation bool) *EmployeesInternationalAssignmentRespBuilder {
+	builder.accommodation = accommodation
+	builder.accommodationFlag = true
+	return builder
+}
+
+// 是否享有派驻津贴
+//
+// 示例值：true
+func (builder *EmployeesInternationalAssignmentRespBuilder) InternationalAssignmentAllowance(internationalAssignmentAllowance bool) *EmployeesInternationalAssignmentRespBuilder {
+	builder.internationalAssignmentAllowance = internationalAssignmentAllowance
+	builder.internationalAssignmentAllowanceFlag = true
+	return builder
+}
+
 func (builder *EmployeesInternationalAssignmentRespBuilder) Build() *EmployeesInternationalAssignmentResp {
 	req := &EmployeesInternationalAssignmentResp{}
 	if builder.workLocationIdFlag {
@@ -19714,6 +20006,14 @@ func (builder *EmployeesInternationalAssignmentRespBuilder) Build() *EmployeesIn
 	}
 	if builder.idFlag {
 		req.Id = &builder.id
+
+	}
+	if builder.accommodationFlag {
+		req.Accommodation = &builder.accommodation
+
+	}
+	if builder.internationalAssignmentAllowanceFlag {
+		req.InternationalAssignmentAllowance = &builder.internationalAssignmentAllowance
 
 	}
 	return req
@@ -50909,6 +51209,38 @@ func (builder *ResidentTaxForUpdateBuilder) Build() *ResidentTaxForUpdate {
 	}
 	if builder.customFieldsFlag {
 		req.CustomFields = builder.customFields
+	}
+	return req
+}
+
+type SelfService struct {
+	Id *string `json:"id,omitempty"` // 唯一标识id
+}
+
+type SelfServiceBuilder struct {
+	id     string // 唯一标识id
+	idFlag bool
+}
+
+func NewSelfServiceBuilder() *SelfServiceBuilder {
+	builder := &SelfServiceBuilder{}
+	return builder
+}
+
+// 唯一标识id
+//
+// 示例值：7182881580136810028
+func (builder *SelfServiceBuilder) Id(id string) *SelfServiceBuilder {
+	builder.id = id
+	builder.idFlag = true
+	return builder
+}
+
+func (builder *SelfServiceBuilder) Build() *SelfService {
+	req := &SelfService{}
+	if builder.idFlag {
+		req.Id = &builder.id
+
 	}
 	return req
 }

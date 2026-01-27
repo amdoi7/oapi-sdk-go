@@ -4240,6 +4240,8 @@ type PayGroup struct {
 	Status *string `json:"status,omitempty"` // 薪资组状态
 
 	CountryRegion *CountryRegion `json:"country_region,omitempty"` // 薪资组所属国家/地区
+
+	IsGlobalRegion *bool `json:"is_global_region,omitempty"` // 是否为全球范围
 }
 
 type PayGroupBuilder struct {
@@ -4257,6 +4259,9 @@ type PayGroupBuilder struct {
 
 	countryRegion     *CountryRegion // 薪资组所属国家/地区
 	countryRegionFlag bool
+
+	isGlobalRegion     bool // 是否为全球范围
+	isGlobalRegionFlag bool
 }
 
 func NewPayGroupBuilder() *PayGroupBuilder {
@@ -4309,6 +4314,15 @@ func (builder *PayGroupBuilder) CountryRegion(countryRegion *CountryRegion) *Pay
 	return builder
 }
 
+// 是否为全球范围
+//
+// 示例值：
+func (builder *PayGroupBuilder) IsGlobalRegion(isGlobalRegion bool) *PayGroupBuilder {
+	builder.isGlobalRegion = isGlobalRegion
+	builder.isGlobalRegionFlag = true
+	return builder
+}
+
 func (builder *PayGroupBuilder) Build() *PayGroup {
 	req := &PayGroup{}
 	if builder.payGroupIdFlag {
@@ -4329,6 +4343,10 @@ func (builder *PayGroupBuilder) Build() *PayGroup {
 	if builder.countryRegionFlag {
 		req.CountryRegion = builder.countryRegion
 	}
+	if builder.isGlobalRegionFlag {
+		req.IsGlobalRegion = &builder.isGlobalRegion
+
+	}
 	return req
 }
 
@@ -4342,6 +4360,8 @@ type Paygroup struct {
 	Status *int `json:"status,omitempty"` // 薪资组状态
 
 	CountryRegion *CountryRegion `json:"country_region,omitempty"` // 薪资组所属国家/地区
+
+	IsGlobalRegion *bool `json:"is_global_region,omitempty"` // 是否适用全球
 }
 
 type PaygroupBuilder struct {
@@ -4359,6 +4379,9 @@ type PaygroupBuilder struct {
 
 	countryRegion     *CountryRegion // 薪资组所属国家/地区
 	countryRegionFlag bool
+
+	isGlobalRegion     bool // 是否适用全球
+	isGlobalRegionFlag bool
 }
 
 func NewPaygroupBuilder() *PaygroupBuilder {
@@ -4411,6 +4434,15 @@ func (builder *PaygroupBuilder) CountryRegion(countryRegion *CountryRegion) *Pay
 	return builder
 }
 
+// 是否适用全球
+//
+// 示例值：
+func (builder *PaygroupBuilder) IsGlobalRegion(isGlobalRegion bool) *PaygroupBuilder {
+	builder.isGlobalRegion = isGlobalRegion
+	builder.isGlobalRegionFlag = true
+	return builder
+}
+
 func (builder *PaygroupBuilder) Build() *Paygroup {
 	req := &Paygroup{}
 	if builder.payGroupIdFlag {
@@ -4430,6 +4462,10 @@ func (builder *PaygroupBuilder) Build() *Paygroup {
 	}
 	if builder.countryRegionFlag {
 		req.CountryRegion = builder.countryRegion
+	}
+	if builder.isGlobalRegionFlag {
+		req.IsGlobalRegion = &builder.isGlobalRegion
+
 	}
 	return req
 }

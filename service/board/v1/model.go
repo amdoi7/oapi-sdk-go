@@ -39,6 +39,7 @@ const (
 	SyntaxTypeUNKNOWN  = 0 // 未知
 	SyntaxTypePLANTUML = 1 // Plantuml解析
 	SyntaxTypeMERMAID  = 2 // Mermaid解析
+	SyntaxTypeSVG      = 3 // SVG 语法解析
 
 )
 
@@ -55,6 +56,12 @@ const (
 	DiagramTypeSTREAMINGACTIVITY = 101 // ai流式生成流程图
 	DiagramTypeSTREAMINGSEQUENCE = 102 // ai流式生成时序图
 	DiagramTypeTIMELINEGML       = 201 // plantUML语法补充超集GML
+
+)
+
+const (
+	ParseModeSimple   = 0 // 直接解析成画板节点
+	ParseModeEditable = 1 // 解析成画板节点并且保留PlantUml语法，可以对语法进行二次编辑（会将所有节点放到一个Section节点下）（当前只支持PlantUml）
 
 )
 
@@ -4025,6 +4032,12 @@ type CreatePlantumlWhiteboardNodeReqBodyBuilder struct {
 
 	diagramType     int //
 	diagramTypeFlag bool
+
+	overwrite     bool // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
+	overwriteFlag bool
+
+	parseMode     int // 解析模式
+	parseModeFlag bool
 }
 
 func NewCreatePlantumlWhiteboardNodeReqBodyBuilder() *CreatePlantumlWhiteboardNodeReqBodyBuilder {
@@ -4068,6 +4081,24 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) DiagramType(diagramTy
 	return builder
 }
 
+// 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
+//
+//示例值：
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Overwrite(overwrite bool) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.overwrite = overwrite
+	builder.overwriteFlag = true
+	return builder
+}
+
+// 解析模式
+//
+//示例值：0
+func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) ParseMode(parseMode int) *CreatePlantumlWhiteboardNodeReqBodyBuilder {
+	builder.parseMode = parseMode
+	builder.parseModeFlag = true
+	return builder
+}
+
 func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Build() *CreatePlantumlWhiteboardNodeReqBody {
 	req := &CreatePlantumlWhiteboardNodeReqBody{}
 	if builder.plantUmlCodeFlag {
@@ -4082,6 +4113,12 @@ func (builder *CreatePlantumlWhiteboardNodeReqBodyBuilder) Build() *CreatePlantu
 	if builder.diagramTypeFlag {
 		req.DiagramType = &builder.diagramType
 	}
+	if builder.overwriteFlag {
+		req.Overwrite = &builder.overwrite
+	}
+	if builder.parseModeFlag {
+		req.ParseMode = &builder.parseMode
+	}
 	return req
 }
 
@@ -4094,6 +4131,10 @@ type CreatePlantumlWhiteboardNodePathReqBodyBuilder struct {
 	syntaxTypeFlag   bool
 	diagramType      int
 	diagramTypeFlag  bool
+	overwrite        bool
+	overwriteFlag    bool
+	parseMode        int
+	parseModeFlag    bool
 }
 
 func NewCreatePlantumlWhiteboardNodePathReqBodyBuilder() *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
@@ -4137,6 +4178,24 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) DiagramType(diagr
 	return builder
 }
 
+// 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
+//
+// 示例值：
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Overwrite(overwrite bool) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.overwrite = overwrite
+	builder.overwriteFlag = true
+	return builder
+}
+
+// 解析模式
+//
+// 示例值：0
+func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) ParseMode(parseMode int) *CreatePlantumlWhiteboardNodePathReqBodyBuilder {
+	builder.parseMode = parseMode
+	builder.parseModeFlag = true
+	return builder
+}
+
 func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Build() (*CreatePlantumlWhiteboardNodeReqBody, error) {
 	req := &CreatePlantumlWhiteboardNodeReqBody{}
 	if builder.plantUmlCodeFlag {
@@ -4150,6 +4209,12 @@ func (builder *CreatePlantumlWhiteboardNodePathReqBodyBuilder) Build() (*CreateP
 	}
 	if builder.diagramTypeFlag {
 		req.DiagramType = &builder.diagramType
+	}
+	if builder.overwriteFlag {
+		req.Overwrite = &builder.overwrite
+	}
+	if builder.parseModeFlag {
+		req.ParseMode = &builder.parseMode
 	}
 	return req, nil
 }
@@ -4198,6 +4263,10 @@ type CreatePlantumlWhiteboardNodeReqBody struct {
 	SyntaxType *int `json:"syntax_type,omitempty"` // 语法类型
 
 	DiagramType *int `json:"diagram_type,omitempty"` //
+
+	Overwrite *bool `json:"overwrite,omitempty"` // 是否覆盖画板内容：true=覆盖，会将画板当前内容清除再写入；false=不覆盖，直接写入画板。默认为 false
+
+	ParseMode *int `json:"parse_mode,omitempty"` // 解析模式
 }
 
 type CreatePlantumlWhiteboardNodeReq struct {
@@ -4207,6 +4276,8 @@ type CreatePlantumlWhiteboardNodeReq struct {
 
 type CreatePlantumlWhiteboardNodeRespData struct {
 	NodeId *string `json:"node_id,omitempty"` // 创建生成的plant uml节点id
+
+	Extra map[string][]string `json:"extra,omitempty"` // 额外的解析信息
 }
 
 type CreatePlantumlWhiteboardNodeResp struct {

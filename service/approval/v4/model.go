@@ -14140,6 +14140,98 @@ func (resp *GetInstanceResp) Success() bool {
 	return resp.Code == 0
 }
 
+type ListInstanceReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewListInstanceReqBuilder() *ListInstanceReqBuilder {
+	builder := &ListInstanceReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *ListInstanceReqBuilder) Limit(limit int) *ListInstanceReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：100
+func (builder *ListInstanceReqBuilder) PageSize(pageSize int) *ListInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：nF1ZXJ5VGhlbkZldGNoCgAAAAAA6PZwFmUzSldvTC1yU
+func (builder *ListInstanceReqBuilder) PageToken(pageToken string) *ListInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+// 审批定义唯一标识
+//
+// 示例值：7C468A54-8745-2245-9675-08B7C63E7A85
+func (builder *ListInstanceReqBuilder) ApprovalCode(approvalCode string) *ListInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("approval_code", fmt.Sprint(approvalCode))
+	return builder
+}
+
+// 审批实例创建时间区间（毫秒）
+//
+// 示例值：1567690398020
+func (builder *ListInstanceReqBuilder) StartTime(startTime string) *ListInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("start_time", fmt.Sprint(startTime))
+	return builder
+}
+
+// 审批实例创建时间区间（毫秒）
+//
+// 示例值：1567690398020
+func (builder *ListInstanceReqBuilder) EndTime(endTime string) *ListInstanceReqBuilder {
+	builder.apiReq.QueryParams.Set("end_time", fmt.Sprint(endTime))
+	return builder
+}
+
+func (builder *ListInstanceReqBuilder) Build() *ListInstanceReq {
+	req := &ListInstanceReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListInstanceReq struct {
+	apiReq *larkcore.ApiReq
+	Limit  int // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type ListInstanceRespData struct {
+	InstanceCodeList []string `json:"instance_code_list,omitempty"` // 审批实例 Code
+
+	PageToken *string `json:"page_token,omitempty"` // 翻页 Token
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有更多任务可供拉取
+}
+
+type ListInstanceResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListInstanceRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListInstanceResp) Success() bool {
+	return resp.Code == 0
+}
+
 type PreviewInstanceReqBodyBuilder struct {
 	userId     string // 用户id
 	userIdFlag bool
@@ -15376,6 +15468,60 @@ func (iterator *ListExternalTaskIterator) Next() (bool, *ExternalTaskList, error
 }
 
 func (iterator *ListExternalTaskIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type ListInstanceIterator struct {
+	nextPageToken *string
+	items         []string
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *ListInstanceReq
+	listFunc      func(ctx context.Context, req *ListInstanceReq, options ...larkcore.RequestOptionFunc) (*ListInstanceResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *ListInstanceIterator) Next() (bool, string, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, "", nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, "", nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, "", err
+		}
+
+		if resp.Code != 0 {
+			return false, "", errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.InstanceCodeList) == 0 {
+			return false, "", nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.InstanceCodeList
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *ListInstanceIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }
 

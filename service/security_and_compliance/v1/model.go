@@ -3091,6 +3091,123 @@ func (builder *DepartmentIdBuilder) Build() *DepartmentId {
 	return req
 }
 
+type DetectProofContext struct {
+	DetectName *string `json:"detect_name,omitempty"` // 检测器名称
+
+	ProofContexts []*ProofContext `json:"proof_contexts,omitempty"` // 证据上下文
+}
+
+type DetectProofContextBuilder struct {
+	detectName     string // 检测器名称
+	detectNameFlag bool
+
+	proofContexts     []*ProofContext // 证据上下文
+	proofContextsFlag bool
+}
+
+func NewDetectProofContextBuilder() *DetectProofContextBuilder {
+	builder := &DetectProofContextBuilder{}
+	return builder
+}
+
+// 检测器名称
+//
+// 示例值：手机号
+func (builder *DetectProofContextBuilder) DetectName(detectName string) *DetectProofContextBuilder {
+	builder.detectName = detectName
+	builder.detectNameFlag = true
+	return builder
+}
+
+// 证据上下文
+//
+// 示例值：
+func (builder *DetectProofContextBuilder) ProofContexts(proofContexts []*ProofContext) *DetectProofContextBuilder {
+	builder.proofContexts = proofContexts
+	builder.proofContextsFlag = true
+	return builder
+}
+
+func (builder *DetectProofContextBuilder) Build() *DetectProofContext {
+	req := &DetectProofContext{}
+	if builder.detectNameFlag {
+		req.DetectName = &builder.detectName
+
+	}
+	if builder.proofContextsFlag {
+		req.ProofContexts = builder.proofContexts
+	}
+	return req
+}
+
+type DetectRule struct {
+	RuleId *string `json:"rule_id,omitempty"` // 规则ID
+
+	RuleVersion *int `json:"rule_version,omitempty"` // 规则版本号
+
+	RuleName *string `json:"rule_name,omitempty"` // 规则名称
+}
+
+type DetectRuleBuilder struct {
+	ruleId     string // 规则ID
+	ruleIdFlag bool
+
+	ruleVersion     int // 规则版本号
+	ruleVersionFlag bool
+
+	ruleName     string // 规则名称
+	ruleNameFlag bool
+}
+
+func NewDetectRuleBuilder() *DetectRuleBuilder {
+	builder := &DetectRuleBuilder{}
+	return builder
+}
+
+// 规则ID
+//
+// 示例值：'7584161205007289872'
+func (builder *DetectRuleBuilder) RuleId(ruleId string) *DetectRuleBuilder {
+	builder.ruleId = ruleId
+	builder.ruleIdFlag = true
+	return builder
+}
+
+// 规则版本号
+//
+// 示例值：1
+func (builder *DetectRuleBuilder) RuleVersion(ruleVersion int) *DetectRuleBuilder {
+	builder.ruleVersion = ruleVersion
+	builder.ruleVersionFlag = true
+	return builder
+}
+
+// 规则名称
+//
+// 示例值：规则名称
+func (builder *DetectRuleBuilder) RuleName(ruleName string) *DetectRuleBuilder {
+	builder.ruleName = ruleName
+	builder.ruleNameFlag = true
+	return builder
+}
+
+func (builder *DetectRuleBuilder) Build() *DetectRule {
+	req := &DetectRule{}
+	if builder.ruleIdFlag {
+		req.RuleId = &builder.ruleId
+
+	}
+	if builder.ruleVersionFlag {
+		req.RuleVersion = &builder.ruleVersion
+
+	}
+	if builder.ruleNameFlag {
+		req.RuleName = &builder.ruleName
+
+	}
+	return req
+}
+
 type DeviceApplyRecord struct {
 	ApplyId *string `json:"apply_id,omitempty"` // 设备申请单id
 
@@ -5959,6 +6076,56 @@ func (builder *GwResponseBuilder) Build() *GwResponse {
 	return req
 }
 
+type HitContent struct {
+	FieldKey *string `json:"field_key,omitempty"` // 命中内容的key
+
+	FieldValue *string `json:"field_value,omitempty"` // 命中内容的值
+}
+
+type HitContentBuilder struct {
+	fieldKey     string // 命中内容的key
+	fieldKeyFlag bool
+
+	fieldValue     string // 命中内容的值
+	fieldValueFlag bool
+}
+
+func NewHitContentBuilder() *HitContentBuilder {
+	builder := &HitContentBuilder{}
+	return builder
+}
+
+// 命中内容的key
+//
+// 示例值：FileID
+func (builder *HitContentBuilder) FieldKey(fieldKey string) *HitContentBuilder {
+	builder.fieldKey = fieldKey
+	builder.fieldKeyFlag = true
+	return builder
+}
+
+// 命中内容的值
+//
+// 示例值：'Vt2nScFweBnwsshsnIFfpL9C'
+func (builder *HitContentBuilder) FieldValue(fieldValue string) *HitContentBuilder {
+	builder.fieldValue = fieldValue
+	builder.fieldValueFlag = true
+	return builder
+}
+
+func (builder *HitContentBuilder) Build() *HitContent {
+	req := &HitContent{}
+	if builder.fieldKeyFlag {
+		req.FieldKey = &builder.fieldKey
+
+	}
+	if builder.fieldValueFlag {
+		req.FieldValue = &builder.fieldValue
+
+	}
+	return req
+}
+
 type KeyPerson struct {
 	KeyPersonId *string `json:"key_person_id,omitempty"` // 高管的用户ID
 
@@ -7006,6 +7173,14 @@ type PolicyLogItem struct {
 	PolicyInfos []*PolicyEntity `json:"policy_infos,omitempty"` // 策略信息
 
 	SystemAction *string `json:"system_action,omitempty"` // 系统执行动作
+
+	HitContents []*HitContent `json:"hit_contents,omitempty"` // 命中的内容信息
+
+	ProofDetails []*ProofContentDetail `json:"proof_details,omitempty"` // 证据详情
+
+	DetectRules []*DetectRule `json:"detect_rules,omitempty"` // 命中的检测规则
+
+	ResourceAttributes []*ResourceAttribute `json:"resource_attributes,omitempty"` // 管控场景的资源属性
 }
 
 type PolicyLogItemBuilder struct {
@@ -7032,6 +7207,18 @@ type PolicyLogItemBuilder struct {
 
 	systemAction     string // 系统执行动作
 	systemActionFlag bool
+
+	hitContents     []*HitContent // 命中的内容信息
+	hitContentsFlag bool
+
+	proofDetails     []*ProofContentDetail // 证据详情
+	proofDetailsFlag bool
+
+	detectRules     []*DetectRule // 命中的检测规则
+	detectRulesFlag bool
+
+	resourceAttributes     []*ResourceAttribute // 管控场景的资源属性
+	resourceAttributesFlag bool
 }
 
 func NewPolicyLogItemBuilder() *PolicyLogItemBuilder {
@@ -7111,6 +7298,42 @@ func (builder *PolicyLogItemBuilder) SystemAction(systemAction string) *PolicyLo
 	return builder
 }
 
+// 命中的内容信息
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) HitContents(hitContents []*HitContent) *PolicyLogItemBuilder {
+	builder.hitContents = hitContents
+	builder.hitContentsFlag = true
+	return builder
+}
+
+// 证据详情
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) ProofDetails(proofDetails []*ProofContentDetail) *PolicyLogItemBuilder {
+	builder.proofDetails = proofDetails
+	builder.proofDetailsFlag = true
+	return builder
+}
+
+// 命中的检测规则
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) DetectRules(detectRules []*DetectRule) *PolicyLogItemBuilder {
+	builder.detectRules = detectRules
+	builder.detectRulesFlag = true
+	return builder
+}
+
+// 管控场景的资源属性
+//
+// 示例值：
+func (builder *PolicyLogItemBuilder) ResourceAttributes(resourceAttributes []*ResourceAttribute) *PolicyLogItemBuilder {
+	builder.resourceAttributes = resourceAttributes
+	builder.resourceAttributesFlag = true
+	return builder
+}
+
 func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
 	req := &PolicyLogItem{}
 	if builder.userIdFlag {
@@ -7142,6 +7365,203 @@ func (builder *PolicyLogItemBuilder) Build() *PolicyLogItem {
 	}
 	if builder.systemActionFlag {
 		req.SystemAction = &builder.systemAction
+
+	}
+	if builder.hitContentsFlag {
+		req.HitContents = builder.hitContents
+	}
+	if builder.proofDetailsFlag {
+		req.ProofDetails = builder.proofDetails
+	}
+	if builder.detectRulesFlag {
+		req.DetectRules = builder.detectRules
+	}
+	if builder.resourceAttributesFlag {
+		req.ResourceAttributes = builder.resourceAttributes
+	}
+	return req
+}
+
+type ProofContentDetail struct {
+	DetectMode *int `json:"detect_mode,omitempty"` // 检测器
+
+	DetectProofContexts []*DetectProofContext `json:"detect_proof_contexts,omitempty"` // 检测的证据信息
+}
+
+type ProofContentDetailBuilder struct {
+	detectMode     int // 检测器
+	detectModeFlag bool
+
+	detectProofContexts     []*DetectProofContext // 检测的证据信息
+	detectProofContextsFlag bool
+}
+
+func NewProofContentDetailBuilder() *ProofContentDetailBuilder {
+	builder := &ProofContentDetailBuilder{}
+	return builder
+}
+
+// 检测器
+//
+// 示例值：1
+func (builder *ProofContentDetailBuilder) DetectMode(detectMode int) *ProofContentDetailBuilder {
+	builder.detectMode = detectMode
+	builder.detectModeFlag = true
+	return builder
+}
+
+// 检测的证据信息
+//
+// 示例值：
+func (builder *ProofContentDetailBuilder) DetectProofContexts(detectProofContexts []*DetectProofContext) *ProofContentDetailBuilder {
+	builder.detectProofContexts = detectProofContexts
+	builder.detectProofContextsFlag = true
+	return builder
+}
+
+func (builder *ProofContentDetailBuilder) Build() *ProofContentDetail {
+	req := &ProofContentDetail{}
+	if builder.detectModeFlag {
+		req.DetectMode = &builder.detectMode
+
+	}
+	if builder.detectProofContextsFlag {
+		req.DetectProofContexts = builder.detectProofContexts
+	}
+	return req
+}
+
+type ProofContext struct {
+	Prefix *string `json:"prefix,omitempty"` // 证据上文
+
+	Content *string `json:"content,omitempty"` // 证据关键词
+
+	Suffix *string `json:"suffix,omitempty"` // 证据下文
+}
+
+type ProofContextBuilder struct {
+	prefix     string // 证据上文
+	prefixFlag bool
+
+	content     string // 证据关键词
+	contentFlag bool
+
+	suffix     string // 证据下文
+	suffixFlag bool
+}
+
+func NewProofContextBuilder() *ProofContextBuilder {
+	builder := &ProofContextBuilder{}
+	return builder
+}
+
+// 证据上文
+//
+// 示例值：'上文内容'
+func (builder *ProofContextBuilder) Prefix(prefix string) *ProofContextBuilder {
+	builder.prefix = prefix
+	builder.prefixFlag = true
+	return builder
+}
+
+// 证据关键词
+//
+// 示例值：'关键词'
+func (builder *ProofContextBuilder) Content(content string) *ProofContextBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+// 证据下文
+//
+// 示例值：'下文内容'
+func (builder *ProofContextBuilder) Suffix(suffix string) *ProofContextBuilder {
+	builder.suffix = suffix
+	builder.suffixFlag = true
+	return builder
+}
+
+func (builder *ProofContextBuilder) Build() *ProofContext {
+	req := &ProofContext{}
+	if builder.prefixFlag {
+		req.Prefix = &builder.prefix
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
+
+	}
+	if builder.suffixFlag {
+		req.Suffix = &builder.suffix
+
+	}
+	return req
+}
+
+type ResourceAttribute struct {
+	ResourceKey *string `json:"resource_key,omitempty"` // 资源属性Key
+
+	ResourceId *string `json:"resource_id,omitempty"` // 资源属性ID
+
+	ResourceValue *string `json:"resource_value,omitempty"` // 资源属性值
+}
+
+type ResourceAttributeBuilder struct {
+	resourceKey     string // 资源属性Key
+	resourceKeyFlag bool
+
+	resourceId     string // 资源属性ID
+	resourceIdFlag bool
+
+	resourceValue     string // 资源属性值
+	resourceValueFlag bool
+}
+
+func NewResourceAttributeBuilder() *ResourceAttributeBuilder {
+	builder := &ResourceAttributeBuilder{}
+	return builder
+}
+
+// 资源属性Key
+//
+// 示例值：FileToken
+func (builder *ResourceAttributeBuilder) ResourceKey(resourceKey string) *ResourceAttributeBuilder {
+	builder.resourceKey = resourceKey
+	builder.resourceKeyFlag = true
+	return builder
+}
+
+// 资源属性ID
+//
+// 示例值：78697689739864232
+func (builder *ResourceAttributeBuilder) ResourceId(resourceId string) *ResourceAttributeBuilder {
+	builder.resourceId = resourceId
+	builder.resourceIdFlag = true
+	return builder
+}
+
+// 资源属性值
+//
+// 示例值：'text'
+func (builder *ResourceAttributeBuilder) ResourceValue(resourceValue string) *ResourceAttributeBuilder {
+	builder.resourceValue = resourceValue
+	builder.resourceValueFlag = true
+	return builder
+}
+
+func (builder *ResourceAttributeBuilder) Build() *ResourceAttribute {
+	req := &ResourceAttribute{}
+	if builder.resourceKeyFlag {
+		req.ResourceKey = &builder.resourceKey
+
+	}
+	if builder.resourceIdFlag {
+		req.ResourceId = &builder.resourceId
+
+	}
+	if builder.resourceValueFlag {
+		req.ResourceValue = &builder.resourceValue
 
 	}
 	return req

@@ -1697,6 +1697,336 @@ func (builder *DocBuilder) Build() *Doc {
 	return req
 }
 
+type DocFilter struct {
+	CreatorIds []string `json:"creator_ids,omitempty"` // 文档所有者OpenID
+
+	DocTypes []string `json:"doc_types,omitempty"` // 文档类型
+
+	FolderTokens []string `json:"folder_tokens,omitempty"` // 搜索文件夹内的文档（文件夹token列表）
+
+	OnlyTitle *bool `json:"only_title,omitempty"` // 仅搜文档标题
+
+	OpenTime *TimeRange `json:"open_time,omitempty"` // 浏览文档的时间范围（秒级时间戳，包含start和end字段）
+
+	SortType *string `json:"sort_type,omitempty"` // 排序方式
+}
+
+type DocFilterBuilder struct {
+	creatorIds     []string // 文档所有者OpenID
+	creatorIdsFlag bool
+
+	docTypes     []string // 文档类型
+	docTypesFlag bool
+
+	folderTokens     []string // 搜索文件夹内的文档（文件夹token列表）
+	folderTokensFlag bool
+
+	onlyTitle     bool // 仅搜文档标题
+	onlyTitleFlag bool
+
+	openTime     *TimeRange // 浏览文档的时间范围（秒级时间戳，包含start和end字段）
+	openTimeFlag bool
+
+	sortType     string // 排序方式
+	sortTypeFlag bool
+}
+
+func NewDocFilterBuilder() *DocFilterBuilder {
+	builder := &DocFilterBuilder{}
+	return builder
+}
+
+// 文档所有者OpenID
+//
+// 示例值：
+func (builder *DocFilterBuilder) CreatorIds(creatorIds []string) *DocFilterBuilder {
+	builder.creatorIds = creatorIds
+	builder.creatorIdsFlag = true
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：
+func (builder *DocFilterBuilder) DocTypes(docTypes []string) *DocFilterBuilder {
+	builder.docTypes = docTypes
+	builder.docTypesFlag = true
+	return builder
+}
+
+// 搜索文件夹内的文档（文件夹token列表）
+//
+// 示例值：
+func (builder *DocFilterBuilder) FolderTokens(folderTokens []string) *DocFilterBuilder {
+	builder.folderTokens = folderTokens
+	builder.folderTokensFlag = true
+	return builder
+}
+
+// 仅搜文档标题
+//
+// 示例值：false
+func (builder *DocFilterBuilder) OnlyTitle(onlyTitle bool) *DocFilterBuilder {
+	builder.onlyTitle = onlyTitle
+	builder.onlyTitleFlag = true
+	return builder
+}
+
+// 浏览文档的时间范围（秒级时间戳，包含start和end字段）
+//
+// 示例值：
+func (builder *DocFilterBuilder) OpenTime(openTime *TimeRange) *DocFilterBuilder {
+	builder.openTime = openTime
+	builder.openTimeFlag = true
+	return builder
+}
+
+// 排序方式
+//
+// 示例值：CREATE_TIME_ASC
+func (builder *DocFilterBuilder) SortType(sortType string) *DocFilterBuilder {
+	builder.sortType = sortType
+	builder.sortTypeFlag = true
+	return builder
+}
+
+func (builder *DocFilterBuilder) Build() *DocFilter {
+	req := &DocFilter{}
+	if builder.creatorIdsFlag {
+		req.CreatorIds = builder.creatorIds
+	}
+	if builder.docTypesFlag {
+		req.DocTypes = builder.docTypes
+	}
+	if builder.folderTokensFlag {
+		req.FolderTokens = builder.folderTokens
+	}
+	if builder.onlyTitleFlag {
+		req.OnlyTitle = &builder.onlyTitle
+
+	}
+	if builder.openTimeFlag {
+		req.OpenTime = builder.openTime
+	}
+	if builder.sortTypeFlag {
+		req.SortType = &builder.sortType
+
+	}
+	return req
+}
+
+type DocMeta struct {
+	DocTypes *string `json:"doc_types,omitempty"` // 文档类型
+
+	UpdateTime *int `json:"update_time,omitempty"` // 更新时间戳（秒）
+
+	Url *string `json:"url,omitempty"` // 文档链接
+
+	OwnerName *string `json:"owner_name,omitempty"` // 所有者名称
+
+	OwnerId *string `json:"owner_id,omitempty"` // 所有者OpenID
+
+	IsCrossTenant *bool `json:"is_cross_tenant,omitempty"` // 是否跨租户
+
+	CreateTime *int `json:"create_time,omitempty"` // 文档创建时间戳（秒）
+
+	LastOpenTime *int `json:"last_open_time,omitempty"` // 上次打开时间戳（秒）
+
+	EditUserId *string `json:"edit_user_id,omitempty"` // 最后一次编辑用户OpenID
+
+	EditUserName *string `json:"edit_user_name,omitempty"` // 最后一次编辑用户名称
+
+	Token *string `json:"token,omitempty"` // 文档token
+}
+
+type DocMetaBuilder struct {
+	docTypes     string // 文档类型
+	docTypesFlag bool
+
+	updateTime     int // 更新时间戳（秒）
+	updateTimeFlag bool
+
+	url     string // 文档链接
+	urlFlag bool
+
+	ownerName     string // 所有者名称
+	ownerNameFlag bool
+
+	ownerId     string // 所有者OpenID
+	ownerIdFlag bool
+
+	isCrossTenant     bool // 是否跨租户
+	isCrossTenantFlag bool
+
+	createTime     int // 文档创建时间戳（秒）
+	createTimeFlag bool
+
+	lastOpenTime     int // 上次打开时间戳（秒）
+	lastOpenTimeFlag bool
+
+	editUserId     string // 最后一次编辑用户OpenID
+	editUserIdFlag bool
+
+	editUserName     string // 最后一次编辑用户名称
+	editUserNameFlag bool
+
+	token     string // 文档token
+	tokenFlag bool
+}
+
+func NewDocMetaBuilder() *DocMetaBuilder {
+	builder := &DocMetaBuilder{}
+	return builder
+}
+
+// 文档类型
+//
+// 示例值：SHORTCUT
+func (builder *DocMetaBuilder) DocTypes(docTypes string) *DocMetaBuilder {
+	builder.docTypes = docTypes
+	builder.docTypesFlag = true
+	return builder
+}
+
+// 更新时间戳（秒）
+//
+// 示例值：1766567446
+func (builder *DocMetaBuilder) UpdateTime(updateTime int) *DocMetaBuilder {
+	builder.updateTime = updateTime
+	builder.updateTimeFlag = true
+	return builder
+}
+
+// 文档链接
+//
+// 示例值：https://www.feishu.cn/docs/dox-1234567890abcdef
+func (builder *DocMetaBuilder) Url(url string) *DocMetaBuilder {
+	builder.url = url
+	builder.urlFlag = true
+	return builder
+}
+
+// 所有者名称
+//
+// 示例值：张三
+func (builder *DocMetaBuilder) OwnerName(ownerName string) *DocMetaBuilder {
+	builder.ownerName = ownerName
+	builder.ownerNameFlag = true
+	return builder
+}
+
+// 所有者OpenID
+//
+// 示例值：ou-7890123456abcdef
+func (builder *DocMetaBuilder) OwnerId(ownerId string) *DocMetaBuilder {
+	builder.ownerId = ownerId
+	builder.ownerIdFlag = true
+	return builder
+}
+
+// 是否跨租户
+//
+// 示例值：false
+func (builder *DocMetaBuilder) IsCrossTenant(isCrossTenant bool) *DocMetaBuilder {
+	builder.isCrossTenant = isCrossTenant
+	builder.isCrossTenantFlag = true
+	return builder
+}
+
+// 文档创建时间戳（秒）
+//
+// 示例值：1766567446
+func (builder *DocMetaBuilder) CreateTime(createTime int) *DocMetaBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
+// 上次打开时间戳（秒）
+//
+// 示例值：1766567446
+func (builder *DocMetaBuilder) LastOpenTime(lastOpenTime int) *DocMetaBuilder {
+	builder.lastOpenTime = lastOpenTime
+	builder.lastOpenTimeFlag = true
+	return builder
+}
+
+// 最后一次编辑用户OpenID
+//
+// 示例值：ou-1122334455aabbcc
+func (builder *DocMetaBuilder) EditUserId(editUserId string) *DocMetaBuilder {
+	builder.editUserId = editUserId
+	builder.editUserIdFlag = true
+	return builder
+}
+
+// 最后一次编辑用户名称
+//
+// 示例值：李四
+func (builder *DocMetaBuilder) EditUserName(editUserName string) *DocMetaBuilder {
+	builder.editUserName = editUserName
+	builder.editUserNameFlag = true
+	return builder
+}
+
+// 文档token
+//
+// 示例值：dox_9876543210fedcba
+func (builder *DocMetaBuilder) Token(token string) *DocMetaBuilder {
+	builder.token = token
+	builder.tokenFlag = true
+	return builder
+}
+
+func (builder *DocMetaBuilder) Build() *DocMeta {
+	req := &DocMeta{}
+	if builder.docTypesFlag {
+		req.DocTypes = &builder.docTypes
+
+	}
+	if builder.updateTimeFlag {
+		req.UpdateTime = &builder.updateTime
+
+	}
+	if builder.urlFlag {
+		req.Url = &builder.url
+
+	}
+	if builder.ownerNameFlag {
+		req.OwnerName = &builder.ownerName
+
+	}
+	if builder.ownerIdFlag {
+		req.OwnerId = &builder.ownerId
+
+	}
+	if builder.isCrossTenantFlag {
+		req.IsCrossTenant = &builder.isCrossTenant
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
+
+	}
+	if builder.lastOpenTimeFlag {
+		req.LastOpenTime = &builder.lastOpenTime
+
+	}
+	if builder.editUserIdFlag {
+		req.EditUserId = &builder.editUserId
+
+	}
+	if builder.editUserNameFlag {
+		req.EditUserName = &builder.editUserName
+
+	}
+	if builder.tokenFlag {
+		req.Token = &builder.token
+
+	}
+	return req
+}
+
 type DocPassageParam struct {
 	Searchable *bool `json:"searchable,omitempty"` // 是否要搜索doc
 
@@ -1880,6 +2210,278 @@ func (builder *DocPassageParamBuilder) Build() *DocPassageParam {
 	}
 	if builder.onlySearchPublicFlag {
 		req.OnlySearchPublic = &builder.onlySearchPublic
+
+	}
+	return req
+}
+
+type DocRequest struct {
+	Query *string `json:"query,omitempty"` // 搜索词
+
+	PageSize *int `json:"page_size,omitempty"` // 每页返回数量
+
+	PaginationToken *string `json:"pagination_token,omitempty"` // 翻页标记（需保存上次response中的内容）
+
+	DocsFilter *DocFilter `json:"docs_filter,omitempty"` // 文档过滤参数
+
+	WikiFilter *WikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数
+}
+
+type DocRequestBuilder struct {
+	query     string // 搜索词
+	queryFlag bool
+
+	pageSize     int // 每页返回数量
+	pageSizeFlag bool
+
+	paginationToken     string // 翻页标记（需保存上次response中的内容）
+	paginationTokenFlag bool
+
+	docsFilter     *DocFilter // 文档过滤参数
+	docsFilterFlag bool
+
+	wikiFilter     *WikiFilter // Wiki过滤参数
+	wikiFilterFlag bool
+}
+
+func NewDocRequestBuilder() *DocRequestBuilder {
+	builder := &DocRequestBuilder{}
+	return builder
+}
+
+// 搜索词
+//
+// 示例值：飞书文档使用指南
+func (builder *DocRequestBuilder) Query(query string) *DocRequestBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
+}
+
+// 每页返回数量
+//
+// 示例值：
+func (builder *DocRequestBuilder) PageSize(pageSize int) *DocRequestBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+// 翻页标记（需保存上次response中的内容）
+//
+// 示例值：token_1234567890fedcba
+func (builder *DocRequestBuilder) PaginationToken(paginationToken string) *DocRequestBuilder {
+	builder.paginationToken = paginationToken
+	builder.paginationTokenFlag = true
+	return builder
+}
+
+// 文档过滤参数
+//
+// 示例值：{"types": [1], "folder_tokens": ["fld_123456"]}
+func (builder *DocRequestBuilder) DocsFilter(docsFilter *DocFilter) *DocRequestBuilder {
+	builder.docsFilter = docsFilter
+	builder.docsFilterFlag = true
+	return builder
+}
+
+// Wiki过滤参数
+//
+// 示例值：{"space_ids": ["space_789012"], "is_public": false}
+func (builder *DocRequestBuilder) WikiFilter(wikiFilter *WikiFilter) *DocRequestBuilder {
+	builder.wikiFilter = wikiFilter
+	builder.wikiFilterFlag = true
+	return builder
+}
+
+func (builder *DocRequestBuilder) Build() *DocRequest {
+	req := &DocRequest{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+
+	}
+	if builder.paginationTokenFlag {
+		req.PaginationToken = &builder.paginationToken
+
+	}
+	if builder.docsFilterFlag {
+		req.DocsFilter = builder.docsFilter
+	}
+	if builder.wikiFilterFlag {
+		req.WikiFilter = builder.wikiFilter
+	}
+	return req
+}
+
+type DocResUnit struct {
+	TitleHighlighted *string `json:"title_highlighted,omitempty"` // 标题高亮
+
+	SummaryHighlighted *string `json:"summary_highlighted,omitempty"` // 摘要高亮
+
+	EntityType *string `json:"entity_type,omitempty"` // 结果类型
+
+	ResultMeta *DocMeta `json:"result_meta,omitempty"` // 文档搜索元信息
+}
+
+type DocResUnitBuilder struct {
+	titleHighlighted     string // 标题高亮
+	titleHighlightedFlag bool
+
+	summaryHighlighted     string // 摘要高亮
+	summaryHighlightedFlag bool
+
+	entityType     string // 结果类型
+	entityTypeFlag bool
+
+	resultMeta     *DocMeta // 文档搜索元信息
+	resultMetaFlag bool
+}
+
+func NewDocResUnitBuilder() *DocResUnitBuilder {
+	builder := &DocResUnitBuilder{}
+	return builder
+}
+
+// 标题高亮
+//
+// 示例值：<h>飞书文档</h>使用指南
+func (builder *DocResUnitBuilder) TitleHighlighted(titleHighlighted string) *DocResUnitBuilder {
+	builder.titleHighlighted = titleHighlighted
+	builder.titleHighlightedFlag = true
+	return builder
+}
+
+// 摘要高亮
+//
+// 示例值：本文介绍<h>飞书文档</h>的创建、编辑与分享功能
+func (builder *DocResUnitBuilder) SummaryHighlighted(summaryHighlighted string) *DocResUnitBuilder {
+	builder.summaryHighlighted = summaryHighlighted
+	builder.summaryHighlightedFlag = true
+	return builder
+}
+
+// 结果类型
+//
+// 示例值：DOC
+func (builder *DocResUnitBuilder) EntityType(entityType string) *DocResUnitBuilder {
+	builder.entityType = entityType
+	builder.entityTypeFlag = true
+	return builder
+}
+
+// 文档搜索元信息
+//
+// 示例值：{"title_highlighted":"<h>飞书文档</h>使用指南","summary_highlighted":"本文介绍<h>飞书文档</h>的创建、编辑与分享功能","entity_type":"DOC","result_meta":"{"type":SHORTCUT,"update_time":1766567613}"}
+func (builder *DocResUnitBuilder) ResultMeta(resultMeta *DocMeta) *DocResUnitBuilder {
+	builder.resultMeta = resultMeta
+	builder.resultMetaFlag = true
+	return builder
+}
+
+func (builder *DocResUnitBuilder) Build() *DocResUnit {
+	req := &DocResUnit{}
+	if builder.titleHighlightedFlag {
+		req.TitleHighlighted = &builder.titleHighlighted
+
+	}
+	if builder.summaryHighlightedFlag {
+		req.SummaryHighlighted = &builder.summaryHighlighted
+
+	}
+	if builder.entityTypeFlag {
+		req.EntityType = &builder.entityType
+
+	}
+	if builder.resultMetaFlag {
+		req.ResultMeta = builder.resultMeta
+	}
+	return req
+}
+
+type DocResponse struct {
+	Total *int `json:"total,omitempty"` // 召回的全部结果个数
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否存在更多数据可供加载
+
+	ResUnits []*DocResUnit `json:"res_units,omitempty"` // 搜索结果列表
+
+	PaginationToken *string `json:"pagination_token,omitempty"` // 翻页标记（下一次翻页时传递给请求）
+}
+
+type DocResponseBuilder struct {
+	total     int // 召回的全部结果个数
+	totalFlag bool
+
+	hasMore     bool // 是否存在更多数据可供加载
+	hasMoreFlag bool
+
+	resUnits     []*DocResUnit // 搜索结果列表
+	resUnitsFlag bool
+
+	paginationToken     string // 翻页标记（下一次翻页时传递给请求）
+	paginationTokenFlag bool
+}
+
+func NewDocResponseBuilder() *DocResponseBuilder {
+	builder := &DocResponseBuilder{}
+	return builder
+}
+
+// 召回的全部结果个数
+//
+// 示例值：100
+func (builder *DocResponseBuilder) Total(total int) *DocResponseBuilder {
+	builder.total = total
+	builder.totalFlag = true
+	return builder
+}
+
+// 是否存在更多数据可供加载
+//
+// 示例值：true
+func (builder *DocResponseBuilder) HasMore(hasMore bool) *DocResponseBuilder {
+	builder.hasMore = hasMore
+	builder.hasMoreFlag = true
+	return builder
+}
+
+// 搜索结果列表
+//
+// 示例值：
+func (builder *DocResponseBuilder) ResUnits(resUnits []*DocResUnit) *DocResponseBuilder {
+	builder.resUnits = resUnits
+	builder.resUnitsFlag = true
+	return builder
+}
+
+// 翻页标记（下一次翻页时传递给请求）
+//
+// 示例值：token_1234567890fedcba
+func (builder *DocResponseBuilder) PaginationToken(paginationToken string) *DocResponseBuilder {
+	builder.paginationToken = paginationToken
+	builder.paginationTokenFlag = true
+	return builder
+}
+
+func (builder *DocResponseBuilder) Build() *DocResponse {
+	req := &DocResponse{}
+	if builder.totalFlag {
+		req.Total = &builder.total
+
+	}
+	if builder.hasMoreFlag {
+		req.HasMore = &builder.hasMore
+
+	}
+	if builder.resUnitsFlag {
+		req.ResUnits = builder.resUnits
+	}
+	if builder.paginationTokenFlag {
+		req.PaginationToken = &builder.paginationToken
 
 	}
 	return req
@@ -3002,6 +3604,8 @@ type KnowledgeQaAnswerRequest struct {
 	Extra *KnowledgeSourceRequestExtra `json:"extra,omitempty"` // 额外信息
 
 	ModelType *string `json:"model_type,omitempty"` // 大模型种类
+
+	HistoryMessages []*KnowledgeQaMessage `json:"history_messages,omitempty"` // 用户在同一会话内的历史对话
 }
 
 type KnowledgeQaAnswerRequestBuilder struct {
@@ -3022,6 +3626,9 @@ type KnowledgeQaAnswerRequestBuilder struct {
 
 	modelType     string // 大模型种类
 	modelTypeFlag bool
+
+	historyMessages     []*KnowledgeQaMessage // 用户在同一会话内的历史对话
+	historyMessagesFlag bool
 }
 
 func NewKnowledgeQaAnswerRequestBuilder() *KnowledgeQaAnswerRequestBuilder {
@@ -3083,6 +3690,15 @@ func (builder *KnowledgeQaAnswerRequestBuilder) ModelType(modelType string) *Kno
 	return builder
 }
 
+// 用户在同一会话内的历史对话
+//
+// 示例值：
+func (builder *KnowledgeQaAnswerRequestBuilder) HistoryMessages(historyMessages []*KnowledgeQaMessage) *KnowledgeQaAnswerRequestBuilder {
+	builder.historyMessages = historyMessages
+	builder.historyMessagesFlag = true
+	return builder
+}
+
 func (builder *KnowledgeQaAnswerRequestBuilder) Build() *KnowledgeQaAnswerRequest {
 	req := &KnowledgeQaAnswerRequest{}
 	if builder.queryFlag {
@@ -3106,6 +3722,9 @@ func (builder *KnowledgeQaAnswerRequestBuilder) Build() *KnowledgeQaAnswerReques
 	if builder.modelTypeFlag {
 		req.ModelType = &builder.modelType
 
+	}
+	if builder.historyMessagesFlag {
+		req.HistoryMessages = builder.historyMessages
 	}
 	return req
 }
@@ -3380,6 +3999,56 @@ func (builder *KnowledgeQaInternetReferenceBuilder) Build() *KnowledgeQaInternet
 	}
 	if builder.urlFlag {
 		req.Url = &builder.url
+
+	}
+	return req
+}
+
+type KnowledgeQaMessage struct {
+	Role *int `json:"role,omitempty"` // 消息发送者的角色
+
+	Content *string `json:"content,omitempty"` // 消息内容
+}
+
+type KnowledgeQaMessageBuilder struct {
+	role     int // 消息发送者的角色
+	roleFlag bool
+
+	content     string // 消息内容
+	contentFlag bool
+}
+
+func NewKnowledgeQaMessageBuilder() *KnowledgeQaMessageBuilder {
+	builder := &KnowledgeQaMessageBuilder{}
+	return builder
+}
+
+// 消息发送者的角色
+//
+// 示例值：1
+func (builder *KnowledgeQaMessageBuilder) Role(role int) *KnowledgeQaMessageBuilder {
+	builder.role = role
+	builder.roleFlag = true
+	return builder
+}
+
+// 消息内容
+//
+// 示例值：content
+func (builder *KnowledgeQaMessageBuilder) Content(content string) *KnowledgeQaMessageBuilder {
+	builder.content = content
+	builder.contentFlag = true
+	return builder
+}
+
+func (builder *KnowledgeQaMessageBuilder) Build() *KnowledgeQaMessage {
+	req := &KnowledgeQaMessage{}
+	if builder.roleFlag {
+		req.Role = &builder.role
+
+	}
+	if builder.contentFlag {
+		req.Content = &builder.content
 
 	}
 	return req
@@ -7236,6 +7905,124 @@ func (builder *WebPassageParamBuilder) Build() *WebPassageParam {
 	return req
 }
 
+type WikiFilter struct {
+	CreatorIds []string `json:"creator_ids,omitempty"` // Wiki所有者OpenID
+
+	DocTypes []string `json:"doc_types,omitempty"` // Wiki类型
+
+	SpaceIds []string `json:"space_ids,omitempty"` // 搜索某个Space下的Wiki（Space ID列表）
+
+	OnlyTitle *bool `json:"only_title,omitempty"` // 仅搜Wiki标题
+
+	OpenTime *TimeRange `json:"open_time,omitempty"` // 浏览文档的时间范围（秒级时间戳，包含start和end字段）
+
+	SortType *string `json:"sort_type,omitempty"` // 排序方式
+}
+
+type WikiFilterBuilder struct {
+	creatorIds     []string // Wiki所有者OpenID
+	creatorIdsFlag bool
+
+	docTypes     []string // Wiki类型
+	docTypesFlag bool
+
+	spaceIds     []string // 搜索某个Space下的Wiki（Space ID列表）
+	spaceIdsFlag bool
+
+	onlyTitle     bool // 仅搜Wiki标题
+	onlyTitleFlag bool
+
+	openTime     *TimeRange // 浏览文档的时间范围（秒级时间戳，包含start和end字段）
+	openTimeFlag bool
+
+	sortType     string // 排序方式
+	sortTypeFlag bool
+}
+
+func NewWikiFilterBuilder() *WikiFilterBuilder {
+	builder := &WikiFilterBuilder{}
+	return builder
+}
+
+// Wiki所有者OpenID
+//
+// 示例值：
+func (builder *WikiFilterBuilder) CreatorIds(creatorIds []string) *WikiFilterBuilder {
+	builder.creatorIds = creatorIds
+	builder.creatorIdsFlag = true
+	return builder
+}
+
+// Wiki类型
+//
+// 示例值：
+func (builder *WikiFilterBuilder) DocTypes(docTypes []string) *WikiFilterBuilder {
+	builder.docTypes = docTypes
+	builder.docTypesFlag = true
+	return builder
+}
+
+// 搜索某个Space下的Wiki（Space ID列表）
+//
+// 示例值：
+func (builder *WikiFilterBuilder) SpaceIds(spaceIds []string) *WikiFilterBuilder {
+	builder.spaceIds = spaceIds
+	builder.spaceIdsFlag = true
+	return builder
+}
+
+// 仅搜Wiki标题
+//
+// 示例值：false
+func (builder *WikiFilterBuilder) OnlyTitle(onlyTitle bool) *WikiFilterBuilder {
+	builder.onlyTitle = onlyTitle
+	builder.onlyTitleFlag = true
+	return builder
+}
+
+// 浏览文档的时间范围（秒级时间戳，包含start和end字段）
+//
+// 示例值：
+func (builder *WikiFilterBuilder) OpenTime(openTime *TimeRange) *WikiFilterBuilder {
+	builder.openTime = openTime
+	builder.openTimeFlag = true
+	return builder
+}
+
+// 排序方式
+//
+// 示例值：CREATE_TIME_ASC
+func (builder *WikiFilterBuilder) SortType(sortType string) *WikiFilterBuilder {
+	builder.sortType = sortType
+	builder.sortTypeFlag = true
+	return builder
+}
+
+func (builder *WikiFilterBuilder) Build() *WikiFilter {
+	req := &WikiFilter{}
+	if builder.creatorIdsFlag {
+		req.CreatorIds = builder.creatorIds
+	}
+	if builder.docTypesFlag {
+		req.DocTypes = builder.docTypes
+	}
+	if builder.spaceIdsFlag {
+		req.SpaceIds = builder.spaceIds
+	}
+	if builder.onlyTitleFlag {
+		req.OnlyTitle = &builder.onlyTitle
+
+	}
+	if builder.openTimeFlag {
+		req.OpenTime = builder.openTime
+	}
+	if builder.sortTypeFlag {
+		req.SortType = &builder.sortType
+
+	}
+	return req
+}
+
 type WikiPassageParam struct {
 	Searchable *bool `json:"searchable,omitempty"` // 是否要搜索wiki
 
@@ -8265,6 +9052,250 @@ func (resp *GetDataSourceItemResp) Success() bool {
 	return resp.Code == 0
 }
 
+type SearchDocWikiReqBodyBuilder struct {
+	query     string // 搜索关键词
+	queryFlag bool
+
+	docFilter     *DocFilter // 文档过滤参数
+	docFilterFlag bool
+
+	wikiFilter     *WikiFilter // Wiki过滤参数
+	wikiFilterFlag bool
+
+	pageToken     string // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
+	pageTokenFlag bool
+
+	pageSize     int // 分页大小
+	pageSizeFlag bool
+}
+
+func NewSearchDocWikiReqBodyBuilder() *SearchDocWikiReqBodyBuilder {
+	builder := &SearchDocWikiReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键词
+//
+//示例值：飞书文档使用指南
+func (builder *SearchDocWikiReqBodyBuilder) Query(query string) *SearchDocWikiReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
+}
+
+// 文档过滤参数
+//
+//示例值：{"folder_tokens": ["fld_123456"]}
+func (builder *SearchDocWikiReqBodyBuilder) DocFilter(docFilter *DocFilter) *SearchDocWikiReqBodyBuilder {
+	builder.docFilter = docFilter
+	builder.docFilterFlag = true
+	return builder
+}
+
+// Wiki过滤参数
+//
+//示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
+func (builder *SearchDocWikiReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *SearchDocWikiReqBodyBuilder {
+	builder.wikiFilter = wikiFilter
+	builder.wikiFilterFlag = true
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
+//
+//示例值：token_1234567890fedcba
+func (builder *SearchDocWikiReqBodyBuilder) PageToken(pageToken string) *SearchDocWikiReqBodyBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+// 分页大小
+//
+//示例值：15
+func (builder *SearchDocWikiReqBodyBuilder) PageSize(pageSize int) *SearchDocWikiReqBodyBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+func (builder *SearchDocWikiReqBodyBuilder) Build() *SearchDocWikiReqBody {
+	req := &SearchDocWikiReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+	}
+	if builder.docFilterFlag {
+		req.DocFilter = builder.docFilter
+	}
+	if builder.wikiFilterFlag {
+		req.WikiFilter = builder.wikiFilter
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req
+}
+
+type SearchDocWikiPathReqBodyBuilder struct {
+	query          string
+	queryFlag      bool
+	docFilter      *DocFilter
+	docFilterFlag  bool
+	wikiFilter     *WikiFilter
+	wikiFilterFlag bool
+	pageToken      string
+	pageTokenFlag  bool
+	pageSize       int
+	pageSizeFlag   bool
+}
+
+func NewSearchDocWikiPathReqBodyBuilder() *SearchDocWikiPathReqBodyBuilder {
+	builder := &SearchDocWikiPathReqBodyBuilder{}
+	return builder
+}
+
+// 搜索关键词
+//
+// 示例值：飞书文档使用指南
+func (builder *SearchDocWikiPathReqBodyBuilder) Query(query string) *SearchDocWikiPathReqBodyBuilder {
+	builder.query = query
+	builder.queryFlag = true
+	return builder
+}
+
+// 文档过滤参数
+//
+// 示例值：{"folder_tokens": ["fld_123456"]}
+func (builder *SearchDocWikiPathReqBodyBuilder) DocFilter(docFilter *DocFilter) *SearchDocWikiPathReqBodyBuilder {
+	builder.docFilter = docFilter
+	builder.docFilterFlag = true
+	return builder
+}
+
+// Wiki过滤参数
+//
+// 示例值：{"creator_ids": ["ou_789012"], "space_ids": ["space_123456"]}
+func (builder *SearchDocWikiPathReqBodyBuilder) WikiFilter(wikiFilter *WikiFilter) *SearchDocWikiPathReqBodyBuilder {
+	builder.wikiFilter = wikiFilter
+	builder.wikiFilterFlag = true
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
+//
+// 示例值：token_1234567890fedcba
+func (builder *SearchDocWikiPathReqBodyBuilder) PageToken(pageToken string) *SearchDocWikiPathReqBodyBuilder {
+	builder.pageToken = pageToken
+	builder.pageTokenFlag = true
+	return builder
+}
+
+// 分页大小
+//
+// 示例值：15
+func (builder *SearchDocWikiPathReqBodyBuilder) PageSize(pageSize int) *SearchDocWikiPathReqBodyBuilder {
+	builder.pageSize = pageSize
+	builder.pageSizeFlag = true
+	return builder
+}
+
+func (builder *SearchDocWikiPathReqBodyBuilder) Build() (*SearchDocWikiReqBody, error) {
+	req := &SearchDocWikiReqBody{}
+	if builder.queryFlag {
+		req.Query = &builder.query
+	}
+	if builder.docFilterFlag {
+		req.DocFilter = builder.docFilter
+	}
+	if builder.wikiFilterFlag {
+		req.WikiFilter = builder.wikiFilter
+	}
+	if builder.pageTokenFlag {
+		req.PageToken = &builder.pageToken
+	}
+	if builder.pageSizeFlag {
+		req.PageSize = &builder.pageSize
+	}
+	return req, nil
+}
+
+type SearchDocWikiReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *SearchDocWikiReqBody
+	limit  int // 最大返回多少记录，当使用迭代器访问时才有效
+}
+
+func NewSearchDocWikiReqBuilder() *SearchDocWikiReqBuilder {
+	builder := &SearchDocWikiReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 最大返回多少记录，当使用迭代器访问时才有效
+func (builder *SearchDocWikiReqBuilder) Limit(limit int) *SearchDocWikiReqBuilder {
+	builder.limit = limit
+	return builder
+}
+
+// 搜索文档和Wiki
+func (builder *SearchDocWikiReqBuilder) Body(body *SearchDocWikiReqBody) *SearchDocWikiReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *SearchDocWikiReqBuilder) Build() *SearchDocWikiReq {
+	req := &SearchDocWikiReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.Limit = builder.limit
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type SearchDocWikiReqBody struct {
+	Query *string `json:"query,omitempty"` // 搜索关键词
+
+	DocFilter *DocFilter `json:"doc_filter,omitempty"` // 文档过滤参数
+
+	WikiFilter *WikiFilter `json:"wiki_filter,omitempty"` // Wiki过滤参数
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该page_token获取查询结果
+
+	PageSize *int `json:"page_size,omitempty"` // 分页大小
+}
+
+type SearchDocWikiReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *SearchDocWikiReqBody `body:""`
+	Limit  int                   // 最多返回多少记录，只有在使用迭代器访问时，才有效
+
+}
+
+type SearchDocWikiRespData struct {
+	Total *int `json:"total,omitempty"` // 匹配结果总数（辅助分页参考）
+
+	HasMore *bool `json:"has_more,omitempty"` // 是否有更多数据可供加载
+
+	ResUnits []*DocResUnit `json:"res_units,omitempty"` // 搜索结果列表
+
+	PageToken *string `json:"page_token,omitempty"` // 下一页分页标记，无更多结果时为空
+}
+
+type SearchDocWikiResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *SearchDocWikiRespData `json:"data"` // 业务数据
+}
+
+func (resp *SearchDocWikiResp) Success() bool {
+	return resp.Code == 0
+}
+
 type CreateMessageReqBodyBuilder struct {
 	query     string // 搜索关键词
 	queryFlag bool
@@ -8983,5 +10014,59 @@ func (iterator *ListDataSourceIterator) Next() (bool, *DataSource, error) {
 }
 
 func (iterator *ListDataSourceIterator) NextPageToken() *string {
+	return iterator.nextPageToken
+}
+
+type SearchDocWikiIterator struct {
+	nextPageToken *string
+	items         []*DocResUnit
+	index         int
+	limit         int
+	ctx           context.Context
+	req           *SearchDocWikiReq
+	listFunc      func(ctx context.Context, req *SearchDocWikiReq, options ...larkcore.RequestOptionFunc) (*SearchDocWikiResp, error)
+	options       []larkcore.RequestOptionFunc
+	curlNum       int
+}
+
+func (iterator *SearchDocWikiIterator) Next() (bool, *DocResUnit, error) {
+	// 达到最大量，则返回
+	if iterator.limit > 0 && iterator.curlNum >= iterator.limit {
+		return false, nil, nil
+	}
+
+	// 为0则拉取数据
+	if iterator.index == 0 || iterator.index >= len(iterator.items) {
+		if iterator.index != 0 && iterator.nextPageToken == nil {
+			return false, nil, nil
+		}
+		if iterator.nextPageToken != nil {
+			iterator.req.apiReq.QueryParams.Set("page_token", *iterator.nextPageToken)
+		}
+		resp, err := iterator.listFunc(iterator.ctx, iterator.req, iterator.options...)
+		if err != nil {
+			return false, nil, err
+		}
+
+		if resp.Code != 0 {
+			return false, nil, errors.New(fmt.Sprintf("Code:%d,Msg:%s", resp.Code, resp.Msg))
+		}
+
+		if len(resp.Data.ResUnits) == 0 {
+			return false, nil, nil
+		}
+
+		iterator.nextPageToken = resp.Data.PageToken
+		iterator.items = resp.Data.ResUnits
+		iterator.index = 0
+	}
+
+	block := iterator.items[iterator.index]
+	iterator.index++
+	iterator.curlNum++
+	return true, block, nil
+}
+
+func (iterator *SearchDocWikiIterator) NextPageToken() *string {
 	return iterator.nextPageToken
 }

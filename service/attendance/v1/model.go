@@ -9441,6 +9441,8 @@ type UserFlow struct {
 	ExternalId *string `json:"external_id,omitempty"` // 用户导入的外部打卡记录ID
 
 	IdempotentId *string `json:"idempotent_id,omitempty"` // 唯一幂等键
+
+	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 }
 
 type UserFlowBuilder struct {
@@ -9497,6 +9499,9 @@ type UserFlowBuilder struct {
 
 	idempotentId     string // 唯一幂等键
 	idempotentIdFlag bool
+
+	createTime     string // 创建时间
+	createTimeFlag bool
 }
 
 func NewUserFlowBuilder() *UserFlowBuilder {
@@ -9666,6 +9671,15 @@ func (builder *UserFlowBuilder) IdempotentId(idempotentId string) *UserFlowBuild
 	return builder
 }
 
+// 创建时间
+//
+// 示例值：
+func (builder *UserFlowBuilder) CreateTime(createTime string) *UserFlowBuilder {
+	builder.createTime = createTime
+	builder.createTimeFlag = true
+	return builder
+}
+
 func (builder *UserFlowBuilder) Build() *UserFlow {
 	req := &UserFlow{}
 	if builder.userIdFlag {
@@ -9737,6 +9751,10 @@ func (builder *UserFlowBuilder) Build() *UserFlow {
 	}
 	if builder.idempotentIdFlag {
 		req.IdempotentId = &builder.idempotentId
+
+	}
+	if builder.createTimeFlag {
+		req.CreateTime = &builder.createTime
 
 	}
 	return req
@@ -16162,6 +16180,8 @@ type GetUserFlowRespData struct {
 	ExternalId *string `json:"external_id,omitempty"` // 用户导入的外部打卡记录ID
 
 	IdempotentId *string `json:"idempotent_id,omitempty"` // 唯一幂等键
+
+	CreateTime *string `json:"create_time,omitempty"` // 创建时间
 }
 
 type GetUserFlowResp struct {

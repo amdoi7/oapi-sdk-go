@@ -24,6 +24,7 @@ type V1 struct {
 	SeatAssignment                    *seatAssignment                    // seat_assignment
 	UserTask                          *userTask                          // user_task
 	Workspace                         *workspace                         // workspace
+	WorkspaceEnum                     *workspaceEnum                     // workspace.enum
 	WorkspaceTable                    *workspaceTable                    // workspace.table
 	WorkspaceView                     *workspaceView                     // workspace.view
 }
@@ -45,6 +46,7 @@ func New(config *larkcore.Config) *V1 {
 		SeatAssignment:                    &seatAssignment{config: config},
 		UserTask:                          &userTask{config: config},
 		Workspace:                         &workspace{config: config},
+		WorkspaceEnum:                     &workspaceEnum{config: config},
 		WorkspaceTable:                    &workspaceTable{config: config},
 		WorkspaceView:                     &workspaceView{config: config},
 	}
@@ -93,6 +95,9 @@ type userTask struct {
 	config *larkcore.Config
 }
 type workspace struct {
+	config *larkcore.Config
+}
+type workspaceEnum struct {
 	config *larkcore.Config
 }
 type workspaceTable struct {
@@ -1114,6 +1119,84 @@ func (w *workspace) SqlCommands(ctx context.Context, req *SqlCommandsWorkspaceRe
 	return resp, err
 }
 
+// EnumGet
+//
+// - 获取自定义枚举详细信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=enum_get&project=apaas&resource=workspace.enum&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/enumGet_workspaceEnum.go
+func (w *workspaceEnum) EnumGet(ctx context.Context, req *EnumGetWorkspaceEnumReq, options ...larkcore.RequestOptionFunc) (*EnumGetWorkspaceEnumResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/enums/:enum_name"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &EnumGetWorkspaceEnumResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 获取工作空间下的自定义枚举列表
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=apaas&resource=workspace.enum&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/list_workspaceEnum.go
+func (w *workspaceEnum) List(ctx context.Context, req *ListWorkspaceEnumReq, options ...larkcore.RequestOptionFunc) (*ListWorkspaceEnumResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/enums"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListWorkspaceEnumResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// List
+//
+// - 获取工作空间下的数据表列表
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=list&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/list_workspaceTable.go
+func (w *workspaceTable) List(ctx context.Context, req *ListWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*ListWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &ListWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
 // RecordsBatchUpdate
 //
 // - 批量更新数据表中的记录
@@ -1237,6 +1320,32 @@ func (w *workspaceTable) RecordsPost(ctx context.Context, req *RecordsPostWorksp
 	}
 	// 反序列响应结果
 	resp := &RecordsPostWorkspaceTableResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, w.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// TableGet
+//
+// - 获取数据表详细信息
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=table_get&project=apaas&resource=workspace.table&version=v1
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/apaasv1/tableGet_workspaceTable.go
+func (w *workspaceTable) TableGet(ctx context.Context, req *TableGetWorkspaceTableReq, options ...larkcore.RequestOptionFunc) (*TableGetWorkspaceTableResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/apaas/v1/workspaces/:workspace_id/tables/:table_name"
+	apiReq.HttpMethod = http.MethodGet
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, w.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &TableGetWorkspaceTableResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, w.config)
 	if err != nil {
 		return nil, err

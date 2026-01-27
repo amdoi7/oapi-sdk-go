@@ -55,6 +55,8 @@ func main() {
 			InternationalAssignmentType("global_assignment").
 			EffectiveTime("2024-01-02").
 			ExpirationTime("2024-01-02").
+			InternationalAssignmentAllowance(true).
+			Accommodation(true).
 			Build()).
 		Build()
 	// 发起请求

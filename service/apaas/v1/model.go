@@ -20,6 +20,8 @@ import (
 	"context"
 	"errors"
 
+	"github.com/larksuite/oapi-sdk-go/v3/event"
+
 	"github.com/larksuite/oapi-sdk-go/v3/core"
 )
 
@@ -16884,6 +16886,202 @@ func (resp *SqlCommandsWorkspaceResp) Success() bool {
 	return resp.Code == 0
 }
 
+type EnumGetWorkspaceEnumReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewEnumGetWorkspaceEnumReqBuilder() *EnumGetWorkspaceEnumReqBuilder {
+	builder := &EnumGetWorkspaceEnumReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间 id
+//
+// 示例值：workspace_abc
+func (builder *EnumGetWorkspaceEnumReqBuilder) WorkspaceId(workspaceId string) *EnumGetWorkspaceEnumReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 枚举名称
+//
+// 示例值：enum_demo_1
+func (builder *EnumGetWorkspaceEnumReqBuilder) EnumName(enumName string) *EnumGetWorkspaceEnumReqBuilder {
+	builder.apiReq.PathParams.Set("enum_name", fmt.Sprint(enumName))
+	return builder
+}
+
+func (builder *EnumGetWorkspaceEnumReqBuilder) Build() *EnumGetWorkspaceEnumReq {
+	req := &EnumGetWorkspaceEnumReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type EnumGetWorkspaceEnumReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type EnumGetWorkspaceEnumRespData struct {
+	Name *string `json:"name,omitempty"` // 枚举名称
+
+	Description *string `json:"description,omitempty"` // 枚举描述
+
+	Options []string `json:"options,omitempty"` // 枚举值列表
+
+	CreatedAt *string `json:"created_at,omitempty"` // 创建时间，毫秒时间戳
+
+	CreatedBy *WorkspaceUserInfo `json:"created_by,omitempty"` // 创建人
+}
+
+type EnumGetWorkspaceEnumResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *EnumGetWorkspaceEnumRespData `json:"data"` // 业务数据
+}
+
+func (resp *EnumGetWorkspaceEnumResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListWorkspaceEnumReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListWorkspaceEnumReqBuilder() *ListWorkspaceEnumReqBuilder {
+	builder := &ListWorkspaceEnumReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间 id
+//
+// 示例值：workspace_abc
+func (builder *ListWorkspaceEnumReqBuilder) WorkspaceId(workspaceId string) *ListWorkspaceEnumReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 分页大小，用于限制一次请求所返回的数据条目数
+//
+// 示例值：10
+func (builder *ListWorkspaceEnumReqBuilder) PageSize(pageSize int) *ListWorkspaceEnumReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果
+//
+// 示例值：AQD9/Rn9eij9Pm39ED40/RD/cIFmu77WxpxPB/2oHfQLZ+G8JG6tK7+ZnHiT7COhD2hMSICh/eBl7cpzU6JEC3J7COKNe4jrQ8ExwBCR
+func (builder *ListWorkspaceEnumReqBuilder) PageToken(pageToken string) *ListWorkspaceEnumReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListWorkspaceEnumReqBuilder) Build() *ListWorkspaceEnumReq {
+	req := &ListWorkspaceEnumReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListWorkspaceEnumReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListWorkspaceEnumRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	Items []*WorkspaceEnum `json:"items,omitempty"` // 枚举列表
+}
+
+type ListWorkspaceEnumResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListWorkspaceEnumRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListWorkspaceEnumResp) Success() bool {
+	return resp.Code == 0
+}
+
+type ListWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewListWorkspaceTableReqBuilder() *ListWorkspaceTableReqBuilder {
+	builder := &ListWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间 id
+//
+// 示例值：worksapce_abc
+func (builder *ListWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *ListWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 分页大小，用于限制一次请求所返回的数据条目数。默认10，最大500。
+//
+// 示例值：10
+func (builder *ListWorkspaceTableReqBuilder) PageSize(pageSize int) *ListWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("page_size", fmt.Sprint(pageSize))
+	return builder
+}
+
+// 分页标记，第一次请求不填，表示从头开始遍历；分页查询结果还有更多项时会同时返回新的 page_token，下次遍历可采用该 page_token 获取查询结果。
+//
+// 示例值：
+func (builder *ListWorkspaceTableReqBuilder) PageToken(pageToken string) *ListWorkspaceTableReqBuilder {
+	builder.apiReq.QueryParams.Set("page_token", fmt.Sprint(pageToken))
+	return builder
+}
+
+func (builder *ListWorkspaceTableReqBuilder) Build() *ListWorkspaceTableReq {
+	req := &ListWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	return req
+}
+
+type ListWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type ListWorkspaceTableRespData struct {
+	HasMore *bool `json:"has_more,omitempty"` // 是否还有更多项
+
+	PageToken *string `json:"page_token,omitempty"` // 分页标记，当 has_more 为 true 时，会同时返回新的 page_token，否则不返回 page_token
+
+	Items []*WorkspaceDataTable `json:"items,omitempty"` // 数据表列表
+}
+
+type ListWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *ListWorkspaceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *ListWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
 type RecordsBatchUpdateWorkspaceTableReqBodyBuilder struct {
 	records     string // 要更新的数据记录列表，单次支持最多 500条，每行 record 都必须包含主键 _id，且不同行要更新的字段需保持一致
 	recordsFlag bool
@@ -17432,6 +17630,64 @@ func (resp *RecordsPostWorkspaceTableResp) Success() bool {
 	return resp.Code == 0
 }
 
+type TableGetWorkspaceTableReqBuilder struct {
+	apiReq *larkcore.ApiReq
+}
+
+func NewTableGetWorkspaceTableReqBuilder() *TableGetWorkspaceTableReqBuilder {
+	builder := &TableGetWorkspaceTableReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+// 工作空间 id
+//
+// 示例值：workspace_abc
+func (builder *TableGetWorkspaceTableReqBuilder) WorkspaceId(workspaceId string) *TableGetWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("workspace_id", fmt.Sprint(workspaceId))
+	return builder
+}
+
+// 数据表表名
+//
+// 示例值：table_name_1
+func (builder *TableGetWorkspaceTableReqBuilder) TableName(tableName string) *TableGetWorkspaceTableReqBuilder {
+	builder.apiReq.PathParams.Set("table_name", fmt.Sprint(tableName))
+	return builder
+}
+
+func (builder *TableGetWorkspaceTableReqBuilder) Build() *TableGetWorkspaceTableReq {
+	req := &TableGetWorkspaceTableReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.PathParams = builder.apiReq.PathParams
+	return req
+}
+
+type TableGetWorkspaceTableReq struct {
+	apiReq *larkcore.ApiReq
+}
+
+type TableGetWorkspaceTableRespData struct {
+	Name *string `json:"name,omitempty"` // 数据表名，如 student
+
+	Description *string `json:"description,omitempty"` // 数据表描述
+
+	Columns []*WorkspaceDataTableColumnInfo `json:"columns,omitempty"` // 数据表列
+}
+
+type TableGetWorkspaceTableResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *TableGetWorkspaceTableRespData `json:"data"` // 业务数据
+}
+
+func (resp *TableGetWorkspaceTableResp) Success() bool {
+	return resp.Code == 0
+}
+
 type ViewsGetWorkspaceViewReqBuilder struct {
 	apiReq *larkcore.ApiReq
 }
@@ -17531,6 +17787,32 @@ type ViewsGetWorkspaceViewResp struct {
 
 func (resp *ViewsGetWorkspaceViewResp) Success() bool {
 	return resp.Code == 0
+}
+
+type P2WorkspaceRecordChangeV1Data struct {
+	Workspace *string `json:"workspace,omitempty"` // 记录所属的数据平台 workspace 信息
+
+	App *string `json:"app,omitempty"` // 妙搭或 apaas 的 app id
+
+	Table *string `json:"table,omitempty"` // 发生数据记录变更的数据表
+
+	Type *string `json:"type,omitempty"` // 变更类型，枚举值：INSERT / UPDATE / DELETE
+
+	Operator *string `json:"operator,omitempty"` // 变更人
+
+	Before *string `json:"before,omitempty"` // 变更前的记录数据（INSERT 为 NULL，DELETE 包含全部字段）
+
+	After *string `json:"after,omitempty"` // 变更后数据，仅含变更字段（INSERT 包含全部字段，DELETE 为 NULL）
+}
+
+type P2WorkspaceRecordChangeV1 struct {
+	*larkevent.EventV2Base                                // 事件基础数据
+	*larkevent.EventReq                                   // 请求原生数据
+	Event                  *P2WorkspaceRecordChangeV1Data `json:"event"` // 事件内容
+}
+
+func (m *P2WorkspaceRecordChangeV1) RawReq(req *larkevent.EventReq) {
+	m.EventReq = req
 }
 
 type ListAppIterator struct {

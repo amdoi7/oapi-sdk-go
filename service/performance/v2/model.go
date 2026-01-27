@@ -122,6 +122,12 @@ const (
 	UserIdTypeWriteUserGroupUserRelPeopleAdminId = "people_admin_id" // 以people_admin_id来识别用户
 )
 
+const (
+	UserIdTypeQueryUserInfoUserId  = "user_id"  // 以user_id来识别用户
+	UserIdTypeQueryUserInfoUnionId = "union_id" // 以union_id来识别用户
+	UserIdTypeQueryUserInfoOpenId  = "open_id"  // 以open_id来识别用户
+)
+
 type Activity struct {
 	Id *string `json:"id,omitempty"` // 项目 ID
 
@@ -9644,6 +9650,160 @@ type WriteUserGroupUserRelResp struct {
 }
 
 func (resp *WriteUserGroupUserRelResp) Success() bool {
+	return resp.Code == 0
+}
+
+type QueryUserInfoReqBodyBuilder struct {
+	semesterId     string // 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+	semesterIdFlag bool
+
+	userIds     []string // 人员 ID 列表，ID 类型与user_id_type 的取值一致
+	userIdsFlag bool
+}
+
+func NewQueryUserInfoReqBodyBuilder() *QueryUserInfoReqBodyBuilder {
+	builder := &QueryUserInfoReqBodyBuilder{}
+	return builder
+}
+
+// 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+//
+//示例值：6992035450862224940
+func (builder *QueryUserInfoReqBodyBuilder) SemesterId(semesterId string) *QueryUserInfoReqBodyBuilder {
+	builder.semesterId = semesterId
+	builder.semesterIdFlag = true
+	return builder
+}
+
+// 人员 ID 列表，ID 类型与user_id_type 的取值一致
+//
+//示例值：
+func (builder *QueryUserInfoReqBodyBuilder) UserIds(userIds []string) *QueryUserInfoReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+func (builder *QueryUserInfoReqBodyBuilder) Build() *QueryUserInfoReqBody {
+	req := &QueryUserInfoReqBody{}
+	if builder.semesterIdFlag {
+		req.SemesterId = &builder.semesterId
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req
+}
+
+type QueryUserInfoPathReqBodyBuilder struct {
+	semesterId     string
+	semesterIdFlag bool
+	userIds        []string
+	userIdsFlag    bool
+}
+
+func NewQueryUserInfoPathReqBodyBuilder() *QueryUserInfoPathReqBodyBuilder {
+	builder := &QueryUserInfoPathReqBodyBuilder{}
+	return builder
+}
+
+// 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+//
+// 示例值：6992035450862224940
+func (builder *QueryUserInfoPathReqBodyBuilder) SemesterId(semesterId string) *QueryUserInfoPathReqBodyBuilder {
+	builder.semesterId = semesterId
+	builder.semesterIdFlag = true
+	return builder
+}
+
+// 人员 ID 列表，ID 类型与user_id_type 的取值一致
+//
+// 示例值：
+func (builder *QueryUserInfoPathReqBodyBuilder) UserIds(userIds []string) *QueryUserInfoPathReqBodyBuilder {
+	builder.userIds = userIds
+	builder.userIdsFlag = true
+	return builder
+}
+
+func (builder *QueryUserInfoPathReqBodyBuilder) Build() (*QueryUserInfoReqBody, error) {
+	req := &QueryUserInfoReqBody{}
+	if builder.semesterIdFlag {
+		req.SemesterId = &builder.semesterId
+	}
+	if builder.userIdsFlag {
+		req.UserIds = builder.userIds
+	}
+	return req, nil
+}
+
+type QueryUserInfoReqBuilder struct {
+	apiReq *larkcore.ApiReq
+	body   *QueryUserInfoReqBody
+}
+
+func NewQueryUserInfoReqBuilder() *QueryUserInfoReqBuilder {
+	builder := &QueryUserInfoReqBuilder{}
+	builder.apiReq = &larkcore.ApiReq{
+		PathParams:  larkcore.PathParams{},
+		QueryParams: larkcore.QueryParams{},
+	}
+	return builder
+}
+
+//
+//
+// 示例值：
+func (builder *QueryUserInfoReqBuilder) UserIdType(userIdType string) *QueryUserInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("user_id_type", fmt.Sprint(userIdType))
+	return builder
+}
+
+// 指定查询结果中的部门 ID 类型。关于部门 ID 的详细介绍，可参见部门 ID 说明。
+//
+// 示例值：open_department_id
+func (builder *QueryUserInfoReqBuilder) DepartmentIdType(departmentIdType string) *QueryUserInfoReqBuilder {
+	builder.apiReq.QueryParams.Set("department_id_type", fmt.Sprint(departmentIdType))
+	return builder
+}
+
+//
+func (builder *QueryUserInfoReqBuilder) Body(body *QueryUserInfoReqBody) *QueryUserInfoReqBuilder {
+	builder.body = body
+	return builder
+}
+
+func (builder *QueryUserInfoReqBuilder) Build() *QueryUserInfoReq {
+	req := &QueryUserInfoReq{}
+	req.apiReq = &larkcore.ApiReq{}
+	req.apiReq.QueryParams = builder.apiReq.QueryParams
+	req.apiReq.Body = builder.body
+	return req
+}
+
+type QueryUserInfoReqBody struct {
+	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID 列表，semester_id 可通过【获取周期】获得
+
+	UserIds []string `json:"user_ids,omitempty"` // 人员 ID 列表，ID 类型与user_id_type 的取值一致
+}
+
+type QueryUserInfoReq struct {
+	apiReq *larkcore.ApiReq
+	Body   *QueryUserInfoReqBody `body:""`
+}
+
+type QueryUserInfoRespData struct {
+	SemesterId *string `json:"semester_id,omitempty"` // 评估周期 ID
+
+	UserInfos []*UserInfo `json:"user_infos,omitempty"` // 人员的快照信息列表
+}
+
+type QueryUserInfoResp struct {
+	*larkcore.ApiResp `json:"-"`
+	larkcore.CodeError
+	Data *QueryUserInfoRespData `json:"data"` // 业务数据
+}
+
+func (resp *QueryUserInfoResp) Success() bool {
 	return resp.Code == 0
 }
 

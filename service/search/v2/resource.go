@@ -12,6 +12,7 @@ type V2 struct {
 	App            *app            // app
 	DataSource     *dataSource     // 数据源
 	DataSourceItem *dataSourceItem // 数据项
+	DocWiki        *docWiki        // doc_wiki
 	Message        *message        // message
 	Schema         *schema         // 数据范式
 }
@@ -21,6 +22,7 @@ func New(config *larkcore.Config) *V2 {
 		App:            &app{config: config},
 		DataSource:     &dataSource{config: config},
 		DataSourceItem: &dataSourceItem{config: config},
+		DocWiki:        &docWiki{config: config},
 		Message:        &message{config: config},
 		Schema:         &schema{config: config},
 	}
@@ -33,6 +35,9 @@ type dataSource struct {
 	config *larkcore.Config
 }
 type dataSourceItem struct {
+	config *larkcore.Config
+}
+type docWiki struct {
 	config *larkcore.Config
 }
 type message struct {
@@ -282,6 +287,40 @@ func (d *dataSourceItem) Get(ctx context.Context, req *GetDataSourceItemReq, opt
 		return nil, err
 	}
 	return resp, err
+}
+
+// Search
+//
+// - 搜索文档和Wiki
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=search&project=search&resource=doc_wiki&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/searchv2/search_docWiki.go
+func (d *docWiki) Search(ctx context.Context, req *SearchDocWikiReq, options ...larkcore.RequestOptionFunc) (*SearchDocWikiResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/search/v2/doc_wiki/search"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeUser}
+	apiResp, err := larkcore.Request(ctx, apiReq, d.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &SearchDocWikiResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, d.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+func (d *docWiki) SearchByIterator(ctx context.Context, req *SearchDocWikiReq, options ...larkcore.RequestOptionFunc) (*SearchDocWikiIterator, error) {
+	return &SearchDocWikiIterator{
+		ctx:      ctx,
+		req:      req,
+		listFunc: d.Search,
+		options:  options,
+		limit:    req.Limit}, nil
 }
 
 // Create

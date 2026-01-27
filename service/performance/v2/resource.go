@@ -24,6 +24,7 @@ type V2 struct {
 	Reviewee                    *reviewee                    // reviewee
 	StageTask                   *stageTask                   // stage_task
 	UserGroupUserRel            *userGroupUserRel            // user_group_user_rel
+	UserInfo                    *userInfo                    // user_info
 }
 
 func New(config *larkcore.Config) *V2 {
@@ -43,6 +44,7 @@ func New(config *larkcore.Config) *V2 {
 		Reviewee:                    &reviewee{config: config},
 		StageTask:                   &stageTask{config: config},
 		UserGroupUserRel:            &userGroupUserRel{config: config},
+		UserInfo:                    &userInfo{config: config},
 	}
 }
 
@@ -89,6 +91,9 @@ type stageTask struct {
 	config *larkcore.Config
 }
 type userGroupUserRel struct {
+	config *larkcore.Config
+}
+type userInfo struct {
 	config *larkcore.Config
 }
 
@@ -541,6 +546,32 @@ func (u *userGroupUserRel) Write(ctx context.Context, req *WriteUserGroupUserRel
 	}
 	// 反序列响应结果
 	resp := &WriteUserGroupUserRelResp{ApiResp: apiResp}
+	err = apiResp.JSONUnmarshalBody(resp, u.config)
+	if err != nil {
+		return nil, err
+	}
+	return resp, err
+}
+
+// Query
+//
+// -
+//
+// - 官网API文档链接:https://open.feishu.cn/api-explorer?from=op_doc_tab&apiName=query&project=performance&resource=user_info&version=v2
+//
+// - 使用Demo链接:https://github.com/larksuite/oapi-sdk-go/tree/v3_main/sample/apiall/performancev2/query_userInfo.go
+func (u *userInfo) Query(ctx context.Context, req *QueryUserInfoReq, options ...larkcore.RequestOptionFunc) (*QueryUserInfoResp, error) {
+	// 发起请求
+	apiReq := req.apiReq
+	apiReq.ApiPath = "/open-apis/performance/v2/user_info/query"
+	apiReq.HttpMethod = http.MethodPost
+	apiReq.SupportedAccessTokenTypes = []larkcore.AccessTokenType{larkcore.AccessTokenTypeTenant}
+	apiResp, err := larkcore.Request(ctx, apiReq, u.config, options...)
+	if err != nil {
+		return nil, err
+	}
+	// 反序列响应结果
+	resp := &QueryUserInfoResp{ApiResp: apiResp}
 	err = apiResp.JSONUnmarshalBody(resp, u.config)
 	if err != nil {
 		return nil, err
